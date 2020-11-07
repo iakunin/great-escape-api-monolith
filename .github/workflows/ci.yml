@@ -32,6 +32,5 @@ jobs:
           gcloud --quiet auth configure-docker
 
       - name: Gradle build
-        uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: jib -Djib.to.image="eu.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+        run: |-
+          ./gradlew jib -Djib.to.image="eu.gcr.io/$$PROJECT_ID/$IMAGE:$GITHUB_SHA"
