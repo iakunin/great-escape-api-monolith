@@ -1,0 +1,31 @@
+{
+  "name": "QuestPhoto",
+  "fields": [
+    {
+      "fieldName": "url",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "quest",
+      "otherEntityRelationshipName": "questPhoto",
+      "relationshipValidateRules": "required",
+      "relationshipName": "quest",
+      "otherEntityField": "title"
+    }
+  ],
+  "changelogDate": "20201102185413",
+  "entityTableName": "quest_photo",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["GreatEscapeBackend", "GreatEscapeAdminUI"]
+}

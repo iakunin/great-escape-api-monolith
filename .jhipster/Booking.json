@@ -1,0 +1,71 @@
+{
+  "name": "Booking",
+  "fields": [
+    {
+      "fieldName": "status",
+      "fieldType": "BookingStatus",
+      "fieldValues": "NEW,CONFIRMED,CANCELLED,COMPLETED",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Integer",
+      "javadoc": "@TODO: copy price from Slot, cause Slot is mutable",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "discountInPercents",
+      "fieldType": "Integer",
+      "javadoc": "@TODO: save calculated discount, cause it's mutable",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "100"
+    },
+    {
+      "fieldName": "commissionInPercents",
+      "fieldType": "Integer",
+      "javadoc": "@TODO: save calculated commission, cause it's mutable",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "100"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "slot",
+      "otherEntityRelationshipName": "booking",
+      "relationshipValidateRules": "required",
+      "relationshipName": "slot",
+      "otherEntityField": "dateTimeLocal",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "quest",
+      "otherEntityRelationshipName": "booking",
+      "relationshipValidateRules": "required",
+      "relationshipName": "quest",
+      "otherEntityField": "title"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "booking",
+      "relationshipValidateRules": "required",
+      "relationshipName": "player",
+      "otherEntityField": "phone"
+    }
+  ],
+  "changelogDate": "20201102185613",
+  "entityTableName": "booking",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["GreatEscapeBackend", "GreatEscapeAdminUI"]
+}

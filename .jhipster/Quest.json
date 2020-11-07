@@ -1,0 +1,96 @@
+{
+  "name": "Quest",
+  "fields": [
+    {
+      "fieldName": "slug",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "minlength"],
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength"],
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "playersMinCount",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "playersMaxCount",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "durationInMinutes",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "complexity",
+      "fieldType": "QuestComplexity",
+      "fieldValues": "EASY,MIDDLE,HARD",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fearLevel",
+      "fieldType": "FearLevel",
+      "fieldValues": "ABSENT,MINIMAL,MODERATE,EXTREME",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "QuestType",
+      "fieldValues": "ESCAPE,PERFORMANCE",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "location",
+      "otherEntityRelationshipName": "quest",
+      "relationshipValidateRules": "required",
+      "relationshipName": "location",
+      "otherEntityField": "address"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "company",
+      "otherEntityRelationshipName": "quest",
+      "relationshipValidateRules": "required",
+      "relationshipName": "company",
+      "otherEntityField": "title"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "thematic",
+      "otherEntityRelationshipName": "quest",
+      "relationshipName": "thematic",
+      "otherEntityField": "title",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20201102184613",
+  "javadoc": "@TODO: should be audited",
+  "entityTableName": "quest",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["GreatEscapeBackend", "GreatEscapeAdminUI"]
+}

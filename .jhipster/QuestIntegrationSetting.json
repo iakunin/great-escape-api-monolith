@@ -1,0 +1,39 @@
+{
+  "name": "QuestIntegrationSetting",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "QuestIntegrationType",
+      "fieldValues": "MIR_KVESTOV,BOOK_FORM",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "settings",
+      "fieldType": "byte[]",
+      "javadoc": "@TODO: convert to Json-field",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "quest",
+      "otherEntityRelationshipName": "questIntegrationSetting",
+      "relationshipValidateRules": "required",
+      "relationshipName": "quest",
+      "otherEntityField": "title",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20201102185513",
+  "entityTableName": "quest_integration_setting",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["GreatEscapeBackend", "GreatEscapeAdminUI"]
+}

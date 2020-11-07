@@ -1,0 +1,73 @@
+{
+  "name": "Slot",
+  "fields": [
+    {
+      "fieldName": "dateTimeLocal",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateTimeWithTimeZone",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isAvailable",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "discountInPercents",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "100"
+    },
+    {
+      "fieldName": "commissionInPercents",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "100"
+    },
+    {
+      "fieldName": "externalId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "externalState",
+      "fieldType": "byte[]",
+      "javadoc": "@TODO: change to Json.\\nShould be sent to integration without changes during booking creation",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "quest",
+      "otherEntityRelationshipName": "slot",
+      "relationshipValidateRules": "required",
+      "relationshipName": "quest",
+      "otherEntityField": "title"
+    }
+  ],
+  "changelogDate": "20201102185213",
+  "javadoc": "@TODO: should be audited (with cleanup older than 6 months).\\nThere could be Bookings on some Slots: just don't delete such Slots",
+  "entityTableName": "slot",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["GreatEscapeBackend", "GreatEscapeAdminUI"]
+}

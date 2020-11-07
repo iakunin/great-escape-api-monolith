@@ -1,0 +1,45 @@
+{
+  "name": "Location",
+  "fields": [
+    {
+      "fieldName": "address",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength"],
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "addressExplanation",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "city",
+      "otherEntityRelationshipName": "location",
+      "relationshipValidateRules": "required",
+      "relationshipName": "city",
+      "otherEntityField": "title"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "metro",
+      "otherEntityRelationshipName": "location",
+      "relationshipName": "metro",
+      "otherEntityField": "title",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20201102184913",
+  "entityTableName": "location",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["GreatEscapeBackend", "GreatEscapeAdminUI"]
+}

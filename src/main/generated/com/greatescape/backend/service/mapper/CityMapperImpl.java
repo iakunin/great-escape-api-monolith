@@ -1,0 +1,77 @@
+package com.greatescape.backend.service.mapper;
+
+import com.greatescape.backend.domain.City;
+import com.greatescape.backend.service.dto.CityDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2020-11-02T14:27:07+0300",
+    comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.9 (Oracle Corporation)"
+)
+@Component
+public class CityMapperImpl implements CityMapper {
+
+    @Override
+    public City toEntity(CityDTO dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        City city = new City();
+
+        city.setId( dto.getId() );
+        city.setSlug( dto.getSlug() );
+        city.setTitle( dto.getTitle() );
+        city.setTimezone( dto.getTimezone() );
+
+        return city;
+    }
+
+    @Override
+    public CityDTO toDto(City entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        CityDTO cityDTO = new CityDTO();
+
+        cityDTO.setId( entity.getId() );
+        cityDTO.setSlug( entity.getSlug() );
+        cityDTO.setTitle( entity.getTitle() );
+        cityDTO.setTimezone( entity.getTimezone() );
+
+        return cityDTO;
+    }
+
+    @Override
+    public List<City> toEntity(List<CityDTO> dtoList) {
+        if ( dtoList == null ) {
+            return null;
+        }
+
+        List<City> list = new ArrayList<City>( dtoList.size() );
+        for ( CityDTO cityDTO : dtoList ) {
+            list.add( toEntity( cityDTO ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<CityDTO> toDto(List<City> entityList) {
+        if ( entityList == null ) {
+            return null;
+        }
+
+        List<CityDTO> list = new ArrayList<CityDTO>( entityList.size() );
+        for ( City city : entityList ) {
+            list.add( toDto( city ) );
+        }
+
+        return list;
+    }
+}

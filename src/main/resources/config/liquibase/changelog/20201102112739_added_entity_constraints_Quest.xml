@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Quest.
+    -->
+    <changeSet id="20201102112739-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="location_id"
+                                 baseTableName="quest"
+                                 constraintName="fk_quest_location_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+
+        <addForeignKeyConstraint baseColumnNames="company_id"
+                                 baseTableName="quest"
+                                 constraintName="fk_quest_company_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="company"/>
+
+        <addForeignKeyConstraint baseColumnNames="quest_id"
+                                 baseTableName="quest_thematic"
+                                 constraintName="fk_quest_thematic_quest_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="quest"/>
+
+        <addForeignKeyConstraint baseColumnNames="thematic_id"
+                                 baseTableName="quest_thematic"
+                                 constraintName="fk_quest_thematic_thematic_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="thematic"/>
+        
+    </changeSet>
+</databaseChangeLog>
