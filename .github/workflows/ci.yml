@@ -31,6 +31,16 @@ jobs:
         run: |-
           gcloud --quiet auth configure-docker
 
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Gradle build
         run: |-
-          ./gradlew jib -Djib.to.image="eu.gcr.io/$$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+          ./gradlew jib -Djib.to.image="eu.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
