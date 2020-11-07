@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: great-escape-294716
-  IMAGE: great-escape-api-monolith
+  IMAGE: api-monolith
 
 jobs:
   build:
