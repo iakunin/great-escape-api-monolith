@@ -2,9 +2,6 @@ jib {
     from {
         image = "adoptopenjdk:11-jre-hotspot"
     }
-    to {
-        image = "eu.gcr.io/great-escape-294716/backend"
-    }
     container {
         entrypoint = ["bash", "-c", "/entrypoint.sh"]
         ports = ["8080"]
