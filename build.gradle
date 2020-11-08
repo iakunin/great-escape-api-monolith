@@ -24,6 +24,7 @@ plugins {
     id "org.liquibase.gradle"
     id "org.sonarqube"
     id "io.spring.nohttp"
+    id "io.freefair.lombok" version "5.3.0"
     //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
 }
 
@@ -262,6 +263,8 @@ dependencies {
     implementation "org.postgresql:postgresql"
     liquibaseRuntime "org.postgresql:postgresql"
     implementation "org.mapstruct:mapstruct:${mapstruct_version}"
+
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.1.0"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
     annotationProcessor "org.hibernate:hibernate-jpamodelgen:${hibernate_version}"
     annotationProcessor "org.glassfish.jaxb:jaxb-runtime:${jaxb_runtime_version}"
@@ -299,3 +302,8 @@ wrapper {
 
 compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo
+
+lombok {
+    version = "1.18.16"
+}
+generateLombokConfig.enabled = false
