@@ -9,6 +9,7 @@ import com.greatescape.api.monolith.service.MetroService;
 import com.greatescape.api.monolith.service.dto.MetroDTO;
 import com.greatescape.api.monolith.service.mapper.MetroMapper;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -71,8 +72,8 @@ public class MetroResourceIT {
      */
     public static Metro createEntity(EntityManager em) {
         Metro metro = new Metro()
-            .slug(DEFAULT_SLUG)
-            .title(DEFAULT_TITLE);
+            .setSlug(DEFAULT_SLUG)
+            .setTitle(DEFAULT_TITLE);
         return metro;
     }
     /**
@@ -83,8 +84,8 @@ public class MetroResourceIT {
      */
     public static Metro createUpdatedEntity(EntityManager em) {
         Metro metro = new Metro()
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE);
         return metro;
     }
 
@@ -115,11 +116,12 @@ public class MetroResourceIT {
     @Test
     @Transactional
     public void createMetroWithExistingId() throws Exception {
+        final Metro metro = metroRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = metroRepository.findAll().size();
 
         // Create the Metro with an existing ID
-        metro.setId(1L);
-        MetroDTO metroDTO = metroMapper.toDto(metro);
+        this.metro.setId(metro.getId());
+        MetroDTO metroDTO = metroMapper.toDto(this.metro);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMetroMockMvc.perform(post("/api/metros")
@@ -183,7 +185,7 @@ public class MetroResourceIT {
         restMetroMockMvc.perform(get("/api/metros?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(metro.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(metro.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
     }
@@ -198,7 +200,7 @@ public class MetroResourceIT {
         restMetroMockMvc.perform(get("/api/metros/{id}", metro.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(metro.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(metro.getId().toString()))
             .andExpect(jsonPath("$.slug").value(DEFAULT_SLUG))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE));
     }
@@ -210,16 +212,10 @@ public class MetroResourceIT {
         // Initialize the database
         metroRepository.saveAndFlush(metro);
 
-        Long id = metro.getId();
+        final UUID id = metro.getId();
 
         defaultMetroShouldBeFound("id.equals=" + id);
         defaultMetroShouldNotBeFound("id.notEquals=" + id);
-
-        defaultMetroShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultMetroShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultMetroShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultMetroShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -405,7 +401,7 @@ public class MetroResourceIT {
         restMetroMockMvc.perform(get("/api/metros?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(metro.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(metro.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
 
@@ -437,7 +433,7 @@ public class MetroResourceIT {
     @Transactional
     public void getNonExistingMetro() throws Exception {
         // Get the metro
-        restMetroMockMvc.perform(get("/api/metros/{id}", Long.MAX_VALUE))
+        restMetroMockMvc.perform(get("/api/metros/{id}", "2d2755ab-76e9-4038-8c6b-5fb36a5ef24d"))
             .andExpect(status().isNotFound());
     }
 
@@ -454,8 +450,8 @@ public class MetroResourceIT {
         // Disconnect from session so that the updates on updatedMetro are not directly saved in db
         em.detach(updatedMetro);
         updatedMetro
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE);
         MetroDTO metroDTO = metroMapper.toDto(updatedMetro);
 
         restMetroMockMvc.perform(put("/api/metros")

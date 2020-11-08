@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service;
 import com.greatescape.api.monolith.domain.City_;
 import com.greatescape.api.monolith.domain.Location;
 import com.greatescape.api.monolith.domain.Location_;
+import com.greatescape.api.monolith.domain.Metro_;
 import com.greatescape.api.monolith.repository.LocationRepository;
 import com.greatescape.api.monolith.service.dto.LocationCriteria;
 import com.greatescape.api.monolith.service.dto.LocationDTO;
@@ -95,12 +96,10 @@ public class LocationQueryService extends QueryService<Location> {
                 specification = specification.and(buildSpecification(criteria.getCityId(),
                     root -> root.join(Location_.city, JoinType.LEFT).get(City_.id)));
             }
-
-            // @TODO: rewrite me via UUID as FK and PK
-//            if (criteria.getMetroId() != null) {
-//                specification = specification.and(buildSpecification(criteria.getMetroId(),
-//                    root -> root.join(Location_.metros, JoinType.LEFT).get(Metro_.id)));
-//            }
+            if (criteria.getMetroId() != null) {
+                specification = specification.and(buildSpecification(criteria.getMetroId(),
+                    root -> root.join(Location_.metros, JoinType.LEFT).get(Metro_.id)));
+            }
         }
         return specification;
     }

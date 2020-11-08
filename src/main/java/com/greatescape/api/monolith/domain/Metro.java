@@ -9,6 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -16,6 +18,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A Metro.
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "metro")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Metro extends AbstractEntity {
@@ -35,41 +39,7 @@ public class Metro extends AbstractEntity {
     @JsonIgnore
     private Set<Location> locations = new HashSet<>();
 
-    public String getSlug() {
-        return slug;
-    }
-
-    public Metro slug(String slug) {
-        this.slug = slug;
-        return this;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Metro title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Set<Location> getLocations() {
-        return locations;
-    }
-
-    public Metro locations(Set<Location> locations) {
-        this.locations = locations;
-        return this;
-    }
-
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Metro addLocation(Location location) {
         this.locations.add(location);
         location.getMetros().add(this);
@@ -81,9 +51,31 @@ public class Metro extends AbstractEntity {
         location.getMetros().remove(this);
         return this;
     }
-
-    public void setLocations(Set<Location> locations) {
-        this.locations = locations;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Metro)) {
+            return false;
+        }
+        return id != null && id.equals(((Metro) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "Metro{" +
+            "id=" + getId() +
+            ", slug='" + getSlug() + "'" +
+            ", title='" + getTitle() + "'" +
+            "}";
+    }
 }

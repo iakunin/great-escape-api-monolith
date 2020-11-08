@@ -29,7 +29,7 @@
     <changeSet id="20201102113039-1-relations" author="jhipster">
 
         <createTable tableName="location_metro">
-            <column name="metro_id" type="uuid">
+            <column name="metro_id" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
             <column name="location_id" type="bigint">

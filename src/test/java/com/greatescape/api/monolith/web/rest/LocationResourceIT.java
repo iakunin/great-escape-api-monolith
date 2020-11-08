@@ -11,6 +11,7 @@ import com.greatescape.api.monolith.service.dto.LocationDTO;
 import com.greatescape.api.monolith.service.mapper.LocationMapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -364,13 +365,14 @@ public class LocationResourceIT {
         em.flush();
         location.addMetro(metro);
         locationRepository.saveAndFlush(location);
-        Long metroId = metro.getId();
+        UUID metroId = metro.getId();
 
         // Get all the locationList where metro equals to metroId
         defaultLocationShouldBeFound("metroId.equals=" + metroId);
 
+        UUID anotherMetroId = UUID.fromString("6c44e418-7754-4a81-a006-f5b3479a3294");
         // Get all the locationList where metro equals to metroId + 1
-        defaultLocationShouldNotBeFound("metroId.equals=" + (metroId + 1));
+        defaultLocationShouldNotBeFound("metroId.equals=" + anotherMetroId.toString());
     }
 
     /**

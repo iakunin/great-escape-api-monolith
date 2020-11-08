@@ -7,8 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,20 +17,19 @@ import org.hibernate.annotations.UpdateTimestamp;
  * Base abstract class for all user-defined entities.
  */
 @MappedSuperclass
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+@Setter
 abstract public class AbstractEntity implements Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(updatable = false, nullable = false)
-    @EqualsAndHashCode.Include
-    private UUID id;
+    protected UUID id;
 
     @Column(updatable = false)
     @CreationTimestamp
-    private ZonedDateTime createdAt;
+    protected ZonedDateTime createdAt;
 
     @UpdateTimestamp
-    private ZonedDateTime updatedAt;
+    protected ZonedDateTime updatedAt;
 }

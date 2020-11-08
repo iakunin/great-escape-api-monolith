@@ -10,7 +10,7 @@
     -->
     <changeSet id="20201102113139-1" author="jhipster">
         <createTable tableName="metro">
-            <column name="id" type="uuid">
+            <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="slug" type="varchar(255)">
@@ -19,6 +19,10 @@
             <column name="title" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="created_at" type="${timestampWithTimeZoneType}" defaultValue="${now}">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="${timestampWithTimeZoneType}" />
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -41,7 +45,7 @@
                   file="config/liquibase/fake-data/metro.csv"
                   separator=";"
                   tableName="metro">
-            <column name="id" type="uuid"/>
+            <column name="id" type="${uuidType}"/>
             <column name="slug" type="string"/>
             <column name="title" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

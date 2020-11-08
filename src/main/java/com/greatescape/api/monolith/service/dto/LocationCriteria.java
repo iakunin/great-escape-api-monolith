@@ -6,6 +6,7 @@ import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class LocationCriteria implements Serializable, Criteria {
 
     private LongFilter cityId;
 
-    private LongFilter metroId;
+    private UUIDFilter metroId;
 
     public LocationCriteria() {
     }
@@ -69,11 +70,11 @@ public class LocationCriteria implements Serializable, Criteria {
         this.cityId = cityId;
     }
 
-    public LongFilter getMetroId() {
+    public UUIDFilter getMetroId() {
         return metroId;
     }
 
-    public void setMetroId(LongFilter metroId) {
+    public void setMetroId(UUIDFilter metroId) {
         this.metroId = metroId;
     }
 
