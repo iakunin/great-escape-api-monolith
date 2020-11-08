@@ -6,6 +6,7 @@ import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -22,7 +23,7 @@ public class MetroCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 
-    private LongFilter id;
+    private UUIDFilter id;
 
     private StringFilter slug;
 
@@ -45,11 +46,11 @@ public class MetroCriteria implements Serializable, Criteria {
         return new MetroCriteria(this);
     }
 
-    public LongFilter getId() {
+    public UUIDFilter getId() {
         return id;
     }
 
-    public void setId(LongFilter id) {
+    public void setId(UUIDFilter id) {
         this.id = id;
     }
 

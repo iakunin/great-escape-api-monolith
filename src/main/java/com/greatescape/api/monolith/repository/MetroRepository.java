@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.repository;
 
 import com.greatescape.api.monolith.domain.Metro;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface MetroRepository extends JpaRepository<Metro, Long>, JpaSpecificationExecutor<Metro> {
+public interface MetroRepository extends JpaRepository<Metro, UUID>, JpaSpecificationExecutor<Metro> {
 }

@@ -86,7 +86,7 @@ public class MetroQueryService extends QueryService<Metro> {
         Specification<Metro> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Metro_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), Metro_.id));
             }
             if (criteria.getSlug() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getSlug(), Metro_.slug));

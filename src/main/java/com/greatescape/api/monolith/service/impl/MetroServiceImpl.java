@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.MetroService;
 import com.greatescape.api.monolith.service.dto.MetroDTO;
 import com.greatescape.api.monolith.service.mapper.MetroMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class MetroServiceImpl implements MetroService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<MetroDTO> findOne(Long id) {
+    public Optional<MetroDTO> findOne(UUID id) {
         log.debug("Request to get Metro : {}", id);
         return metroRepository.findById(id)
             .map(metroMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete Metro : {}", id);
         metroRepository.deleteById(id);
     }

@@ -2,6 +2,7 @@ package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Metro;
 import java.io.Serializable;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -10,7 +11,7 @@ import javax.validation.constraints.Size;
  */
 public class MetroDTO implements Serializable {
 
-    private Long id;
+    private UUID id;
 
     @NotNull
     @Size(min = 2)
@@ -21,11 +22,11 @@ public class MetroDTO implements Serializable {
     private String title;
 
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

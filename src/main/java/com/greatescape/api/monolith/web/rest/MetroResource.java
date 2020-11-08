@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class MetroResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the metroDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/metros/{id}")
-    public ResponseEntity<MetroDTO> getMetro(@PathVariable Long id) {
+    public ResponseEntity<MetroDTO> getMetro(@PathVariable UUID id) {
         log.debug("REST request to get Metro : {}", id);
         Optional<MetroDTO> metroDTO = metroService.findOne(id);
         return ResponseUtil.wrapOrNotFound(metroDTO);
@@ -141,7 +142,7 @@ public class MetroResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/metros/{id}")
-    public ResponseEntity<Void> deleteMetro(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMetro(@PathVariable UUID id) {
         log.debug("REST request to delete Metro : {}", id);
         metroService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

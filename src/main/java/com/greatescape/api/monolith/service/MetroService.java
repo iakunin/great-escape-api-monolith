@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service;
 import com.greatescape.api.monolith.domain.Metro;
 import com.greatescape.api.monolith.service.dto.MetroDTO;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,12 +35,12 @@ public interface MetroService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<MetroDTO> findOne(Long id);
+    Optional<MetroDTO> findOne(UUID id);
 
     /**
      * Delete the "id" metro.
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(UUID id);
 }
