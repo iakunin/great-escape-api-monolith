@@ -1,7 +1,8 @@
 version: '2'
 services:
-  greatescapebackend-prometheus:
+  prometheus:
     image: prom/prometheus:v2.18.1
+    container_name: great-escape-api-monolith_prometheus
     volumes:
       - ./prometheus/:/etc/prometheus/
     command:
@@ -11,8 +12,10 @@ services:
     # On MacOS, remove next line and replace localhost by host.docker.internal in prometheus/prometheus.yml and
     # grafana/provisioning/datasources/datasource.yml
     network_mode: 'host' # to test locally running service
-  greatescapebackend-grafana:
+
+  grafana:
     image: grafana/grafana:7.0.1
+    container_name: great-escape-api-monolith_grafana
     volumes:
       - ./grafana/provisioning/:/etc/grafana/provisioning/
     environment:

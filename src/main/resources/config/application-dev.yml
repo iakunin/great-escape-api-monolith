@@ -17,7 +17,7 @@ logging:
   level:
     ROOT: DEBUG
     io.github.jhipster: DEBUG
-    com.greatescape.backend: DEBUG
+    com.greatescape.api.monolith: DEBUG
 
 spring:
   profiles:
@@ -37,8 +37,8 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/GreatEscapeBackend
-    username: GreatEscapeBackend
+    url: jdbc:postgresql://localhost:5432/api-monolith
+    username: api-monolith
     password:
     hikari:
       poolName: Hikari

@@ -1,11 +1,12 @@
 version: '2'
 services:
-  greatescapebackend-postgresql:
+  postgresql:
     image: postgres:12.3
+    container_name: great-escape-api-monolith_postgresql
     # volumes:
-    #     - ~/volumes/jhipster/GreatEscapeBackend/postgresql/:/var/lib/postgresql/data/
+    #     - ~/volumes/jhipster/GreatEscapeApiMonolith/postgresql/:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=GreatEscapeBackend
+      - POSTGRES_USER=api-monolith
       - POSTGRES_PASSWORD=
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:

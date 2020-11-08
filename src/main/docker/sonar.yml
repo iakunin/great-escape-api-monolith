@@ -1,7 +1,8 @@
 version: '2'
 services:
-  greatescapebackend-sonar:
+  sonar:
     image: sonarqube:8.3.1-community
+    container_name: great-escape-api-monolith_sonar
     ports:
       - 9001:9000
       - 9092:9092
