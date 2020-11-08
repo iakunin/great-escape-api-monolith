@@ -13,4 +13,4 @@ pluginManagement {
      }
 }
 
-rootProject.name = "great-escape-backend"
+rootProject.name = "api-monolith"

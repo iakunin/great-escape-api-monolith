@@ -92,5 +92,5 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": ["GreatEscapeBackend", "GreatEscapeAdminUI"]
+  "applications": ["GreatEscapeApiMonolith", "GreatEscapeAdminUI"]
 }

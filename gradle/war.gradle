@@ -1,7 +1,7 @@
 apply plugin: "war"
 
 bootWar {
-    mainClassName = "com.greatescape.backend.GreatEscapeBackendApp"
+    mainClassName = "com.greatescape.api.monolith.ApiMonolithApp"
     includes = ["WEB-INF/**", "META-INF/**"]
 }
 
