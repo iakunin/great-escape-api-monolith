@@ -16,7 +16,7 @@
             <column name="url" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="quest_id" type="bigint">
+            <column name="quest_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -43,7 +43,7 @@
                   tableName="quest_photo">
             <column name="id" type="numeric"/>
             <column name="url" type="string"/>
-            <column name="quest_id" type="numeric"/>
+            <column name="quest_id" type="${uuidType}"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -37,7 +37,7 @@
             <column name="external_state" type="${clobType}" remarks="@TODO: change to Json.\nShould be sent to integration without changes during booking creation">
                 <constraints nullable="true" />
             </column>
-            <column name="quest_id" type="bigint">
+            <column name="quest_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -73,7 +73,7 @@
             <column name="commission_in_percents" type="numeric"/>
             <column name="external_id" type="string"/>
             <column name="external_state" type="clob"/>
-            <column name="quest_id" type="numeric"/>
+            <column name="quest_id" type="${uuidType}"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

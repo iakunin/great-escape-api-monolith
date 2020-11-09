@@ -1203,7 +1203,7 @@ public class QuestResourceIT {
     @Transactional
     public void getNonExistingQuest() throws Exception {
         // Get the quest
-        restQuestMockMvc.perform(get("/api/quests/{id}", Long.MAX_VALUE))
+        restQuestMockMvc.perform(get("/api/quests/{id}", UUID.fromString("224a5728-4212-4c9b-bdda-c473203b2bfc")))
             .andExpect(status().isNotFound());
     }
 
