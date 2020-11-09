@@ -87,7 +87,7 @@ public class LocationQueryService extends QueryService<Location> {
         Specification<Location> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Location_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), Location_.id));
             }
             if (criteria.getAddress() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getAddress(), Location_.address));

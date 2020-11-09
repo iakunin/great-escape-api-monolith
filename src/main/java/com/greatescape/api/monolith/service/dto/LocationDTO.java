@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 public final class LocationDTO implements Serializable {
 
-    private Long id;
+    private UUID id;
 
     @NotNull
     @Size(min = 2)
@@ -26,7 +26,6 @@ public final class LocationDTO implements Serializable {
 
     @Lob
     private String addressExplanation;
-
 
     private UUID cityId;
 

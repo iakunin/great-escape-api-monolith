@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.mapper;
 
 import com.greatescape.api.monolith.domain.Location;
 import com.greatescape.api.monolith.service.dto.LocationDTO;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -18,9 +19,11 @@ public interface LocationMapper extends EntityMapper<LocationDTO, Location> {
 
     @Mapping(source = "cityId", target = "city")
     @Mapping(target = "removeMetro", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Location toEntity(LocationDTO locationDTO);
 
-    default Location fromId(Long id) {
+    default Location fromId(UUID id) {
         if (id == null) {
             return null;
         }

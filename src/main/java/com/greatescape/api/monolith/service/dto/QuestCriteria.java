@@ -99,7 +99,7 @@ public final class QuestCriteria implements Serializable, Criteria {
 
     private QuestTypeFilter type;
 
-    private LongFilter locationId;
+    private UUIDFilter locationId;
 
     private UUIDFilter companyId;
 

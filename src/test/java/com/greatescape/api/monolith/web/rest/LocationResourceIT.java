@@ -153,11 +153,12 @@ public class LocationResourceIT {
     @Test
     @Transactional
     public void createLocationWithExistingId() throws Exception {
+        final Location location = locationRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = locationRepository.findAll().size();
 
         // Create the Location with an existing ID
-        location.setId(1L);
-        LocationDTO locationDTO = locationMapper.toDto(location);
+        this.location.setId(location.getId());
+        LocationDTO locationDTO = locationMapper.toDto(this.location);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLocationMockMvc.perform(post("/api/locations")
@@ -201,9 +202,9 @@ public class LocationResourceIT {
         restLocationMockMvc.perform(get("/api/locations?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
-            .andExpect(jsonPath("$.[*].addressExplanation").value(hasItem(DEFAULT_ADDRESS_EXPLANATION.toString())));
+            .andExpect(jsonPath("$.[*].addressExplanation").value(hasItem(DEFAULT_ADDRESS_EXPLANATION)));
     }
 
     @SuppressWarnings({"unchecked"})
@@ -236,9 +237,9 @@ public class LocationResourceIT {
         restLocationMockMvc.perform(get("/api/locations/{id}", location.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(location.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(location.getId().toString()))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS))
-            .andExpect(jsonPath("$.addressExplanation").value(DEFAULT_ADDRESS_EXPLANATION.toString()));
+            .andExpect(jsonPath("$.addressExplanation").value(DEFAULT_ADDRESS_EXPLANATION));
     }
 
 
@@ -248,16 +249,10 @@ public class LocationResourceIT {
         // Initialize the database
         locationRepository.saveAndFlush(location);
 
-        Long id = location.getId();
+        UUID id = location.getId();
 
         defaultLocationShouldBeFound("id.equals=" + id);
         defaultLocationShouldNotBeFound("id.notEquals=" + id);
-
-        defaultLocationShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultLocationShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultLocationShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultLocationShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -382,9 +377,9 @@ public class LocationResourceIT {
         restLocationMockMvc.perform(get("/api/locations?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
-            .andExpect(jsonPath("$.[*].addressExplanation").value(hasItem(DEFAULT_ADDRESS_EXPLANATION.toString())));
+            .andExpect(jsonPath("$.[*].addressExplanation").value(hasItem(DEFAULT_ADDRESS_EXPLANATION)));
 
         // Check, that the count call also returns 1
         restLocationMockMvc.perform(get("/api/locations/count?sort=id,desc&" + filter))

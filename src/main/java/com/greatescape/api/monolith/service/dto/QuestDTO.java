@@ -58,7 +58,7 @@ public final class QuestDTO implements Serializable {
     @NotNull
     private QuestType type;
 
-    private Long locationId;
+    private UUID locationId;
 
     private String locationAddress;
 

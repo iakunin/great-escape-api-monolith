@@ -4,7 +4,6 @@ import com.greatescape.api.monolith.domain.Metro;
 import com.greatescape.api.monolith.web.rest.MetroResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
@@ -32,7 +31,7 @@ public final class MetroCriteria implements Serializable, Criteria {
 
     private StringFilter title;
 
-    private LongFilter locationId;
+    private UUIDFilter locationId;
 
     public MetroCriteria(MetroCriteria other) {
         this.id = other.id == null ? null : other.id.copy();

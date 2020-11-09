@@ -385,13 +385,13 @@ public class MetroResourceIT {
         em.flush();
         metro.addLocation(location);
         metroRepository.saveAndFlush(metro);
-        Long locationId = location.getId();
+        UUID locationId = location.getId();
 
         // Get all the metroList where location equals to locationId
         defaultMetroShouldBeFound("locationId.equals=" + locationId);
 
         // Get all the metroList where location equals to locationId + 1
-        defaultMetroShouldNotBeFound("locationId.equals=" + (locationId + 1));
+        defaultMetroShouldNotBeFound("locationId.equals=" + UUID.fromString("4e2a529b-e085-4332-85ac-1b0d09180233"));
     }
 
     /**

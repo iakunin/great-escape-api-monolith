@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service;
 import com.greatescape.api.monolith.domain.Location;
 import com.greatescape.api.monolith.service.dto.LocationDTO;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -41,12 +42,12 @@ public interface LocationService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<LocationDTO> findOne(Long id);
+    Optional<LocationDTO> findOne(UUID id);
 
     /**
      * Delete the "id" location.
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(UUID id);
 }

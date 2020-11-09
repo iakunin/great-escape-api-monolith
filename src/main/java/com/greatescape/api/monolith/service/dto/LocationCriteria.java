@@ -4,7 +4,6 @@ import com.greatescape.api.monolith.domain.Location;
 import com.greatescape.api.monolith.web.rest.LocationResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
@@ -26,7 +25,7 @@ public final class LocationCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 
-    private LongFilter id;
+    private UUIDFilter id;
 
     private StringFilter address;
 

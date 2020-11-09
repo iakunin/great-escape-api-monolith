@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-09T16:25:42+0300",
+    date = "2020-11-09T16:48:55+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.8 (JetBrains s.r.o.)"
 )
 @Component
@@ -140,7 +140,7 @@ public class QuestMapperImpl implements QuestMapper {
         return address;
     }
 
-    private Long questLocationId(Quest quest) {
+    private UUID questLocationId(Quest quest) {
         if ( quest == null ) {
             return null;
         }
@@ -148,7 +148,7 @@ public class QuestMapperImpl implements QuestMapper {
         if ( location == null ) {
             return null;
         }
-        Long id = location.getId();
+        UUID id = location.getId();
         if ( id == null ) {
             return null;
         }

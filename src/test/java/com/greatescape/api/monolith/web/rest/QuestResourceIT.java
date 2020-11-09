@@ -1117,13 +1117,13 @@ public class QuestResourceIT {
         // Get already existing entity
         Location location = quest.getLocation();
         questRepository.saveAndFlush(quest);
-        Long locationId = location.getId();
+        UUID locationId = location.getId();
 
         // Get all the questList where location equals to locationId
         defaultQuestShouldBeFound("locationId.equals=" + locationId);
 
         // Get all the questList where location equals to locationId + 1
-        defaultQuestShouldNotBeFound("locationId.equals=" + (locationId + 1));
+        defaultQuestShouldNotBeFound("locationId.equals=" + UUID.fromString("c20a14b8-be49-48d7-a975-2e0ac79df1af"));
     }
 
 
