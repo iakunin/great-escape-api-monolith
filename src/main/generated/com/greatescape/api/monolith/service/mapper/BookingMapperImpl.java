@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-09T18:50:51+0300",
+    date = "2020-11-09T19:02:55+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.9 (Oracle Corporation)"
 )
 @Component
@@ -147,7 +147,7 @@ public class BookingMapperImpl implements BookingMapper {
         return dateTimeLocal;
     }
 
-    private Long bookingSlotId(Booking booking) {
+    private UUID bookingSlotId(Booking booking) {
         if ( booking == null ) {
             return null;
         }
@@ -155,7 +155,7 @@ public class BookingMapperImpl implements BookingMapper {
         if ( slot == null ) {
             return null;
         }
-        Long id = slot.getId();
+        UUID id = slot.getId();
         if ( id == null ) {
             return null;
         }

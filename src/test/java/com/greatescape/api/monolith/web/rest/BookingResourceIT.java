@@ -713,13 +713,13 @@ public class BookingResourceIT {
         // Get already existing entity
         Slot slot = booking.getSlot();
         bookingRepository.saveAndFlush(booking);
-        Long slotId = slot.getId();
+        UUID slotId = slot.getId();
 
         // Get all the bookingList where slot equals to slotId
         defaultBookingShouldBeFound("slotId.equals=" + slotId);
 
         // Get all the bookingList where slot equals to slotId + 1
-        defaultBookingShouldNotBeFound("slotId.equals=" + (slotId + 1));
+        defaultBookingShouldNotBeFound("slotId.equals=" + UUID.fromString("babf4075-3405-4923-9a2e-ff710f27ed0e"));
     }
 
 

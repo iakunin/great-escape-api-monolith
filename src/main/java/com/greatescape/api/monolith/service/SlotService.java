@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service;
 import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.service.dto.SlotDTO;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,12 +35,12 @@ public interface SlotService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<SlotDTO> findOne(Long id);
+    Optional<SlotDTO> findOne(UUID id);
 
     /**
      * Delete the "id" slot.
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(UUID id);
 }

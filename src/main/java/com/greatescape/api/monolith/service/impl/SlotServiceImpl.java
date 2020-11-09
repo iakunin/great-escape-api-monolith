@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.SlotService;
 import com.greatescape.api.monolith.service.dto.SlotDTO;
 import com.greatescape.api.monolith.service.mapper.SlotMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class SlotServiceImpl implements SlotService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<SlotDTO> findOne(Long id) {
+    public Optional<SlotDTO> findOne(UUID id) {
         log.debug("Request to get Slot : {}", id);
         return slotRepository.findById(id)
             .map(slotMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete Slot : {}", id);
         slotRepository.deleteById(id);
     }

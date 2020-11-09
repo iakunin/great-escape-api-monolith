@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.mapper;
 
 import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.service.dto.SlotDTO;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,9 +18,11 @@ public interface SlotMapper extends EntityMapper<SlotDTO, Slot> {
     SlotDTO toDto(Slot slot);
 
     @Mapping(source = "questId", target = "quest")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Slot toEntity(SlotDTO slotDTO);
 
-    default Slot fromId(Long id) {
+    default Slot fromId(UUID id) {
         if (id == null) {
             return null;
         }

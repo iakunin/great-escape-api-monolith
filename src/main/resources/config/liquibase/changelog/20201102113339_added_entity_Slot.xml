@@ -10,7 +10,7 @@
     -->
     <changeSet id="20201102113339-1" author="jhipster">
         <createTable tableName="slot" remarks="@TODO: should be audited (with cleanup older than 6 months).\nThere could be Bookings on some Slots: just don&apos;t delete such Slots">
-            <column name="id" type="bigint">
+            <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="date_time_local" type="datetime">
@@ -40,6 +40,10 @@
             <column name="quest_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
+            <column name="created_at" type="${timestampWithTimeZoneType}" defaultValue="${now}">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="${timestampWithTimeZoneType}" />
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="slot" columnName="date_time_local" columnDataType="datetime"/>
@@ -64,7 +68,7 @@
                   file="config/liquibase/fake-data/slot.csv"
                   separator=";"
                   tableName="slot">
-            <column name="id" type="numeric"/>
+            <column name="id" type="${uuidType}"/>
             <column name="date_time_local" type="datetime"/>
             <column name="date_time_with_time_zone" type="datetime"/>
             <column name="is_available" type="boolean"/>

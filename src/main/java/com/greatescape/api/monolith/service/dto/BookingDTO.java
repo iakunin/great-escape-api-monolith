@@ -48,7 +48,7 @@ public final class BookingDTO implements Serializable {
     @ApiModelProperty(value = "@TODO: save calculated commission, cause it's mutable", required = true)
     private Integer commissionInPercents;
 
-    private Long slotId;
+    private UUID slotId;
 
     private String slotDateTimeLocal;
 

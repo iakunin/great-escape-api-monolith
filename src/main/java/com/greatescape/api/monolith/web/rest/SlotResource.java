@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class SlotResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the slotDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/slots/{id}")
-    public ResponseEntity<SlotDTO> getSlot(@PathVariable Long id) {
+    public ResponseEntity<SlotDTO> getSlot(@PathVariable UUID id) {
         log.debug("REST request to get Slot : {}", id);
         Optional<SlotDTO> slotDTO = slotService.findOne(id);
         return ResponseUtil.wrapOrNotFound(slotDTO);
@@ -141,7 +142,7 @@ public class SlotResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/slots/{id}")
-    public ResponseEntity<Void> deleteSlot(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteSlot(@PathVariable UUID id) {
         log.debug("REST request to delete Slot : {}", id);
         slotService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

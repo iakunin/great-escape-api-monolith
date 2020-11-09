@@ -6,7 +6,6 @@ import com.greatescape.api.monolith.web.rest.BookingResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;
-import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
 import lombok.Data;
@@ -52,7 +51,7 @@ public final class BookingCriteria implements Serializable, Criteria {
 
     private IntegerFilter commissionInPercents;
 
-    private LongFilter slotId;
+    private UUIDFilter slotId;
 
     private UUIDFilter questId;
 

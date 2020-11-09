@@ -182,11 +182,12 @@ public class SlotResourceIT {
     @Test
     @Transactional
     public void createSlotWithExistingId() throws Exception {
+        final Slot slot = slotRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = slotRepository.findAll().size();
 
         // Create the Slot with an existing ID
-        slot.setId(1L);
-        SlotDTO slotDTO = slotMapper.toDto(slot);
+        this.slot.setId(slot.getId());
+        SlotDTO slotDTO = slotMapper.toDto(this.slot);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSlotMockMvc.perform(post("/api/slots")
@@ -310,10 +311,10 @@ public class SlotResourceIT {
         restSlotMockMvc.perform(get("/api/slots?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(slot.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(slot.getId().toString())))
             .andExpect(jsonPath("$.[*].dateTimeLocal").value(hasItem(DEFAULT_DATE_TIME_LOCAL.toString())))
             .andExpect(jsonPath("$.[*].dateTimeWithTimeZone").value(Matchers.hasItem(TestUtil.sameInstant(DEFAULT_DATE_TIME_WITH_TIME_ZONE))))
-            .andExpect(jsonPath("$.[*].isAvailable").value(hasItem(DEFAULT_IS_AVAILABLE.booleanValue())))
+            .andExpect(jsonPath("$.[*].isAvailable").value(hasItem(DEFAULT_IS_AVAILABLE)))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE)))
             .andExpect(jsonPath("$.[*].discountInPercents").value(hasItem(DEFAULT_DISCOUNT_IN_PERCENTS)))
             .andExpect(jsonPath("$.[*].commissionInPercents").value(hasItem(DEFAULT_COMMISSION_IN_PERCENTS)))
@@ -331,10 +332,10 @@ public class SlotResourceIT {
         restSlotMockMvc.perform(get("/api/slots/{id}", slot.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(slot.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(slot.getId().toString()))
             .andExpect(jsonPath("$.dateTimeLocal").value(DEFAULT_DATE_TIME_LOCAL.toString()))
             .andExpect(jsonPath("$.dateTimeWithTimeZone").value(TestUtil.sameInstant(DEFAULT_DATE_TIME_WITH_TIME_ZONE)))
-            .andExpect(jsonPath("$.isAvailable").value(DEFAULT_IS_AVAILABLE.booleanValue()))
+            .andExpect(jsonPath("$.isAvailable").value(DEFAULT_IS_AVAILABLE))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE))
             .andExpect(jsonPath("$.discountInPercents").value(DEFAULT_DISCOUNT_IN_PERCENTS))
             .andExpect(jsonPath("$.commissionInPercents").value(DEFAULT_COMMISSION_IN_PERCENTS))
@@ -349,16 +350,10 @@ public class SlotResourceIT {
         // Initialize the database
         slotRepository.saveAndFlush(slot);
 
-        Long id = slot.getId();
+        UUID id = slot.getId();
 
         defaultSlotShouldBeFound("id.equals=" + id);
         defaultSlotShouldNotBeFound("id.notEquals=" + id);
-
-        defaultSlotShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultSlotShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultSlotShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultSlotShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -986,10 +981,10 @@ public class SlotResourceIT {
         restSlotMockMvc.perform(get("/api/slots?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(slot.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(slot.getId().toString())))
             .andExpect(jsonPath("$.[*].dateTimeLocal").value(hasItem(DEFAULT_DATE_TIME_LOCAL.toString())))
             .andExpect(jsonPath("$.[*].dateTimeWithTimeZone").value(Matchers.hasItem(TestUtil.sameInstant(DEFAULT_DATE_TIME_WITH_TIME_ZONE))))
-            .andExpect(jsonPath("$.[*].isAvailable").value(hasItem(DEFAULT_IS_AVAILABLE.booleanValue())))
+            .andExpect(jsonPath("$.[*].isAvailable").value(hasItem(DEFAULT_IS_AVAILABLE)))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE)))
             .andExpect(jsonPath("$.[*].discountInPercents").value(hasItem(DEFAULT_DISCOUNT_IN_PERCENTS)))
             .andExpect(jsonPath("$.[*].commissionInPercents").value(hasItem(DEFAULT_COMMISSION_IN_PERCENTS)))
@@ -1024,8 +1019,9 @@ public class SlotResourceIT {
     @Transactional
     public void getNonExistingSlot() throws Exception {
         // Get the slot
-        restSlotMockMvc.perform(get("/api/slots/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restSlotMockMvc.perform(
+            get("/api/slots/{id}", UUID.fromString("8e299a7c-3a22-4224-aacc-eaa4de6e9eb6"))
+        ).andExpect(status().isNotFound());
     }
 
     @Test

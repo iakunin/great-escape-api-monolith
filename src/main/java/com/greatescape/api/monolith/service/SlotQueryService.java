@@ -86,7 +86,7 @@ public class SlotQueryService extends QueryService<Slot> {
         Specification<Slot> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Slot_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), Slot_.id));
             }
             if (criteria.getDateTimeLocal() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDateTimeLocal(), Slot_.dateTimeLocal));
