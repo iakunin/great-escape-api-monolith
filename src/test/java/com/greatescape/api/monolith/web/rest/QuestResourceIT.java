@@ -1148,13 +1148,13 @@ public class QuestResourceIT {
         em.flush();
         quest.addThematic(thematic);
         questRepository.saveAndFlush(quest);
-        Long thematicId = thematic.getId();
+        UUID thematicId = thematic.getId();
 
         // Get all the questList where thematic equals to thematicId
         defaultQuestShouldBeFound("thematicId.equals=" + thematicId);
 
         // Get all the questList where thematic equals to thematicId + 1
-        defaultQuestShouldNotBeFound("thematicId.equals=" + (thematicId + 1));
+        defaultQuestShouldNotBeFound("thematicId.equals=" + UUID.fromString("5813cb0e-34f1-4ba1-9a35-fb756722d154"));
     }
 
     /**

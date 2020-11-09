@@ -116,11 +116,12 @@ public class ThematicResourceIT {
     @Test
     @Transactional
     public void createThematicWithExistingId() throws Exception {
+        final Thematic thematic = thematicRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = thematicRepository.findAll().size();
 
         // Create the Thematic with an existing ID
-        thematic.setId(1L);
-        ThematicDTO thematicDTO = thematicMapper.toDto(thematic);
+        this.thematic.setId(thematic.getId());
+        ThematicDTO thematicDTO = thematicMapper.toDto(this.thematic);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restThematicMockMvc.perform(post("/api/thematics")
@@ -184,7 +185,7 @@ public class ThematicResourceIT {
         restThematicMockMvc.perform(get("/api/thematics?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(thematic.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(thematic.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
     }
@@ -199,7 +200,7 @@ public class ThematicResourceIT {
         restThematicMockMvc.perform(get("/api/thematics/{id}", thematic.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(thematic.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(thematic.getId().toString()))
             .andExpect(jsonPath("$.slug").value(DEFAULT_SLUG))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE));
     }
@@ -211,16 +212,10 @@ public class ThematicResourceIT {
         // Initialize the database
         thematicRepository.saveAndFlush(thematic);
 
-        Long id = thematic.getId();
+        UUID id = thematic.getId();
 
         defaultThematicShouldBeFound("id.equals=" + id);
         defaultThematicShouldNotBeFound("id.notEquals=" + id);
-
-        defaultThematicShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultThematicShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultThematicShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultThematicShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -406,7 +401,7 @@ public class ThematicResourceIT {
         restThematicMockMvc.perform(get("/api/thematics?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(thematic.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(thematic.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
 
@@ -438,8 +433,9 @@ public class ThematicResourceIT {
     @Transactional
     public void getNonExistingThematic() throws Exception {
         // Get the thematic
-        restThematicMockMvc.perform(get("/api/thematics/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restThematicMockMvc.perform(
+            get("/api/thematics/{id}", UUID.fromString("8aaab667-faeb-41e7-8467-48d825ddf863"))
+        ).andExpect(status().isNotFound());
     }
 
     @Test

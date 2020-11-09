@@ -86,7 +86,7 @@ public class ThematicQueryService extends QueryService<Thematic> {
         Specification<Thematic> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Thematic_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), Thematic_.id));
             }
             if (criteria.getSlug() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getSlug(), Thematic_.slug));

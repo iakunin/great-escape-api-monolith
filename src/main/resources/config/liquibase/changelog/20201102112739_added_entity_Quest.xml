@@ -57,7 +57,7 @@
     <changeSet id="20201102112739-1-relations" author="jhipster">
 
         <createTable tableName="quest_thematic">
-            <column name="thematic_id" type="bigint">
+            <column name="thematic_id" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
             <column name="quest_id" type="${uuidType}">

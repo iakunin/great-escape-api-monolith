@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class ThematicResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the thematicDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/thematics/{id}")
-    public ResponseEntity<ThematicDTO> getThematic(@PathVariable Long id) {
+    public ResponseEntity<ThematicDTO> getThematic(@PathVariable UUID id) {
         log.debug("REST request to get Thematic : {}", id);
         Optional<ThematicDTO> thematicDTO = thematicService.findOne(id);
         return ResponseUtil.wrapOrNotFound(thematicDTO);
@@ -141,7 +142,7 @@ public class ThematicResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/thematics/{id}")
-    public ResponseEntity<Void> deleteThematic(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteThematic(@PathVariable UUID id) {
         log.debug("REST request to delete Thematic : {}", id);
         thematicService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

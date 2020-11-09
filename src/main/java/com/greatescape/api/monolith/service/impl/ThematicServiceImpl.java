@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.ThematicService;
 import com.greatescape.api.monolith.service.dto.ThematicDTO;
 import com.greatescape.api.monolith.service.mapper.ThematicMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class ThematicServiceImpl implements ThematicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<ThematicDTO> findOne(Long id) {
+    public Optional<ThematicDTO> findOne(UUID id) {
         log.debug("Request to get Thematic : {}", id);
         return thematicRepository.findById(id)
             .map(thematicMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete Thematic : {}", id);
         thematicRepository.deleteById(id);
     }

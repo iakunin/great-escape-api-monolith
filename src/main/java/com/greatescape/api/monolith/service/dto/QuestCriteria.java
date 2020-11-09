@@ -8,7 +8,6 @@ import com.greatescape.api.monolith.web.rest.QuestResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;
-import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
@@ -103,7 +102,7 @@ public final class QuestCriteria implements Serializable, Criteria {
 
     private UUIDFilter companyId;
 
-    private LongFilter thematicId;
+    private UUIDFilter thematicId;
 
     public QuestCriteria(QuestCriteria other) {
         this.id = other.id == null ? null : other.id.copy();

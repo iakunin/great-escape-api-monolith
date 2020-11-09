@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service;
 import com.greatescape.api.monolith.domain.Thematic;
 import com.greatescape.api.monolith.service.dto.ThematicDTO;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,12 +35,12 @@ public interface ThematicService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<ThematicDTO> findOne(Long id);
+    Optional<ThematicDTO> findOne(UUID id);
 
     /**
      * Delete the "id" thematic.
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(UUID id);
 }
