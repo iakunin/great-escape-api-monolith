@@ -89,8 +89,8 @@ public class LocationResourceIT {
      */
     public static Location createEntity(EntityManager em) {
         Location location = new Location()
-            .address(DEFAULT_ADDRESS)
-            .addressExplanation(DEFAULT_ADDRESS_EXPLANATION);
+            .setAddress(DEFAULT_ADDRESS)
+            .setAddressExplanation(DEFAULT_ADDRESS_EXPLANATION);
         // Add required entity
         City city;
         if (TestUtil.findAll(em, City.class).isEmpty()) {
@@ -111,8 +111,8 @@ public class LocationResourceIT {
      */
     public static Location createUpdatedEntity(EntityManager em) {
         Location location = new Location()
-            .address(UPDATED_ADDRESS)
-            .addressExplanation(UPDATED_ADDRESS_EXPLANATION);
+            .setAddress(UPDATED_ADDRESS)
+            .setAddressExplanation(UPDATED_ADDRESS_EXPLANATION);
         // Add required entity
         City city;
         if (TestUtil.findAll(em, City.class).isEmpty()) {
@@ -431,8 +431,8 @@ public class LocationResourceIT {
         // Disconnect from session so that the updates on updatedLocation are not directly saved in db
         em.detach(updatedLocation);
         updatedLocation
-            .address(UPDATED_ADDRESS)
-            .addressExplanation(UPDATED_ADDRESS_EXPLANATION);
+            .setAddress(UPDATED_ADDRESS)
+            .setAddressExplanation(UPDATED_ADDRESS_EXPLANATION);
         LocationDTO locationDTO = locationMapper.toDto(updatedLocation);
 
         restLocationMockMvc.perform(put("/api/locations")

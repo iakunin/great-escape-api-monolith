@@ -11,12 +11,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A QuestPhoto.
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "quest_photo")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -39,39 +43,6 @@ public class QuestPhoto implements Serializable {
     private Quest quest;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public QuestPhoto url(String url) {
-        this.url = url;
-        return this;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Quest getQuest() {
-        return quest;
-    }
-
-    public QuestPhoto quest(Quest quest) {
-        this.quest = quest;
-        return this;
-    }
-
-    public void setQuest(Quest quest) {
-        this.quest = quest;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

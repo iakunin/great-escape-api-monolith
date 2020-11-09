@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -25,6 +27,8 @@ import org.hibernate.annotations.Type;
 /**
  * A Location.
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "location")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -60,62 +64,6 @@ public class Location implements Serializable {
     private Set<Metro> metros = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public Location address(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAddressExplanation() {
-        return addressExplanation;
-    }
-
-    public Location addressExplanation(String addressExplanation) {
-        this.addressExplanation = addressExplanation;
-        return this;
-    }
-
-    public void setAddressExplanation(String addressExplanation) {
-        this.addressExplanation = addressExplanation;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public Location city(City city) {
-        this.city = city;
-        return this;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public Set<Metro> getMetros() {
-        return metros;
-    }
-
-    public Location metros(Set<Metro> metros) {
-        this.metros = metros;
-        return this;
-    }
-
     public Location addMetro(Metro metro) {
         this.metros.add(metro);
         metro.getLocations().add(this);
@@ -126,10 +74,6 @@ public class Location implements Serializable {
         this.metros.remove(metro);
         metro.getLocations().remove(this);
         return this;
-    }
-
-    public void setMetros(Set<Metro> metros) {
-        this.metros = metros;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

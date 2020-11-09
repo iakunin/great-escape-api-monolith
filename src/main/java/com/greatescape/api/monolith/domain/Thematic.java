@@ -14,12 +14,16 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Thematic.
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "thematic")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -48,49 +52,6 @@ public class Thematic implements Serializable {
     private Set<Quest> quests = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public Thematic slug(String slug) {
-        this.slug = slug;
-        return this;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Thematic title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Set<Quest> getQuests() {
-        return quests;
-    }
-
-    public Thematic quests(Set<Quest> quests) {
-        this.quests = quests;
-        return this;
-    }
-
     public Thematic addQuest(Quest quest) {
         this.quests.add(quest);
         quest.getThematics().add(this);
@@ -101,10 +62,6 @@ public class Thematic implements Serializable {
         this.quests.remove(quest);
         quest.getThematics().remove(this);
         return this;
-    }
-
-    public void setQuests(Set<Quest> quests) {
-        this.quests = quests;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

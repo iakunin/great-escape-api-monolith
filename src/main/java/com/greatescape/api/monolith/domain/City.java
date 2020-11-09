@@ -13,9 +13,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * A City.
  */
-@Entity
 @Getter
 @Setter
+@Entity
 @Table(name = "city")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class City extends AbstractEntity {

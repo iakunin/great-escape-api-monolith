@@ -87,12 +87,12 @@ public class PlayerResourceIT {
      */
     public static Player createEntity(EntityManager em) {
         Player player = new Player()
-            .name(DEFAULT_NAME)
-            .phone(DEFAULT_PHONE)
-            .email(DEFAULT_EMAIL)
-            .birthday(DEFAULT_BIRTHDAY)
-            .gender(DEFAULT_GENDER)
-            .subscriptionAllowed(DEFAULT_SUBSCRIPTION_ALLOWED);
+            .setName(DEFAULT_NAME)
+            .setPhone(DEFAULT_PHONE)
+            .setEmail(DEFAULT_EMAIL)
+            .setBirthday(DEFAULT_BIRTHDAY)
+            .setGender(DEFAULT_GENDER)
+            .setSubscriptionAllowed(DEFAULT_SUBSCRIPTION_ALLOWED);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -108,12 +108,12 @@ public class PlayerResourceIT {
      */
     public static Player createUpdatedEntity(EntityManager em) {
         Player player = new Player()
-            .name(UPDATED_NAME)
-            .phone(UPDATED_PHONE)
-            .email(UPDATED_EMAIL)
-            .birthday(UPDATED_BIRTHDAY)
-            .gender(UPDATED_GENDER)
-            .subscriptionAllowed(UPDATED_SUBSCRIPTION_ALLOWED);
+            .setName(UPDATED_NAME)
+            .setPhone(UPDATED_PHONE)
+            .setEmail(UPDATED_EMAIL)
+            .setBirthday(UPDATED_BIRTHDAY)
+            .setGender(UPDATED_GENDER)
+            .setSubscriptionAllowed(UPDATED_SUBSCRIPTION_ALLOWED);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -147,7 +147,7 @@ public class PlayerResourceIT {
         assertThat(testPlayer.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testPlayer.getBirthday()).isEqualTo(DEFAULT_BIRTHDAY);
         assertThat(testPlayer.getGender()).isEqualTo(DEFAULT_GENDER);
-        assertThat(testPlayer.isSubscriptionAllowed()).isEqualTo(DEFAULT_SUBSCRIPTION_ALLOWED);
+        assertThat(testPlayer.getSubscriptionAllowed()).isEqualTo(DEFAULT_SUBSCRIPTION_ALLOWED);
     }
 
     @Test
@@ -827,12 +827,12 @@ public class PlayerResourceIT {
         // Disconnect from session so that the updates on updatedPlayer are not directly saved in db
         em.detach(updatedPlayer);
         updatedPlayer
-            .name(UPDATED_NAME)
-            .phone(UPDATED_PHONE)
-            .email(UPDATED_EMAIL)
-            .birthday(UPDATED_BIRTHDAY)
-            .gender(UPDATED_GENDER)
-            .subscriptionAllowed(UPDATED_SUBSCRIPTION_ALLOWED);
+            .setName(UPDATED_NAME)
+            .setPhone(UPDATED_PHONE)
+            .setEmail(UPDATED_EMAIL)
+            .setBirthday(UPDATED_BIRTHDAY)
+            .setGender(UPDATED_GENDER)
+            .setSubscriptionAllowed(UPDATED_SUBSCRIPTION_ALLOWED);
         PlayerDTO playerDTO = playerMapper.toDto(updatedPlayer);
 
         restPlayerMockMvc.perform(put("/api/players")
@@ -849,7 +849,7 @@ public class PlayerResourceIT {
         assertThat(testPlayer.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testPlayer.getBirthday()).isEqualTo(UPDATED_BIRTHDAY);
         assertThat(testPlayer.getGender()).isEqualTo(UPDATED_GENDER);
-        assertThat(testPlayer.isSubscriptionAllowed()).isEqualTo(UPDATED_SUBSCRIPTION_ALLOWED);
+        assertThat(testPlayer.getSubscriptionAllowed()).isEqualTo(UPDATED_SUBSCRIPTION_ALLOWED);
     }
 
     @Test

@@ -17,9 +17,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * A Metro.
  */
-@Entity
 @Getter
 @Setter
+@Entity
 @Table(name = "metro")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Metro extends AbstractEntity {

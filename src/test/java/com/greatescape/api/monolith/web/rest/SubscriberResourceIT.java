@@ -70,8 +70,8 @@ public class SubscriberResourceIT {
      */
     public static Subscriber createEntity(EntityManager em) {
         Subscriber subscriber = new Subscriber()
-            .name(DEFAULT_NAME)
-            .email(DEFAULT_EMAIL);
+            .setName(DEFAULT_NAME)
+            .setEmail(DEFAULT_EMAIL);
         return subscriber;
     }
     /**
@@ -82,8 +82,8 @@ public class SubscriberResourceIT {
      */
     public static Subscriber createUpdatedEntity(EntityManager em) {
         Subscriber subscriber = new Subscriber()
-            .name(UPDATED_NAME)
-            .email(UPDATED_EMAIL);
+            .setName(UPDATED_NAME)
+            .setEmail(UPDATED_EMAIL);
         return subscriber;
     }
 
@@ -433,8 +433,8 @@ public class SubscriberResourceIT {
         // Disconnect from session so that the updates on updatedSubscriber are not directly saved in db
         em.detach(updatedSubscriber);
         updatedSubscriber
-            .name(UPDATED_NAME)
-            .email(UPDATED_EMAIL);
+            .setName(UPDATED_NAME)
+            .setEmail(UPDATED_EMAIL);
         SubscriberDTO subscriberDTO = subscriberMapper.toDto(updatedSubscriber);
 
         restSubscriberMockMvc.perform(put("/api/subscribers")

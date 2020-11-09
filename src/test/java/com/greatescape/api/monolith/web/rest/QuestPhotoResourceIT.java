@@ -68,7 +68,7 @@ public class QuestPhotoResourceIT {
      */
     public static QuestPhoto createEntity(EntityManager em) {
         QuestPhoto questPhoto = new QuestPhoto()
-            .url(DEFAULT_URL);
+            .setUrl(DEFAULT_URL);
         // Add required entity
         Quest quest;
         if (TestUtil.findAll(em, Quest.class).isEmpty()) {
@@ -89,7 +89,7 @@ public class QuestPhotoResourceIT {
      */
     public static QuestPhoto createUpdatedEntity(EntityManager em) {
         QuestPhoto questPhoto = new QuestPhoto()
-            .url(UPDATED_URL);
+            .setUrl(UPDATED_URL);
         // Add required entity
         Quest quest;
         if (TestUtil.findAll(em, Quest.class).isEmpty()) {
@@ -363,7 +363,7 @@ public class QuestPhotoResourceIT {
         // Disconnect from session so that the updates on updatedQuestPhoto are not directly saved in db
         em.detach(updatedQuestPhoto);
         updatedQuestPhoto
-            .url(UPDATED_URL);
+            .setUrl(UPDATED_URL);
         QuestPhotoDTO questPhotoDTO = questPhotoMapper.toDto(updatedQuestPhoto);
 
         restQuestPhotoMockMvc.perform(put("/api/quest-photos")

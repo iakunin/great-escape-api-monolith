@@ -18,12 +18,16 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @TODO: should be audited
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "player")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -73,117 +77,6 @@ public class Player implements Serializable {
     private Company company;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Player name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public Player phone(String phone) {
-        this.phone = phone;
-        return this;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Player email(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public Player birthday(LocalDate birthday) {
-        this.birthday = birthday;
-        return this;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public Player gender(Gender gender) {
-        this.gender = gender;
-        return this;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public Boolean isSubscriptionAllowed() {
-        return subscriptionAllowed;
-    }
-
-    public Player subscriptionAllowed(Boolean subscriptionAllowed) {
-        this.subscriptionAllowed = subscriptionAllowed;
-        return this;
-    }
-
-    public void setSubscriptionAllowed(Boolean subscriptionAllowed) {
-        this.subscriptionAllowed = subscriptionAllowed;
-    }
-
-    public User getInternalUser() {
-        return internalUser;
-    }
-
-    public Player internalUser(User user) {
-        this.internalUser = user;
-        return this;
-    }
-
-    public void setInternalUser(User user) {
-        this.internalUser = user;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Player company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -212,7 +105,7 @@ public class Player implements Serializable {
             ", email='" + getEmail() + "'" +
             ", birthday='" + getBirthday() + "'" +
             ", gender='" + getGender() + "'" +
-            ", subscriptionAllowed='" + isSubscriptionAllowed() + "'" +
+            ", subscriptionAllowed='" + getSubscriptionAllowed() + "'" +
             "}";
     }
 }

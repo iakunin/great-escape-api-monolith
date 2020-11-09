@@ -24,6 +24,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -31,6 +33,8 @@ import org.hibernate.annotations.Type;
 /**
  * @TODO: should be audited
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "quest")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -106,166 +110,6 @@ public class Quest implements Serializable {
     private Set<Thematic> thematics = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public Quest slug(String slug) {
-        this.slug = slug;
-        return this;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Quest title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Quest description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getPlayersMinCount() {
-        return playersMinCount;
-    }
-
-    public Quest playersMinCount(Integer playersMinCount) {
-        this.playersMinCount = playersMinCount;
-        return this;
-    }
-
-    public void setPlayersMinCount(Integer playersMinCount) {
-        this.playersMinCount = playersMinCount;
-    }
-
-    public Integer getPlayersMaxCount() {
-        return playersMaxCount;
-    }
-
-    public Quest playersMaxCount(Integer playersMaxCount) {
-        this.playersMaxCount = playersMaxCount;
-        return this;
-    }
-
-    public void setPlayersMaxCount(Integer playersMaxCount) {
-        this.playersMaxCount = playersMaxCount;
-    }
-
-    public Integer getDurationInMinutes() {
-        return durationInMinutes;
-    }
-
-    public Quest durationInMinutes(Integer durationInMinutes) {
-        this.durationInMinutes = durationInMinutes;
-        return this;
-    }
-
-    public void setDurationInMinutes(Integer durationInMinutes) {
-        this.durationInMinutes = durationInMinutes;
-    }
-
-    public QuestComplexity getComplexity() {
-        return complexity;
-    }
-
-    public Quest complexity(QuestComplexity complexity) {
-        this.complexity = complexity;
-        return this;
-    }
-
-    public void setComplexity(QuestComplexity complexity) {
-        this.complexity = complexity;
-    }
-
-    public FearLevel getFearLevel() {
-        return fearLevel;
-    }
-
-    public Quest fearLevel(FearLevel fearLevel) {
-        this.fearLevel = fearLevel;
-        return this;
-    }
-
-    public void setFearLevel(FearLevel fearLevel) {
-        this.fearLevel = fearLevel;
-    }
-
-    public QuestType getType() {
-        return type;
-    }
-
-    public Quest type(QuestType type) {
-        this.type = type;
-        return this;
-    }
-
-    public void setType(QuestType type) {
-        this.type = type;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public Quest location(Location location) {
-        this.location = location;
-        return this;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Quest company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Set<Thematic> getThematics() {
-        return thematics;
-    }
-
-    public Quest thematics(Set<Thematic> thematics) {
-        this.thematics = thematics;
-        return this;
-    }
-
     public Quest addThematic(Thematic thematic) {
         this.thematics.add(thematic);
         thematic.getQuests().add(this);
@@ -276,10 +120,6 @@ public class Quest implements Serializable {
         this.thematics.remove(thematic);
         thematic.getQuests().remove(this);
         return this;
-    }
-
-    public void setThematics(Set<Thematic> thematics) {
-        this.thematics = thematics;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

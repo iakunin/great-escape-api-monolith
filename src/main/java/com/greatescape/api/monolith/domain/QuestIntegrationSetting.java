@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -22,6 +24,8 @@ import org.hibernate.annotations.Type;
 /**
  * A QuestIntegrationSetting.
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "quest_integration_setting")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -53,52 +57,6 @@ public class QuestIntegrationSetting implements Serializable {
     private Quest quest;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public QuestIntegrationType getType() {
-        return type;
-    }
-
-    public QuestIntegrationSetting type(QuestIntegrationType type) {
-        this.type = type;
-        return this;
-    }
-
-    public void setType(QuestIntegrationType type) {
-        this.type = type;
-    }
-
-    public String getSettings() {
-        return settings;
-    }
-
-    public QuestIntegrationSetting settings(String settings) {
-        this.settings = settings;
-        return this;
-    }
-
-    public void setSettings(String settings) {
-        this.settings = settings;
-    }
-
-    public Quest getQuest() {
-        return quest;
-    }
-
-    public QuestIntegrationSetting quest(Quest quest) {
-        this.quest = quest;
-        return this;
-    }
-
-    public void setQuest(Quest quest) {
-        this.quest = quest;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

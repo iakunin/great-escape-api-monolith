@@ -61,7 +61,7 @@ public class SlotMapperImpl implements SlotMapper {
         slotDTO.setId( slot.getId() );
         slotDTO.setDateTimeLocal( slot.getDateTimeLocal() );
         slotDTO.setDateTimeWithTimeZone( slot.getDateTimeWithTimeZone() );
-        slotDTO.setIsAvailable( slot.isIsAvailable() );
+        slotDTO.setIsAvailable( slot.getIsAvailable() );
         slotDTO.setPrice( slot.getPrice() );
         slotDTO.setDiscountInPercents( slot.getDiscountInPercents() );
         slotDTO.setCommissionInPercents( slot.getCommissionInPercents() );
@@ -83,7 +83,7 @@ public class SlotMapperImpl implements SlotMapper {
         slot.setId( slotDTO.getId() );
         slot.setDateTimeLocal( slotDTO.getDateTimeLocal() );
         slot.setDateTimeWithTimeZone( slotDTO.getDateTimeWithTimeZone() );
-        slot.setIsAvailable( slotDTO.isIsAvailable() );
+        slot.setIsAvailable( slotDTO.getIsAvailable() );
         slot.setPrice( slotDTO.getPrice() );
         slot.setDiscountInPercents( slotDTO.getDiscountInPercents() );
         slot.setCommissionInPercents( slotDTO.getCommissionInPercents() );

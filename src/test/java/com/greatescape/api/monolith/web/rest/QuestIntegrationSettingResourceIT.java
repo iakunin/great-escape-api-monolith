@@ -71,8 +71,8 @@ public class QuestIntegrationSettingResourceIT {
      */
     public static QuestIntegrationSetting createEntity(EntityManager em) {
         QuestIntegrationSetting questIntegrationSetting = new QuestIntegrationSetting()
-            .type(DEFAULT_TYPE)
-            .settings(DEFAULT_SETTINGS);
+            .setType(DEFAULT_TYPE)
+            .setSettings(DEFAULT_SETTINGS);
         // Add required entity
         Quest quest;
         if (TestUtil.findAll(em, Quest.class).isEmpty()) {
@@ -93,8 +93,8 @@ public class QuestIntegrationSettingResourceIT {
      */
     public static QuestIntegrationSetting createUpdatedEntity(EntityManager em) {
         QuestIntegrationSetting questIntegrationSetting = new QuestIntegrationSetting()
-            .type(UPDATED_TYPE)
-            .settings(UPDATED_SETTINGS);
+            .setType(UPDATED_TYPE)
+            .setSettings(UPDATED_SETTINGS);
         // Add required entity
         Quest quest;
         if (TestUtil.findAll(em, Quest.class).isEmpty()) {
@@ -346,8 +346,8 @@ public class QuestIntegrationSettingResourceIT {
         // Disconnect from session so that the updates on updatedQuestIntegrationSetting are not directly saved in db
         em.detach(updatedQuestIntegrationSetting);
         updatedQuestIntegrationSetting
-            .type(UPDATED_TYPE)
-            .settings(UPDATED_SETTINGS);
+            .setType(UPDATED_TYPE)
+            .setSettings(UPDATED_SETTINGS);
         QuestIntegrationSettingDTO questIntegrationSettingDTO = questIntegrationSettingMapper.toDto(updatedQuestIntegrationSetting);
 
         restQuestIntegrationSettingMockMvc.perform(put("/api/quest-integration-settings")

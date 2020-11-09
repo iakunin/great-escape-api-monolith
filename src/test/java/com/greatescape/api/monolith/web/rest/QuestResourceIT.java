@@ -116,15 +116,15 @@ public class QuestResourceIT {
      */
     public static Quest createEntity(EntityManager em) {
         Quest quest = new Quest()
-            .slug(DEFAULT_SLUG)
-            .title(DEFAULT_TITLE)
-            .description(DEFAULT_DESCRIPTION)
-            .playersMinCount(DEFAULT_PLAYERS_MIN_COUNT)
-            .playersMaxCount(DEFAULT_PLAYERS_MAX_COUNT)
-            .durationInMinutes(DEFAULT_DURATION_IN_MINUTES)
-            .complexity(DEFAULT_COMPLEXITY)
-            .fearLevel(DEFAULT_FEAR_LEVEL)
-            .type(DEFAULT_TYPE);
+            .setSlug(DEFAULT_SLUG)
+            .setTitle(DEFAULT_TITLE)
+            .setDescription(DEFAULT_DESCRIPTION)
+            .setPlayersMinCount(DEFAULT_PLAYERS_MIN_COUNT)
+            .setPlayersMaxCount(DEFAULT_PLAYERS_MAX_COUNT)
+            .setDurationInMinutes(DEFAULT_DURATION_IN_MINUTES)
+            .setComplexity(DEFAULT_COMPLEXITY)
+            .setFearLevel(DEFAULT_FEAR_LEVEL)
+            .setType(DEFAULT_TYPE);
         // Add required entity
         Location location;
         if (TestUtil.findAll(em, Location.class).isEmpty()) {
@@ -155,15 +155,15 @@ public class QuestResourceIT {
      */
     public static Quest createUpdatedEntity(EntityManager em) {
         Quest quest = new Quest()
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .playersMinCount(UPDATED_PLAYERS_MIN_COUNT)
-            .playersMaxCount(UPDATED_PLAYERS_MAX_COUNT)
-            .durationInMinutes(UPDATED_DURATION_IN_MINUTES)
-            .complexity(UPDATED_COMPLEXITY)
-            .fearLevel(UPDATED_FEAR_LEVEL)
-            .type(UPDATED_TYPE);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE)
+            .setDescription(UPDATED_DESCRIPTION)
+            .setPlayersMinCount(UPDATED_PLAYERS_MIN_COUNT)
+            .setPlayersMaxCount(UPDATED_PLAYERS_MAX_COUNT)
+            .setDurationInMinutes(UPDATED_DURATION_IN_MINUTES)
+            .setComplexity(UPDATED_COMPLEXITY)
+            .setFearLevel(UPDATED_FEAR_LEVEL)
+            .setType(UPDATED_TYPE);
         // Add required entity
         Location location;
         if (TestUtil.findAll(em, Location.class).isEmpty()) {
@@ -1224,15 +1224,15 @@ public class QuestResourceIT {
         // Disconnect from session so that the updates on updatedQuest are not directly saved in db
         em.detach(updatedQuest);
         updatedQuest
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .playersMinCount(UPDATED_PLAYERS_MIN_COUNT)
-            .playersMaxCount(UPDATED_PLAYERS_MAX_COUNT)
-            .durationInMinutes(UPDATED_DURATION_IN_MINUTES)
-            .complexity(UPDATED_COMPLEXITY)
-            .fearLevel(UPDATED_FEAR_LEVEL)
-            .type(UPDATED_TYPE);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE)
+            .setDescription(UPDATED_DESCRIPTION)
+            .setPlayersMinCount(UPDATED_PLAYERS_MIN_COUNT)
+            .setPlayersMaxCount(UPDATED_PLAYERS_MAX_COUNT)
+            .setDurationInMinutes(UPDATED_DURATION_IN_MINUTES)
+            .setComplexity(UPDATED_COMPLEXITY)
+            .setFearLevel(UPDATED_FEAR_LEVEL)
+            .setType(UPDATED_TYPE);
         QuestDTO questDTO = questMapper.toDto(updatedQuest);
 
         restQuestMockMvc.perform(put("/api/quests")

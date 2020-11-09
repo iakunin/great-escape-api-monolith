@@ -71,8 +71,8 @@ public class ThematicResourceIT {
      */
     public static Thematic createEntity(EntityManager em) {
         Thematic thematic = new Thematic()
-            .slug(DEFAULT_SLUG)
-            .title(DEFAULT_TITLE);
+            .setSlug(DEFAULT_SLUG)
+            .setTitle(DEFAULT_TITLE);
         return thematic;
     }
     /**
@@ -83,8 +83,8 @@ public class ThematicResourceIT {
      */
     public static Thematic createUpdatedEntity(EntityManager em) {
         Thematic thematic = new Thematic()
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE);
         return thematic;
     }
 
@@ -454,8 +454,8 @@ public class ThematicResourceIT {
         // Disconnect from session so that the updates on updatedThematic are not directly saved in db
         em.detach(updatedThematic);
         updatedThematic
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE);
         ThematicDTO thematicDTO = thematicMapper.toDto(updatedThematic);
 
         restThematicMockMvc.perform(put("/api/thematics")

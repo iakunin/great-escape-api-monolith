@@ -21,9 +21,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * A Booking.
  */
-@Entity
 @Getter
 @Setter
+@Entity
 @Table(name = "booking")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Booking extends AbstractEntity {

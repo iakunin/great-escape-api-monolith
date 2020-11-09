@@ -84,12 +84,12 @@ public class CompanyResourceIT {
      */
     public static Company createEntity(EntityManager em) {
         Company company = new Company()
-            .slug(DEFAULT_SLUG)
-            .title(DEFAULT_TITLE)
-            .legalName(DEFAULT_LEGAL_NAME)
-            .taxpayerNumber(DEFAULT_TAXPAYER_NUMBER)
-            .discountInPercents(DEFAULT_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(DEFAULT_COMMISSION_IN_PERCENTS);
+            .setSlug(DEFAULT_SLUG)
+            .setTitle(DEFAULT_TITLE)
+            .setLegalName(DEFAULT_LEGAL_NAME)
+            .setTaxpayerNumber(DEFAULT_TAXPAYER_NUMBER)
+            .setDiscountInPercents(DEFAULT_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(DEFAULT_COMMISSION_IN_PERCENTS);
         return company;
     }
     /**
@@ -100,12 +100,12 @@ public class CompanyResourceIT {
      */
     public static Company createUpdatedEntity(EntityManager em) {
         Company company = new Company()
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE)
-            .legalName(UPDATED_LEGAL_NAME)
-            .taxpayerNumber(UPDATED_TAXPAYER_NUMBER)
-            .discountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE)
+            .setLegalName(UPDATED_LEGAL_NAME)
+            .setTaxpayerNumber(UPDATED_TAXPAYER_NUMBER)
+            .setDiscountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
         return company;
     }
 
@@ -857,12 +857,12 @@ public class CompanyResourceIT {
         // Disconnect from session so that the updates on updatedCompany are not directly saved in db
         em.detach(updatedCompany);
         updatedCompany
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE)
-            .legalName(UPDATED_LEGAL_NAME)
-            .taxpayerNumber(UPDATED_TAXPAYER_NUMBER)
-            .discountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE)
+            .setLegalName(UPDATED_LEGAL_NAME)
+            .setTaxpayerNumber(UPDATED_TAXPAYER_NUMBER)
+            .setDiscountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
         CompanyDTO companyDTO = companyMapper.toDto(updatedCompany);
 
         restCompanyMockMvc.perform(put("/api/companies")

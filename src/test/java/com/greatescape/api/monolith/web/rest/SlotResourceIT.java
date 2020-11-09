@@ -99,14 +99,14 @@ public class SlotResourceIT {
      */
     public static Slot createEntity(EntityManager em) {
         Slot slot = new Slot()
-            .dateTimeLocal(DEFAULT_DATE_TIME_LOCAL)
-            .dateTimeWithTimeZone(DEFAULT_DATE_TIME_WITH_TIME_ZONE)
-            .isAvailable(DEFAULT_IS_AVAILABLE)
-            .price(DEFAULT_PRICE)
-            .discountInPercents(DEFAULT_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(DEFAULT_COMMISSION_IN_PERCENTS)
-            .externalId(DEFAULT_EXTERNAL_ID)
-            .externalState(DEFAULT_EXTERNAL_STATE);
+            .setDateTimeLocal(DEFAULT_DATE_TIME_LOCAL)
+            .setDateTimeWithTimeZone(DEFAULT_DATE_TIME_WITH_TIME_ZONE)
+            .setIsAvailable(DEFAULT_IS_AVAILABLE)
+            .setPrice(DEFAULT_PRICE)
+            .setDiscountInPercents(DEFAULT_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(DEFAULT_COMMISSION_IN_PERCENTS)
+            .setExternalId(DEFAULT_EXTERNAL_ID)
+            .setExternalState(DEFAULT_EXTERNAL_STATE);
         // Add required entity
         Quest quest;
         if (TestUtil.findAll(em, Quest.class).isEmpty()) {
@@ -127,14 +127,14 @@ public class SlotResourceIT {
      */
     public static Slot createUpdatedEntity(EntityManager em) {
         Slot slot = new Slot()
-            .dateTimeLocal(UPDATED_DATE_TIME_LOCAL)
-            .dateTimeWithTimeZone(UPDATED_DATE_TIME_WITH_TIME_ZONE)
-            .isAvailable(UPDATED_IS_AVAILABLE)
-            .price(UPDATED_PRICE)
-            .discountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(UPDATED_COMMISSION_IN_PERCENTS)
-            .externalId(UPDATED_EXTERNAL_ID)
-            .externalState(UPDATED_EXTERNAL_STATE);
+            .setDateTimeLocal(UPDATED_DATE_TIME_LOCAL)
+            .setDateTimeWithTimeZone(UPDATED_DATE_TIME_WITH_TIME_ZONE)
+            .setIsAvailable(UPDATED_IS_AVAILABLE)
+            .setPrice(UPDATED_PRICE)
+            .setDiscountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS)
+            .setExternalId(UPDATED_EXTERNAL_ID)
+            .setExternalState(UPDATED_EXTERNAL_STATE);
         // Add required entity
         Quest quest;
         if (TestUtil.findAll(em, Quest.class).isEmpty()) {
@@ -170,7 +170,7 @@ public class SlotResourceIT {
         Slot testSlot = slotList.get(slotList.size() - 1);
         assertThat(testSlot.getDateTimeLocal()).isEqualTo(DEFAULT_DATE_TIME_LOCAL);
         assertThat(testSlot.getDateTimeWithTimeZone()).isEqualTo(DEFAULT_DATE_TIME_WITH_TIME_ZONE);
-        assertThat(testSlot.isIsAvailable()).isEqualTo(DEFAULT_IS_AVAILABLE);
+        assertThat(testSlot.getIsAvailable()).isEqualTo(DEFAULT_IS_AVAILABLE);
         assertThat(testSlot.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testSlot.getDiscountInPercents()).isEqualTo(DEFAULT_DISCOUNT_IN_PERCENTS);
         assertThat(testSlot.getCommissionInPercents()).isEqualTo(DEFAULT_COMMISSION_IN_PERCENTS);
@@ -1040,14 +1040,14 @@ public class SlotResourceIT {
         // Disconnect from session so that the updates on updatedSlot are not directly saved in db
         em.detach(updatedSlot);
         updatedSlot
-            .dateTimeLocal(UPDATED_DATE_TIME_LOCAL)
-            .dateTimeWithTimeZone(UPDATED_DATE_TIME_WITH_TIME_ZONE)
-            .isAvailable(UPDATED_IS_AVAILABLE)
-            .price(UPDATED_PRICE)
-            .discountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(UPDATED_COMMISSION_IN_PERCENTS)
-            .externalId(UPDATED_EXTERNAL_ID)
-            .externalState(UPDATED_EXTERNAL_STATE);
+            .setDateTimeLocal(UPDATED_DATE_TIME_LOCAL)
+            .setDateTimeWithTimeZone(UPDATED_DATE_TIME_WITH_TIME_ZONE)
+            .setIsAvailable(UPDATED_IS_AVAILABLE)
+            .setPrice(UPDATED_PRICE)
+            .setDiscountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS)
+            .setExternalId(UPDATED_EXTERNAL_ID)
+            .setExternalState(UPDATED_EXTERNAL_STATE);
         SlotDTO slotDTO = slotMapper.toDto(updatedSlot);
 
         restSlotMockMvc.perform(put("/api/slots")
@@ -1061,7 +1061,7 @@ public class SlotResourceIT {
         Slot testSlot = slotList.get(slotList.size() - 1);
         assertThat(testSlot.getDateTimeLocal()).isEqualTo(UPDATED_DATE_TIME_LOCAL);
         assertThat(testSlot.getDateTimeWithTimeZone()).isEqualTo(UPDATED_DATE_TIME_WITH_TIME_ZONE);
-        assertThat(testSlot.isIsAvailable()).isEqualTo(UPDATED_IS_AVAILABLE);
+        assertThat(testSlot.getIsAvailable()).isEqualTo(UPDATED_IS_AVAILABLE);
         assertThat(testSlot.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testSlot.getDiscountInPercents()).isEqualTo(UPDATED_DISCOUNT_IN_PERCENTS);
         assertThat(testSlot.getCommissionInPercents()).isEqualTo(UPDATED_COMMISSION_IN_PERCENTS);
