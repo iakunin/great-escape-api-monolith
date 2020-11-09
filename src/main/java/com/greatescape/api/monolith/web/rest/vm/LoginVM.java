@@ -22,7 +22,6 @@ public class LoginVM {
 
     private boolean rememberMe;
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "LoginVM{" +

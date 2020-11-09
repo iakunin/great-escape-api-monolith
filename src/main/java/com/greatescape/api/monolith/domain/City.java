@@ -57,7 +57,6 @@ public class City extends AbstractEntity {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "City{" +

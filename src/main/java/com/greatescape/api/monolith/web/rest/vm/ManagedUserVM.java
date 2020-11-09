@@ -21,7 +21,6 @@ public class ManagedUserVM extends UserDTO {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "ManagedUserVM{" + super.toString() + "} ";

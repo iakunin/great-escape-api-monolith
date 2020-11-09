@@ -42,7 +42,6 @@ public final class MetroDTO implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "MetroDTO{" +

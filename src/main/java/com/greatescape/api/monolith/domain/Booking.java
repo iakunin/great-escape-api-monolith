@@ -92,7 +92,6 @@ public class Booking extends AbstractEntity {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "Booking{" +

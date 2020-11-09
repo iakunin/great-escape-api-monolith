@@ -61,7 +61,6 @@ public class QuestPhoto implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "QuestPhoto{" +

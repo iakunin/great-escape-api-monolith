@@ -69,7 +69,6 @@ public class Metro extends AbstractEntity {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "Metro{" +

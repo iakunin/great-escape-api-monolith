@@ -75,7 +75,6 @@ public class UserDTO {
             .collect(Collectors.toSet());
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "UserDTO{" +
