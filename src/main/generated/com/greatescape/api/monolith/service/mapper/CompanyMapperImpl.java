@@ -9,30 +9,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-08T20:28:02+0300",
+    date = "2020-11-09T16:25:42+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.8 (JetBrains s.r.o.)"
 )
 @Component
 public class CompanyMapperImpl implements CompanyMapper {
-
-    @Override
-    public Company toEntity(CompanyDTO dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        Company company = new Company();
-
-        company.setId( dto.getId() );
-        company.setSlug( dto.getSlug() );
-        company.setTitle( dto.getTitle() );
-        company.setLegalName( dto.getLegalName() );
-        company.setTaxpayerNumber( dto.getTaxpayerNumber() );
-        company.setDiscountInPercents( dto.getDiscountInPercents() );
-        company.setCommissionInPercents( dto.getCommissionInPercents() );
-
-        return company;
-    }
 
     @Override
     public CompanyDTO toDto(Company entity) {
@@ -79,5 +60,24 @@ public class CompanyMapperImpl implements CompanyMapper {
         }
 
         return list;
+    }
+
+    @Override
+    public Company toEntity(CompanyDTO companyDTO) {
+        if ( companyDTO == null ) {
+            return null;
+        }
+
+        Company company = new Company();
+
+        company.setId( companyDTO.getId() );
+        company.setSlug( companyDTO.getSlug() );
+        company.setTitle( companyDTO.getTitle() );
+        company.setLegalName( companyDTO.getLegalName() );
+        company.setTaxpayerNumber( companyDTO.getTaxpayerNumber() );
+        company.setDiscountInPercents( companyDTO.getDiscountInPercents() );
+        company.setCommissionInPercents( companyDTO.getCommissionInPercents() );
+
+        return company;
     }
 }

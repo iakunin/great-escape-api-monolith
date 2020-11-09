@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.CompanyService;
 import com.greatescape.api.monolith.service.dto.CompanyDTO;
 import com.greatescape.api.monolith.service.mapper.CompanyMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<CompanyDTO> findOne(Long id) {
+    public Optional<CompanyDTO> findOne(UUID id) {
         log.debug("Request to get Company : {}", id);
         return companyRepository.findById(id)
             .map(companyMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete Company : {}", id);
         companyRepository.deleteById(id);
     }

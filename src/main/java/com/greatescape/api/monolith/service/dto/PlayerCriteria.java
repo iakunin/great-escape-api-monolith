@@ -9,6 +9,7 @@ import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -60,7 +61,7 @@ public final class PlayerCriteria implements Serializable, Criteria {
 
     private LongFilter internalUserId;
 
-    private LongFilter companyId;
+    private UUIDFilter companyId;
 
     public PlayerCriteria(PlayerCriteria other) {
         this.id = other.id == null ? null : other.id.copy();

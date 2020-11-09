@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import lombok.Getter;
@@ -46,7 +47,7 @@ public final class PlayerDTO implements Serializable {
 
     private String internalUserLogin;
 
-    private Long companyId;
+    private UUID companyId;
 
     private String companyTitle;
 

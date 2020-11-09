@@ -9,27 +9,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-08T20:28:02+0300",
+    date = "2020-11-09T16:25:42+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.8 (JetBrains s.r.o.)"
 )
 @Component
 public class CityMapperImpl implements CityMapper {
-
-    @Override
-    public City toEntity(CityDTO dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        City city = new City();
-
-        city.setId( dto.getId() );
-        city.setSlug( dto.getSlug() );
-        city.setTitle( dto.getTitle() );
-        city.setTimezone( dto.getTimezone() );
-
-        return city;
-    }
 
     @Override
     public CityDTO toDto(City entity) {
@@ -73,5 +57,21 @@ public class CityMapperImpl implements CityMapper {
         }
 
         return list;
+    }
+
+    @Override
+    public City toEntity(CityDTO cityDTO) {
+        if ( cityDTO == null ) {
+            return null;
+        }
+
+        City city = new City();
+
+        city.setId( cityDTO.getId() );
+        city.setSlug( cityDTO.getSlug() );
+        city.setTitle( cityDTO.getTitle() );
+        city.setTimezone( cityDTO.getTimezone() );
+
+        return city;
     }
 }

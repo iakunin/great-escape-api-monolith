@@ -10,7 +10,7 @@
     -->
     <changeSet id="20201102113239-1" author="jhipster">
         <createTable tableName="company" remarks="@TODO: should be audited">
-            <column name="id" type="bigint">
+            <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="slug" type="varchar(255)">
@@ -31,6 +31,10 @@
             <column name="commission_in_percents" type="integer">
                 <constraints nullable="true" />
             </column>
+            <column name="created_at" type="${timestampWithTimeZoneType}" defaultValue="${now}">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="${timestampWithTimeZoneType}" />
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -53,7 +57,7 @@
                   file="config/liquibase/fake-data/company.csv"
                   separator=";"
                   tableName="company">
-            <column name="id" type="numeric"/>
+            <column name="id" type="${uuidType}"/>
             <column name="slug" type="string"/>
             <column name="title" type="string"/>
             <column name="legal_name" type="string"/>

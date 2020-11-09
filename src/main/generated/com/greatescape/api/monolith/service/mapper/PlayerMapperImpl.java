@@ -6,13 +6,14 @@ import com.greatescape.api.monolith.domain.User;
 import com.greatescape.api.monolith.service.dto.PlayerDTO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-08T20:28:02+0300",
+    date = "2020-11-09T16:25:42+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.8 (JetBrains s.r.o.)"
 )
 @Component
@@ -69,7 +70,9 @@ public class PlayerMapperImpl implements PlayerMapper {
         playerDTO.setEmail( player.getEmail() );
         playerDTO.setBirthday( player.getBirthday() );
         playerDTO.setGender( player.getGender() );
-        playerDTO.setSubscriptionAllowed( player.isSubscriptionAllowed() );
+        if ( player.getSubscriptionAllowed() != null ) {
+            playerDTO.setSubscriptionAllowed( player.getSubscriptionAllowed() );
+        }
 
         return playerDTO;
     }
@@ -110,7 +113,7 @@ public class PlayerMapperImpl implements PlayerMapper {
         return login;
     }
 
-    private Long playerCompanyId(Player player) {
+    private UUID playerCompanyId(Player player) {
         if ( player == null ) {
             return null;
         }
@@ -118,7 +121,7 @@ public class PlayerMapperImpl implements PlayerMapper {
         if ( company == null ) {
             return null;
         }
-        Long id = company.getId();
+        UUID id = company.getId();
         if ( id == null ) {
             return null;
         }

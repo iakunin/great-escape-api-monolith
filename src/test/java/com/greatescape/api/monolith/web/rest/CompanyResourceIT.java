@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.service.CompanyService;
 import com.greatescape.api.monolith.service.dto.CompanyDTO;
 import com.greatescape.api.monolith.service.mapper.CompanyMapper;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -140,11 +141,12 @@ public class CompanyResourceIT {
     @Test
     @Transactional
     public void createCompanyWithExistingId() throws Exception {
+        final Company company = companyRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = companyRepository.findAll().size();
 
         // Create the Company with an existing ID
-        company.setId(1L);
-        CompanyDTO companyDTO = companyMapper.toDto(company);
+        this.company.setId(company.getId());
+        CompanyDTO companyDTO = companyMapper.toDto(this.company);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCompanyMockMvc.perform(post("/api/companies")
@@ -228,7 +230,7 @@ public class CompanyResourceIT {
         restCompanyMockMvc.perform(get("/api/companies?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(company.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(company.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].legalName").value(hasItem(DEFAULT_LEGAL_NAME)))
@@ -247,7 +249,7 @@ public class CompanyResourceIT {
         restCompanyMockMvc.perform(get("/api/companies/{id}", company.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(company.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(company.getId().toString()))
             .andExpect(jsonPath("$.slug").value(DEFAULT_SLUG))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.legalName").value(DEFAULT_LEGAL_NAME))
@@ -263,16 +265,10 @@ public class CompanyResourceIT {
         // Initialize the database
         companyRepository.saveAndFlush(company);
 
-        Long id = company.getId();
+        UUID id = company.getId();
 
         defaultCompanyShouldBeFound("id.equals=" + id);
         defaultCompanyShouldNotBeFound("id.notEquals=" + id);
-
-        defaultCompanyShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultCompanyShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultCompanyShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultCompanyShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -804,7 +800,7 @@ public class CompanyResourceIT {
         restCompanyMockMvc.perform(get("/api/companies?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(company.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(company.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].legalName").value(hasItem(DEFAULT_LEGAL_NAME)))
@@ -840,7 +836,7 @@ public class CompanyResourceIT {
     @Transactional
     public void getNonExistingCompany() throws Exception {
         // Get the company
-        restCompanyMockMvc.perform(get("/api/companies/{id}", Long.MAX_VALUE))
+        restCompanyMockMvc.perform(get("/api/companies/{id}", UUID.fromString("96414471-c85e-4d2a-a88f-88deabcfe8e3")))
             .andExpect(status().isNotFound());
     }
 

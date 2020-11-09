@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.dto;
 import com.greatescape.api.monolith.domain.Company;
 import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
+import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Setter
 public final class CompanyDTO implements Serializable {
 
-    private Long id;
+    private UUID id;
 
     @NotNull
     @Size(min = 2)

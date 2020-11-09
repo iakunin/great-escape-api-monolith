@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class CompanyResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the companyDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/companies/{id}")
-    public ResponseEntity<CompanyDTO> getCompany(@PathVariable Long id) {
+    public ResponseEntity<CompanyDTO> getCompany(@PathVariable UUID id) {
         log.debug("REST request to get Company : {}", id);
         Optional<CompanyDTO> companyDTO = companyService.findOne(id);
         return ResponseUtil.wrapOrNotFound(companyDTO);
@@ -141,7 +142,7 @@ public class CompanyResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/companies/{id}")
-    public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCompany(@PathVariable UUID id) {
         log.debug("REST request to delete Company : {}", id);
         companyService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

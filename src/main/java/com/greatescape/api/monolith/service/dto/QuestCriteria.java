@@ -10,6 +10,7 @@ import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -100,7 +101,7 @@ public final class QuestCriteria implements Serializable, Criteria {
 
     private LongFilter locationId;
 
-    private LongFilter companyId;
+    private UUIDFilter companyId;
 
     private LongFilter thematicId;
 

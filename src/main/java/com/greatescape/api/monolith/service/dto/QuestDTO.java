@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.Lob;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -61,7 +62,7 @@ public final class QuestDTO implements Serializable {
 
     private String locationAddress;
 
-    private Long companyId;
+    private UUID companyId;
 
     private String companyTitle;
 

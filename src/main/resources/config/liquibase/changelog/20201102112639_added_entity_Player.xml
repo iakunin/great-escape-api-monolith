@@ -34,7 +34,7 @@
             <column name="internal_user_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_player_internal_user_id" />
             </column>
-            <column name="company_id" type="bigint">
+            <column name="company_id" type="${uuidType}">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

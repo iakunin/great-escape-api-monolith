@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.service.mapper;
 
+import java.util.UUID;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class CompanyMapperTest {
 
     @Test
     public void testEntityFromId() {
-        Long id = 1L;
+        final UUID id = UUID.fromString("5c9cc85d-41e7-47d9-bf1b-b59ecd8563a2");
         Assertions.assertThat(companyMapper.fromId(id).getId()).isEqualTo(id);
         Assertions.assertThat(companyMapper.fromId(null)).isNull();
     }

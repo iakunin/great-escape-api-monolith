@@ -15,6 +15,7 @@ import com.greatescape.api.monolith.service.dto.QuestDTO;
 import com.greatescape.api.monolith.service.mapper.QuestMapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -1132,13 +1133,13 @@ public class QuestResourceIT {
         // Get already existing entity
         Company company = quest.getCompany();
         questRepository.saveAndFlush(quest);
-        Long companyId = company.getId();
+        UUID companyId = company.getId();
 
         // Get all the questList where company equals to companyId
         defaultQuestShouldBeFound("companyId.equals=" + companyId);
 
         // Get all the questList where company equals to companyId + 1
-        defaultQuestShouldNotBeFound("companyId.equals=" + (companyId + 1));
+        defaultQuestShouldNotBeFound("companyId.equals=" + UUID.fromString("e0c1b4e7-d8aa-46be-88cb-925464876755"));
     }
 
 

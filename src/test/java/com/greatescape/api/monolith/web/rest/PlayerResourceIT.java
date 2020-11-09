@@ -13,6 +13,7 @@ import com.greatescape.api.monolith.service.mapper.PlayerMapper;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -758,13 +759,13 @@ public class PlayerResourceIT {
         em.flush();
         player.setCompany(company);
         playerRepository.saveAndFlush(player);
-        Long companyId = company.getId();
+        UUID companyId = company.getId();
 
         // Get all the playerList where company equals to companyId
         defaultPlayerShouldBeFound("companyId.equals=" + companyId);
 
         // Get all the playerList where company equals to companyId + 1
-        defaultPlayerShouldNotBeFound("companyId.equals=" + (companyId + 1));
+        defaultPlayerShouldNotBeFound("companyId.equals=" + UUID.fromString("6dfecba8-39bb-43ef-9611-76c69228a7f8"));
     }
 
     /**
