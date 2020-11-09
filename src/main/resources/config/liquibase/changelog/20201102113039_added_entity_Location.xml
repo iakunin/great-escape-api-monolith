@@ -10,7 +10,7 @@
     -->
     <changeSet id="20201102113039-1" author="jhipster">
         <createTable tableName="location">
-            <column name="id" type="bigint">
+            <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="address" type="varchar(255)">
@@ -22,6 +22,10 @@
             <column name="city_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
+            <column name="created_at" type="${timestampWithTimeZoneType}" defaultValue="${now}">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="${timestampWithTimeZoneType}" />
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -32,7 +36,7 @@
             <column name="metro_id" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
-            <column name="location_id" type="bigint">
+            <column name="location_id" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -55,7 +59,7 @@
                   file="config/liquibase/fake-data/location.csv"
                   separator=";"
                   tableName="location">
-            <column name="id" type="numeric"/>
+            <column name="id" type="${uuidType}"/>
             <column name="address" type="string"/>
             <column name="address_explanation" type="clob"/>
             <column name="city_id" type="${uuidType}"/>

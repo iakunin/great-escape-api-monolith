@@ -377,7 +377,7 @@ public class LocationResourceIT {
         restLocationMockMvc.perform(get("/api/locations?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
             .andExpect(jsonPath("$.[*].addressExplanation").value(hasItem(DEFAULT_ADDRESS_EXPLANATION)));
 
@@ -409,7 +409,7 @@ public class LocationResourceIT {
     @Transactional
     public void getNonExistingLocation() throws Exception {
         // Get the location
-        restLocationMockMvc.perform(get("/api/locations/{id}", Long.MAX_VALUE))
+        restLocationMockMvc.perform(get("/api/locations/{id}", UUID.fromString("014847c1-7915-4f81-8736-bd87031d4c92")))
             .andExpect(status().isNotFound());
     }
 
