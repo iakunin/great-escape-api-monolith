@@ -74,40 +74,6 @@ public class Booking extends AbstractEntity {
     private Player player;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Booking status(BookingStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    public Booking price(Integer price) {
-        this.price = price;
-        return this;
-    }
-
-    public Booking discountInPercents(Integer discountInPercents) {
-        this.discountInPercents = discountInPercents;
-        return this;
-    }
-
-    public Booking commissionInPercents(Integer commissionInPercents) {
-        this.commissionInPercents = commissionInPercents;
-        return this;
-    }
-
-    public Booking slot(Slot slot) {
-        this.slot = slot;
-        return this;
-    }
-
-    public Booking quest(Quest quest) {
-        this.quest = quest;
-        return this;
-    }
-
-    public Booking player(Player player) {
-        this.player = player;
-        return this;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

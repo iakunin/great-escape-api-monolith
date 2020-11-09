@@ -83,10 +83,10 @@ public class BookingResourceIT {
      */
     public static Booking createEntity(EntityManager em) {
         Booking booking = new Booking()
-            .status(DEFAULT_STATUS)
-            .price(DEFAULT_PRICE)
-            .discountInPercents(DEFAULT_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(DEFAULT_COMMISSION_IN_PERCENTS);
+            .setStatus(DEFAULT_STATUS)
+            .setPrice(DEFAULT_PRICE)
+            .setDiscountInPercents(DEFAULT_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(DEFAULT_COMMISSION_IN_PERCENTS);
         // Add required entity
         Slot slot;
         if (TestUtil.findAll(em, Slot.class).isEmpty()) {
@@ -127,10 +127,10 @@ public class BookingResourceIT {
      */
     public static Booking createUpdatedEntity(EntityManager em) {
         Booking booking = new Booking()
-            .status(UPDATED_STATUS)
-            .price(UPDATED_PRICE)
-            .discountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
+            .setStatus(UPDATED_STATUS)
+            .setPrice(UPDATED_PRICE)
+            .setDiscountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
         // Add required entity
         Slot slot;
         if (TestUtil.findAll(em, Slot.class).isEmpty()) {
@@ -812,10 +812,10 @@ public class BookingResourceIT {
         // Disconnect from session so that the updates on updatedBooking are not directly saved in db
         em.detach(updatedBooking);
         updatedBooking
-            .status(UPDATED_STATUS)
-            .price(UPDATED_PRICE)
-            .discountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
-            .commissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
+            .setStatus(UPDATED_STATUS)
+            .setPrice(UPDATED_PRICE)
+            .setDiscountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
+            .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
         BookingDTO bookingDTO = bookingMapper.toDto(updatedBooking);
 
         restBookingMockMvc.perform(put("/api/bookings")
