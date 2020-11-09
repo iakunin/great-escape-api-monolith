@@ -8,7 +8,8 @@ import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
-import java.util.Objects;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Criteria class for the {@link Metro} entity. This class is used
@@ -19,6 +20,8 @@ import java.util.Objects;
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
+@Data
+@NoArgsConstructor
 public class MetroCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
@@ -31,9 +34,6 @@ public class MetroCriteria implements Serializable, Criteria {
 
     private LongFilter locationId;
 
-    public MetroCriteria() {
-    }
-
     public MetroCriteria(MetroCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.slug = other.slug == null ? null : other.slug.copy();
@@ -45,75 +45,4 @@ public class MetroCriteria implements Serializable, Criteria {
     public MetroCriteria copy() {
         return new MetroCriteria(this);
     }
-
-    public UUIDFilter getId() {
-        return id;
-    }
-
-    public void setId(UUIDFilter id) {
-        this.id = id;
-    }
-
-    public StringFilter getSlug() {
-        return slug;
-    }
-
-    public void setSlug(StringFilter slug) {
-        this.slug = slug;
-    }
-
-    public StringFilter getTitle() {
-        return title;
-    }
-
-    public void setTitle(StringFilter title) {
-        this.title = title;
-    }
-
-    public LongFilter getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(LongFilter locationId) {
-        this.locationId = locationId;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final MetroCriteria that = (MetroCriteria) o;
-        return
-            Objects.equals(id, that.id) &&
-            Objects.equals(slug, that.slug) &&
-            Objects.equals(title, that.title) &&
-            Objects.equals(locationId, that.locationId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-        id,
-        slug,
-        title,
-        locationId
-        );
-    }
-
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "MetroCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (slug != null ? "slug=" + slug + ", " : "") +
-                (title != null ? "title=" + title + ", " : "") +
-                (locationId != null ? "locationId=" + locationId + ", " : "") +
-            "}";
-    }
-
 }

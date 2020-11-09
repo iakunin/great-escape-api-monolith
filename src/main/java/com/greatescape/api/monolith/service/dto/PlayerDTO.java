@@ -8,11 +8,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link Player} entity.
  */
 @ApiModel(description = "@TODO: should be audited")
+@Getter
+@Setter
 public class PlayerDTO implements Serializable {
 
     private Long id;
@@ -32,13 +36,12 @@ public class PlayerDTO implements Serializable {
 
     private Gender gender;
 
-    private Boolean subscriptionAllowed;
+    private boolean subscriptionAllowed;
 
     /**
      * Mapping Application user (Player) to default jHipster's one
      */
     @ApiModelProperty(value = "Mapping Application user (Player) to default jHipster's one")
-
     private Long internalUserId;
 
     private String internalUserLogin;
@@ -46,94 +49,6 @@ public class PlayerDTO implements Serializable {
     private Long companyId;
 
     private String companyTitle;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public Boolean isSubscriptionAllowed() {
-        return subscriptionAllowed;
-    }
-
-    public void setSubscriptionAllowed(Boolean subscriptionAllowed) {
-        this.subscriptionAllowed = subscriptionAllowed;
-    }
-
-    public Long getInternalUserId() {
-        return internalUserId;
-    }
-
-    public void setInternalUserId(Long userId) {
-        this.internalUserId = userId;
-    }
-
-    public String getInternalUserLogin() {
-        return internalUserLogin;
-    }
-
-    public void setInternalUserLogin(String userLogin) {
-        this.internalUserLogin = userLogin;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getCompanyTitle() {
-        return companyTitle;
-    }
-
-    public void setCompanyTitle(String companyTitle) {
-        this.companyTitle = companyTitle;
-    }
 
     @Override
     public boolean equals(Object o) {

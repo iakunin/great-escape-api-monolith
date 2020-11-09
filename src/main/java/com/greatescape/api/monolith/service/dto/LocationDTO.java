@@ -4,13 +4,18 @@ import com.greatescape.api.monolith.domain.Location;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link Location} entity.
  */
+@Getter
+@Setter
 public class LocationDTO implements Serializable {
 
     private Long id;
@@ -23,58 +28,11 @@ public class LocationDTO implements Serializable {
     private String addressExplanation;
 
 
-    private Long cityId;
+    private UUID cityId;
 
     private String cityTitle;
+
     private Set<MetroDTO> metros = new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAddressExplanation() {
-        return addressExplanation;
-    }
-
-    public void setAddressExplanation(String addressExplanation) {
-        this.addressExplanation = addressExplanation;
-    }
-
-    public Long getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getCityTitle() {
-        return cityTitle;
-    }
-
-    public void setCityTitle(String cityTitle) {
-        this.cityTitle = cityTitle;
-    }
-
-    public Set<MetroDTO> getMetros() {
-        return metros;
-    }
-
-    public void setMetros(Set<MetroDTO> metros) {
-        this.metros = metros;
-    }
 
     @Override
     public boolean equals(Object o) {

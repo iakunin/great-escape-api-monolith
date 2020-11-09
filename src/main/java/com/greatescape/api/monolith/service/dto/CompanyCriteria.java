@@ -8,7 +8,8 @@ import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import java.io.Serializable;
-import java.util.Objects;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Criteria class for the {@link Company} entity. This class is used
@@ -19,6 +20,8 @@ import java.util.Objects;
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
+@Data
+@NoArgsConstructor
 public class CompanyCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
@@ -37,9 +40,6 @@ public class CompanyCriteria implements Serializable, Criteria {
 
     private IntegerFilter commissionInPercents;
 
-    public CompanyCriteria() {
-    }
-
     public CompanyCriteria(CompanyCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.slug = other.slug == null ? null : other.slug.copy();
@@ -54,108 +54,4 @@ public class CompanyCriteria implements Serializable, Criteria {
     public CompanyCriteria copy() {
         return new CompanyCriteria(this);
     }
-
-    public LongFilter getId() {
-        return id;
-    }
-
-    public void setId(LongFilter id) {
-        this.id = id;
-    }
-
-    public StringFilter getSlug() {
-        return slug;
-    }
-
-    public void setSlug(StringFilter slug) {
-        this.slug = slug;
-    }
-
-    public StringFilter getTitle() {
-        return title;
-    }
-
-    public void setTitle(StringFilter title) {
-        this.title = title;
-    }
-
-    public StringFilter getLegalName() {
-        return legalName;
-    }
-
-    public void setLegalName(StringFilter legalName) {
-        this.legalName = legalName;
-    }
-
-    public StringFilter getTaxpayerNumber() {
-        return taxpayerNumber;
-    }
-
-    public void setTaxpayerNumber(StringFilter taxpayerNumber) {
-        this.taxpayerNumber = taxpayerNumber;
-    }
-
-    public IntegerFilter getDiscountInPercents() {
-        return discountInPercents;
-    }
-
-    public void setDiscountInPercents(IntegerFilter discountInPercents) {
-        this.discountInPercents = discountInPercents;
-    }
-
-    public IntegerFilter getCommissionInPercents() {
-        return commissionInPercents;
-    }
-
-    public void setCommissionInPercents(IntegerFilter commissionInPercents) {
-        this.commissionInPercents = commissionInPercents;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final CompanyCriteria that = (CompanyCriteria) o;
-        return
-            Objects.equals(id, that.id) &&
-            Objects.equals(slug, that.slug) &&
-            Objects.equals(title, that.title) &&
-            Objects.equals(legalName, that.legalName) &&
-            Objects.equals(taxpayerNumber, that.taxpayerNumber) &&
-            Objects.equals(discountInPercents, that.discountInPercents) &&
-            Objects.equals(commissionInPercents, that.commissionInPercents);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-        id,
-        slug,
-        title,
-        legalName,
-        taxpayerNumber,
-        discountInPercents,
-        commissionInPercents
-        );
-    }
-
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "CompanyCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (slug != null ? "slug=" + slug + ", " : "") +
-                (title != null ? "title=" + title + ", " : "") +
-                (legalName != null ? "legalName=" + legalName + ", " : "") +
-                (taxpayerNumber != null ? "taxpayerNumber=" + taxpayerNumber + ", " : "") +
-                (discountInPercents != null ? "discountInPercents=" + discountInPercents + ", " : "") +
-                (commissionInPercents != null ? "commissionInPercents=" + commissionInPercents + ", " : "") +
-            "}";
-    }
-
 }

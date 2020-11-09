@@ -7,7 +7,8 @@ import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LongFilter;
 import java.io.Serializable;
-import java.util.Objects;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Criteria class for the {@link QuestIntegrationSetting} entity. This class is used
@@ -18,14 +19,14 @@ import java.util.Objects;
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
+@Data
+@NoArgsConstructor
 public class QuestIntegrationSettingCriteria implements Serializable, Criteria {
     /**
      * Class for filtering QuestIntegrationType
      */
+    @NoArgsConstructor
     public static class QuestIntegrationTypeFilter extends Filter<QuestIntegrationType> {
-
-        public QuestIntegrationTypeFilter() {
-        }
 
         public QuestIntegrationTypeFilter(QuestIntegrationTypeFilter filter) {
             super(filter);
@@ -46,9 +47,6 @@ public class QuestIntegrationSettingCriteria implements Serializable, Criteria {
 
     private LongFilter questId;
 
-    public QuestIntegrationSettingCriteria() {
-    }
-
     public QuestIntegrationSettingCriteria(QuestIntegrationSettingCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.type = other.type == null ? null : other.type.copy();
@@ -59,64 +57,4 @@ public class QuestIntegrationSettingCriteria implements Serializable, Criteria {
     public QuestIntegrationSettingCriteria copy() {
         return new QuestIntegrationSettingCriteria(this);
     }
-
-    public LongFilter getId() {
-        return id;
-    }
-
-    public void setId(LongFilter id) {
-        this.id = id;
-    }
-
-    public QuestIntegrationTypeFilter getType() {
-        return type;
-    }
-
-    public void setType(QuestIntegrationTypeFilter type) {
-        this.type = type;
-    }
-
-    public LongFilter getQuestId() {
-        return questId;
-    }
-
-    public void setQuestId(LongFilter questId) {
-        this.questId = questId;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final QuestIntegrationSettingCriteria that = (QuestIntegrationSettingCriteria) o;
-        return
-            Objects.equals(id, that.id) &&
-            Objects.equals(type, that.type) &&
-            Objects.equals(questId, that.questId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-        id,
-        type,
-        questId
-        );
-    }
-
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "QuestIntegrationSettingCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (type != null ? "type=" + type + ", " : "") +
-                (questId != null ? "questId=" + questId + ", " : "") +
-            "}";
-    }
-
 }

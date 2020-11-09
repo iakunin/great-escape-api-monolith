@@ -10,11 +10,15 @@ import javax.persistence.Lob;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link Slot} entity.
  */
 @ApiModel(description = "@TODO: should be audited (with cleanup older than 6 months).\nThere could be Bookings on some Slots: just don't delete such Slots")
+@Getter
+@Setter
 public class SlotDTO implements Serializable {
 
     private Long id;
@@ -50,98 +54,9 @@ public class SlotDTO implements Serializable {
     @Lob
     private String externalState;
 
-
     private Long questId;
 
     private String questTitle;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Instant getDateTimeLocal() {
-        return dateTimeLocal;
-    }
-
-    public void setDateTimeLocal(Instant dateTimeLocal) {
-        this.dateTimeLocal = dateTimeLocal;
-    }
-
-    public ZonedDateTime getDateTimeWithTimeZone() {
-        return dateTimeWithTimeZone;
-    }
-
-    public void setDateTimeWithTimeZone(ZonedDateTime dateTimeWithTimeZone) {
-        this.dateTimeWithTimeZone = dateTimeWithTimeZone;
-    }
-
-    public Boolean isIsAvailable() {
-        return isAvailable;
-    }
-
-    public void setIsAvailable(Boolean isAvailable) {
-        this.isAvailable = isAvailable;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Integer getDiscountInPercents() {
-        return discountInPercents;
-    }
-
-    public void setDiscountInPercents(Integer discountInPercents) {
-        this.discountInPercents = discountInPercents;
-    }
-
-    public Integer getCommissionInPercents() {
-        return commissionInPercents;
-    }
-
-    public void setCommissionInPercents(Integer commissionInPercents) {
-        this.commissionInPercents = commissionInPercents;
-    }
-
-    public String getExternalId() {
-        return externalId;
-    }
-
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
-    }
-
-    public String getExternalState() {
-        return externalState;
-    }
-
-    public void setExternalState(String externalState) {
-        this.externalState = externalState;
-    }
-
-    public Long getQuestId() {
-        return questId;
-    }
-
-    public void setQuestId(Long questId) {
-        this.questId = questId;
-    }
-
-    public String getQuestTitle() {
-        return questTitle;
-    }
-
-    public void setQuestTitle(String questTitle) {
-        this.questTitle = questTitle;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -167,7 +82,7 @@ public class SlotDTO implements Serializable {
             "id=" + getId() +
             ", dateTimeLocal='" + getDateTimeLocal() + "'" +
             ", dateTimeWithTimeZone='" + getDateTimeWithTimeZone() + "'" +
-            ", isAvailable='" + isIsAvailable() + "'" +
+            ", isAvailable='" + getIsAvailable() + "'" +
             ", price=" + getPrice() +
             ", discountInPercents=" + getDiscountInPercents() +
             ", commissionInPercents=" + getCommissionInPercents() +

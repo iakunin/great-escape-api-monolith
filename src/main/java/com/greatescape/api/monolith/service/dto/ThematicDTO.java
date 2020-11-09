@@ -4,10 +4,14 @@ import com.greatescape.api.monolith.domain.Thematic;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link Thematic} entity.
  */
+@Getter
+@Setter
 public class ThematicDTO implements Serializable {
 
     private Long id;
@@ -19,31 +23,6 @@ public class ThematicDTO implements Serializable {
     @NotNull
     @Size(min = 2)
     private String title;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     @Override
     public boolean equals(Object o) {

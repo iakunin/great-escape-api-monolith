@@ -5,10 +5,14 @@ import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link Metro} entity.
  */
+@Getter
+@Setter
 public class MetroDTO implements Serializable {
 
     private UUID id;
@@ -20,31 +24,6 @@ public class MetroDTO implements Serializable {
     @NotNull
     @Size(min = 2)
     private String title;
-
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     @Override
     public boolean equals(Object o) {

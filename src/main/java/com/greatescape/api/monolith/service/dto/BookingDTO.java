@@ -8,10 +8,14 @@ import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link Booking} entity.
  */
+@Getter
+@Setter
 public class BookingDTO implements Serializable {
 
     private UUID id;
@@ -44,7 +48,6 @@ public class BookingDTO implements Serializable {
     @ApiModelProperty(value = "@TODO: save calculated commission, cause it's mutable", required = true)
     private Integer commissionInPercents;
 
-
     private Long slotId;
 
     private String slotDateTimeLocal;
@@ -56,94 +59,6 @@ public class BookingDTO implements Serializable {
     private Long playerId;
 
     private String playerPhone;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public BookingStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(BookingStatus status) {
-        this.status = status;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Integer getDiscountInPercents() {
-        return discountInPercents;
-    }
-
-    public void setDiscountInPercents(Integer discountInPercents) {
-        this.discountInPercents = discountInPercents;
-    }
-
-    public Integer getCommissionInPercents() {
-        return commissionInPercents;
-    }
-
-    public void setCommissionInPercents(Integer commissionInPercents) {
-        this.commissionInPercents = commissionInPercents;
-    }
-
-    public Long getSlotId() {
-        return slotId;
-    }
-
-    public void setSlotId(Long slotId) {
-        this.slotId = slotId;
-    }
-
-    public String getSlotDateTimeLocal() {
-        return slotDateTimeLocal;
-    }
-
-    public void setSlotDateTimeLocal(String slotDateTimeLocal) {
-        this.slotDateTimeLocal = slotDateTimeLocal;
-    }
-
-    public Long getQuestId() {
-        return questId;
-    }
-
-    public void setQuestId(Long questId) {
-        this.questId = questId;
-    }
-
-    public String getQuestTitle() {
-        return questTitle;
-    }
-
-    public void setQuestTitle(String questTitle) {
-        this.questTitle = questTitle;
-    }
-
-    public Long getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(Long playerId) {
-        this.playerId = playerId;
-    }
-
-    public String getPlayerPhone() {
-        return playerPhone;
-    }
-
-    public void setPlayerPhone(String playerPhone) {
-        this.playerPhone = playerPhone;
-    }
 
     @Override
     public boolean equals(Object o) {

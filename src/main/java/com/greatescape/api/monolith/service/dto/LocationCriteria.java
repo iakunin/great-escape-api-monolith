@@ -8,7 +8,8 @@ import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
-import java.util.Objects;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Criteria class for the {@link Location} entity. This class is used
@@ -19,6 +20,8 @@ import java.util.Objects;
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
+@Data
+@NoArgsConstructor
 public class LocationCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
@@ -27,12 +30,9 @@ public class LocationCriteria implements Serializable, Criteria {
 
     private StringFilter address;
 
-    private LongFilter cityId;
+    private UUIDFilter cityId;
 
     private UUIDFilter metroId;
-
-    public LocationCriteria() {
-    }
 
     public LocationCriteria(LocationCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
@@ -45,75 +45,4 @@ public class LocationCriteria implements Serializable, Criteria {
     public LocationCriteria copy() {
         return new LocationCriteria(this);
     }
-
-    public LongFilter getId() {
-        return id;
-    }
-
-    public void setId(LongFilter id) {
-        this.id = id;
-    }
-
-    public StringFilter getAddress() {
-        return address;
-    }
-
-    public void setAddress(StringFilter address) {
-        this.address = address;
-    }
-
-    public LongFilter getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(LongFilter cityId) {
-        this.cityId = cityId;
-    }
-
-    public UUIDFilter getMetroId() {
-        return metroId;
-    }
-
-    public void setMetroId(UUIDFilter metroId) {
-        this.metroId = metroId;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final LocationCriteria that = (LocationCriteria) o;
-        return
-            Objects.equals(id, that.id) &&
-            Objects.equals(address, that.address) &&
-            Objects.equals(cityId, that.cityId) &&
-            Objects.equals(metroId, that.metroId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-        id,
-        address,
-        cityId,
-        metroId
-        );
-    }
-
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "LocationCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (address != null ? "address=" + address + ", " : "") +
-                (cityId != null ? "cityId=" + cityId + ", " : "") +
-                (metroId != null ? "metroId=" + metroId + ", " : "") +
-            "}";
-    }
-
 }

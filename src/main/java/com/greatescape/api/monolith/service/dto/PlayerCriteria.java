@@ -10,7 +10,8 @@ import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import java.io.Serializable;
-import java.util.Objects;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Criteria class for the {@link Player} entity. This class is used
@@ -21,14 +22,14 @@ import java.util.Objects;
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
+@Data
+@NoArgsConstructor
 public class PlayerCriteria implements Serializable, Criteria {
     /**
      * Class for filtering Gender
      */
+    @NoArgsConstructor
     public static class GenderFilter extends Filter<Gender> {
-
-        public GenderFilter() {
-        }
 
         public GenderFilter(GenderFilter filter) {
             super(filter);
@@ -61,9 +62,6 @@ public class PlayerCriteria implements Serializable, Criteria {
 
     private LongFilter companyId;
 
-    public PlayerCriteria() {
-    }
-
     public PlayerCriteria(PlayerCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
@@ -80,130 +78,4 @@ public class PlayerCriteria implements Serializable, Criteria {
     public PlayerCriteria copy() {
         return new PlayerCriteria(this);
     }
-
-    public LongFilter getId() {
-        return id;
-    }
-
-    public void setId(LongFilter id) {
-        this.id = id;
-    }
-
-    public StringFilter getName() {
-        return name;
-    }
-
-    public void setName(StringFilter name) {
-        this.name = name;
-    }
-
-    public StringFilter getPhone() {
-        return phone;
-    }
-
-    public void setPhone(StringFilter phone) {
-        this.phone = phone;
-    }
-
-    public StringFilter getEmail() {
-        return email;
-    }
-
-    public void setEmail(StringFilter email) {
-        this.email = email;
-    }
-
-    public LocalDateFilter getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDateFilter birthday) {
-        this.birthday = birthday;
-    }
-
-    public GenderFilter getGender() {
-        return gender;
-    }
-
-    public void setGender(GenderFilter gender) {
-        this.gender = gender;
-    }
-
-    public BooleanFilter getSubscriptionAllowed() {
-        return subscriptionAllowed;
-    }
-
-    public void setSubscriptionAllowed(BooleanFilter subscriptionAllowed) {
-        this.subscriptionAllowed = subscriptionAllowed;
-    }
-
-    public LongFilter getInternalUserId() {
-        return internalUserId;
-    }
-
-    public void setInternalUserId(LongFilter internalUserId) {
-        this.internalUserId = internalUserId;
-    }
-
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final PlayerCriteria that = (PlayerCriteria) o;
-        return
-            Objects.equals(id, that.id) &&
-            Objects.equals(name, that.name) &&
-            Objects.equals(phone, that.phone) &&
-            Objects.equals(email, that.email) &&
-            Objects.equals(birthday, that.birthday) &&
-            Objects.equals(gender, that.gender) &&
-            Objects.equals(subscriptionAllowed, that.subscriptionAllowed) &&
-            Objects.equals(internalUserId, that.internalUserId) &&
-            Objects.equals(companyId, that.companyId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-        id,
-        name,
-        phone,
-        email,
-        birthday,
-        gender,
-        subscriptionAllowed,
-        internalUserId,
-        companyId
-        );
-    }
-
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "PlayerCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
-                (phone != null ? "phone=" + phone + ", " : "") +
-                (email != null ? "email=" + email + ", " : "") +
-                (birthday != null ? "birthday=" + birthday + ", " : "") +
-                (gender != null ? "gender=" + gender + ", " : "") +
-                (subscriptionAllowed != null ? "subscriptionAllowed=" + subscriptionAllowed + ", " : "") +
-                (internalUserId != null ? "internalUserId=" + internalUserId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
-            "}";
-    }
-
 }

@@ -8,11 +8,15 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link Company} entity.
  */
 @ApiModel(description = "@TODO: should be audited")
+@Getter
+@Setter
 public class CompanyDTO implements Serializable {
 
     private Long id;
@@ -39,63 +43,6 @@ public class CompanyDTO implements Serializable {
     @Min(value = 0)
     @Max(value = 100)
     private Integer commissionInPercents;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getLegalName() {
-        return legalName;
-    }
-
-    public void setLegalName(String legalName) {
-        this.legalName = legalName;
-    }
-
-    public String getTaxpayerNumber() {
-        return taxpayerNumber;
-    }
-
-    public void setTaxpayerNumber(String taxpayerNumber) {
-        this.taxpayerNumber = taxpayerNumber;
-    }
-
-    public Integer getDiscountInPercents() {
-        return discountInPercents;
-    }
-
-    public void setDiscountInPercents(Integer discountInPercents) {
-        this.discountInPercents = discountInPercents;
-    }
-
-    public Integer getCommissionInPercents() {
-        return commissionInPercents;
-    }
-
-    public void setCommissionInPercents(Integer commissionInPercents) {
-        this.commissionInPercents = commissionInPercents;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -4,10 +4,14 @@ import com.greatescape.api.monolith.domain.Subscriber;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link Subscriber} entity.
  */
+@Getter
+@Setter
 public class SubscriberDTO implements Serializable {
 
     private Long id;
@@ -18,31 +22,6 @@ public class SubscriberDTO implements Serializable {
     @NotNull
     @Pattern(regexp = "^\\S+@\\S+$")
     private String email;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     @Override
     public boolean equals(Object o) {

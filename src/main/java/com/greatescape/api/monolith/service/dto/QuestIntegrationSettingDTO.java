@@ -6,10 +6,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link QuestIntegrationSetting} entity.
  */
+@Getter
+@Setter
 public class QuestIntegrationSettingDTO implements Serializable {
 
     private Long id;
@@ -24,50 +28,9 @@ public class QuestIntegrationSettingDTO implements Serializable {
     @Lob
     private String settings;
 
-
     private Long questId;
 
     private String questTitle;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public QuestIntegrationType getType() {
-        return type;
-    }
-
-    public void setType(QuestIntegrationType type) {
-        this.type = type;
-    }
-
-    public String getSettings() {
-        return settings;
-    }
-
-    public void setSettings(String settings) {
-        this.settings = settings;
-    }
-
-    public Long getQuestId() {
-        return questId;
-    }
-
-    public void setQuestId(Long questId) {
-        this.questId = questId;
-    }
-
-    public String getQuestTitle() {
-        return questTitle;
-    }
-
-    public void setQuestTitle(String questTitle) {
-        this.questTitle = questTitle;
-    }
 
     @Override
     public boolean equals(Object o) {
