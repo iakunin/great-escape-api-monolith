@@ -1,15 +1,12 @@
 package com.greatescape.api.monolith.domain;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,16 +14,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A City.
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "city")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class City implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
+public class City extends AbstractEntity {
 
     @NotNull
     @Size(min = 2)
@@ -47,52 +39,6 @@ public class City implements Serializable {
     private String timezone;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public City slug(String slug) {
-        this.slug = slug;
-        return this;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public City title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTimezone() {
-        return timezone;
-    }
-
-    public City timezone(String timezone) {
-        this.timezone = timezone;
-        return this;
-    }
-
-    public void setTimezone(String timezone) {
-        this.timezone = timezone;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

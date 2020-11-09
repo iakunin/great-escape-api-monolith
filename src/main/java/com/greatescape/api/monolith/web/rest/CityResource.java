@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class CityResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the cityDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/cities/{id}")
-    public ResponseEntity<CityDTO> getCity(@PathVariable Long id) {
+    public ResponseEntity<CityDTO> getCity(@PathVariable UUID id) {
         log.debug("REST request to get City : {}", id);
         Optional<CityDTO> cityDTO = cityService.findOne(id);
         return ResponseUtil.wrapOrNotFound(cityDTO);
@@ -141,7 +142,7 @@ public class CityResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/cities/{id}")
-    public ResponseEntity<Void> deleteCity(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCity(@PathVariable UUID id) {
         log.debug("REST request to delete City : {}", id);
         cityService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

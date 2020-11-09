@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.domain;
 
+import java.util.UUID;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
@@ -9,7 +10,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class City_ {
 
 	public static volatile SingularAttribute<City, String> timezone;
-	public static volatile SingularAttribute<City, Long> id;
+	public static volatile SingularAttribute<City, UUID> id;
 	public static volatile SingularAttribute<City, String> title;
 	public static volatile SingularAttribute<City, String> slug;
 

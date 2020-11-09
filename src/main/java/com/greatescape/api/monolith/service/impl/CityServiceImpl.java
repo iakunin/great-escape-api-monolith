@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.CityService;
 import com.greatescape.api.monolith.service.dto.CityDTO;
 import com.greatescape.api.monolith.service.mapper.CityMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class CityServiceImpl implements CityService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<CityDTO> findOne(Long id) {
+    public Optional<CityDTO> findOne(UUID id) {
         log.debug("Request to get City : {}", id);
         return cityRepository.findById(id)
             .map(cityMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete City : {}", id);
         cityRepository.deleteById(id);
     }

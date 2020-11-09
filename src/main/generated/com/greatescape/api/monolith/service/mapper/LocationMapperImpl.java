@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -104,7 +105,7 @@ public class LocationMapperImpl implements LocationMapper {
         return title;
     }
 
-    private Long locationCityId(Location location) {
+    private UUID locationCityId(Location location) {
         if ( location == null ) {
             return null;
         }
@@ -112,7 +113,7 @@ public class LocationMapperImpl implements LocationMapper {
         if ( city == null ) {
             return null;
         }
-        Long id = city.getId();
+        UUID id = city.getId();
         if ( id == null ) {
             return null;
         }

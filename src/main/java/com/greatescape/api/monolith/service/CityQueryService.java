@@ -84,7 +84,7 @@ public class CityQueryService extends QueryService<City> {
         Specification<City> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), City_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), City_.id));
             }
             if (criteria.getSlug() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getSlug(), City_.slug));

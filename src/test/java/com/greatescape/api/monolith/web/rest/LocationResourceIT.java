@@ -345,13 +345,13 @@ public class LocationResourceIT {
         // Get already existing entity
         City city = location.getCity();
         locationRepository.saveAndFlush(location);
-        Long cityId = city.getId();
+        UUID cityId = city.getId();
 
         // Get all the locationList where city equals to cityId
         defaultLocationShouldBeFound("cityId.equals=" + cityId);
 
         // Get all the locationList where city equals to cityId + 1
-        defaultLocationShouldNotBeFound("cityId.equals=" + (cityId + 1));
+        defaultLocationShouldNotBeFound("cityId.equals=" + UUID.fromString("1ab5c61d-9901-4cb4-9126-236543f8021d"));
     }
 
 

@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.service.CityService;
 import com.greatescape.api.monolith.service.dto.CityDTO;
 import com.greatescape.api.monolith.service.mapper.CityMapper;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -73,9 +74,9 @@ public class CityResourceIT {
      */
     public static City createEntity(EntityManager em) {
         City city = new City()
-            .slug(DEFAULT_SLUG)
-            .title(DEFAULT_TITLE)
-            .timezone(DEFAULT_TIMEZONE);
+            .setSlug(DEFAULT_SLUG)
+            .setTitle(DEFAULT_TITLE)
+            .setTimezone(DEFAULT_TIMEZONE);
         return city;
     }
     /**
@@ -86,9 +87,9 @@ public class CityResourceIT {
      */
     public static City createUpdatedEntity(EntityManager em) {
         City city = new City()
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE)
-            .timezone(UPDATED_TIMEZONE);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE)
+            .setTimezone(UPDATED_TIMEZONE);
         return city;
     }
 
@@ -120,11 +121,12 @@ public class CityResourceIT {
     @Test
     @Transactional
     public void createCityWithExistingId() throws Exception {
+        final City city = cityRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = cityRepository.findAll().size();
 
         // Create the City with an existing ID
-        city.setId(1L);
-        CityDTO cityDTO = cityMapper.toDto(city);
+        this.city.setId(city.getId());
+        CityDTO cityDTO = cityMapper.toDto(this.city);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCityMockMvc.perform(post("/api/cities")
@@ -208,7 +210,7 @@ public class CityResourceIT {
         restCityMockMvc.perform(get("/api/cities?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].timezone").value(hasItem(DEFAULT_TIMEZONE)));
@@ -224,7 +226,7 @@ public class CityResourceIT {
         restCityMockMvc.perform(get("/api/cities/{id}", city.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(city.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(city.getId().toString()))
             .andExpect(jsonPath("$.slug").value(DEFAULT_SLUG))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.timezone").value(DEFAULT_TIMEZONE));
@@ -237,16 +239,10 @@ public class CityResourceIT {
         // Initialize the database
         cityRepository.saveAndFlush(city);
 
-        Long id = city.getId();
+        UUID id = city.getId();
 
         defaultCityShouldBeFound("id.equals=" + id);
         defaultCityShouldNotBeFound("id.notEquals=" + id);
-
-        defaultCityShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultCityShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultCityShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultCityShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -490,7 +486,7 @@ public class CityResourceIT {
         restCityMockMvc.perform(get("/api/cities?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].timezone").value(hasItem(DEFAULT_TIMEZONE)));
@@ -523,7 +519,7 @@ public class CityResourceIT {
     @Transactional
     public void getNonExistingCity() throws Exception {
         // Get the city
-        restCityMockMvc.perform(get("/api/cities/{id}", Long.MAX_VALUE))
+        restCityMockMvc.perform(get("/api/cities/{id}", UUID.fromString("ae69808b-0bc6-47d7-b5fa-8c116c49e4d0")))
             .andExpect(status().isNotFound());
     }
 
@@ -540,9 +536,9 @@ public class CityResourceIT {
         // Disconnect from session so that the updates on updatedCity are not directly saved in db
         em.detach(updatedCity);
         updatedCity
-            .slug(UPDATED_SLUG)
-            .title(UPDATED_TITLE)
-            .timezone(UPDATED_TIMEZONE);
+            .setSlug(UPDATED_SLUG)
+            .setTitle(UPDATED_TITLE)
+            .setTimezone(UPDATED_TIMEZONE);
         CityDTO cityDTO = cityMapper.toDto(updatedCity);
 
         restCityMockMvc.perform(put("/api/cities")

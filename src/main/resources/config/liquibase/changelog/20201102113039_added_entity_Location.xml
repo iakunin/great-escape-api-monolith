@@ -19,7 +19,7 @@
             <column name="address_explanation" type="${clobType}">
                 <constraints nullable="true" />
             </column>
-            <column name="city_id" type="bigint">
+            <column name="city_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -58,7 +58,7 @@
             <column name="id" type="numeric"/>
             <column name="address" type="string"/>
             <column name="address_explanation" type="clob"/>
-            <column name="city_id" type="numeric"/>
+            <column name="city_id" type="${uuidType}"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
