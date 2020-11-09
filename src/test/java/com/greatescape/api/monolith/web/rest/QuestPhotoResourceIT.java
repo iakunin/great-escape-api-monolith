@@ -342,8 +342,9 @@ public class QuestPhotoResourceIT {
     @Transactional
     public void getNonExistingQuestPhoto() throws Exception {
         // Get the questPhoto
-        restQuestPhotoMockMvc.perform(get("/api/quest-photos/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restQuestPhotoMockMvc.perform(
+            get("/api/quest-photos/{id}", UUID.fromString("e7b07a49-4ae3-49d0-88bd-6dbf1a428997"))
+        ).andExpect(status().isNotFound());
     }
 
     @Test
