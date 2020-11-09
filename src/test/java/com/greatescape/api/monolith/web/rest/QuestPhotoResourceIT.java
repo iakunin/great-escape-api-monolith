@@ -130,11 +130,12 @@ public class QuestPhotoResourceIT {
     @Test
     @Transactional
     public void createQuestPhotoWithExistingId() throws Exception {
+        final QuestPhoto questPhoto = questPhotoRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = questPhotoRepository.findAll().size();
 
         // Create the QuestPhoto with an existing ID
-        questPhoto.setId(1L);
-        QuestPhotoDTO questPhotoDTO = questPhotoMapper.toDto(questPhoto);
+        this.questPhoto.setId(questPhoto.getId());
+        QuestPhotoDTO questPhotoDTO = questPhotoMapper.toDto(this.questPhoto);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restQuestPhotoMockMvc.perform(post("/api/quest-photos")
@@ -178,7 +179,7 @@ public class QuestPhotoResourceIT {
         restQuestPhotoMockMvc.perform(get("/api/quest-photos?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(questPhoto.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(questPhoto.getId().toString())))
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)));
     }
 
@@ -192,7 +193,7 @@ public class QuestPhotoResourceIT {
         restQuestPhotoMockMvc.perform(get("/api/quest-photos/{id}", questPhoto.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(questPhoto.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(questPhoto.getId().toString()))
             .andExpect(jsonPath("$.url").value(DEFAULT_URL));
     }
 
@@ -203,16 +204,10 @@ public class QuestPhotoResourceIT {
         // Initialize the database
         questPhotoRepository.saveAndFlush(questPhoto);
 
-        Long id = questPhoto.getId();
+        UUID id = questPhoto.getId();
 
         defaultQuestPhotoShouldBeFound("id.equals=" + id);
         defaultQuestPhotoShouldNotBeFound("id.notEquals=" + id);
-
-        defaultQuestPhotoShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultQuestPhotoShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultQuestPhotoShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultQuestPhotoShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -316,7 +311,7 @@ public class QuestPhotoResourceIT {
         restQuestPhotoMockMvc.perform(get("/api/quest-photos?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(questPhoto.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(questPhoto.getId().toString())))
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)));
 
         // Check, that the count call also returns 1

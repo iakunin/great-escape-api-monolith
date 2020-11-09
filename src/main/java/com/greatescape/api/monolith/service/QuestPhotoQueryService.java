@@ -86,7 +86,7 @@ public class QuestPhotoQueryService extends QueryService<QuestPhoto> {
         Specification<QuestPhoto> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), QuestPhoto_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), QuestPhoto_.id));
             }
             if (criteria.getUrl() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getUrl(), QuestPhoto_.url));

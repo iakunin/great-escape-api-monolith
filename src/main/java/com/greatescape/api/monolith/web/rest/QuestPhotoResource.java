@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class QuestPhotoResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the questPhotoDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/quest-photos/{id}")
-    public ResponseEntity<QuestPhotoDTO> getQuestPhoto(@PathVariable Long id) {
+    public ResponseEntity<QuestPhotoDTO> getQuestPhoto(@PathVariable UUID id) {
         log.debug("REST request to get QuestPhoto : {}", id);
         Optional<QuestPhotoDTO> questPhotoDTO = questPhotoService.findOne(id);
         return ResponseUtil.wrapOrNotFound(questPhotoDTO);
@@ -141,7 +142,7 @@ public class QuestPhotoResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/quest-photos/{id}")
-    public ResponseEntity<Void> deleteQuestPhoto(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteQuestPhoto(@PathVariable UUID id) {
         log.debug("REST request to delete QuestPhoto : {}", id);
         questPhotoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

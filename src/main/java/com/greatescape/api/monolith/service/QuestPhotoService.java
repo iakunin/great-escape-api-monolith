@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service;
 import com.greatescape.api.monolith.domain.QuestPhoto;
 import com.greatescape.api.monolith.service.dto.QuestPhotoDTO;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,12 +35,12 @@ public interface QuestPhotoService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<QuestPhotoDTO> findOne(Long id);
+    Optional<QuestPhotoDTO> findOne(UUID id);
 
     /**
      * Delete the "id" questPhoto.
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(UUID id);
 }

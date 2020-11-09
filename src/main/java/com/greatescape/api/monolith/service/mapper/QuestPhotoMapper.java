@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.mapper;
 
 import com.greatescape.api.monolith.domain.QuestPhoto;
 import com.greatescape.api.monolith.service.dto.QuestPhotoDTO;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,9 +18,11 @@ public interface QuestPhotoMapper extends EntityMapper<QuestPhotoDTO, QuestPhoto
     QuestPhotoDTO toDto(QuestPhoto questPhoto);
 
     @Mapping(source = "questId", target = "quest")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     QuestPhoto toEntity(QuestPhotoDTO questPhotoDTO);
 
-    default QuestPhoto fromId(Long id) {
+    default QuestPhoto fromId(UUID id) {
         if (id == null) {
             return null;
         }

@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.repository;
 
 import com.greatescape.api.monolith.domain.QuestPhoto;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -10,5 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface QuestPhotoRepository extends JpaRepository<QuestPhoto, Long>, JpaSpecificationExecutor<QuestPhoto> {
+public interface QuestPhotoRepository
+    extends JpaRepository<QuestPhoto, UUID>, JpaSpecificationExecutor<QuestPhoto> {
 }

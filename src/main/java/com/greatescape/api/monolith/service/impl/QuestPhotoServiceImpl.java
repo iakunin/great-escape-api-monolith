@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.QuestPhotoService;
 import com.greatescape.api.monolith.service.dto.QuestPhotoDTO;
 import com.greatescape.api.monolith.service.mapper.QuestPhotoMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class QuestPhotoServiceImpl implements QuestPhotoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<QuestPhotoDTO> findOne(Long id) {
+    public Optional<QuestPhotoDTO> findOne(UUID id) {
         log.debug("Request to get QuestPhoto : {}", id);
         return questPhotoRepository.findById(id)
             .map(questPhotoMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete QuestPhoto : {}", id);
         questPhotoRepository.deleteById(id);
     }
