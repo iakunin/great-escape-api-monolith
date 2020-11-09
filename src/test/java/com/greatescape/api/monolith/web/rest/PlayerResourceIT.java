@@ -806,7 +806,7 @@ public class PlayerResourceIT {
     @Transactional
     public void getNonExistingPlayer() throws Exception {
         // Get the player
-        restPlayerMockMvc.perform(get("/api/players/{id}", Long.MAX_VALUE))
+        restPlayerMockMvc.perform(get("/api/players/{id}", UUID.fromString("6c7c5653-09cd-4178-8609-0b4cdd5692f5")))
             .andExpect(status().isNotFound());
     }
 

@@ -31,7 +31,7 @@
             <column name="quest_id" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="player_id" type="bigint">
+            <column name="player_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
             <column name="created_at" type="${timestampWithTimeZoneType}" defaultValue="${now}">
@@ -67,7 +67,7 @@
             <column name="commission_in_percents" type="numeric"/>
             <column name="slot_id" type="numeric"/>
             <column name="quest_id" type="numeric"/>
-            <column name="player_id" type="numeric"/>
+            <column name="player_id" type="${uuidType}"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
