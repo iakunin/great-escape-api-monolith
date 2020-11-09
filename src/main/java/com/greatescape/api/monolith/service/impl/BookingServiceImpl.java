@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.BookingService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.service.mapper.BookingMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<BookingDTO> findOne(Long id) {
+    public Optional<BookingDTO> findOne(UUID id) {
         log.debug("Request to get Booking : {}", id);
         return bookingRepository.findById(id)
             .map(bookingMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete Booking : {}", id);
         bookingRepository.deleteById(id);
     }

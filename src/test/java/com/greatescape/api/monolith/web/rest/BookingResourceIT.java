@@ -12,6 +12,7 @@ import com.greatescape.api.monolith.service.BookingService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.service.mapper.BookingMapper;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -192,11 +193,12 @@ public class BookingResourceIT {
     @Test
     @Transactional
     public void createBookingWithExistingId() throws Exception {
+        final Booking booking = bookingRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = bookingRepository.findAll().size();
 
         // Create the Booking with an existing ID
-        booking.setId(1L);
-        BookingDTO bookingDTO = bookingMapper.toDto(booking);
+        this.booking.setId(booking.getId());
+        BookingDTO bookingDTO = bookingMapper.toDto(this.booking);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBookingMockMvc.perform(post("/api/bookings")
@@ -300,7 +302,7 @@ public class BookingResourceIT {
         restBookingMockMvc.perform(get("/api/bookings?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE)))
             .andExpect(jsonPath("$.[*].discountInPercents").value(hasItem(DEFAULT_DISCOUNT_IN_PERCENTS)))
@@ -317,7 +319,7 @@ public class BookingResourceIT {
         restBookingMockMvc.perform(get("/api/bookings/{id}", booking.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(booking.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(booking.getId().toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE))
             .andExpect(jsonPath("$.discountInPercents").value(DEFAULT_DISCOUNT_IN_PERCENTS))
@@ -331,16 +333,10 @@ public class BookingResourceIT {
         // Initialize the database
         bookingRepository.saveAndFlush(booking);
 
-        Long id = booking.getId();
+        final UUID id = booking.getId();
 
         defaultBookingShouldBeFound("id.equals=" + id);
         defaultBookingShouldNotBeFound("id.notEquals=" + id);
-
-        defaultBookingShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultBookingShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultBookingShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultBookingShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -765,7 +761,7 @@ public class BookingResourceIT {
         restBookingMockMvc.perform(get("/api/bookings?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE)))
             .andExpect(jsonPath("$.[*].discountInPercents").value(hasItem(DEFAULT_DISCOUNT_IN_PERCENTS)))
@@ -799,7 +795,7 @@ public class BookingResourceIT {
     @Transactional
     public void getNonExistingBooking() throws Exception {
         // Get the booking
-        restBookingMockMvc.perform(get("/api/bookings/{id}", Long.MAX_VALUE))
+        restBookingMockMvc.perform(get("/api/bookings/{id}", UUID.fromString("91e45cc5-d556-45cd-91e8-b4ab528c637f")))
             .andExpect(status().isNotFound());
     }
 

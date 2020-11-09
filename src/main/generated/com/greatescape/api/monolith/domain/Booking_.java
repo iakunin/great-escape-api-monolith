@@ -7,12 +7,11 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Booking.class)
-public abstract class Booking_ {
+public abstract class Booking_ extends com.greatescape.api.monolith.domain.AbstractEntity_ {
 
 	public static volatile SingularAttribute<Booking, Integer> commissionInPercents;
 	public static volatile SingularAttribute<Booking, Integer> price;
 	public static volatile SingularAttribute<Booking, Integer> discountInPercents;
-	public static volatile SingularAttribute<Booking, Long> id;
 	public static volatile SingularAttribute<Booking, Slot> slot;
 	public static volatile SingularAttribute<Booking, Quest> quest;
 	public static volatile SingularAttribute<Booking, BookingStatus> status;
@@ -21,7 +20,6 @@ public abstract class Booking_ {
 	public static final String COMMISSION_IN_PERCENTS = "commissionInPercents";
 	public static final String PRICE = "price";
 	public static final String DISCOUNT_IN_PERCENTS = "discountInPercents";
-	public static final String ID = "id";
 	public static final String SLOT = "slot";
 	public static final String QUEST = "quest";
 	public static final String STATUS = "status";

@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.mapper;
 
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -23,9 +24,11 @@ public interface BookingMapper extends EntityMapper<BookingDTO, Booking> {
     @Mapping(source = "slotId", target = "slot")
     @Mapping(source = "questId", target = "quest")
     @Mapping(source = "playerId", target = "player")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Booking toEntity(BookingDTO bookingDTO);
 
-    default Booking fromId(Long id) {
+    default Booking fromId(UUID id) {
         if (id == null) {
             return null;
         }

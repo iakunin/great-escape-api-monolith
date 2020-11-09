@@ -4,6 +4,7 @@ import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.domain.enumeration.BookingStatus;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 public class BookingDTO implements Serializable {
 
-    private Long id;
+    private UUID id;
 
     @NotNull
     private BookingStatus status;
@@ -56,11 +57,11 @@ public class BookingDTO implements Serializable {
 
     private String playerPhone;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

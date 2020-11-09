@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class BookingResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the bookingDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/bookings/{id}")
-    public ResponseEntity<BookingDTO> getBooking(@PathVariable Long id) {
+    public ResponseEntity<BookingDTO> getBooking(@PathVariable UUID id) {
         log.debug("REST request to get Booking : {}", id);
         Optional<BookingDTO> bookingDTO = bookingService.findOne(id);
         return ResponseUtil.wrapOrNotFound(bookingDTO);
@@ -141,7 +142,7 @@ public class BookingResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/bookings/{id}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBooking(@PathVariable UUID id) {
         log.debug("REST request to delete Booking : {}", id);
         bookingService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

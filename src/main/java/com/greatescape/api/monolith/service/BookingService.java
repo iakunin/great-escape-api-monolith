@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service;
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,12 +35,12 @@ public interface BookingService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<BookingDTO> findOne(Long id);
+    Optional<BookingDTO> findOne(UUID id);
 
     /**
      * Delete the "id" booking.
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(UUID id);
 }

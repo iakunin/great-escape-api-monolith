@@ -88,7 +88,7 @@ public class BookingQueryService extends QueryService<Booking> {
         Specification<Booking> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Booking_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), Booking_.id));
             }
             if (criteria.getStatus() != null) {
                 specification = specification.and(buildSpecification(criteria.getStatus(), Booking_.status));
