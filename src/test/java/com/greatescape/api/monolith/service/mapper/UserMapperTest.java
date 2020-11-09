@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.assertj.core.api.Assertions;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +19,7 @@ import org.junit.jupiter.api.Test;
 public class UserMapperTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";
-    private static final Long DEFAULT_ID = 1L;
+    private static final UUID DEFAULT_ID = UUID.fromString("2a47a55b-8121-43cd-8a7b-43db852f5034");
 
     private UserMapper userMapper;
     private User user;

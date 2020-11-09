@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.domain;
 
 import java.time.Instant;
+import java.util.UUID;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.MapAttribute;
 import javax.persistence.metamodel.SingularAttribute;
@@ -13,7 +14,7 @@ public abstract class PersistentAuditEvent_ {
 	public static volatile SingularAttribute<PersistentAuditEvent, String> principal;
 	public static volatile SingularAttribute<PersistentAuditEvent, Instant> auditEventDate;
 	public static volatile MapAttribute<PersistentAuditEvent, String, String> data;
-	public static volatile SingularAttribute<PersistentAuditEvent, Long> id;
+	public static volatile SingularAttribute<PersistentAuditEvent, UUID> id;
 	public static volatile SingularAttribute<PersistentAuditEvent, String> auditEventType;
 
 	public static final String PRINCIPAL = "principal";

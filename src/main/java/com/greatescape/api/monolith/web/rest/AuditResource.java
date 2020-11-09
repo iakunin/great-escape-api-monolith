@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,8 +75,8 @@ public class AuditResource {
      * @param id the id of the entity to get.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the {@link AuditEvent} in body, or status {@code 404 (Not Found)}.
      */
-    @GetMapping("/{id:.+}")
-    public ResponseEntity<AuditEvent> get(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<AuditEvent> get(@PathVariable UUID id) {
         return ResponseUtil.wrapOrNotFound(auditEventService.find(id));
     }
 }

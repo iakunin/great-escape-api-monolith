@@ -734,13 +734,13 @@ public class PlayerResourceIT {
         // Get already existing entity
         User internalUser = player.getInternalUser();
         playerRepository.saveAndFlush(player);
-        Long internalUserId = internalUser.getId();
+        UUID internalUserId = internalUser.getId();
 
         // Get all the playerList where internalUser equals to internalUserId
         defaultPlayerShouldBeFound("internalUserId.equals=" + internalUserId);
 
         // Get all the playerList where internalUser equals to internalUserId + 1
-        defaultPlayerShouldNotBeFound("internalUserId.equals=" + (internalUserId + 1));
+        defaultPlayerShouldNotBeFound("internalUserId.equals=" + UUID.fromString("bd1c8121-3cfc-4a1f-85d8-258f83e2955c"));
     }
 
 

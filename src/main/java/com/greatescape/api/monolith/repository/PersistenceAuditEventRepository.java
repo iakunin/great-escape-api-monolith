@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.repository;
 import com.greatescape.api.monolith.domain.PersistentAuditEvent;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Spring Data JPA repository for the {@link PersistentAuditEvent} entity.
  */
-public interface PersistenceAuditEventRepository extends JpaRepository<PersistentAuditEvent, Long> {
+public interface PersistenceAuditEventRepository extends JpaRepository<PersistentAuditEvent, UUID> {
 
     List<PersistentAuditEvent> findByPrincipal(String principal);
 

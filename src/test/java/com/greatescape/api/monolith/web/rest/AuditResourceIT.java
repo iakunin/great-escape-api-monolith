@@ -5,6 +5,7 @@ import com.greatescape.api.monolith.domain.PersistentAuditEvent;
 import com.greatescape.api.monolith.repository.PersistenceAuditEventRepository;
 import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import java.time.Instant;
+import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import org.junit.jupiter.api.BeforeEach;
@@ -120,11 +121,11 @@ public class AuditResourceIT {
     public void testPersistentAuditEventEquals() throws Exception {
         TestUtil.equalsVerifier(PersistentAuditEvent.class);
         PersistentAuditEvent auditEvent1 = new PersistentAuditEvent();
-        auditEvent1.setId(1L);
+        auditEvent1.setId(UUID.fromString("e07c106e-961d-4e36-aa21-bb6f40a561d9"));
         PersistentAuditEvent auditEvent2 = new PersistentAuditEvent();
         auditEvent2.setId(auditEvent1.getId());
         assertThat(auditEvent1).isEqualTo(auditEvent2);
-        auditEvent2.setId(2L);
+        auditEvent2.setId(UUID.fromString("919bbdca-aa03-4647-9fb5-be545b326547"));
         assertThat(auditEvent1).isNotEqualTo(auditEvent2);
         auditEvent1.setId(null);
         assertThat(auditEvent1).isNotEqualTo(auditEvent2);

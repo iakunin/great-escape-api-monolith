@@ -7,7 +7,6 @@ import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LocalDateFilter;
-import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
@@ -59,7 +58,7 @@ public final class PlayerCriteria implements Serializable, Criteria {
 
     private BooleanFilter subscriptionAllowed;
 
-    private LongFilter internalUserId;
+    private UUIDFilter internalUserId;
 
     private UUIDFilter companyId;
 

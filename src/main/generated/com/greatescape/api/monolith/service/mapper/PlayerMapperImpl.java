@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-09T19:21:46+0300",
+    date = "2020-11-09T19:35:43+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.9 (Oracle Corporation)"
 )
 @Component
@@ -143,7 +143,7 @@ public class PlayerMapperImpl implements PlayerMapper {
         return title;
     }
 
-    private Long playerInternalUserId(Player player) {
+    private UUID playerInternalUserId(Player player) {
         if ( player == null ) {
             return null;
         }
@@ -151,7 +151,7 @@ public class PlayerMapperImpl implements PlayerMapper {
         if ( internalUser == null ) {
             return null;
         }
-        Long id = internalUser.getId();
+        UUID id = internalUser.getId();
         if ( id == null ) {
             return null;
         }

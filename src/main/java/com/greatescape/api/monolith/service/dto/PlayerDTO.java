@@ -43,7 +43,7 @@ public final class PlayerDTO implements Serializable {
      * Mapping Application user (Player) to default jHipster's one
      */
     @ApiModelProperty(value = "Mapping Application user (Player) to default jHipster's one")
-    private Long internalUserId;
+    private UUID internalUserId;
 
     private String internalUserLogin;
 

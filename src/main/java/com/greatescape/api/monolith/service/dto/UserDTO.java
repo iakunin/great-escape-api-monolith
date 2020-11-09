@@ -5,6 +5,7 @@ import com.greatescape.api.monolith.domain.Authority;
 import com.greatescape.api.monolith.domain.User;
 import java.time.Instant;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserDTO {
 
-    private Long id;
+    private UUID id;
 
     @NotBlank
     @Pattern(regexp = Constants.LOGIN_REGEX)

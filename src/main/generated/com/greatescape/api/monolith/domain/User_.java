@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.domain;
 
 import java.time.Instant;
+import java.util.UUID;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
@@ -20,7 +21,7 @@ public abstract class User_ extends com.greatescape.api.monolith.domain.Abstract
 	public static volatile SingularAttribute<User, String> password;
 	public static volatile SingularAttribute<User, String> langKey;
 	public static volatile SingularAttribute<User, String> imageUrl;
-	public static volatile SingularAttribute<User, Long> id;
+	public static volatile SingularAttribute<User, UUID> id;
 	public static volatile SingularAttribute<User, String> email;
 	public static volatile SingularAttribute<User, Boolean> activated;
 
