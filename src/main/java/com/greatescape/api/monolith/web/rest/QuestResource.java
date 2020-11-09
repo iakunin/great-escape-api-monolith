@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class QuestResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the questDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/quests/{id}")
-    public ResponseEntity<QuestDTO> getQuest(@PathVariable Long id) {
+    public ResponseEntity<QuestDTO> getQuest(@PathVariable UUID id) {
         log.debug("REST request to get Quest : {}", id);
         Optional<QuestDTO> questDTO = questService.findOne(id);
         return ResponseUtil.wrapOrNotFound(questDTO);
@@ -141,7 +142,7 @@ public class QuestResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/quests/{id}")
-    public ResponseEntity<Void> deleteQuest(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteQuest(@PathVariable UUID id) {
         log.debug("REST request to delete Quest : {}", id);
         questService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

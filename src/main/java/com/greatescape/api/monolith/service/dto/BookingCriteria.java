@@ -54,7 +54,7 @@ public final class BookingCriteria implements Serializable, Criteria {
 
     private LongFilter slotId;
 
-    private LongFilter questId;
+    private UUIDFilter questId;
 
     private UUIDFilter playerId;
 

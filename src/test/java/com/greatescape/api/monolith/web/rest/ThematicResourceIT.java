@@ -9,6 +9,7 @@ import com.greatescape.api.monolith.service.ThematicService;
 import com.greatescape.api.monolith.service.dto.ThematicDTO;
 import com.greatescape.api.monolith.service.mapper.ThematicMapper;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -389,13 +390,13 @@ public class ThematicResourceIT {
         em.flush();
         thematic.addQuest(quest);
         thematicRepository.saveAndFlush(thematic);
-        Long questId = quest.getId();
+        UUID questId = quest.getId();
 
         // Get all the thematicList where quest equals to questId
         defaultThematicShouldBeFound("questId.equals=" + questId);
 
         // Get all the thematicList where quest equals to questId + 1
-        defaultThematicShouldNotBeFound("questId.equals=" + (questId + 1));
+        defaultThematicShouldNotBeFound("questId.equals=" + UUID.fromString("ac0b2139-d2ca-4f5f-8cee-d72c10a8a662"));
     }
 
     /**

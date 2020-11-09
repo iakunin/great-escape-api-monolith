@@ -2,6 +2,7 @@ package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.QuestPhoto;
 import java.io.Serializable;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public final class QuestPhotoDTO implements Serializable {
     @NotNull
     private String url;
 
-    private Long questId;
+    private UUID questId;
 
     private String questTitle;
 

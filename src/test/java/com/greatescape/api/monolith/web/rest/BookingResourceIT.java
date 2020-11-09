@@ -729,13 +729,13 @@ public class BookingResourceIT {
         // Get already existing entity
         Quest quest = booking.getQuest();
         bookingRepository.saveAndFlush(booking);
-        Long questId = quest.getId();
+        UUID questId = quest.getId();
 
         // Get all the bookingList where quest equals to questId
         defaultBookingShouldBeFound("questId.equals=" + questId);
 
         // Get all the bookingList where quest equals to questId + 1
-        defaultBookingShouldNotBeFound("questId.equals=" + (questId + 1));
+        defaultBookingShouldNotBeFound("questId.equals=" + UUID.fromString("23c705f9-4a95-49aa-8b14-3f9e67e6f8ae"));
     }
 
 

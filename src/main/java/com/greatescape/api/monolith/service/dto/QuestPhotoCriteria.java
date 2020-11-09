@@ -6,6 +6,7 @@ import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ public final class QuestPhotoCriteria implements Serializable, Criteria {
 
     private StringFilter url;
 
-    private LongFilter questId;
+    private UUIDFilter questId;
 
     public QuestPhotoCriteria(QuestPhotoCriteria other) {
         this.id = other.id == null ? null : other.id.copy();

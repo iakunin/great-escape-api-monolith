@@ -81,7 +81,7 @@ public final class QuestCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 
-    private LongFilter id;
+    private UUIDFilter id;
 
     private StringFilter slug;
 

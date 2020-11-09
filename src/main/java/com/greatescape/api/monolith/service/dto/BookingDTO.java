@@ -52,7 +52,7 @@ public final class BookingDTO implements Serializable {
 
     private String slotDateTimeLocal;
 
-    private Long questId;
+    private UUID questId;
 
     private String questTitle;
 

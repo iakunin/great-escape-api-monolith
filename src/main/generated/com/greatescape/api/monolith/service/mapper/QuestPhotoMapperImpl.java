@@ -5,13 +5,14 @@ import com.greatescape.api.monolith.domain.QuestPhoto;
 import com.greatescape.api.monolith.service.dto.QuestPhotoDTO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-09T17:50:39+0300",
+    date = "2020-11-09T18:02:12+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.9 (Oracle Corporation)"
 )
 @Component
@@ -79,7 +80,7 @@ public class QuestPhotoMapperImpl implements QuestPhotoMapper {
         return questPhoto;
     }
 
-    private Long questPhotoQuestId(QuestPhoto questPhoto) {
+    private UUID questPhotoQuestId(QuestPhoto questPhoto) {
         if ( questPhoto == null ) {
             return null;
         }
@@ -87,7 +88,7 @@ public class QuestPhotoMapperImpl implements QuestPhotoMapper {
         if ( quest == null ) {
             return null;
         }
-        Long id = quest.getId();
+        UUID id = quest.getId();
         if ( id == null ) {
             return null;
         }

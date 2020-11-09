@@ -9,6 +9,7 @@ import io.github.jhipster.service.filter.InstantFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.UUIDFilter;
 import io.github.jhipster.service.filter.ZonedDateTimeFilter;
 import java.io.Serializable;
 import lombok.Data;
@@ -45,7 +46,7 @@ public final class SlotCriteria implements Serializable, Criteria {
 
     private StringFilter externalId;
 
-    private LongFilter questId;
+    private UUIDFilter questId;
 
     public SlotCriteria(SlotCriteria other) {
         this.id = other.id == null ? null : other.id.copy();

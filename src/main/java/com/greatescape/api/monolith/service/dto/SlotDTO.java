@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 import javax.persistence.Lob;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -54,7 +55,7 @@ public final class SlotDTO implements Serializable {
     @Lob
     private String externalState;
 
-    private Long questId;
+    private UUID questId;
 
     private String questTitle;
 

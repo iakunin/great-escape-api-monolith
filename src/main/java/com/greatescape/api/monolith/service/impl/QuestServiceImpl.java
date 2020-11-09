@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.QuestService;
 import com.greatescape.api.monolith.service.dto.QuestDTO;
 import com.greatescape.api.monolith.service.mapper.QuestMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -54,14 +55,14 @@ public class QuestServiceImpl implements QuestService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<QuestDTO> findOne(Long id) {
+    public Optional<QuestDTO> findOne(UUID id) {
         log.debug("Request to get Quest : {}", id);
         return questRepository.findOneWithEagerRelationships(id)
             .map(questMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete Quest : {}", id);
         questRepository.deleteById(id);
     }

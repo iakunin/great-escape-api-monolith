@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 public final class QuestDTO implements Serializable {
 
-    private Long id;
+    private UUID id;
 
     @NotNull
     @Size(min = 2)

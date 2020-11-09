@@ -14,6 +14,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.hamcrest.Matchers;
@@ -969,13 +970,13 @@ public class SlotResourceIT {
         // Get already existing entity
         Quest quest = slot.getQuest();
         slotRepository.saveAndFlush(slot);
-        Long questId = quest.getId();
+        UUID questId = quest.getId();
 
         // Get all the slotList where quest equals to questId
         defaultSlotShouldBeFound("questId.equals=" + questId);
 
         // Get all the slotList where quest equals to questId + 1
-        defaultSlotShouldNotBeFound("questId.equals=" + (questId + 1));
+        defaultSlotShouldNotBeFound("questId.equals=" + UUID.fromString("54a79cda-3d78-48f5-a145-a399aa4a9930"));
     }
 
     /**

@@ -4,22 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.greatescape.api.monolith.domain.enumeration.FearLevel;
 import com.greatescape.api.monolith.domain.enumeration.QuestComplexity;
 import com.greatescape.api.monolith.domain.enumeration.QuestType;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -38,14 +33,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "quest")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Quest implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
+public class Quest extends AbstractEntity {
 
     @NotNull
     @Size(min = 2)

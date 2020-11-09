@@ -4,6 +4,7 @@ import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public final class QuestIntegrationSettingDTO implements Serializable {
     @Lob
     private String settings;
 
-    private Long questId;
+    private UUID questId;
 
     private String questTitle;
 

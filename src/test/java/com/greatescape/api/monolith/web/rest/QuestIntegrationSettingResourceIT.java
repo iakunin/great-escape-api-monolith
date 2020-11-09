@@ -10,6 +10,7 @@ import com.greatescape.api.monolith.service.QuestIntegrationSettingService;
 import com.greatescape.api.monolith.service.dto.QuestIntegrationSettingDTO;
 import com.greatescape.api.monolith.service.mapper.QuestIntegrationSettingMapper;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -281,13 +282,13 @@ public class QuestIntegrationSettingResourceIT {
         // Get already existing entity
         Quest quest = questIntegrationSetting.getQuest();
         questIntegrationSettingRepository.saveAndFlush(questIntegrationSetting);
-        Long questId = quest.getId();
+        UUID questId = quest.getId();
 
         // Get all the questIntegrationSettingList where quest equals to questId
         defaultQuestIntegrationSettingShouldBeFound("questId.equals=" + questId);
 
         // Get all the questIntegrationSettingList where quest equals to questId + 1
-        defaultQuestIntegrationSettingShouldNotBeFound("questId.equals=" + (questId + 1));
+        defaultQuestIntegrationSettingShouldNotBeFound("questId.equals=" + UUID.fromString("750591bf-7d50-4275-a68f-903606a27d43"));
     }
 
     /**

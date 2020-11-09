@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.mapper;
 
 import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.service.dto.QuestDTO;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -21,9 +22,11 @@ public interface QuestMapper extends EntityMapper<QuestDTO, Quest> {
     @Mapping(source = "locationId", target = "location")
     @Mapping(source = "companyId", target = "company")
     @Mapping(target = "removeThematic", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Quest toEntity(QuestDTO questDTO);
 
-    default Quest fromId(Long id) {
+    default Quest fromId(UUID id) {
         if (id == null) {
             return null;
         }

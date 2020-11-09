@@ -222,11 +222,12 @@ public class QuestResourceIT {
     @Test
     @Transactional
     public void createQuestWithExistingId() throws Exception {
+        final Quest quest = questRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = questRepository.findAll().size();
 
         // Create the Quest with an existing ID
-        quest.setId(1L);
-        QuestDTO questDTO = questMapper.toDto(quest);
+        this.quest.setId(quest.getId());
+        QuestDTO questDTO = questMapper.toDto(this.quest);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restQuestMockMvc.perform(post("/api/quests")
@@ -410,10 +411,10 @@ public class QuestResourceIT {
         restQuestMockMvc.perform(get("/api/quests?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(quest.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(quest.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].playersMinCount").value(hasItem(DEFAULT_PLAYERS_MIN_COUNT)))
             .andExpect(jsonPath("$.[*].playersMaxCount").value(hasItem(DEFAULT_PLAYERS_MAX_COUNT)))
             .andExpect(jsonPath("$.[*].durationInMinutes").value(hasItem(DEFAULT_DURATION_IN_MINUTES)))
@@ -452,10 +453,10 @@ public class QuestResourceIT {
         restQuestMockMvc.perform(get("/api/quests/{id}", quest.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(quest.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(quest.getId().toString()))
             .andExpect(jsonPath("$.slug").value(DEFAULT_SLUG))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.playersMinCount").value(DEFAULT_PLAYERS_MIN_COUNT))
             .andExpect(jsonPath("$.playersMaxCount").value(DEFAULT_PLAYERS_MAX_COUNT))
             .andExpect(jsonPath("$.durationInMinutes").value(DEFAULT_DURATION_IN_MINUTES))
@@ -471,16 +472,10 @@ public class QuestResourceIT {
         // Initialize the database
         questRepository.saveAndFlush(quest);
 
-        Long id = quest.getId();
+        UUID id = quest.getId();
 
         defaultQuestShouldBeFound("id.equals=" + id);
         defaultQuestShouldNotBeFound("id.notEquals=" + id);
-
-        defaultQuestShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultQuestShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultQuestShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultQuestShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -1169,10 +1164,10 @@ public class QuestResourceIT {
         restQuestMockMvc.perform(get("/api/quests?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(quest.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(quest.getId().toString())))
             .andExpect(jsonPath("$.[*].slug").value(hasItem(DEFAULT_SLUG)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].playersMinCount").value(hasItem(DEFAULT_PLAYERS_MIN_COUNT)))
             .andExpect(jsonPath("$.[*].playersMaxCount").value(hasItem(DEFAULT_PLAYERS_MAX_COUNT)))
             .andExpect(jsonPath("$.[*].durationInMinutes").value(hasItem(DEFAULT_DURATION_IN_MINUTES)))

@@ -9,6 +9,7 @@ import com.greatescape.api.monolith.service.QuestPhotoService;
 import com.greatescape.api.monolith.service.dto.QuestPhotoDTO;
 import com.greatescape.api.monolith.service.mapper.QuestPhotoMapper;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -299,13 +300,13 @@ public class QuestPhotoResourceIT {
         // Get already existing entity
         Quest quest = questPhoto.getQuest();
         questPhotoRepository.saveAndFlush(questPhoto);
-        Long questId = quest.getId();
+        UUID questId = quest.getId();
 
         // Get all the questPhotoList where quest equals to questId
         defaultQuestPhotoShouldBeFound("questId.equals=" + questId);
 
         // Get all the questPhotoList where quest equals to questId + 1
-        defaultQuestPhotoShouldNotBeFound("questId.equals=" + (questId + 1));
+        defaultQuestPhotoShouldNotBeFound("questId.equals=" + UUID.fromString("2b203a0c-3305-4909-868f-e2c9afd0847f"));
     }
 
     /**

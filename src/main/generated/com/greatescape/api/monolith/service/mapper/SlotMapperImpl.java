@@ -5,13 +5,14 @@ import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.service.dto.SlotDTO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-09T17:50:38+0300",
+    date = "2020-11-09T18:02:12+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.9 (Oracle Corporation)"
 )
 @Component
@@ -93,7 +94,7 @@ public class SlotMapperImpl implements SlotMapper {
         return slot;
     }
 
-    private Long slotQuestId(Slot slot) {
+    private UUID slotQuestId(Slot slot) {
         if ( slot == null ) {
             return null;
         }
@@ -101,7 +102,7 @@ public class SlotMapperImpl implements SlotMapper {
         if ( quest == null ) {
             return null;
         }
-        Long id = quest.getId();
+        UUID id = quest.getId();
         if ( id == null ) {
             return null;
         }

@@ -88,7 +88,7 @@ public class QuestQueryService extends QueryService<Quest> {
         Specification<Quest> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Quest_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), Quest_.id));
             }
             if (criteria.getSlug() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getSlug(), Quest_.slug));
