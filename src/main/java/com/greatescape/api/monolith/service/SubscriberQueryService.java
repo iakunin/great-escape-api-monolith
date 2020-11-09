@@ -84,7 +84,7 @@ public class SubscriberQueryService extends QueryService<Subscriber> {
         Specification<Subscriber> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Subscriber_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), Subscriber_.id));
             }
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Subscriber_.name));

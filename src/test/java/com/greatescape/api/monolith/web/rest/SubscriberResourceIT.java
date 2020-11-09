@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.service.SubscriberService;
 import com.greatescape.api.monolith.service.dto.SubscriberDTO;
 import com.greatescape.api.monolith.service.mapper.SubscriberMapper;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -114,11 +115,12 @@ public class SubscriberResourceIT {
     @Test
     @Transactional
     public void createSubscriberWithExistingId() throws Exception {
+        final Subscriber subscriber = subscriberRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = subscriberRepository.findAll().size();
 
         // Create the Subscriber with an existing ID
-        subscriber.setId(1L);
-        SubscriberDTO subscriberDTO = subscriberMapper.toDto(subscriber);
+        this.subscriber.setId(subscriber.getId());
+        SubscriberDTO subscriberDTO = subscriberMapper.toDto(this.subscriber);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSubscriberMockMvc.perform(post("/api/subscribers")
@@ -182,7 +184,7 @@ public class SubscriberResourceIT {
         restSubscriberMockMvc.perform(get("/api/subscribers?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(subscriber.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(subscriber.getId().toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
     }
@@ -197,7 +199,7 @@ public class SubscriberResourceIT {
         restSubscriberMockMvc.perform(get("/api/subscribers/{id}", subscriber.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(subscriber.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(subscriber.getId().toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL));
     }
@@ -209,16 +211,10 @@ public class SubscriberResourceIT {
         // Initialize the database
         subscriberRepository.saveAndFlush(subscriber);
 
-        Long id = subscriber.getId();
+        UUID id = subscriber.getId();
 
         defaultSubscriberShouldBeFound("id.equals=" + id);
         defaultSubscriberShouldNotBeFound("id.notEquals=" + id);
-
-        defaultSubscriberShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultSubscriberShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultSubscriberShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultSubscriberShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -384,7 +380,7 @@ public class SubscriberResourceIT {
         restSubscriberMockMvc.perform(get("/api/subscribers?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(subscriber.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(subscriber.getId().toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
 
@@ -416,8 +412,9 @@ public class SubscriberResourceIT {
     @Transactional
     public void getNonExistingSubscriber() throws Exception {
         // Get the subscriber
-        restSubscriberMockMvc.perform(get("/api/subscribers/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restSubscriberMockMvc.perform(
+            get("/api/subscribers/{id}", UUID.fromString("03cbfdac-c326-42b2-b633-07e3afad67be"))
+        ).andExpect(status().isNotFound());
     }
 
     @Test

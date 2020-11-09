@@ -9,26 +9,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-09T19:02:55+0300",
+    date = "2020-11-09T19:13:59+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.9 (Oracle Corporation)"
 )
 @Component
 public class SubscriberMapperImpl implements SubscriberMapper {
-
-    @Override
-    public Subscriber toEntity(SubscriberDTO dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        Subscriber subscriber = new Subscriber();
-
-        subscriber.setId( dto.getId() );
-        subscriber.setName( dto.getName() );
-        subscriber.setEmail( dto.getEmail() );
-
-        return subscriber;
-    }
 
     @Override
     public SubscriberDTO toDto(Subscriber entity) {
@@ -71,5 +56,20 @@ public class SubscriberMapperImpl implements SubscriberMapper {
         }
 
         return list;
+    }
+
+    @Override
+    public Subscriber toEntity(SubscriberDTO subscriberDTO) {
+        if ( subscriberDTO == null ) {
+            return null;
+        }
+
+        Subscriber subscriber = new Subscriber();
+
+        subscriber.setId( subscriberDTO.getId() );
+        subscriber.setName( subscriberDTO.getName() );
+        subscriber.setEmail( subscriberDTO.getEmail() );
+
+        return subscriber;
     }
 }

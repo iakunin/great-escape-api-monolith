@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service;
 import com.greatescape.api.monolith.domain.Subscriber;
 import com.greatescape.api.monolith.service.dto.SubscriberDTO;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,12 +35,12 @@ public interface SubscriberService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<SubscriberDTO> findOne(Long id);
+    Optional<SubscriberDTO> findOne(UUID id);
 
     /**
      * Delete the "id" subscriber.
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(UUID id);
 }

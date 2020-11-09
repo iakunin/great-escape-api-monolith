@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.SubscriberService;
 import com.greatescape.api.monolith.service.dto.SubscriberDTO;
 import com.greatescape.api.monolith.service.mapper.SubscriberMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<SubscriberDTO> findOne(Long id) {
+    public Optional<SubscriberDTO> findOne(UUID id) {
         log.debug("Request to get Subscriber : {}", id);
         return subscriberRepository.findById(id)
             .map(subscriberMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete Subscriber : {}", id);
         subscriberRepository.deleteById(id);
     }

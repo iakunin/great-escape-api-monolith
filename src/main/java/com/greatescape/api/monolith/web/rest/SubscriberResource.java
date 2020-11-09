@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class SubscriberResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the subscriberDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/subscribers/{id}")
-    public ResponseEntity<SubscriberDTO> getSubscriber(@PathVariable Long id) {
+    public ResponseEntity<SubscriberDTO> getSubscriber(@PathVariable UUID id) {
         log.debug("REST request to get Subscriber : {}", id);
         Optional<SubscriberDTO> subscriberDTO = subscriberService.findOne(id);
         return ResponseUtil.wrapOrNotFound(subscriberDTO);
@@ -141,7 +142,7 @@ public class SubscriberResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/subscribers/{id}")
-    public ResponseEntity<Void> deleteSubscriber(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteSubscriber(@PathVariable UUID id) {
         log.debug("REST request to delete Subscriber : {}", id);
         subscriberService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
