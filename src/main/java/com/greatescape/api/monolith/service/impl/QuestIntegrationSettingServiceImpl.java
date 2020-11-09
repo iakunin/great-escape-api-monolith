@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.service.QuestIntegrationSettingService;
 import com.greatescape.api.monolith.service.dto.QuestIntegrationSettingDTO;
 import com.greatescape.api.monolith.service.mapper.QuestIntegrationSettingMapper;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -50,14 +51,14 @@ public class QuestIntegrationSettingServiceImpl implements QuestIntegrationSetti
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<QuestIntegrationSettingDTO> findOne(Long id) {
+    public Optional<QuestIntegrationSettingDTO> findOne(UUID id) {
         log.debug("Request to get QuestIntegrationSetting : {}", id);
         return questIntegrationSettingRepository.findById(id)
             .map(questIntegrationSettingMapper::toDto);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         log.debug("Request to delete QuestIntegrationSetting : {}", id);
         questIntegrationSettingRepository.deleteById(id);
     }

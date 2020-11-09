@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.mapper;
 
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.service.dto.QuestIntegrationSettingDTO;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,9 +18,11 @@ public interface QuestIntegrationSettingMapper extends EntityMapper<QuestIntegra
     QuestIntegrationSettingDTO toDto(QuestIntegrationSetting questIntegrationSetting);
 
     @Mapping(source = "questId", target = "quest")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     QuestIntegrationSetting toEntity(QuestIntegrationSettingDTO questIntegrationSettingDTO);
 
-    default QuestIntegrationSetting fromId(Long id) {
+    default QuestIntegrationSetting fromId(UUID id) {
         if (id == null) {
             return null;
         }

@@ -136,11 +136,12 @@ public class QuestIntegrationSettingResourceIT {
     @Test
     @Transactional
     public void createQuestIntegrationSettingWithExistingId() throws Exception {
+        final QuestIntegrationSetting questIntegrationSetting = questIntegrationSettingRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = questIntegrationSettingRepository.findAll().size();
 
         // Create the QuestIntegrationSetting with an existing ID
-        questIntegrationSetting.setId(1L);
-        QuestIntegrationSettingDTO questIntegrationSettingDTO = questIntegrationSettingMapper.toDto(questIntegrationSetting);
+        this.questIntegrationSetting.setId(questIntegrationSetting.getId());
+        QuestIntegrationSettingDTO questIntegrationSettingDTO = questIntegrationSettingMapper.toDto(this.questIntegrationSetting);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restQuestIntegrationSettingMockMvc.perform(post("/api/quest-integration-settings")
@@ -184,9 +185,9 @@ public class QuestIntegrationSettingResourceIT {
         restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(questIntegrationSetting.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(questIntegrationSetting.getId().toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS.toString())));
+            .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS)));
     }
 
     @Test
@@ -199,9 +200,9 @@ public class QuestIntegrationSettingResourceIT {
         restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings/{id}", questIntegrationSetting.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(questIntegrationSetting.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(questIntegrationSetting.getId().toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.settings").value(DEFAULT_SETTINGS.toString()));
+            .andExpect(jsonPath("$.settings").value(DEFAULT_SETTINGS));
     }
 
 
@@ -211,16 +212,10 @@ public class QuestIntegrationSettingResourceIT {
         // Initialize the database
         questIntegrationSettingRepository.saveAndFlush(questIntegrationSetting);
 
-        Long id = questIntegrationSetting.getId();
+        UUID id = questIntegrationSetting.getId();
 
         defaultQuestIntegrationSettingShouldBeFound("id.equals=" + id);
         defaultQuestIntegrationSettingShouldNotBeFound("id.notEquals=" + id);
-
-        defaultQuestIntegrationSettingShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultQuestIntegrationSettingShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultQuestIntegrationSettingShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultQuestIntegrationSettingShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -298,9 +293,9 @@ public class QuestIntegrationSettingResourceIT {
         restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(questIntegrationSetting.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(questIntegrationSetting.getId().toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS.toString())));
+            .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS)));
 
         // Check, that the count call also returns 1
         restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings/count?sort=id,desc&" + filter))

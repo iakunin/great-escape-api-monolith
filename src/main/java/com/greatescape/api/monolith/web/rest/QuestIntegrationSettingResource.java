@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class QuestIntegrationSettingResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the questIntegrationSettingDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/quest-integration-settings/{id}")
-    public ResponseEntity<QuestIntegrationSettingDTO> getQuestIntegrationSetting(@PathVariable Long id) {
+    public ResponseEntity<QuestIntegrationSettingDTO> getQuestIntegrationSetting(@PathVariable UUID id) {
         log.debug("REST request to get QuestIntegrationSetting : {}", id);
         Optional<QuestIntegrationSettingDTO> questIntegrationSettingDTO = questIntegrationSettingService.findOne(id);
         return ResponseUtil.wrapOrNotFound(questIntegrationSettingDTO);
@@ -141,7 +142,7 @@ public class QuestIntegrationSettingResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/quest-integration-settings/{id}")
-    public ResponseEntity<Void> deleteQuestIntegrationSetting(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteQuestIntegrationSetting(@PathVariable UUID id) {
         log.debug("REST request to delete QuestIntegrationSetting : {}", id);
         questIntegrationSettingService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

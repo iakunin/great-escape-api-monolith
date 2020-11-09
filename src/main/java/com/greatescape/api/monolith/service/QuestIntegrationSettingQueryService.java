@@ -86,7 +86,7 @@ public class QuestIntegrationSettingQueryService extends QueryService<QuestInteg
         Specification<QuestIntegrationSetting> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), QuestIntegrationSetting_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), QuestIntegrationSetting_.id));
             }
             if (criteria.getType() != null) {
                 specification = specification.and(buildSpecification(criteria.getType(), QuestIntegrationSetting_.type));

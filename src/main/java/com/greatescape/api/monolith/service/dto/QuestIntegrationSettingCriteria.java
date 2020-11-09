@@ -5,7 +5,6 @@ import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
 import com.greatescape.api.monolith.web.rest.QuestIntegrationSettingResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import java.io.Serializable;
 import lombok.Data;
@@ -42,7 +41,7 @@ public final class QuestIntegrationSettingCriteria implements Serializable, Crit
 
     private static final long serialVersionUID = 1L;
 
-    private LongFilter id;
+    private UUIDFilter id;
 
     private QuestIntegrationTypeFilter type;
 
