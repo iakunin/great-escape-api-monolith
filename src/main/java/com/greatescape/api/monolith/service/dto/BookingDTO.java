@@ -16,7 +16,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class BookingDTO implements Serializable {
+public final class BookingDTO implements Serializable {
 
     private UUID id;
 

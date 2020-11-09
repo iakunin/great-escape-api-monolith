@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class QuestPhotoCriteria implements Serializable, Criteria {
+public final class QuestPhotoCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 

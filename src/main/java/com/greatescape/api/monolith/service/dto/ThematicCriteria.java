@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class ThematicCriteria implements Serializable, Criteria {
+public final class ThematicCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 

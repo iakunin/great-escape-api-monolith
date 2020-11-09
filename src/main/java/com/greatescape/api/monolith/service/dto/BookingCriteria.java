@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class BookingCriteria implements Serializable, Criteria {
+public final class BookingCriteria implements Serializable, Criteria {
     /**
      * Class for filtering BookingStatus
      */

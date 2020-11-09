@@ -1,8 +1,10 @@
 package com.greatescape.api.monolith.web.rest.errors;
 
 import java.io.Serializable;
+import lombok.Getter;
 
-public class FieldErrorVM implements Serializable {
+@Getter
+public final class FieldErrorVM implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,17 +19,4 @@ public class FieldErrorVM implements Serializable {
         this.field = field;
         this.message = message;
     }
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public String getField() {
-        return field;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
 }

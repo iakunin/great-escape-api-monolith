@@ -14,7 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CityDTO implements Serializable {
+public final class CityDTO implements Serializable {
 
     private UUID id;
 

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class QuestIntegrationSettingCriteria implements Serializable, Criteria {
+public final class QuestIntegrationSettingCriteria implements Serializable, Criteria {
     /**
      * Class for filtering QuestIntegrationType
      */

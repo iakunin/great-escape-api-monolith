@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class SlotCriteria implements Serializable, Criteria {
+public final class SlotCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 

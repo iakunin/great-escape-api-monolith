@@ -13,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class MetroDTO implements Serializable {
+public final class MetroDTO implements Serializable {
 
     private UUID id;
 

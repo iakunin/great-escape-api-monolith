@@ -14,7 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class QuestIntegrationSettingDTO implements Serializable {
+public final class QuestIntegrationSettingDTO implements Serializable {
 
     private Long id;
 

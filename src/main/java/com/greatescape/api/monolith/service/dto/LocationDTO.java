@@ -16,7 +16,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class LocationDTO implements Serializable {
+public final class LocationDTO implements Serializable {
 
     private Long id;
 

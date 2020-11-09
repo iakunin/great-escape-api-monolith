@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SubscriberDTO implements Serializable {
+public final class SubscriberDTO implements Serializable {
 
     private Long id;
 

@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class PlayerCriteria implements Serializable, Criteria {
+public final class PlayerCriteria implements Serializable, Criteria {
     /**
      * Class for filtering Gender
      */

@@ -17,7 +17,7 @@ import lombok.Setter;
 @ApiModel(description = "@TODO: should be audited")
 @Getter
 @Setter
-public class CompanyDTO implements Serializable {
+public final class CompanyDTO implements Serializable {
 
     private Long id;
 

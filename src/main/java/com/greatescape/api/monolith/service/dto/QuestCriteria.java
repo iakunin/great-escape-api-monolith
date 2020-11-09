@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class QuestCriteria implements Serializable, Criteria {
+public final class QuestCriteria implements Serializable, Criteria {
 
     /**
      * Class for filtering QuestComplexity

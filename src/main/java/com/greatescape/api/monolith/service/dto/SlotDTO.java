@@ -19,7 +19,7 @@ import lombok.Setter;
 @ApiModel(description = "@TODO: should be audited (with cleanup older than 6 months).\nThere could be Bookings on some Slots: just don't delete such Slots")
 @Getter
 @Setter
-public class SlotDTO implements Serializable {
+public final class SlotDTO implements Serializable {
 
     private Long id;
 

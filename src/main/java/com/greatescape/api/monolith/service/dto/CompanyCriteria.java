@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class CompanyCriteria implements Serializable, Criteria {
+public final class CompanyCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 
