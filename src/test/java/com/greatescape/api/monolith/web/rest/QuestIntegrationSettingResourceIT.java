@@ -325,8 +325,12 @@ public class QuestIntegrationSettingResourceIT {
     @Transactional
     public void getNonExistingQuestIntegrationSetting() throws Exception {
         // Get the questIntegrationSetting
-        restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restQuestIntegrationSettingMockMvc.perform(
+            get(
+                "/api/quest-integration-settings/{id}",
+                UUID.fromString("cce859ac-5d36-4cba-8ee0-8c05fd8ae994")
+            )
+        ).andExpect(status().isNotFound());
     }
 
     @Test
