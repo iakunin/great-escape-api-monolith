@@ -35,7 +35,7 @@ public class PersistentAuditEvent implements Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(updatable = false, nullable = false)
+    @Column(name = "event_id", updatable = false, nullable = false)
     private UUID id;
 
     @NotNull

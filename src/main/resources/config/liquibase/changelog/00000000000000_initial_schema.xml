@@ -19,7 +19,7 @@
     -->
     <changeSet id="00000000000002" author="jhipster">
         <createTable tableName="jhi_user">
-            <column name="id" type="bigint" >
+            <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login" type="varchar(50)">
@@ -56,7 +56,7 @@
         </createTable>
 
         <createTable tableName="jhi_user_authority">
-            <column name="user_id" type="bigint">
+            <column name="user_id" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
             <column name="authority_name" type="varchar(50)">
@@ -85,7 +85,7 @@
                   file="config/liquibase/data/user.csv"
                   separator=";"
                   tableName="jhi_user">
-            <column name="id" type="numeric"/>
+            <column name="id" type="${uuidType}"/>
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>
@@ -101,10 +101,10 @@
                   file="config/liquibase/data/user_authority.csv"
                   separator=";"
                   tableName="jhi_user_authority">
-            <column name="user_id" type="numeric"/>
+            <column name="user_id" type="${uuidType}"/>
         </loadData>
         <createTable tableName="jhi_persistent_audit_event">
-            <column name="event_id" type="bigint" >
+            <column name="event_id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="principal" type="varchar(50)">
@@ -115,7 +115,7 @@
         </createTable>
 
         <createTable tableName="jhi_persistent_audit_evt_data">
-            <column name="event_id" type="bigint">
+            <column name="event_id" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="varchar(150)">
@@ -160,14 +160,14 @@
             file="config/liquibase/fake-data/user_authority.csv"
             separator=";"
             tableName="jhi_user_authority">
-            <column name="user_id" type="numeric"/>
+            <column name="user_id" type="${uuidType}"/>
         </loadData>
     </changeSet>
 
     <changeSet author="jhipster" id="00000000000004" context="test">
         <createTable tableName="jhi_date_time_wrapper">
-            <column  name="id" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="jhi_date_time_wrapperPK"/>
+            <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="jhi_date_time_wrapperPK"/>
             </column>
             <column name="instant" type="timestamp"/>
             <column name="local_date_time" type="timestamp"/>
