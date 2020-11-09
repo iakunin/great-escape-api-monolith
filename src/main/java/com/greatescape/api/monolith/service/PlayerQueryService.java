@@ -87,7 +87,7 @@ public class PlayerQueryService extends QueryService<Player> {
         Specification<Player> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Player_.id));
+                specification = specification.and(buildSpecification(criteria.getId(), Player_.id));
             }
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Player_.name));

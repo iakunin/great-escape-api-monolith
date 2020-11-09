@@ -56,7 +56,7 @@ public final class BookingDTO implements Serializable {
 
     private String questTitle;
 
-    private Long playerId;
+    private UUID playerId;
 
     private String playerPhone;
 

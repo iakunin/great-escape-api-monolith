@@ -56,7 +56,7 @@ public final class BookingCriteria implements Serializable, Criteria {
 
     private LongFilter questId;
 
-    private LongFilter playerId;
+    private UUIDFilter playerId;
 
     public BookingCriteria(BookingCriteria other) {
         this.id = other.id == null ? null : other.id.copy();

@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,7 @@ public class PlayerResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the playerDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/players/{id}")
-    public ResponseEntity<PlayerDTO> getPlayer(@PathVariable Long id) {
+    public ResponseEntity<PlayerDTO> getPlayer(@PathVariable UUID id) {
         log.debug("REST request to get Player : {}", id);
         Optional<PlayerDTO> playerDTO = playerService.findOne(id);
         return ResponseUtil.wrapOrNotFound(playerDTO);
@@ -141,7 +142,7 @@ public class PlayerResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/players/{id}")
-    public ResponseEntity<Void> deletePlayer(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePlayer(@PathVariable UUID id) {
         log.debug("REST request to delete Player : {}", id);
         playerService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

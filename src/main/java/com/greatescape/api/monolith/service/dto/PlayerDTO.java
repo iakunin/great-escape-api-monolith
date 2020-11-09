@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 public final class PlayerDTO implements Serializable {
 
-    private Long id;
+    private UUID id;
 
     @NotNull
     private String name;

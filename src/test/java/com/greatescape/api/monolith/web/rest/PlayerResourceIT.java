@@ -154,11 +154,12 @@ public class PlayerResourceIT {
     @Test
     @Transactional
     public void createPlayerWithExistingId() throws Exception {
+        final Player player = playerRepository.save(createEntity(em));
         int databaseSizeBeforeCreate = playerRepository.findAll().size();
 
         // Create the Player with an existing ID
-        player.setId(1L);
-        PlayerDTO playerDTO = playerMapper.toDto(player);
+        this.player.setId(player.getId());
+        PlayerDTO playerDTO = playerMapper.toDto(this.player);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPlayerMockMvc.perform(post("/api/players")
@@ -242,13 +243,13 @@ public class PlayerResourceIT {
         restPlayerMockMvc.perform(get("/api/players?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())))
             .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())))
-            .andExpect(jsonPath("$.[*].subscriptionAllowed").value(hasItem(DEFAULT_SUBSCRIPTION_ALLOWED.booleanValue())));
+            .andExpect(jsonPath("$.[*].subscriptionAllowed").value(hasItem(DEFAULT_SUBSCRIPTION_ALLOWED)));
     }
 
     @Test
@@ -261,13 +262,13 @@ public class PlayerResourceIT {
         restPlayerMockMvc.perform(get("/api/players/{id}", player.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(player.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(player.getId().toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
             .andExpect(jsonPath("$.birthday").value(DEFAULT_BIRTHDAY.toString()))
             .andExpect(jsonPath("$.gender").value(DEFAULT_GENDER.toString()))
-            .andExpect(jsonPath("$.subscriptionAllowed").value(DEFAULT_SUBSCRIPTION_ALLOWED.booleanValue()));
+            .andExpect(jsonPath("$.subscriptionAllowed").value(DEFAULT_SUBSCRIPTION_ALLOWED));
     }
 
 
@@ -277,16 +278,10 @@ public class PlayerResourceIT {
         // Initialize the database
         playerRepository.saveAndFlush(player);
 
-        Long id = player.getId();
+        UUID id = player.getId();
 
         defaultPlayerShouldBeFound("id.equals=" + id);
         defaultPlayerShouldNotBeFound("id.notEquals=" + id);
-
-        defaultPlayerShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultPlayerShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultPlayerShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultPlayerShouldNotBeFound("id.lessThan=" + id);
     }
 
 
@@ -775,13 +770,13 @@ public class PlayerResourceIT {
         restPlayerMockMvc.perform(get("/api/players?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())))
             .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())))
-            .andExpect(jsonPath("$.[*].subscriptionAllowed").value(hasItem(DEFAULT_SUBSCRIPTION_ALLOWED.booleanValue())));
+            .andExpect(jsonPath("$.[*].subscriptionAllowed").value(hasItem(DEFAULT_SUBSCRIPTION_ALLOWED)));
 
         // Check, that the count call also returns 1
         restPlayerMockMvc.perform(get("/api/players/count?sort=id,desc&" + filter))

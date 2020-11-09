@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-09T17:35:52+0300",
+    date = "2020-11-09T17:45:46+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.9 (Oracle Corporation)"
 )
 @Component
@@ -85,8 +85,8 @@ public class PlayerMapperImpl implements PlayerMapper {
 
         Player player = new Player();
 
-        player.setInternalUser( userMapper.userFromId( playerDTO.getInternalUserId() ) );
         player.setCompany( companyMapper.fromId( playerDTO.getCompanyId() ) );
+        player.setInternalUser( userMapper.userFromId( playerDTO.getInternalUserId() ) );
         player.setId( playerDTO.getId() );
         player.setName( playerDTO.getName() );
         player.setPhone( playerDTO.getPhone() );

@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Player.class)
-public abstract class Player_ {
+public abstract class Player_ extends com.greatescape.api.monolith.domain.AbstractEntity_ {
 
 	public static volatile SingularAttribute<Player, LocalDate> birthday;
 	public static volatile SingularAttribute<Player, Gender> gender;
@@ -17,7 +17,6 @@ public abstract class Player_ {
 	public static volatile SingularAttribute<Player, Boolean> subscriptionAllowed;
 	public static volatile SingularAttribute<Player, String> name;
 	public static volatile SingularAttribute<Player, Company> company;
-	public static volatile SingularAttribute<Player, Long> id;
 	public static volatile SingularAttribute<Player, String> email;
 
 	public static final String BIRTHDAY = "birthday";
@@ -27,7 +26,6 @@ public abstract class Player_ {
 	public static final String SUBSCRIPTION_ALLOWED = "subscriptionAllowed";
 	public static final String NAME = "name";
 	public static final String COMPANY = "company";
-	public static final String ID = "id";
 	public static final String EMAIL = "email";
 
 }

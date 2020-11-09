@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.mapper;
 
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.service.dto.PlayerDTO;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -20,9 +21,11 @@ public interface PlayerMapper extends EntityMapper<PlayerDTO, Player> {
 
     @Mapping(source = "internalUserId", target = "internalUser")
     @Mapping(source = "companyId", target = "company")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Player toEntity(PlayerDTO playerDTO);
 
-    default Player fromId(Long id) {
+    default Player fromId(UUID id) {
         if (id == null) {
             return null;
         }

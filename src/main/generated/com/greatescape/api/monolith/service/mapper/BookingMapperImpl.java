@@ -8,13 +8,14 @@ import com.greatescape.api.monolith.service.dto.BookingDTO;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-09T17:35:52+0300",
+    date = "2020-11-09T17:45:45+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.9 (Oracle Corporation)"
 )
 @Component
@@ -176,7 +177,7 @@ public class BookingMapperImpl implements BookingMapper {
         return title;
     }
 
-    private Long bookingPlayerId(Booking booking) {
+    private UUID bookingPlayerId(Booking booking) {
         if ( booking == null ) {
             return null;
         }
@@ -184,7 +185,7 @@ public class BookingMapperImpl implements BookingMapper {
         if ( player == null ) {
             return null;
         }
-        Long id = player.getId();
+        UUID id = player.getId();
         if ( id == null ) {
             return null;
         }
