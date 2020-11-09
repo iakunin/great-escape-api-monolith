@@ -150,7 +150,7 @@
             file="config/liquibase/fake-data/user.csv"
             separator=";"
             tableName="jhi_user">
-            <column name="id" type="numeric"/>
+            <column name="id" type="${uuidType}"/>
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>
