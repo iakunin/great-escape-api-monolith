@@ -52,7 +52,6 @@
     }
   ],
   "changelogDate": "20201102184513",
-  "javadoc": "@TODO: should be audited",
   "entityTableName": "player",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

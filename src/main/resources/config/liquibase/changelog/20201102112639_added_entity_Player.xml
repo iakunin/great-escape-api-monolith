@@ -9,7 +9,7 @@
         Added the entity Player.
     -->
     <changeSet id="20201102112639-1" author="jhipster">
-        <createTable tableName="player" remarks="@TODO: should be audited">
+        <createTable tableName="player">
             <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

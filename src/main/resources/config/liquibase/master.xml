@@ -35,6 +35,8 @@
     <include file="config/liquibase/changelog/20201102113539_added_entity_constraints_QuestPhoto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201102113639_added_entity_constraints_QuestIntegrationSetting.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201102113739_added_entity_constraints_Booking.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201110204735_added_Revinfo_table.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201110204849_added_audit_for_Player.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

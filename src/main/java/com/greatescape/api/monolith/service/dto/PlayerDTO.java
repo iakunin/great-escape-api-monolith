@@ -2,7 +2,6 @@ package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.domain.enumeration.Gender;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ import lombok.Setter;
 /**
  * A DTO for the {@link Player} entity.
  */
-@ApiModel(description = "@TODO: should be audited")
 @Getter
 @Setter
 public final class PlayerDTO implements Serializable {

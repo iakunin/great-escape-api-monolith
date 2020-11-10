@@ -17,15 +17,17 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
-/**
- * @TODO: should be audited
- */
 @Getter
 @Setter
 @Entity
 @Table(name = "player")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Audited
+@AuditOverride(forClass = AbstractEntity.class)
 public class Player extends AbstractEntity {
 
     @NotNull
@@ -55,11 +57,13 @@ public class Player extends AbstractEntity {
     /**
      * Mapping Application user (Player) to default jHipster's one
      */
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @OneToOne(optional = false)
     @NotNull
     @JoinColumn(unique = true)
     private User internalUser;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne
     @JsonIgnoreProperties(value = "players", allowSetters = true)
     private Company company;
