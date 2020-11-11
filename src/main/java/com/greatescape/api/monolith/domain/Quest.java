@@ -24,15 +24,17 @@ import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
-/**
- * @TODO: should be audited
- */
 @Getter
 @Setter
 @Entity
 @Table(name = "quest")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Audited
+@AuditOverride(forClass = AbstractEntity.class)
 public class Quest extends AbstractEntity {
 
     @NotNull
@@ -80,16 +82,19 @@ public class Quest extends AbstractEntity {
     @Column(name = "type", nullable = false)
     private QuestType type;
 
+    @NotAudited
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "quests", allowSetters = true)
     private Location location;
 
+    @NotAudited
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "quests", allowSetters = true)
     private Company company;
 
+    @NotAudited
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(name = "quest_thematic",

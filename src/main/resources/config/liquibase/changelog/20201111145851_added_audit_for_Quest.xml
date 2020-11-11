@@ -4,8 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet id="20201110204849-1" author="jhipster">
-        <createTable tableName="player_aud">
+    <changeSet id="20201111145851-1" author="jhipster">
+        <createTable tableName="quest_aud">
             <column name="id" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
@@ -15,41 +15,44 @@
             <column name="revtype" type="smallint">
                 <constraints nullable="false" />
             </column>
-            <column name="name" type="varchar(255)" />
-            <column name="phone" type="varchar(255)" />
-            <column name="email" type="varchar(255)" />
-            <column name="birthday" type="date" />
-            <column name="gender" type="varchar(255)" />
-            <column name="subscription_allowed" type="boolean" />
-            <column name="internal_user_id" type="${uuidType}" />
+            <column name="slug" type="varchar(255)" />
+            <column name="title" type="varchar(255)" />
+            <column name="description" type="${clobType}" />
+            <column name="players_min_count" type="integer" />
+            <column name="players_max_count" type="integer" />
+            <column name="duration_in_minutes" type="integer" />
+            <column name="complexity" type="varchar(255)" />
+            <column name="fear_level" type="varchar(255)" />
+            <column name="type" type="varchar(255)" />
+            <column name="location_id" type="${uuidType}" />
             <column name="company_id" type="${uuidType}" />
             <column name="created_at" type="${timestampWithTimeZoneType}" />
             <column name="updated_at" type="${timestampWithTimeZoneType}" />
         </createTable>
     </changeSet>
 
-    <changeSet id="20201110204849-1-relations" author="jhipster">
+    <changeSet id="20201111145851-1-relations" author="jhipster">
 
         <addPrimaryKey columnNames="id, rev"
-            constraintName="pk_player_aud"
-            tableName="player_aud"
+            constraintName="pk_quest_aud"
+            tableName="quest_aud"
             validate="true"/>
 
         <addForeignKeyConstraint baseColumnNames="rev"
-            baseTableName="player_aud"
-            constraintName="fk_player_aud_rev"
+            baseTableName="quest_aud"
+            constraintName="fk_quest_aud_rev"
             referencedColumnNames="rev"
             referencedTableName="revinfo"/>
 
-        <addForeignKeyConstraint baseColumnNames="internal_user_id"
-            baseTableName="player_aud"
-            constraintName="fk_player_aud_internal_user_id"
+        <addForeignKeyConstraint baseColumnNames="location_id"
+            baseTableName="quest_aud"
+            constraintName="fk_quest_aud_location_id"
             referencedColumnNames="id"
-            referencedTableName="jhi_user"/>
+            referencedTableName="location"/>
 
         <addForeignKeyConstraint baseColumnNames="company_id"
-            baseTableName="player_aud"
-            constraintName="fk_player_aud_company_id"
+            baseTableName="quest_aud"
+            constraintName="fk_quest_aud_company_id"
             referencedColumnNames="id"
             referencedTableName="company"/>
 

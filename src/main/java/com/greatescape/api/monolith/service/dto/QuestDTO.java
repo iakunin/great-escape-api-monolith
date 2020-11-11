@@ -4,7 +4,6 @@ import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.enumeration.FearLevel;
 import com.greatescape.api.monolith.domain.enumeration.QuestComplexity;
 import com.greatescape.api.monolith.domain.enumeration.QuestType;
-import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +18,6 @@ import lombok.Setter;
 /**
  * A DTO for the {@link Quest} entity.
  */
-@ApiModel(description = "@TODO: should be audited")
 @Getter
 @Setter
 public final class QuestDTO implements Serializable {

@@ -9,7 +9,7 @@
         Added the entity Quest.
     -->
     <changeSet id="20201102112739-1" author="jhipster">
-        <createTable tableName="quest" remarks="@TODO: should be audited">
+        <createTable tableName="quest">
             <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

@@ -82,7 +82,6 @@
     }
   ],
   "changelogDate": "20201102184613",
-  "javadoc": "@TODO: should be audited",
   "entityTableName": "quest",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",
