@@ -12,15 +12,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.Audited;
 
-/**
- * @TODO: should be audited
- */
 @Getter
 @Setter
 @Entity
 @Table(name = "company")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Audited
+@AuditOverride(forClass = AbstractEntity.class)
 public class Company extends AbstractEntity {
 
     @NotNull

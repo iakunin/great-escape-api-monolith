@@ -9,7 +9,7 @@
         Added the entity Company.
     -->
     <changeSet id="20201102113239-1" author="jhipster">
-        <createTable tableName="company" remarks="@TODO: should be audited">
+        <createTable tableName="company">
             <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

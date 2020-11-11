@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Company;
-import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.Max;
@@ -15,7 +14,6 @@ import lombok.Setter;
 /**
  * A DTO for the {@link Company} entity.
  */
-@ApiModel(description = "@TODO: should be audited")
 @Getter
 @Setter
 public final class CompanyDTO implements Serializable {

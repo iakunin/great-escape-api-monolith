@@ -42,7 +42,6 @@
   ],
   "relationships": [],
   "changelogDate": "20201102185113",
-  "javadoc": "@TODO: should be audited",
   "entityTableName": "company",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",
