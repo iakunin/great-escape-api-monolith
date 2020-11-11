@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.envers.AuditOverride;
 
 /**
  * A Thematic.
@@ -23,7 +22,6 @@ import org.hibernate.envers.AuditOverride;
 @Entity
 @Table(name = "thematic")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@AuditOverride(isAudited = false)
 public class Thematic extends AbstractEntity {
 
     @NotNull

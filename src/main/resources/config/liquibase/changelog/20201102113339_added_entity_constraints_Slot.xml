@@ -7,12 +7,12 @@
         Added the constraints for entity Slot.
     -->
     <changeSet id="20201102113339-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="quest_id"
-                                 baseTableName="slot"
-                                 constraintName="fk_slot_quest_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="quest"/>
+            baseTableName="slot"
+            constraintName="fk_slot_quest_id"
+            referencedColumnNames="id"
+            referencedTableName="quest"/>
 
     </changeSet>
 </databaseChangeLog>

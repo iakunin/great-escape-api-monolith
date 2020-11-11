@@ -59,7 +59,6 @@
     }
   ],
   "changelogDate": "20201102185213",
-  "javadoc": "@TODO: should be audited (with cleanup older than 6 months).\\nThere could be Bookings on some Slots: just don't delete such Slots",
   "entityTableName": "slot",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

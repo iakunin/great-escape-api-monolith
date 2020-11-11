@@ -27,6 +27,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Getter
 @Setter
@@ -82,13 +83,13 @@ public class Quest extends AbstractEntity {
     @Column(name = "type", nullable = false)
     private QuestType type;
 
-    @NotAudited
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "quests", allowSetters = true)
     private Location location;
 
-    @NotAudited
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "quests", allowSetters = true)

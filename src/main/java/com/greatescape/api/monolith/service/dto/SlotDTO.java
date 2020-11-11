@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Slot;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.Instant;
@@ -17,7 +16,6 @@ import lombok.Setter;
 /**
  * A DTO for the {@link Slot} entity.
  */
-@ApiModel(description = "@TODO: should be audited (with cleanup older than 6 months).\nThere could be Bookings on some Slots: just don't delete such Slots")
 @Getter
 @Setter
 public final class SlotDTO implements Serializable {

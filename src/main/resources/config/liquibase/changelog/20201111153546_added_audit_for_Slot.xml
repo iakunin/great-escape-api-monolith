@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="20201111153546-1" author="jhipster">
+        <createTable tableName="slot_aud">
+            <column name="id" type="${uuidType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rev" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="revtype" type="smallint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="date_time_local" type="datetime" />
+            <column name="date_time_with_time_zone" type="datetime" />
+            <column name="is_available" type="boolean" />
+            <column name="price" type="integer" />
+            <column name="discount_in_percents" type="integer" />
+            <column name="commission_in_percents" type="integer" />
+            <column name="external_id" type="varchar(255)" />
+            <column name="external_state" type="${clobType}" />
+            <column name="quest_id" type="${uuidType}" />
+
+            <column name="created_at" type="${timestampWithTimeZoneType}" />
+            <column name="updated_at" type="${timestampWithTimeZoneType}" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20201111153546-1-relations" author="jhipster">
+
+        <addPrimaryKey columnNames="id, rev"
+            constraintName="pk_slot_aud"
+            tableName="slot_aud"
+            validate="true"/>
+
+        <addForeignKeyConstraint baseColumnNames="rev"
+            baseTableName="slot_aud"
+            constraintName="fk_slot_aud_rev"
+            referencedColumnNames="rev"
+            referencedTableName="revinfo"/>
+
+        <addForeignKeyConstraint baseColumnNames="quest_id"
+            baseTableName="slot_aud"
+            constraintName="fk_slot_aud_quest_id"
+            referencedColumnNames="id"
+            referencedTableName="quest"/>
+
+    </changeSet>
+
+</databaseChangeLog>

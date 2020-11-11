@@ -39,6 +39,7 @@
     <include file="config/liquibase/changelog/20201110204849_added_audit_for_Player.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201111145851_added_audit_for_Quest.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201111152442_added_audit_for_Company.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201111153546_added_audit_for_Slot.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

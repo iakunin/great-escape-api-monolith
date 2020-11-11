@@ -9,7 +9,7 @@
         Added the entity Slot.
     -->
     <changeSet id="20201102113339-1" author="jhipster">
-        <createTable tableName="slot" remarks="@TODO: should be audited (with cleanup older than 6 months).\nThere could be Bookings on some Slots: just don&apos;t delete such Slots">
+        <createTable tableName="slot">
             <column name="id" type="${uuidType}" defaultValue="${defaultUuid}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

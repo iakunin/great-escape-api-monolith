@@ -16,15 +16,17 @@ import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
-/**
- * @TODO: should be audited (with cleanup older than 6 months).\nThere could be Bookings on some Slots: just don't delete such Slots
- */
 @Getter
 @Setter
 @Entity
 @Table(name = "slot")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Audited
+@AuditOverride(forClass = AbstractEntity.class)
 public class Slot extends AbstractEntity {
 
     @NotNull
@@ -66,6 +68,7 @@ public class Slot extends AbstractEntity {
     @Column(name = "external_state")
     private String externalState;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "slots", allowSetters = true)
