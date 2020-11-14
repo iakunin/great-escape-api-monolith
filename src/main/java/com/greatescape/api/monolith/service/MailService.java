@@ -63,7 +63,7 @@ public class MailService {
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);
             log.debug("Sent email to User '{}'", to);
-        }  catch (MailException | MessagingException e) {
+        } catch (MailException | MessagingException e) {
             log.warn("Email could not be sent to user '{}'", to, e);
         }
     }
@@ -87,6 +87,22 @@ public class MailService {
     public void sendActivationEmail(User user) {
         log.debug("Sending activation email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/activationEmail", "email.activation.title");
+    }
+
+    @Async
+    public void sendAnonymousFeedbackEmail(String name, String from, String text) {
+        final String to = "info@great-escape.ru"; //@TODO: extract to config
+        final String subject = "Обратная связь на сайте";
+
+        log.debug("Sending Anonymous Feedback Email to '{}' from '{}'", to, from);
+
+        Locale locale = Locale.getDefault();
+        Context context = new Context(locale);
+        context.setVariable("name", name);
+        context.setVariable("from", from);
+        context.setVariable("text", text);
+        String content = templateEngine.process("mail/anonymousFeedback", context);
+        this.sendEmail(to, subject, content, false, true);
     }
 
     @Async
