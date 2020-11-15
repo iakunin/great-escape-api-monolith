@@ -3,8 +3,7 @@ package com.greatescape.api.monolith.web.rest;
 import com.greatescape.api.monolith.service.MailService;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,7 @@ public class FeedbackController {
     private final MailService mailService;
 
     @PostMapping("/feedback")
-    public ResponseEntity<?> create(@Valid @RequestBody Feedback request) {
+    public ResponseEntity<?> create(@Valid @RequestBody Request request) {
         this.mailService.sendAnonymousFeedbackEmail(
             request.getName(),
             request.getEmail(),
@@ -33,19 +32,16 @@ public class FeedbackController {
     }
 
     @Value
-    public static class Feedback {
+    public static class Request {
 
-        @NotNull
-        @Size(min = 1, max = 100)
+        @NotBlank
         String name;
 
-        @NotNull
+        @NotBlank
         @Email
-        @Size(min = 5, max = 254)
         String email;
 
-        @NotNull
-        @Size(min = 1)
+        @NotBlank
         String text;
     }
 }
