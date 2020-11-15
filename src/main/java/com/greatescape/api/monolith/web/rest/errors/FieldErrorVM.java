@@ -12,11 +12,11 @@ public final class FieldErrorVM implements Serializable {
 
     private final String field;
 
-    private final String message;
+    private final String code;
 
-    public FieldErrorVM(String dto, String field, String message) {
+    public FieldErrorVM(String dto, String field, String code) {
         this.objectName = dto;
         this.field = field;
-        this.message = message;
+        this.code = code;
     }
 }
