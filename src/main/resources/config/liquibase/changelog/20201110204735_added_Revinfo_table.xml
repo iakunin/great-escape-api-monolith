@@ -6,7 +6,7 @@
 
 
     <changeSet id="20201110204735-1" author="jhipster">
-        <createSequence sequenceName="hibernate_sequence" startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="revinfo_rev_sequence" startValue="1" incrementBy="1"/>
     </changeSet>
 
     <changeSet id="20201110204735-2" author="jhipster">
@@ -14,7 +14,7 @@
             <column name="rev" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="revtstmp" type="bigint" />
+            <column name="timestamp" type="bigint" />
         </createTable>
     </changeSet>
 
