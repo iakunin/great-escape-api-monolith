@@ -52,4 +52,15 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="20201102113139-2-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/location_metro.csv"
+                  separator=";"
+                  tableName="location_metro">
+            <column name="metro_id" type="${uuidType}"/>
+            <column name="location_id" type="${uuidType}"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+
 </databaseChangeLog>
