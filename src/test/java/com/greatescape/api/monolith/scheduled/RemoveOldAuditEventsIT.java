@@ -1,8 +1,9 @@
-package com.greatescape.api.monolith.service;
+package com.greatescape.api.monolith.scheduled;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.PersistentAuditEvent;
 import com.greatescape.api.monolith.repository.PersistenceAuditEventRepository;
+import com.greatescape.api.monolith.service.AuditEventService;
 import io.github.jhipster.config.JHipsterProperties;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -19,9 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @Transactional
-public class AuditEventServiceIT {
+public class RemoveOldAuditEventsIT {
     @Autowired
-    private AuditEventService auditEventService;
+    private RemoveOldAuditEvents removeOldAuditEvents;
 
     @Autowired
     private PersistenceAuditEventRepository persistenceAuditEventRepository;
@@ -38,12 +39,22 @@ public class AuditEventServiceIT {
     @BeforeEach
     public void init() {
         auditEventOld = new PersistentAuditEvent();
-        auditEventOld.setAuditEventDate(Instant.now().minus(jHipsterProperties.getAuditEvents().getRetentionPeriod() + 1, ChronoUnit.DAYS));
+        auditEventOld.setAuditEventDate(
+            Instant.now().minus(
+                jHipsterProperties.getAuditEvents().getRetentionPeriod() + 1,
+                ChronoUnit.DAYS
+            )
+        );
         auditEventOld.setPrincipal("test-user-old");
         auditEventOld.setAuditEventType("test-type");
 
         auditEventWithinRetention = new PersistentAuditEvent();
-        auditEventWithinRetention.setAuditEventDate(Instant.now().minus(jHipsterProperties.getAuditEvents().getRetentionPeriod() - 1, ChronoUnit.DAYS));
+        auditEventWithinRetention.setAuditEventDate(
+            Instant.now().minus(
+                jHipsterProperties.getAuditEvents().getRetentionPeriod() - 1,
+                ChronoUnit.DAYS
+            )
+        );
         auditEventWithinRetention.setPrincipal("test-user-retention");
         auditEventWithinRetention.setAuditEventType("test-type");
 
@@ -62,7 +73,7 @@ public class AuditEventServiceIT {
         persistenceAuditEventRepository.save(auditEventNew);
 
         persistenceAuditEventRepository.flush();
-        auditEventService.removeOldAuditEvents();
+        removeOldAuditEvents.run();
         persistenceAuditEventRepository.flush();
 
         assertThat(persistenceAuditEventRepository.findAll().size()).isEqualTo(2);
