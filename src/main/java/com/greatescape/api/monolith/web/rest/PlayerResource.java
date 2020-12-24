@@ -144,7 +144,7 @@ public class PlayerResource {
     @DeleteMapping("/players/{id}")
     public ResponseEntity<Void> deletePlayer(@PathVariable UUID id) {
         log.debug("REST request to delete Player : {}", id);
-        playerService.delete(id);
+        //playerService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

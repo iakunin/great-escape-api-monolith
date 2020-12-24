@@ -144,7 +144,7 @@ public class BookingResource {
     @DeleteMapping("/bookings/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable UUID id) {
         log.debug("REST request to delete Booking : {}", id);
-        bookingService.delete(id);
+        //bookingService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

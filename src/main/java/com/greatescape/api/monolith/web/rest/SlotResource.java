@@ -144,7 +144,7 @@ public class SlotResource {
     @DeleteMapping("/slots/{id}")
     public ResponseEntity<Void> deleteSlot(@PathVariable UUID id) {
         log.debug("REST request to delete Slot : {}", id);
-        slotService.delete(id);
+        //slotService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

@@ -144,7 +144,7 @@ public class QuestIntegrationSettingResource {
     @DeleteMapping("/quest-integration-settings/{id}")
     public ResponseEntity<Void> deleteQuestIntegrationSetting(@PathVariable UUID id) {
         log.debug("REST request to delete QuestIntegrationSetting : {}", id);
-        questIntegrationSettingService.delete(id);
+        //questIntegrationSettingService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

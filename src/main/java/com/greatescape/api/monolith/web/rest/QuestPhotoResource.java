@@ -144,7 +144,7 @@ public class QuestPhotoResource {
     @DeleteMapping("/quest-photos/{id}")
     public ResponseEntity<Void> deleteQuestPhoto(@PathVariable UUID id) {
         log.debug("REST request to delete QuestPhoto : {}", id);
-        questPhotoService.delete(id);
+        //questPhotoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

@@ -144,7 +144,7 @@ public class QuestResource {
     @DeleteMapping("/quests/{id}")
     public ResponseEntity<Void> deleteQuest(@PathVariable UUID id) {
         log.debug("REST request to delete Quest : {}", id);
-        questService.delete(id);
+        //questService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

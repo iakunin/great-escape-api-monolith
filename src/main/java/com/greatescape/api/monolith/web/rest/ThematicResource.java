@@ -144,7 +144,7 @@ public class ThematicResource {
     @DeleteMapping("/thematics/{id}")
     public ResponseEntity<Void> deleteThematic(@PathVariable UUID id) {
         log.debug("REST request to delete Thematic : {}", id);
-        thematicService.delete(id);
+        //thematicService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

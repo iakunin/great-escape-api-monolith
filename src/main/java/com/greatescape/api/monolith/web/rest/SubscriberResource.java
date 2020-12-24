@@ -144,7 +144,7 @@ public class SubscriberResource {
     @DeleteMapping("/subscribers/{id}")
     public ResponseEntity<Void> deleteSubscriber(@PathVariable UUID id) {
         log.debug("REST request to delete Subscriber : {}", id);
-        subscriberService.delete(id);
+        //subscriberService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

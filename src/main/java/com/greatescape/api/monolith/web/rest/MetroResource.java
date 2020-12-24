@@ -144,7 +144,7 @@ public class MetroResource {
     @DeleteMapping("/metros/{id}")
     public ResponseEntity<Void> deleteMetro(@PathVariable UUID id) {
         log.debug("REST request to delete Metro : {}", id);
-        metroService.delete(id);
+        //metroService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

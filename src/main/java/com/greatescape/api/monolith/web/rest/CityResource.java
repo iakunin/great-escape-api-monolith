@@ -144,7 +144,7 @@ public class CityResource {
     @DeleteMapping("/cities/{id}")
     public ResponseEntity<Void> deleteCity(@PathVariable UUID id) {
         log.debug("REST request to delete City : {}", id);
-        cityService.delete(id);
+        //cityService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }
