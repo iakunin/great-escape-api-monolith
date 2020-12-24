@@ -78,6 +78,8 @@ public final class QuestAggregationDTO implements Serializable {
 
     private Set<MetroDTO> metros = new HashSet<>();
 
+    private Set<QuestPhotoDTO> photos = new HashSet<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -106,6 +107,10 @@ public class QuestAggregation extends AbstractEntity {
     private Integer discountInPercents;
 
     private String coverImage;
+
+    @OneToMany
+    @JoinColumn(name = "quest_id")
+    private Set<QuestPhoto> photos = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

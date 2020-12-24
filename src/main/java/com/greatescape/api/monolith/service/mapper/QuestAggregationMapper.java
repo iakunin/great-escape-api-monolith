@@ -9,7 +9,15 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity {@link QuestAggregation} and its DTO {@link QuestAggregationDTO}.
  */
-@Mapper(componentModel = "spring", uses = {LocationMapper.class, CompanyMapper.class, ThematicMapper.class, MetroMapper.class})
+@Mapper(
+    componentModel = "spring",
+    uses = {
+        LocationMapper.class,
+        CompanyMapper.class,
+        ThematicMapper.class,
+        MetroMapper.class,
+        QuestPhotoMapper.class,
+})
 public interface QuestAggregationMapper extends EntityMapper<QuestAggregationDTO, QuestAggregation> {
 
     @Mapping(source = "location.id", target = "locationId")
