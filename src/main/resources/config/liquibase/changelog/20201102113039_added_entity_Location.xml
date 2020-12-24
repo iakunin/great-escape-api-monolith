@@ -61,7 +61,7 @@
                   tableName="location">
             <column name="id" type="${uuidType}"/>
             <column name="address" type="string"/>
-            <column name="address_explanation" type="clob"/>
+            <column name="address_explanation" type="string"/>
             <column name="city_id" type="${uuidType}"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
