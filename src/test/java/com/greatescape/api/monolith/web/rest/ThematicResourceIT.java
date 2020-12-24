@@ -502,6 +502,9 @@ public class ThematicResourceIT {
 
         // Validate the database contains one less item
         List<Thematic> thematicList = thematicRepository.findAll();
-        assertThat(thematicList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(thematicList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(thematicList).hasSize(databaseSizeBeforeDelete);
     }
 }

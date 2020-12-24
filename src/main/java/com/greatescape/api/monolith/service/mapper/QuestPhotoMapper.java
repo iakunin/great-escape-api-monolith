@@ -13,9 +13,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {QuestMapper.class})
 public interface QuestPhotoMapper extends EntityMapper<QuestPhotoDTO, QuestPhoto> {
 
+    @Mapping(source = "quest.id", target = "questId")
     QuestPhotoDTO toDto(QuestPhoto questPhoto);
 
-    @Mapping(target = "quest", ignore = true)
+    @Mapping(source = "questId", target = "quest")
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     QuestPhoto toEntity(QuestPhotoDTO questPhotoDTO);

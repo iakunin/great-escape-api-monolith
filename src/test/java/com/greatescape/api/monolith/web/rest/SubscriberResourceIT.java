@@ -481,6 +481,9 @@ public class SubscriberResourceIT {
 
         // Validate the database contains one less item
         List<Subscriber> subscriberList = subscriberRepository.findAll();
-        assertThat(subscriberList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(subscriberList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(subscriberList).hasSize(databaseSizeBeforeDelete);
     }
 }

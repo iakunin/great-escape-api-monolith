@@ -409,6 +409,9 @@ public class QuestPhotoResourceIT {
 
         // Validate the database contains one less item
         List<QuestPhoto> questPhotoList = questPhotoRepository.findAll();
-        assertThat(questPhotoList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(questPhotoList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(questPhotoList).hasSize(databaseSizeBeforeDelete);
     }
 }

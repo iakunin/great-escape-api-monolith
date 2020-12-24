@@ -477,6 +477,9 @@ public class LocationResourceIT {
 
         // Validate the database contains one less item
         List<Location> locationList = locationRepository.findAll();
-        assertThat(locationList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(locationList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(locationList).hasSize(databaseSizeBeforeDelete);
     }
 }

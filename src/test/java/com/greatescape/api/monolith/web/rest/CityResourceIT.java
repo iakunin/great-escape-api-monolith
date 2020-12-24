@@ -589,6 +589,9 @@ public class CityResourceIT {
 
         // Validate the database contains one less item
         List<City> cityList = cityRepository.findAll();
-        assertThat(cityList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(cityList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(cityList).hasSize(databaseSizeBeforeDelete);
     }
 }

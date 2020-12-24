@@ -882,6 +882,9 @@ public class PlayerResourceIT {
 
         // Validate the database contains one less item
         List<Player> playerList = playerRepository.findAll();
-        assertThat(playerList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(playerList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(playerList).hasSize(databaseSizeBeforeDelete);
     }
 }

@@ -912,6 +912,9 @@ public class CompanyResourceIT {
 
         // Validate the database contains one less item
         List<Company> companyList = companyRepository.findAll();
-        assertThat(companyList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(companyList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(companyList).hasSize(databaseSizeBeforeDelete);
     }
 }

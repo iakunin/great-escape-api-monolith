@@ -867,6 +867,9 @@ public class BookingResourceIT {
 
         // Validate the database contains one less item
         List<Booking> bookingList = bookingRepository.findAll();
-        assertThat(bookingList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(bookingList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(bookingList).hasSize(databaseSizeBeforeDelete);
     }
 }

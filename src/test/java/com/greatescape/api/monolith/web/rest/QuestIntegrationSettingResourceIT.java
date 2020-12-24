@@ -397,6 +397,9 @@ public class QuestIntegrationSettingResourceIT {
 
         // Validate the database contains one less item
         List<QuestIntegrationSetting> questIntegrationSettingList = questIntegrationSettingRepository.findAll();
-        assertThat(questIntegrationSettingList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(questIntegrationSettingList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(questIntegrationSettingList).hasSize(databaseSizeBeforeDelete);
     }
 }

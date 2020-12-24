@@ -501,6 +501,9 @@ public class MetroResourceIT {
 
         // Validate the database contains one less item
         List<Metro> metroList = metroRepository.findAll();
-        assertThat(metroList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Due to commented delete service
+        // assertThat(metroList).hasSize(databaseSizeBeforeDelete - 1);
+        assertThat(metroList).hasSize(databaseSizeBeforeDelete);
     }
 }
