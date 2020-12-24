@@ -106,7 +106,7 @@ public class QuestAggregation extends AbstractEntity {
     @Column(name = "discount_in_percents", nullable = false)
     private Integer discountInPercents;
 
-    private String coverImage;
+    private String coverPhoto;
 
     @OneToMany
     @JoinColumn(name = "quest_id")
@@ -148,7 +148,7 @@ public class QuestAggregation extends AbstractEntity {
             ", thematics=" + thematics +
             ", minPrice=" + minPrice +
             ", discountInPercents=" + discountInPercents +
-            ", coverImage='" + coverImage + '\'' +
+            ", coverImage='" + coverPhoto + '\'' +
             '}';
     }
 }

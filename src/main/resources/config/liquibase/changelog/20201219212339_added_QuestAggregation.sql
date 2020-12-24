@@ -4,7 +4,7 @@ create materialized view quest_aggregation as
 select q.*,
     c.discount_in_percents,
     tmp_slot.min_price,
-   min(tmp_quest_photo.url) as cover_image
+   min(tmp_quest_photo.url) as cover_photo
 from quest q
 join company c on q.company_id = c.id
 join (

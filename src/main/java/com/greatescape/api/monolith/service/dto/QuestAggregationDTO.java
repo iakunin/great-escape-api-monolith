@@ -72,7 +72,7 @@ public final class QuestAggregationDTO implements Serializable {
 
     private String companyTitle;
 
-    private String coverImage;
+    private String coverPhoto;
 
     private Set<ThematicDTO> thematics = new HashSet<>();
 
