@@ -83,6 +83,11 @@ public class Quest extends AbstractEntity {
     @Column(name = "type", nullable = false)
     private QuestType type;
 
+    @NotNull
+    @Size(min = 2)
+    @Column(name = "cover_photo", nullable = false)
+    private String coverPhoto;
+
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(optional = false)
     @NotNull
@@ -146,6 +151,7 @@ public class Quest extends AbstractEntity {
             ", complexity='" + getComplexity() + "'" +
             ", fearLevel='" + getFearLevel() + "'" +
             ", type='" + getType() + "'" +
+            ", coverPhoto='" + getCoverPhoto() + "'" +
             "}";
     }
 }

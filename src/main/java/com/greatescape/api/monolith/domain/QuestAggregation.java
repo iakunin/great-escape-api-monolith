@@ -78,6 +78,11 @@ public class QuestAggregation extends AbstractEntity {
     @Column(name = "type", nullable = false)
     private QuestType type;
 
+    @NotNull
+    @Size(min = 2)
+    @Column(name = "cover_photo", nullable = false)
+    private String coverPhoto;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "quests", allowSetters = true)
@@ -105,8 +110,6 @@ public class QuestAggregation extends AbstractEntity {
     @Min(value = 0)
     @Column(name = "discount_in_percents", nullable = false)
     private Integer discountInPercents;
-
-    private String coverPhoto;
 
     @OneToMany
     @JoinColumn(name = "quest_id")
@@ -148,7 +151,7 @@ public class QuestAggregation extends AbstractEntity {
             ", thematics=" + thematics +
             ", minPrice=" + minPrice +
             ", discountInPercents=" + discountInPercents +
-            ", coverImage='" + coverPhoto + '\'' +
+            ", coverPhoto='" + coverPhoto + '\'' +
             '}';
     }
 }

@@ -40,6 +40,9 @@
             <column name="type" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="cover_photo" type="varchar(4096)">
+                <constraints nullable="false" />
+            </column>
             <column name="location_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
