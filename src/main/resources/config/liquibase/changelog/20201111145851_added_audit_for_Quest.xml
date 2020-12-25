@@ -24,6 +24,7 @@
             <column name="complexity" type="varchar(255)" />
             <column name="fear_level" type="varchar(255)" />
             <column name="type" type="varchar(255)" />
+            <column name="cover_photo" type="varchar(4096)" />
             <column name="location_id" type="${uuidType}" />
             <column name="company_id" type="${uuidType}" />
             <column name="created_at" type="${timestampWithTimeZoneType}" />

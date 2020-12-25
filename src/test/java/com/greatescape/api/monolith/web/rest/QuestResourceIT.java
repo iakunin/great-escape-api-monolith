@@ -83,6 +83,9 @@ public class QuestResourceIT {
     private static final QuestType DEFAULT_TYPE = QuestType.ESCAPE;
     private static final QuestType UPDATED_TYPE = QuestType.PERFORMANCE;
 
+    private static final String DEFAULT_COVER_PHOTO = "AAAAAAAAAA";
+    private static final String UPDATED_COVER_PHOTO = "BBBBBBBBBB";
+
     @Autowired
     private QuestRepository questRepository;
 
@@ -125,7 +128,8 @@ public class QuestResourceIT {
             .setDurationInMinutes(DEFAULT_DURATION_IN_MINUTES)
             .setComplexity(DEFAULT_COMPLEXITY)
             .setFearLevel(DEFAULT_FEAR_LEVEL)
-            .setType(DEFAULT_TYPE);
+            .setType(DEFAULT_TYPE)
+            .setCoverPhoto(DEFAULT_COVER_PHOTO);
         // Add required entity
         Location location;
         if (TestUtil.findAll(em, Location.class).isEmpty()) {
@@ -164,7 +168,8 @@ public class QuestResourceIT {
             .setDurationInMinutes(UPDATED_DURATION_IN_MINUTES)
             .setComplexity(UPDATED_COMPLEXITY)
             .setFearLevel(UPDATED_FEAR_LEVEL)
-            .setType(UPDATED_TYPE);
+            .setType(UPDATED_TYPE)
+            .setCoverPhoto(UPDATED_COVER_PHOTO);
         // Add required entity
         Location location;
         if (TestUtil.findAll(em, Location.class).isEmpty()) {
@@ -216,7 +221,8 @@ public class QuestResourceIT {
         assertThat(testQuest.getDurationInMinutes()).isEqualTo(DEFAULT_DURATION_IN_MINUTES);
         assertThat(testQuest.getComplexity()).isEqualTo(DEFAULT_COMPLEXITY);
         assertThat(testQuest.getFearLevel()).isEqualTo(DEFAULT_FEAR_LEVEL);
-        Assertions.assertThat(testQuest.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testQuest.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testQuest.getCoverPhoto()).isEqualTo(DEFAULT_COVER_PHOTO);
     }
 
     @Test
@@ -420,7 +426,9 @@ public class QuestResourceIT {
             .andExpect(jsonPath("$.[*].durationInMinutes").value(hasItem(DEFAULT_DURATION_IN_MINUTES)))
             .andExpect(jsonPath("$.[*].complexity").value(hasItem(DEFAULT_COMPLEXITY.toString())))
             .andExpect(jsonPath("$.[*].fearLevel").value(hasItem(DEFAULT_FEAR_LEVEL.toString())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].coverPhoto").value(hasItem(DEFAULT_COVER_PHOTO)))
+        ;
     }
 
     @SuppressWarnings({"unchecked"})
@@ -462,7 +470,8 @@ public class QuestResourceIT {
             .andExpect(jsonPath("$.durationInMinutes").value(DEFAULT_DURATION_IN_MINUTES))
             .andExpect(jsonPath("$.complexity").value(DEFAULT_COMPLEXITY.toString()))
             .andExpect(jsonPath("$.fearLevel").value(DEFAULT_FEAR_LEVEL.toString()))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
+            .andExpect(jsonPath("$.coverPhoto").value(DEFAULT_COVER_PHOTO));
     }
 
 
@@ -1173,7 +1182,9 @@ public class QuestResourceIT {
             .andExpect(jsonPath("$.[*].durationInMinutes").value(hasItem(DEFAULT_DURATION_IN_MINUTES)))
             .andExpect(jsonPath("$.[*].complexity").value(hasItem(DEFAULT_COMPLEXITY.toString())))
             .andExpect(jsonPath("$.[*].fearLevel").value(hasItem(DEFAULT_FEAR_LEVEL.toString())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].coverPhoto").value(hasItem(DEFAULT_COVER_PHOTO)))
+        ;
 
         // Check, that the count call also returns 1
         restQuestMockMvc.perform(get("/api/quests/count?sort=id,desc&" + filter))

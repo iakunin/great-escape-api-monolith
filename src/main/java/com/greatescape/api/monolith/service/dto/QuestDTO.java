@@ -56,6 +56,8 @@ public final class QuestDTO implements Serializable {
     @NotNull
     private QuestType type;
 
+    private String coverPhoto;
+
     private UUID locationId;
 
     private String locationAddress;
