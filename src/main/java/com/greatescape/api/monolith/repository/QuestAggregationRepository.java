@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.repository;
 
 import com.greatescape.api.monolith.domain.QuestAggregation;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -14,5 +15,5 @@ public interface QuestAggregationRepository extends
     JpaRepository<QuestAggregation, UUID>,
     JpaSpecificationExecutor<QuestAggregation>
 {
-    /*_*/
+    Optional<QuestAggregation> findOneBySlug(String slug);
 }

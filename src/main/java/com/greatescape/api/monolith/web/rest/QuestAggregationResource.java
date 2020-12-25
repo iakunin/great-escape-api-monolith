@@ -11,6 +11,7 @@ import com.greatescape.api.monolith.service.dto.QuestCriteria;
 import com.greatescape.api.monolith.service.mapper.QuestAggregationMapper;
 import io.github.jhipster.service.QueryService;
 import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -49,17 +51,13 @@ public class QuestAggregationResource extends QueryService<QuestAggregation> {
      */
     @GetMapping("/quest_aggregations")
     public ResponseEntity<List<QuestAggregationDTO>> getAllQuests(QuestAggregationCriteria criteria, Pageable pageable) {
-        log.debug("REST request to get Quests by criteria: {}", criteria);
+        log.debug("REST request to get QuestAggregation by criteria: {}", criteria);
         final Specification<QuestAggregation> specification = createSpecification(criteria);
 
         final Page<QuestAggregationDTO> page = repository
             .findAll(specification, pageable)
-            .map(mapper::toDto)
-            .map(dto -> dto.setDiscountInPercents(
-                Optional.ofNullable(dto.getDiscountInPercents())
-                    .orElse(properties.getDiscountInPercents())
-                )
-            );
+            .map(this::entityToDto);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -72,13 +70,35 @@ public class QuestAggregationResource extends QueryService<QuestAggregation> {
      */
     @GetMapping("/quest_aggregations/count")
     public ResponseEntity<Long> countQuests(QuestAggregationCriteria criteria) {
-        log.debug("REST request to count Quests by criteria: {}", criteria);
+        log.debug("REST request to count QuestAggregation by criteria: {}", criteria);
 
         return ResponseEntity.ok().body(
             repository.count(createSpecification(criteria))
         );
     }
 
+    /**
+     * {@code GET  /quests/:slug} : get the "slug" quest.
+     *
+     * @param slug the slug of the questDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the questDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/quest_aggregations/{slug}")
+    public ResponseEntity<QuestAggregationDTO> getQuest(@PathVariable String slug) {
+        log.debug("REST request to get QuestAggregation : {}", slug);
+        Optional<QuestAggregationDTO> questDTO = repository.findOneBySlug(slug).map(this::entityToDto);
+        return ResponseUtil.wrapOrNotFound(questDTO);
+    }
+
+    private QuestAggregationDTO entityToDto(QuestAggregation entity) {
+        final QuestAggregationDTO dto = mapper.toDto(entity);
+        dto.setDiscountInPercents(
+            Optional.ofNullable(dto.getDiscountInPercents())
+                .orElse(properties.getDiscountInPercents())
+        );
+
+        return dto;
+    }
 
     /**
      * Function to convert {@link QuestCriteria} to a {@link Specification}
