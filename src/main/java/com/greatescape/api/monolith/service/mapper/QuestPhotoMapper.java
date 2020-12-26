@@ -14,6 +14,7 @@ import org.mapstruct.Mapping;
 public interface QuestPhotoMapper extends EntityMapper<QuestPhotoDTO, QuestPhoto> {
 
     @Mapping(source = "quest.id", target = "questId")
+    @Mapping(source = "quest.title", target = "questTitle")
     QuestPhotoDTO toDto(QuestPhoto questPhoto);
 
     @Mapping(source = "questId", target = "quest")

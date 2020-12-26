@@ -21,6 +21,8 @@ public final class QuestPhotoDTO implements Serializable {
 
     private UUID questId;
 
+    private String questTitle;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -44,6 +46,7 @@ public final class QuestPhotoDTO implements Serializable {
             "id=" + getId() +
             ", url='" + getUrl() + "'" +
             ", questId=" + getQuestId() +
+            ", questTitle='" + getQuestTitle() + "'" +
             "}";
     }
 }
