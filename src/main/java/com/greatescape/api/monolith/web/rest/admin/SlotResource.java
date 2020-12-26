@@ -35,7 +35,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 /**
  * REST controller for managing {@link Slot}.
  */
-@RestController
+@RestController("admin.SlotResource")
 @RequestMapping("/admin-api")
 public class SlotResource {
 

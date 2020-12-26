@@ -59,21 +59,6 @@ public class QuestResource extends QueryService<QuestAggregation> {
     }
 
     /**
-     * {@code GET /quests/count} : count all the quests.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/quests/count")
-    public ResponseEntity<Long> countQuests(QuestAggregationCriteria criteria) {
-        log.debug("REST request to count QuestAggregation by criteria: {}", criteria);
-
-        return ResponseEntity.ok().body(
-            repository.count(createSpecification(criteria))
-        );
-    }
-
-    /**
      * {@code GET /quests/:slug} : get the quest by "slug".
      *
      * @param slug the slug of the questDTO to retrieve.
