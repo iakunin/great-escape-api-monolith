@@ -3,7 +3,6 @@ package com.greatescape.api.monolith.service.dto.player;
 import com.greatescape.api.monolith.domain.Slot;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.ZonedDateTime;
 import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -22,9 +21,6 @@ public final class SlotDTO implements Serializable {
 
     @NotNull
     private Instant dateTimeLocal;
-
-    @NotNull
-    private ZonedDateTime dateTimeWithTimeZone;
 
     @NotNull
     private Boolean isAvailable;
@@ -59,7 +55,6 @@ public final class SlotDTO implements Serializable {
         return "SlotDTO{" +
             "id=" + getId() +
             ", dateTimeLocal='" + getDateTimeLocal() + "'" +
-            ", dateTimeWithTimeZone='" + getDateTimeWithTimeZone() + "'" +
             ", isAvailable='" + getIsAvailable() + "'" +
             ", price=" + getPrice() +
             ", discountInPercents=" + getDiscountInPercents() +

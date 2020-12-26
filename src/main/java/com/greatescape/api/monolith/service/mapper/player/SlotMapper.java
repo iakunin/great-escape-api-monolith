@@ -21,6 +21,7 @@ public interface SlotMapper extends EntityMapper<SlotDTO, Slot> {
 
     SlotDTO toDto(Slot slot);
 
+    @Mapping(target = "dateTimeWithTimeZone", ignore = true)
     @Mapping(target = "commissionInPercents", ignore = true)
     @Mapping(target = "externalId", ignore = true)
     @Mapping(target = "externalState", ignore = true)
