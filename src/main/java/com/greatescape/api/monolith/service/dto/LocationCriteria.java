@@ -1,7 +1,7 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Location;
-import com.greatescape.api.monolith.web.rest.LocationResource;
+import com.greatescape.api.monolith.web.rest.admin.LocationResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.StringFilter;

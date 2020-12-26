@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.service.QuestQueryService;
@@ -35,7 +35,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 /**
  * REST controller for managing {@link Quest}.
  */
-@RestController
+@RestController("admin.QuestResource")
 @RequestMapping("/api")
 public class QuestResource {
 

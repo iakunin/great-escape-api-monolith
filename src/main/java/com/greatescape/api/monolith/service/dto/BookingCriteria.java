@@ -2,7 +2,7 @@ package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.domain.enumeration.BookingStatus;
-import com.greatescape.api.monolith.web.rest.BookingResource;
+import com.greatescape.api.monolith.web.rest.admin.BookingResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;

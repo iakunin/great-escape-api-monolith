@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Company;
@@ -10,6 +10,8 @@ import com.greatescape.api.monolith.service.PlayerQueryService;
 import com.greatescape.api.monolith.service.PlayerService;
 import com.greatescape.api.monolith.service.dto.PlayerDTO;
 import com.greatescape.api.monolith.service.mapper.PlayerMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
+import com.greatescape.api.monolith.web.rest.UserResourceIT;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
@@ -134,7 +136,7 @@ public class PlayerResourceIT {
         int databaseSizeBeforeCreate = playerRepository.findAll().size();
         // Create the Player
         PlayerDTO playerDTO = playerMapper.toDto(player);
-        restPlayerMockMvc.perform(post("/api/players")
+        restPlayerMockMvc.perform(post("/admin-api/players")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(playerDTO)))
             .andExpect(status().isCreated());
@@ -162,7 +164,7 @@ public class PlayerResourceIT {
         PlayerDTO playerDTO = playerMapper.toDto(this.player);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restPlayerMockMvc.perform(post("/api/players")
+        restPlayerMockMvc.perform(post("/admin-api/players")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(playerDTO)))
             .andExpect(status().isBadRequest());
@@ -184,7 +186,7 @@ public class PlayerResourceIT {
         PlayerDTO playerDTO = playerMapper.toDto(player);
 
 
-        restPlayerMockMvc.perform(post("/api/players")
+        restPlayerMockMvc.perform(post("/admin-api/players")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(playerDTO)))
             .andExpect(status().isBadRequest());
@@ -204,7 +206,7 @@ public class PlayerResourceIT {
         PlayerDTO playerDTO = playerMapper.toDto(player);
 
 
-        restPlayerMockMvc.perform(post("/api/players")
+        restPlayerMockMvc.perform(post("/admin-api/players")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(playerDTO)))
             .andExpect(status().isBadRequest());
@@ -224,7 +226,7 @@ public class PlayerResourceIT {
         PlayerDTO playerDTO = playerMapper.toDto(player);
 
 
-        restPlayerMockMvc.perform(post("/api/players")
+        restPlayerMockMvc.perform(post("/admin-api/players")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(playerDTO)))
             .andExpect(status().isBadRequest());
@@ -240,7 +242,7 @@ public class PlayerResourceIT {
         playerRepository.saveAndFlush(player);
 
         // Get all the playerList
-        restPlayerMockMvc.perform(get("/api/players?sort=id,desc"))
+        restPlayerMockMvc.perform(get("/admin-api/players?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().toString())))
@@ -259,7 +261,7 @@ public class PlayerResourceIT {
         playerRepository.saveAndFlush(player);
 
         // Get the player
-        restPlayerMockMvc.perform(get("/api/players/{id}", player.getId()))
+        restPlayerMockMvc.perform(get("/admin-api/players/{id}", player.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(player.getId().toString()))
@@ -767,7 +769,7 @@ public class PlayerResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultPlayerShouldBeFound(String filter) throws Exception {
-        restPlayerMockMvc.perform(get("/api/players?sort=id,desc&" + filter))
+        restPlayerMockMvc.perform(get("/admin-api/players?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().toString())))
@@ -779,7 +781,7 @@ public class PlayerResourceIT {
             .andExpect(jsonPath("$.[*].subscriptionAllowed").value(hasItem(DEFAULT_SUBSCRIPTION_ALLOWED)));
 
         // Check, that the count call also returns 1
-        restPlayerMockMvc.perform(get("/api/players/count?sort=id,desc&" + filter))
+        restPlayerMockMvc.perform(get("/admin-api/players/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -789,14 +791,14 @@ public class PlayerResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultPlayerShouldNotBeFound(String filter) throws Exception {
-        restPlayerMockMvc.perform(get("/api/players?sort=id,desc&" + filter))
+        restPlayerMockMvc.perform(get("/admin-api/players?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restPlayerMockMvc.perform(get("/api/players/count?sort=id,desc&" + filter))
+        restPlayerMockMvc.perform(get("/admin-api/players/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -806,7 +808,7 @@ public class PlayerResourceIT {
     @Transactional
     public void getNonExistingPlayer() throws Exception {
         // Get the player
-        restPlayerMockMvc.perform(get("/api/players/{id}", UUID.fromString("6c7c5653-09cd-4178-8609-0b4cdd5692f5")))
+        restPlayerMockMvc.perform(get("/admin-api/players/{id}", UUID.fromString("6c7c5653-09cd-4178-8609-0b4cdd5692f5")))
             .andExpect(status().isNotFound());
     }
 
@@ -831,7 +833,7 @@ public class PlayerResourceIT {
             .setSubscriptionAllowed(UPDATED_SUBSCRIPTION_ALLOWED);
         PlayerDTO playerDTO = playerMapper.toDto(updatedPlayer);
 
-        restPlayerMockMvc.perform(put("/api/players")
+        restPlayerMockMvc.perform(put("/admin-api/players")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(playerDTO)))
             .andExpect(status().isOk());
@@ -857,7 +859,7 @@ public class PlayerResourceIT {
         PlayerDTO playerDTO = playerMapper.toDto(player);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restPlayerMockMvc.perform(put("/api/players")
+        restPlayerMockMvc.perform(put("/admin-api/players")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(playerDTO)))
             .andExpect(status().isBadRequest());
@@ -876,7 +878,7 @@ public class PlayerResourceIT {
         int databaseSizeBeforeDelete = playerRepository.findAll().size();
 
         // Delete the player
-        restPlayerMockMvc.perform(delete("/api/players/{id}", player.getId())
+        restPlayerMockMvc.perform(delete("/admin-api/players/{id}", player.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

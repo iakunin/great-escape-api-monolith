@@ -1,7 +1,7 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Company;
-import com.greatescape.api.monolith.web.rest.CompanyResource;
+import com.greatescape.api.monolith.web.rest.admin.CompanyResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;

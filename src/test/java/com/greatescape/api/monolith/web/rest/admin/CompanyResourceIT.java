@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Company;
@@ -7,6 +7,7 @@ import com.greatescape.api.monolith.service.CompanyQueryService;
 import com.greatescape.api.monolith.service.CompanyService;
 import com.greatescape.api.monolith.service.dto.CompanyDTO;
 import com.greatescape.api.monolith.service.mapper.CompanyMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -121,7 +122,7 @@ public class CompanyResourceIT {
         int databaseSizeBeforeCreate = companyRepository.findAll().size();
         // Create the Company
         CompanyDTO companyDTO = companyMapper.toDto(company);
-        restCompanyMockMvc.perform(post("/api/companies")
+        restCompanyMockMvc.perform(post("/admin-api/companies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(companyDTO)))
             .andExpect(status().isCreated());
@@ -149,7 +150,7 @@ public class CompanyResourceIT {
         CompanyDTO companyDTO = companyMapper.toDto(this.company);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restCompanyMockMvc.perform(post("/api/companies")
+        restCompanyMockMvc.perform(post("/admin-api/companies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(companyDTO)))
             .andExpect(status().isBadRequest());
@@ -171,7 +172,7 @@ public class CompanyResourceIT {
         CompanyDTO companyDTO = companyMapper.toDto(company);
 
 
-        restCompanyMockMvc.perform(post("/api/companies")
+        restCompanyMockMvc.perform(post("/admin-api/companies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(companyDTO)))
             .andExpect(status().isBadRequest());
@@ -191,7 +192,7 @@ public class CompanyResourceIT {
         CompanyDTO companyDTO = companyMapper.toDto(company);
 
 
-        restCompanyMockMvc.perform(post("/api/companies")
+        restCompanyMockMvc.perform(post("/admin-api/companies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(companyDTO)))
             .andExpect(status().isBadRequest());
@@ -211,7 +212,7 @@ public class CompanyResourceIT {
         CompanyDTO companyDTO = companyMapper.toDto(company);
 
 
-        restCompanyMockMvc.perform(post("/api/companies")
+        restCompanyMockMvc.perform(post("/admin-api/companies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(companyDTO)))
             .andExpect(status().isBadRequest());
@@ -227,7 +228,7 @@ public class CompanyResourceIT {
         companyRepository.saveAndFlush(company);
 
         // Get all the companyList
-        restCompanyMockMvc.perform(get("/api/companies?sort=id,desc"))
+        restCompanyMockMvc.perform(get("/admin-api/companies?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(company.getId().toString())))
@@ -246,7 +247,7 @@ public class CompanyResourceIT {
         companyRepository.saveAndFlush(company);
 
         // Get the company
-        restCompanyMockMvc.perform(get("/api/companies/{id}", company.getId()))
+        restCompanyMockMvc.perform(get("/admin-api/companies/{id}", company.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(company.getId().toString()))
@@ -797,7 +798,7 @@ public class CompanyResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultCompanyShouldBeFound(String filter) throws Exception {
-        restCompanyMockMvc.perform(get("/api/companies?sort=id,desc&" + filter))
+        restCompanyMockMvc.perform(get("/admin-api/companies?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(company.getId().toString())))
@@ -809,7 +810,7 @@ public class CompanyResourceIT {
             .andExpect(jsonPath("$.[*].commissionInPercents").value(hasItem(DEFAULT_COMMISSION_IN_PERCENTS)));
 
         // Check, that the count call also returns 1
-        restCompanyMockMvc.perform(get("/api/companies/count?sort=id,desc&" + filter))
+        restCompanyMockMvc.perform(get("/admin-api/companies/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -819,14 +820,14 @@ public class CompanyResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultCompanyShouldNotBeFound(String filter) throws Exception {
-        restCompanyMockMvc.perform(get("/api/companies?sort=id,desc&" + filter))
+        restCompanyMockMvc.perform(get("/admin-api/companies?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restCompanyMockMvc.perform(get("/api/companies/count?sort=id,desc&" + filter))
+        restCompanyMockMvc.perform(get("/admin-api/companies/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -836,7 +837,7 @@ public class CompanyResourceIT {
     @Transactional
     public void getNonExistingCompany() throws Exception {
         // Get the company
-        restCompanyMockMvc.perform(get("/api/companies/{id}", UUID.fromString("96414471-c85e-4d2a-a88f-88deabcfe8e3")))
+        restCompanyMockMvc.perform(get("/admin-api/companies/{id}", UUID.fromString("96414471-c85e-4d2a-a88f-88deabcfe8e3")))
             .andExpect(status().isNotFound());
     }
 
@@ -861,7 +862,7 @@ public class CompanyResourceIT {
             .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
         CompanyDTO companyDTO = companyMapper.toDto(updatedCompany);
 
-        restCompanyMockMvc.perform(put("/api/companies")
+        restCompanyMockMvc.perform(put("/admin-api/companies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(companyDTO)))
             .andExpect(status().isOk());
@@ -887,7 +888,7 @@ public class CompanyResourceIT {
         CompanyDTO companyDTO = companyMapper.toDto(company);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restCompanyMockMvc.perform(put("/api/companies")
+        restCompanyMockMvc.perform(put("/admin-api/companies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(companyDTO)))
             .andExpect(status().isBadRequest());
@@ -906,7 +907,7 @@ public class CompanyResourceIT {
         int databaseSizeBeforeDelete = companyRepository.findAll().size();
 
         // Delete the company
-        restCompanyMockMvc.perform(delete("/api/companies/{id}", company.getId())
+        restCompanyMockMvc.perform(delete("/admin-api/companies/{id}", company.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.City;
@@ -7,6 +7,7 @@ import com.greatescape.api.monolith.service.CityQueryService;
 import com.greatescape.api.monolith.service.CityService;
 import com.greatescape.api.monolith.service.dto.CityDTO;
 import com.greatescape.api.monolith.service.mapper.CityMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -104,7 +105,7 @@ public class CityResourceIT {
         int databaseSizeBeforeCreate = cityRepository.findAll().size();
         // Create the City
         CityDTO cityDTO = cityMapper.toDto(city);
-        restCityMockMvc.perform(post("/api/cities")
+        restCityMockMvc.perform(post("/admin-api/cities")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
             .andExpect(status().isCreated());
@@ -129,7 +130,7 @@ public class CityResourceIT {
         CityDTO cityDTO = cityMapper.toDto(this.city);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restCityMockMvc.perform(post("/api/cities")
+        restCityMockMvc.perform(post("/admin-api/cities")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
             .andExpect(status().isBadRequest());
@@ -151,7 +152,7 @@ public class CityResourceIT {
         CityDTO cityDTO = cityMapper.toDto(city);
 
 
-        restCityMockMvc.perform(post("/api/cities")
+        restCityMockMvc.perform(post("/admin-api/cities")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
             .andExpect(status().isBadRequest());
@@ -171,7 +172,7 @@ public class CityResourceIT {
         CityDTO cityDTO = cityMapper.toDto(city);
 
 
-        restCityMockMvc.perform(post("/api/cities")
+        restCityMockMvc.perform(post("/admin-api/cities")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
             .andExpect(status().isBadRequest());
@@ -191,7 +192,7 @@ public class CityResourceIT {
         CityDTO cityDTO = cityMapper.toDto(city);
 
 
-        restCityMockMvc.perform(post("/api/cities")
+        restCityMockMvc.perform(post("/admin-api/cities")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
             .andExpect(status().isBadRequest());
@@ -207,7 +208,7 @@ public class CityResourceIT {
         cityRepository.saveAndFlush(city);
 
         // Get all the cityList
-        restCityMockMvc.perform(get("/api/cities?sort=id,desc"))
+        restCityMockMvc.perform(get("/admin-api/cities?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId().toString())))
@@ -223,7 +224,7 @@ public class CityResourceIT {
         cityRepository.saveAndFlush(city);
 
         // Get the city
-        restCityMockMvc.perform(get("/api/cities/{id}", city.getId()))
+        restCityMockMvc.perform(get("/admin-api/cities/{id}", city.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(city.getId().toString()))
@@ -483,7 +484,7 @@ public class CityResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultCityShouldBeFound(String filter) throws Exception {
-        restCityMockMvc.perform(get("/api/cities?sort=id,desc&" + filter))
+        restCityMockMvc.perform(get("/admin-api/cities?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId().toString())))
@@ -492,7 +493,7 @@ public class CityResourceIT {
             .andExpect(jsonPath("$.[*].timezone").value(hasItem(DEFAULT_TIMEZONE)));
 
         // Check, that the count call also returns 1
-        restCityMockMvc.perform(get("/api/cities/count?sort=id,desc&" + filter))
+        restCityMockMvc.perform(get("/admin-api/cities/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -502,14 +503,14 @@ public class CityResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultCityShouldNotBeFound(String filter) throws Exception {
-        restCityMockMvc.perform(get("/api/cities?sort=id,desc&" + filter))
+        restCityMockMvc.perform(get("/admin-api/cities?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restCityMockMvc.perform(get("/api/cities/count?sort=id,desc&" + filter))
+        restCityMockMvc.perform(get("/admin-api/cities/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -519,7 +520,7 @@ public class CityResourceIT {
     @Transactional
     public void getNonExistingCity() throws Exception {
         // Get the city
-        restCityMockMvc.perform(get("/api/cities/{id}", UUID.fromString("ae69808b-0bc6-47d7-b5fa-8c116c49e4d0")))
+        restCityMockMvc.perform(get("/admin-api/cities/{id}", UUID.fromString("ae69808b-0bc6-47d7-b5fa-8c116c49e4d0")))
             .andExpect(status().isNotFound());
     }
 
@@ -541,7 +542,7 @@ public class CityResourceIT {
             .setTimezone(UPDATED_TIMEZONE);
         CityDTO cityDTO = cityMapper.toDto(updatedCity);
 
-        restCityMockMvc.perform(put("/api/cities")
+        restCityMockMvc.perform(put("/admin-api/cities")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
             .andExpect(status().isOk());
@@ -564,7 +565,7 @@ public class CityResourceIT {
         CityDTO cityDTO = cityMapper.toDto(city);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restCityMockMvc.perform(put("/api/cities")
+        restCityMockMvc.perform(put("/admin-api/cities")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
             .andExpect(status().isBadRequest());
@@ -583,7 +584,7 @@ public class CityResourceIT {
         int databaseSizeBeforeDelete = cityRepository.findAll().size();
 
         // Delete the city
-        restCityMockMvc.perform(delete("/api/cities/{id}", city.getId())
+        restCityMockMvc.perform(delete("/admin-api/cities/{id}", city.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

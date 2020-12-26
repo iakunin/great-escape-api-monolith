@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Company;
@@ -13,6 +13,7 @@ import com.greatescape.api.monolith.service.QuestQueryService;
 import com.greatescape.api.monolith.service.QuestService;
 import com.greatescape.api.monolith.service.dto.QuestDTO;
 import com.greatescape.api.monolith.service.mapper.QuestMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -204,7 +205,7 @@ public class QuestResourceIT {
         int databaseSizeBeforeCreate = questRepository.findAll().size();
         // Create the Quest
         QuestDTO questDTO = questMapper.toDto(quest);
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isCreated());
@@ -236,7 +237,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(this.quest);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -258,7 +259,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
 
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -278,7 +279,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
 
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -298,7 +299,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
 
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -318,7 +319,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
 
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -338,7 +339,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
 
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -358,7 +359,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
 
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -378,7 +379,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
 
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -398,7 +399,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
 
-        restQuestMockMvc.perform(post("/api/quests")
+        restQuestMockMvc.perform(post("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -414,7 +415,7 @@ public class QuestResourceIT {
         questRepository.saveAndFlush(quest);
 
         // Get all the questList
-        restQuestMockMvc.perform(get("/api/quests?sort=id,desc"))
+        restQuestMockMvc.perform(get("/admin-api/quests?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(quest.getId().toString())))
@@ -435,7 +436,7 @@ public class QuestResourceIT {
     public void getAllQuestsWithEagerRelationshipsIsEnabled() throws Exception {
         when(questServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restQuestMockMvc.perform(get("/api/quests?eagerload=true"))
+        restQuestMockMvc.perform(get("/admin-api/quests?eagerload=true"))
             .andExpect(status().isOk());
 
         verify(questServiceMock, times(1)).findAllWithEagerRelationships(any());
@@ -445,7 +446,7 @@ public class QuestResourceIT {
     public void getAllQuestsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(questServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restQuestMockMvc.perform(get("/api/quests?eagerload=true"))
+        restQuestMockMvc.perform(get("/admin-api/quests?eagerload=true"))
             .andExpect(status().isOk());
 
         verify(questServiceMock, times(1)).findAllWithEagerRelationships(any());
@@ -458,7 +459,7 @@ public class QuestResourceIT {
         questRepository.saveAndFlush(quest);
 
         // Get the quest
-        restQuestMockMvc.perform(get("/api/quests/{id}", quest.getId()))
+        restQuestMockMvc.perform(get("/admin-api/quests/{id}", quest.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(quest.getId().toString()))
@@ -1170,7 +1171,7 @@ public class QuestResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultQuestShouldBeFound(String filter) throws Exception {
-        restQuestMockMvc.perform(get("/api/quests?sort=id,desc&" + filter))
+        restQuestMockMvc.perform(get("/admin-api/quests?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(quest.getId().toString())))
@@ -1187,7 +1188,7 @@ public class QuestResourceIT {
         ;
 
         // Check, that the count call also returns 1
-        restQuestMockMvc.perform(get("/api/quests/count?sort=id,desc&" + filter))
+        restQuestMockMvc.perform(get("/admin-api/quests/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -1197,14 +1198,14 @@ public class QuestResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultQuestShouldNotBeFound(String filter) throws Exception {
-        restQuestMockMvc.perform(get("/api/quests?sort=id,desc&" + filter))
+        restQuestMockMvc.perform(get("/admin-api/quests?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restQuestMockMvc.perform(get("/api/quests/count?sort=id,desc&" + filter))
+        restQuestMockMvc.perform(get("/admin-api/quests/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -1214,7 +1215,7 @@ public class QuestResourceIT {
     @Transactional
     public void getNonExistingQuest() throws Exception {
         // Get the quest
-        restQuestMockMvc.perform(get("/api/quests/{id}", UUID.fromString("224a5728-4212-4c9b-bdda-c473203b2bfc")))
+        restQuestMockMvc.perform(get("/admin-api/quests/{id}", UUID.fromString("224a5728-4212-4c9b-bdda-c473203b2bfc")))
             .andExpect(status().isNotFound());
     }
 
@@ -1242,7 +1243,7 @@ public class QuestResourceIT {
             .setType(UPDATED_TYPE);
         QuestDTO questDTO = questMapper.toDto(updatedQuest);
 
-        restQuestMockMvc.perform(put("/api/quests")
+        restQuestMockMvc.perform(put("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isOk());
@@ -1271,7 +1272,7 @@ public class QuestResourceIT {
         QuestDTO questDTO = questMapper.toDto(quest);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restQuestMockMvc.perform(put("/api/quests")
+        restQuestMockMvc.perform(put("/admin-api/quests")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questDTO)))
             .andExpect(status().isBadRequest());
@@ -1290,7 +1291,7 @@ public class QuestResourceIT {
         int databaseSizeBeforeDelete = questRepository.findAll().size();
 
         // Delete the quest
-        restQuestMockMvc.perform(delete("/api/quests/{id}", quest.getId())
+        restQuestMockMvc.perform(delete("/admin-api/quests/{id}", quest.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Quest;
@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.service.SlotQueryService;
 import com.greatescape.api.monolith.service.SlotService;
 import com.greatescape.api.monolith.service.dto.SlotDTO;
 import com.greatescape.api.monolith.service.mapper.SlotMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -160,7 +161,7 @@ public class SlotResourceIT {
         int databaseSizeBeforeCreate = slotRepository.findAll().size();
         // Create the Slot
         SlotDTO slotDTO = slotMapper.toDto(slot);
-        restSlotMockMvc.perform(post("/api/slots")
+        restSlotMockMvc.perform(post("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isCreated());
@@ -190,7 +191,7 @@ public class SlotResourceIT {
         SlotDTO slotDTO = slotMapper.toDto(this.slot);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restSlotMockMvc.perform(post("/api/slots")
+        restSlotMockMvc.perform(post("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isBadRequest());
@@ -212,7 +213,7 @@ public class SlotResourceIT {
         SlotDTO slotDTO = slotMapper.toDto(slot);
 
 
-        restSlotMockMvc.perform(post("/api/slots")
+        restSlotMockMvc.perform(post("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isBadRequest());
@@ -232,7 +233,7 @@ public class SlotResourceIT {
         SlotDTO slotDTO = slotMapper.toDto(slot);
 
 
-        restSlotMockMvc.perform(post("/api/slots")
+        restSlotMockMvc.perform(post("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isBadRequest());
@@ -252,7 +253,7 @@ public class SlotResourceIT {
         SlotDTO slotDTO = slotMapper.toDto(slot);
 
 
-        restSlotMockMvc.perform(post("/api/slots")
+        restSlotMockMvc.perform(post("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isBadRequest());
@@ -272,7 +273,7 @@ public class SlotResourceIT {
         SlotDTO slotDTO = slotMapper.toDto(slot);
 
 
-        restSlotMockMvc.perform(post("/api/slots")
+        restSlotMockMvc.perform(post("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isBadRequest());
@@ -292,7 +293,7 @@ public class SlotResourceIT {
         SlotDTO slotDTO = slotMapper.toDto(slot);
 
 
-        restSlotMockMvc.perform(post("/api/slots")
+        restSlotMockMvc.perform(post("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isBadRequest());
@@ -308,7 +309,7 @@ public class SlotResourceIT {
         slotRepository.saveAndFlush(slot);
 
         // Get all the slotList
-        restSlotMockMvc.perform(get("/api/slots?sort=id,desc"))
+        restSlotMockMvc.perform(get("/admin-api/slots?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(slot.getId().toString())))
@@ -329,7 +330,7 @@ public class SlotResourceIT {
         slotRepository.saveAndFlush(slot);
 
         // Get the slot
-        restSlotMockMvc.perform(get("/api/slots/{id}", slot.getId()))
+        restSlotMockMvc.perform(get("/admin-api/slots/{id}", slot.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(slot.getId().toString()))
@@ -978,7 +979,7 @@ public class SlotResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultSlotShouldBeFound(String filter) throws Exception {
-        restSlotMockMvc.perform(get("/api/slots?sort=id,desc&" + filter))
+        restSlotMockMvc.perform(get("/admin-api/slots?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(slot.getId().toString())))
@@ -992,7 +993,7 @@ public class SlotResourceIT {
             .andExpect(jsonPath("$.[*].externalState").value(hasItem(DEFAULT_EXTERNAL_STATE.toString())));
 
         // Check, that the count call also returns 1
-        restSlotMockMvc.perform(get("/api/slots/count?sort=id,desc&" + filter))
+        restSlotMockMvc.perform(get("/admin-api/slots/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -1002,14 +1003,14 @@ public class SlotResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultSlotShouldNotBeFound(String filter) throws Exception {
-        restSlotMockMvc.perform(get("/api/slots?sort=id,desc&" + filter))
+        restSlotMockMvc.perform(get("/admin-api/slots?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restSlotMockMvc.perform(get("/api/slots/count?sort=id,desc&" + filter))
+        restSlotMockMvc.perform(get("/admin-api/slots/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -1020,7 +1021,7 @@ public class SlotResourceIT {
     public void getNonExistingSlot() throws Exception {
         // Get the slot
         restSlotMockMvc.perform(
-            get("/api/slots/{id}", UUID.fromString("8e299a7c-3a22-4224-aacc-eaa4de6e9eb6"))
+            get("/admin-api/slots/{id}", UUID.fromString("8e299a7c-3a22-4224-aacc-eaa4de6e9eb6"))
         ).andExpect(status().isNotFound());
     }
 
@@ -1047,7 +1048,7 @@ public class SlotResourceIT {
             .setExternalState(UPDATED_EXTERNAL_STATE);
         SlotDTO slotDTO = slotMapper.toDto(updatedSlot);
 
-        restSlotMockMvc.perform(put("/api/slots")
+        restSlotMockMvc.perform(put("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isOk());
@@ -1075,7 +1076,7 @@ public class SlotResourceIT {
         SlotDTO slotDTO = slotMapper.toDto(slot);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restSlotMockMvc.perform(put("/api/slots")
+        restSlotMockMvc.perform(put("/admin-api/slots")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(slotDTO)))
             .andExpect(status().isBadRequest());
@@ -1094,7 +1095,7 @@ public class SlotResourceIT {
         int databaseSizeBeforeDelete = slotRepository.findAll().size();
 
         // Delete the slot
-        restSlotMockMvc.perform(delete("/api/slots/{id}", slot.getId())
+        restSlotMockMvc.perform(delete("/admin-api/slots/{id}", slot.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

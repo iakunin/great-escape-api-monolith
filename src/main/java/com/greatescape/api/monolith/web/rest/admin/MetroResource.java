@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.domain.Metro;
 import com.greatescape.api.monolith.service.MetroQueryService;

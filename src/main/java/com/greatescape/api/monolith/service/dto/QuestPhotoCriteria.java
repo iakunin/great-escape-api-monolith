@@ -1,7 +1,7 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.QuestPhoto;
-import com.greatescape.api.monolith.web.rest.QuestPhotoResource;
+import com.greatescape.api.monolith.web.rest.admin.QuestPhotoResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.StringFilter;

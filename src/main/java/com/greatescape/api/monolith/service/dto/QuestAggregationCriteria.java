@@ -4,7 +4,7 @@ import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.enumeration.FearLevel;
 import com.greatescape.api.monolith.domain.enumeration.QuestComplexity;
 import com.greatescape.api.monolith.domain.enumeration.QuestType;
-import com.greatescape.api.monolith.web.rest.QuestResource;
+import com.greatescape.api.monolith.web.rest.admin.QuestResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;

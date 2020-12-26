@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Booking;
@@ -11,6 +11,7 @@ import com.greatescape.api.monolith.service.BookingQueryService;
 import com.greatescape.api.monolith.service.BookingService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.service.mapper.BookingMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -175,7 +176,7 @@ public class BookingResourceIT {
         int databaseSizeBeforeCreate = bookingRepository.findAll().size();
         // Create the Booking
         BookingDTO bookingDTO = bookingMapper.toDto(booking);
-        restBookingMockMvc.perform(post("/api/bookings")
+        restBookingMockMvc.perform(post("/admin-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
             .andExpect(status().isCreated());
@@ -201,7 +202,7 @@ public class BookingResourceIT {
         BookingDTO bookingDTO = bookingMapper.toDto(this.booking);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restBookingMockMvc.perform(post("/api/bookings")
+        restBookingMockMvc.perform(post("/admin-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
             .andExpect(status().isBadRequest());
@@ -223,7 +224,7 @@ public class BookingResourceIT {
         BookingDTO bookingDTO = bookingMapper.toDto(booking);
 
 
-        restBookingMockMvc.perform(post("/api/bookings")
+        restBookingMockMvc.perform(post("/admin-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
             .andExpect(status().isBadRequest());
@@ -243,7 +244,7 @@ public class BookingResourceIT {
         BookingDTO bookingDTO = bookingMapper.toDto(booking);
 
 
-        restBookingMockMvc.perform(post("/api/bookings")
+        restBookingMockMvc.perform(post("/admin-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
             .andExpect(status().isBadRequest());
@@ -263,7 +264,7 @@ public class BookingResourceIT {
         BookingDTO bookingDTO = bookingMapper.toDto(booking);
 
 
-        restBookingMockMvc.perform(post("/api/bookings")
+        restBookingMockMvc.perform(post("/admin-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
             .andExpect(status().isBadRequest());
@@ -283,7 +284,7 @@ public class BookingResourceIT {
         BookingDTO bookingDTO = bookingMapper.toDto(booking);
 
 
-        restBookingMockMvc.perform(post("/api/bookings")
+        restBookingMockMvc.perform(post("/admin-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
             .andExpect(status().isBadRequest());
@@ -299,7 +300,7 @@ public class BookingResourceIT {
         bookingRepository.saveAndFlush(booking);
 
         // Get all the bookingList
-        restBookingMockMvc.perform(get("/api/bookings?sort=id,desc"))
+        restBookingMockMvc.perform(get("/admin-api/bookings?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().toString())))
@@ -316,7 +317,7 @@ public class BookingResourceIT {
         bookingRepository.saveAndFlush(booking);
 
         // Get the booking
-        restBookingMockMvc.perform(get("/api/bookings/{id}", booking.getId()))
+        restBookingMockMvc.perform(get("/admin-api/bookings/{id}", booking.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(booking.getId().toString()))
@@ -758,7 +759,7 @@ public class BookingResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultBookingShouldBeFound(String filter) throws Exception {
-        restBookingMockMvc.perform(get("/api/bookings?sort=id,desc&" + filter))
+        restBookingMockMvc.perform(get("/admin-api/bookings?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().toString())))
@@ -768,7 +769,7 @@ public class BookingResourceIT {
             .andExpect(jsonPath("$.[*].commissionInPercents").value(hasItem(DEFAULT_COMMISSION_IN_PERCENTS)));
 
         // Check, that the count call also returns 1
-        restBookingMockMvc.perform(get("/api/bookings/count?sort=id,desc&" + filter))
+        restBookingMockMvc.perform(get("/admin-api/bookings/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -778,14 +779,14 @@ public class BookingResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultBookingShouldNotBeFound(String filter) throws Exception {
-        restBookingMockMvc.perform(get("/api/bookings?sort=id,desc&" + filter))
+        restBookingMockMvc.perform(get("/admin-api/bookings?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restBookingMockMvc.perform(get("/api/bookings/count?sort=id,desc&" + filter))
+        restBookingMockMvc.perform(get("/admin-api/bookings/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -795,7 +796,7 @@ public class BookingResourceIT {
     @Transactional
     public void getNonExistingBooking() throws Exception {
         // Get the booking
-        restBookingMockMvc.perform(get("/api/bookings/{id}", UUID.fromString("91e45cc5-d556-45cd-91e8-b4ab528c637f")))
+        restBookingMockMvc.perform(get("/admin-api/bookings/{id}", UUID.fromString("91e45cc5-d556-45cd-91e8-b4ab528c637f")))
             .andExpect(status().isNotFound());
     }
 
@@ -818,7 +819,7 @@ public class BookingResourceIT {
             .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
         BookingDTO bookingDTO = bookingMapper.toDto(updatedBooking);
 
-        restBookingMockMvc.perform(put("/api/bookings")
+        restBookingMockMvc.perform(put("/admin-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
             .andExpect(status().isOk());
@@ -842,7 +843,7 @@ public class BookingResourceIT {
         BookingDTO bookingDTO = bookingMapper.toDto(booking);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restBookingMockMvc.perform(put("/api/bookings")
+        restBookingMockMvc.perform(put("/admin-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
             .andExpect(status().isBadRequest());
@@ -861,7 +862,7 @@ public class BookingResourceIT {
         int databaseSizeBeforeDelete = bookingRepository.findAll().size();
 
         // Delete the booking
-        restBookingMockMvc.perform(delete("/api/bookings/{id}", booking.getId())
+        restBookingMockMvc.perform(delete("/admin-api/bookings/{id}", booking.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

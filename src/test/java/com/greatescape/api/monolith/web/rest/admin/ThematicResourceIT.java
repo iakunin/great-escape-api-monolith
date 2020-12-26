@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Quest;
@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.service.ThematicQueryService;
 import com.greatescape.api.monolith.service.ThematicService;
 import com.greatescape.api.monolith.service.dto.ThematicDTO;
 import com.greatescape.api.monolith.service.mapper.ThematicMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -100,7 +101,7 @@ public class ThematicResourceIT {
         int databaseSizeBeforeCreate = thematicRepository.findAll().size();
         // Create the Thematic
         ThematicDTO thematicDTO = thematicMapper.toDto(thematic);
-        restThematicMockMvc.perform(post("/api/thematics")
+        restThematicMockMvc.perform(post("/admin-api/thematics")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(thematicDTO)))
             .andExpect(status().isCreated());
@@ -124,7 +125,7 @@ public class ThematicResourceIT {
         ThematicDTO thematicDTO = thematicMapper.toDto(this.thematic);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restThematicMockMvc.perform(post("/api/thematics")
+        restThematicMockMvc.perform(post("/admin-api/thematics")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(thematicDTO)))
             .andExpect(status().isBadRequest());
@@ -146,7 +147,7 @@ public class ThematicResourceIT {
         ThematicDTO thematicDTO = thematicMapper.toDto(thematic);
 
 
-        restThematicMockMvc.perform(post("/api/thematics")
+        restThematicMockMvc.perform(post("/admin-api/thematics")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(thematicDTO)))
             .andExpect(status().isBadRequest());
@@ -166,7 +167,7 @@ public class ThematicResourceIT {
         ThematicDTO thematicDTO = thematicMapper.toDto(thematic);
 
 
-        restThematicMockMvc.perform(post("/api/thematics")
+        restThematicMockMvc.perform(post("/admin-api/thematics")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(thematicDTO)))
             .andExpect(status().isBadRequest());
@@ -182,7 +183,7 @@ public class ThematicResourceIT {
         thematicRepository.saveAndFlush(thematic);
 
         // Get all the thematicList
-        restThematicMockMvc.perform(get("/api/thematics?sort=id,desc"))
+        restThematicMockMvc.perform(get("/admin-api/thematics?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(thematic.getId().toString())))
@@ -197,7 +198,7 @@ public class ThematicResourceIT {
         thematicRepository.saveAndFlush(thematic);
 
         // Get the thematic
-        restThematicMockMvc.perform(get("/api/thematics/{id}", thematic.getId()))
+        restThematicMockMvc.perform(get("/admin-api/thematics/{id}", thematic.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(thematic.getId().toString()))
@@ -398,7 +399,7 @@ public class ThematicResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultThematicShouldBeFound(String filter) throws Exception {
-        restThematicMockMvc.perform(get("/api/thematics?sort=id,desc&" + filter))
+        restThematicMockMvc.perform(get("/admin-api/thematics?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(thematic.getId().toString())))
@@ -406,7 +407,7 @@ public class ThematicResourceIT {
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
 
         // Check, that the count call also returns 1
-        restThematicMockMvc.perform(get("/api/thematics/count?sort=id,desc&" + filter))
+        restThematicMockMvc.perform(get("/admin-api/thematics/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -416,14 +417,14 @@ public class ThematicResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultThematicShouldNotBeFound(String filter) throws Exception {
-        restThematicMockMvc.perform(get("/api/thematics?sort=id,desc&" + filter))
+        restThematicMockMvc.perform(get("/admin-api/thematics?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restThematicMockMvc.perform(get("/api/thematics/count?sort=id,desc&" + filter))
+        restThematicMockMvc.perform(get("/admin-api/thematics/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -434,7 +435,7 @@ public class ThematicResourceIT {
     public void getNonExistingThematic() throws Exception {
         // Get the thematic
         restThematicMockMvc.perform(
-            get("/api/thematics/{id}", UUID.fromString("8aaab667-faeb-41e7-8467-48d825ddf863"))
+            get("/admin-api/thematics/{id}", UUID.fromString("8aaab667-faeb-41e7-8467-48d825ddf863"))
         ).andExpect(status().isNotFound());
     }
 
@@ -455,7 +456,7 @@ public class ThematicResourceIT {
             .setTitle(UPDATED_TITLE);
         ThematicDTO thematicDTO = thematicMapper.toDto(updatedThematic);
 
-        restThematicMockMvc.perform(put("/api/thematics")
+        restThematicMockMvc.perform(put("/admin-api/thematics")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(thematicDTO)))
             .andExpect(status().isOk());
@@ -477,7 +478,7 @@ public class ThematicResourceIT {
         ThematicDTO thematicDTO = thematicMapper.toDto(thematic);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restThematicMockMvc.perform(put("/api/thematics")
+        restThematicMockMvc.perform(put("/admin-api/thematics")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(thematicDTO)))
             .andExpect(status().isBadRequest());
@@ -496,7 +497,7 @@ public class ThematicResourceIT {
         int databaseSizeBeforeDelete = thematicRepository.findAll().size();
 
         // Delete the thematic
-        restThematicMockMvc.perform(delete("/api/thematics/{id}", thematic.getId())
+        restThematicMockMvc.perform(delete("/admin-api/thematics/{id}", thematic.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

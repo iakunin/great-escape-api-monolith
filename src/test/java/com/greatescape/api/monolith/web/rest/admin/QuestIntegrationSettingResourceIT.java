@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Quest;
@@ -9,6 +9,7 @@ import com.greatescape.api.monolith.service.QuestIntegrationSettingQueryService;
 import com.greatescape.api.monolith.service.QuestIntegrationSettingService;
 import com.greatescape.api.monolith.service.dto.QuestIntegrationSettingDTO;
 import com.greatescape.api.monolith.service.mapper.QuestIntegrationSettingMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -120,7 +121,7 @@ public class QuestIntegrationSettingResourceIT {
         int databaseSizeBeforeCreate = questIntegrationSettingRepository.findAll().size();
         // Create the QuestIntegrationSetting
         QuestIntegrationSettingDTO questIntegrationSettingDTO = questIntegrationSettingMapper.toDto(questIntegrationSetting);
-        restQuestIntegrationSettingMockMvc.perform(post("/api/quest-integration-settings")
+        restQuestIntegrationSettingMockMvc.perform(post("/admin-api/quest-integration-settings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questIntegrationSettingDTO)))
             .andExpect(status().isCreated());
@@ -144,7 +145,7 @@ public class QuestIntegrationSettingResourceIT {
         QuestIntegrationSettingDTO questIntegrationSettingDTO = questIntegrationSettingMapper.toDto(this.questIntegrationSetting);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restQuestIntegrationSettingMockMvc.perform(post("/api/quest-integration-settings")
+        restQuestIntegrationSettingMockMvc.perform(post("/admin-api/quest-integration-settings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questIntegrationSettingDTO)))
             .andExpect(status().isBadRequest());
@@ -166,7 +167,7 @@ public class QuestIntegrationSettingResourceIT {
         QuestIntegrationSettingDTO questIntegrationSettingDTO = questIntegrationSettingMapper.toDto(questIntegrationSetting);
 
 
-        restQuestIntegrationSettingMockMvc.perform(post("/api/quest-integration-settings")
+        restQuestIntegrationSettingMockMvc.perform(post("/admin-api/quest-integration-settings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questIntegrationSettingDTO)))
             .andExpect(status().isBadRequest());
@@ -182,7 +183,7 @@ public class QuestIntegrationSettingResourceIT {
         questIntegrationSettingRepository.saveAndFlush(questIntegrationSetting);
 
         // Get all the questIntegrationSettingList
-        restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings?sort=id,desc"))
+        restQuestIntegrationSettingMockMvc.perform(get("/admin-api/quest-integration-settings?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questIntegrationSetting.getId().toString())))
@@ -197,7 +198,7 @@ public class QuestIntegrationSettingResourceIT {
         questIntegrationSettingRepository.saveAndFlush(questIntegrationSetting);
 
         // Get the questIntegrationSetting
-        restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings/{id}", questIntegrationSetting.getId()))
+        restQuestIntegrationSettingMockMvc.perform(get("/admin-api/quest-integration-settings/{id}", questIntegrationSetting.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(questIntegrationSetting.getId().toString()))
@@ -290,7 +291,7 @@ public class QuestIntegrationSettingResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultQuestIntegrationSettingShouldBeFound(String filter) throws Exception {
-        restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings?sort=id,desc&" + filter))
+        restQuestIntegrationSettingMockMvc.perform(get("/admin-api/quest-integration-settings?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questIntegrationSetting.getId().toString())))
@@ -298,7 +299,7 @@ public class QuestIntegrationSettingResourceIT {
             .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS)));
 
         // Check, that the count call also returns 1
-        restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings/count?sort=id,desc&" + filter))
+        restQuestIntegrationSettingMockMvc.perform(get("/admin-api/quest-integration-settings/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -308,14 +309,14 @@ public class QuestIntegrationSettingResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultQuestIntegrationSettingShouldNotBeFound(String filter) throws Exception {
-        restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings?sort=id,desc&" + filter))
+        restQuestIntegrationSettingMockMvc.perform(get("/admin-api/quest-integration-settings?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restQuestIntegrationSettingMockMvc.perform(get("/api/quest-integration-settings/count?sort=id,desc&" + filter))
+        restQuestIntegrationSettingMockMvc.perform(get("/admin-api/quest-integration-settings/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -327,7 +328,7 @@ public class QuestIntegrationSettingResourceIT {
         // Get the questIntegrationSetting
         restQuestIntegrationSettingMockMvc.perform(
             get(
-                "/api/quest-integration-settings/{id}",
+                "/admin-api/quest-integration-settings/{id}",
                 UUID.fromString("cce859ac-5d36-4cba-8ee0-8c05fd8ae994")
             )
         ).andExpect(status().isNotFound());
@@ -350,7 +351,7 @@ public class QuestIntegrationSettingResourceIT {
             .setSettings(UPDATED_SETTINGS);
         QuestIntegrationSettingDTO questIntegrationSettingDTO = questIntegrationSettingMapper.toDto(updatedQuestIntegrationSetting);
 
-        restQuestIntegrationSettingMockMvc.perform(put("/api/quest-integration-settings")
+        restQuestIntegrationSettingMockMvc.perform(put("/admin-api/quest-integration-settings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questIntegrationSettingDTO)))
             .andExpect(status().isOk());
@@ -372,7 +373,7 @@ public class QuestIntegrationSettingResourceIT {
         QuestIntegrationSettingDTO questIntegrationSettingDTO = questIntegrationSettingMapper.toDto(questIntegrationSetting);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restQuestIntegrationSettingMockMvc.perform(put("/api/quest-integration-settings")
+        restQuestIntegrationSettingMockMvc.perform(put("/admin-api/quest-integration-settings")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questIntegrationSettingDTO)))
             .andExpect(status().isBadRequest());
@@ -391,7 +392,7 @@ public class QuestIntegrationSettingResourceIT {
         int databaseSizeBeforeDelete = questIntegrationSettingRepository.findAll().size();
 
         // Delete the questIntegrationSetting
-        restQuestIntegrationSettingMockMvc.perform(delete("/api/quest-integration-settings/{id}", questIntegrationSetting.getId())
+        restQuestIntegrationSettingMockMvc.perform(delete("/admin-api/quest-integration-settings/{id}", questIntegrationSetting.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

@@ -1,7 +1,6 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.player;
 
 import com.greatescape.api.monolith.config.ApplicationProperties;
-import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.QuestAggregation;
 import com.greatescape.api.monolith.domain.QuestAggregation_;
 import com.greatescape.api.monolith.repository.QuestAggregationRepository;
@@ -27,14 +26,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-/**
- * REST controller for managing {@link Quest}.
- */
-@RestController
-@RequestMapping("/api")
+@RestController("player.QuestResource")
+@RequestMapping("/player-api")
 @Slf4j
 @RequiredArgsConstructor
-public class QuestAggregationResource extends QueryService<QuestAggregation> {
+public class QuestResource extends QueryService<QuestAggregation> {
 
     private final QuestAggregationRepository repository;
 
@@ -43,13 +39,13 @@ public class QuestAggregationResource extends QueryService<QuestAggregation> {
     private final ApplicationProperties properties;
 
     /**
-     * {@code GET  /quest_aggregations} : get all the quest_aggregations.
+     * {@code GET /quests} : get all the quests.
      *
      * @param pageable the pagination information.
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of quests in body.
      */
-    @GetMapping("/quest_aggregations")
+    @GetMapping("/quests")
     public ResponseEntity<List<QuestAggregationDTO>> getAllQuests(QuestAggregationCriteria criteria, Pageable pageable) {
         log.debug("REST request to get QuestAggregation by criteria: {}", criteria);
         final Specification<QuestAggregation> specification = createSpecification(criteria);
@@ -63,12 +59,12 @@ public class QuestAggregationResource extends QueryService<QuestAggregation> {
     }
 
     /**
-     * {@code GET  /quest_aggregations/count} : count all the quest_aggregations.
+     * {@code GET /quests/count} : count all the quests.
      *
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
-    @GetMapping("/quest_aggregations/count")
+    @GetMapping("/quests/count")
     public ResponseEntity<Long> countQuests(QuestAggregationCriteria criteria) {
         log.debug("REST request to count QuestAggregation by criteria: {}", criteria);
 
@@ -78,12 +74,12 @@ public class QuestAggregationResource extends QueryService<QuestAggregation> {
     }
 
     /**
-     * {@code GET  /quests/:slug} : get the "slug" quest.
+     * {@code GET /quests/:slug} : get the quest by "slug".
      *
      * @param slug the slug of the questDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the questDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/quest_aggregations/{slug}")
+    @GetMapping("/quests/{slug}")
     public ResponseEntity<QuestAggregationDTO> getQuest(@PathVariable String slug) {
         log.debug("REST request to get QuestAggregation : {}", slug);
         Optional<QuestAggregationDTO> questDTO = repository.findOneBySlug(slug).map(this::entityToDto);
@@ -106,7 +102,7 @@ public class QuestAggregationResource extends QueryService<QuestAggregation> {
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching {@link Specification} of the entity.
      */
-    protected Specification<QuestAggregation> createSpecification(QuestAggregationCriteria criteria) {
+    private Specification<QuestAggregation> createSpecification(QuestAggregationCriteria criteria) {
         Specification<QuestAggregation> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {

@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.City;
@@ -9,6 +9,7 @@ import com.greatescape.api.monolith.service.LocationQueryService;
 import com.greatescape.api.monolith.service.LocationService;
 import com.greatescape.api.monolith.service.dto.LocationDTO;
 import com.greatescape.api.monolith.service.mapper.LocationMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -137,7 +138,7 @@ public class LocationResourceIT {
         int databaseSizeBeforeCreate = locationRepository.findAll().size();
         // Create the Location
         LocationDTO locationDTO = locationMapper.toDto(location);
-        restLocationMockMvc.perform(post("/api/locations")
+        restLocationMockMvc.perform(post("/admin-api/locations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isCreated());
@@ -161,7 +162,7 @@ public class LocationResourceIT {
         LocationDTO locationDTO = locationMapper.toDto(this.location);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restLocationMockMvc.perform(post("/api/locations")
+        restLocationMockMvc.perform(post("/admin-api/locations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
@@ -183,7 +184,7 @@ public class LocationResourceIT {
         LocationDTO locationDTO = locationMapper.toDto(location);
 
 
-        restLocationMockMvc.perform(post("/api/locations")
+        restLocationMockMvc.perform(post("/admin-api/locations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
@@ -199,7 +200,7 @@ public class LocationResourceIT {
         locationRepository.saveAndFlush(location);
 
         // Get all the locationList
-        restLocationMockMvc.perform(get("/api/locations?sort=id,desc"))
+        restLocationMockMvc.perform(get("/admin-api/locations?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().toString())))
@@ -211,7 +212,7 @@ public class LocationResourceIT {
     public void getAllLocationsWithEagerRelationshipsIsEnabled() throws Exception {
         when(locationServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restLocationMockMvc.perform(get("/api/locations?eagerload=true"))
+        restLocationMockMvc.perform(get("/admin-api/locations?eagerload=true"))
             .andExpect(status().isOk());
 
         verify(locationServiceMock, times(1)).findAllWithEagerRelationships(any());
@@ -221,7 +222,7 @@ public class LocationResourceIT {
     public void getAllLocationsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(locationServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restLocationMockMvc.perform(get("/api/locations?eagerload=true"))
+        restLocationMockMvc.perform(get("/admin-api/locations?eagerload=true"))
             .andExpect(status().isOk());
 
         verify(locationServiceMock, times(1)).findAllWithEagerRelationships(any());
@@ -234,7 +235,7 @@ public class LocationResourceIT {
         locationRepository.saveAndFlush(location);
 
         // Get the location
-        restLocationMockMvc.perform(get("/api/locations/{id}", location.getId()))
+        restLocationMockMvc.perform(get("/admin-api/locations/{id}", location.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(location.getId().toString()))
@@ -374,7 +375,7 @@ public class LocationResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultLocationShouldBeFound(String filter) throws Exception {
-        restLocationMockMvc.perform(get("/api/locations?sort=id,desc&" + filter))
+        restLocationMockMvc.perform(get("/admin-api/locations?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().toString())))
@@ -382,7 +383,7 @@ public class LocationResourceIT {
             .andExpect(jsonPath("$.[*].addressExplanation").value(hasItem(DEFAULT_ADDRESS_EXPLANATION)));
 
         // Check, that the count call also returns 1
-        restLocationMockMvc.perform(get("/api/locations/count?sort=id,desc&" + filter))
+        restLocationMockMvc.perform(get("/admin-api/locations/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -392,14 +393,14 @@ public class LocationResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultLocationShouldNotBeFound(String filter) throws Exception {
-        restLocationMockMvc.perform(get("/api/locations?sort=id,desc&" + filter))
+        restLocationMockMvc.perform(get("/admin-api/locations?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restLocationMockMvc.perform(get("/api/locations/count?sort=id,desc&" + filter))
+        restLocationMockMvc.perform(get("/admin-api/locations/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -409,7 +410,7 @@ public class LocationResourceIT {
     @Transactional
     public void getNonExistingLocation() throws Exception {
         // Get the location
-        restLocationMockMvc.perform(get("/api/locations/{id}", UUID.fromString("014847c1-7915-4f81-8736-bd87031d4c92")))
+        restLocationMockMvc.perform(get("/admin-api/locations/{id}", UUID.fromString("014847c1-7915-4f81-8736-bd87031d4c92")))
             .andExpect(status().isNotFound());
     }
 
@@ -430,7 +431,7 @@ public class LocationResourceIT {
             .setAddressExplanation(UPDATED_ADDRESS_EXPLANATION);
         LocationDTO locationDTO = locationMapper.toDto(updatedLocation);
 
-        restLocationMockMvc.perform(put("/api/locations")
+        restLocationMockMvc.perform(put("/admin-api/locations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isOk());
@@ -452,7 +453,7 @@ public class LocationResourceIT {
         LocationDTO locationDTO = locationMapper.toDto(location);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restLocationMockMvc.perform(put("/api/locations")
+        restLocationMockMvc.perform(put("/admin-api/locations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
@@ -471,7 +472,7 @@ public class LocationResourceIT {
         int databaseSizeBeforeDelete = locationRepository.findAll().size();
 
         // Delete the location
-        restLocationMockMvc.perform(delete("/api/locations/{id}", location.getId())
+        restLocationMockMvc.perform(delete("/admin-api/locations/{id}", location.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

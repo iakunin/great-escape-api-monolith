@@ -2,7 +2,6 @@ package com.greatescape.api.monolith.config;
 
 import io.github.jhipster.config.JHipsterProperties;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -31,7 +30,7 @@ public class WebConfigurer implements ServletContextInitializer {
     }
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) {
         if (env.getActiveProfiles().length != 0) {
             log.info("Web application configuration, using profiles: {}", (Object[]) env.getActiveProfiles());
         }
@@ -46,6 +45,8 @@ public class WebConfigurer implements ServletContextInitializer {
         if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
             log.debug("Registering CORS filter");
             source.registerCorsConfiguration("/api/**", config);
+            source.registerCorsConfiguration("/player-api/**", config);
+            source.registerCorsConfiguration("/admin-api/**", config);
             source.registerCorsConfiguration("/management/**", config);
             source.registerCorsConfiguration("/v2/api-docs", config);
         }

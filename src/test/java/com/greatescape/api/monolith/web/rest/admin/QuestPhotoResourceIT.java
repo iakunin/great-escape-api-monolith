@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Quest;
@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.service.QuestPhotoQueryService;
 import com.greatescape.api.monolith.service.QuestPhotoService;
 import com.greatescape.api.monolith.service.dto.QuestPhotoDTO;
 import com.greatescape.api.monolith.service.mapper.QuestPhotoMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -115,7 +116,7 @@ public class QuestPhotoResourceIT {
         int databaseSizeBeforeCreate = questPhotoRepository.findAll().size();
         // Create the QuestPhoto
         QuestPhotoDTO questPhotoDTO = questPhotoMapper.toDto(questPhoto);
-        restQuestPhotoMockMvc.perform(post("/api/quest-photos")
+        restQuestPhotoMockMvc.perform(post("/admin-api/quest-photos")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questPhotoDTO)))
             .andExpect(status().isCreated());
@@ -138,7 +139,7 @@ public class QuestPhotoResourceIT {
         QuestPhotoDTO questPhotoDTO = questPhotoMapper.toDto(this.questPhoto);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restQuestPhotoMockMvc.perform(post("/api/quest-photos")
+        restQuestPhotoMockMvc.perform(post("/admin-api/quest-photos")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questPhotoDTO)))
             .andExpect(status().isBadRequest());
@@ -160,7 +161,7 @@ public class QuestPhotoResourceIT {
         QuestPhotoDTO questPhotoDTO = questPhotoMapper.toDto(questPhoto);
 
 
-        restQuestPhotoMockMvc.perform(post("/api/quest-photos")
+        restQuestPhotoMockMvc.perform(post("/admin-api/quest-photos")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questPhotoDTO)))
             .andExpect(status().isBadRequest());
@@ -176,7 +177,7 @@ public class QuestPhotoResourceIT {
         questPhotoRepository.saveAndFlush(questPhoto);
 
         // Get all the questPhotoList
-        restQuestPhotoMockMvc.perform(get("/api/quest-photos?sort=id,desc"))
+        restQuestPhotoMockMvc.perform(get("/admin-api/quest-photos?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questPhoto.getId().toString())))
@@ -190,7 +191,7 @@ public class QuestPhotoResourceIT {
         questPhotoRepository.saveAndFlush(questPhoto);
 
         // Get the questPhoto
-        restQuestPhotoMockMvc.perform(get("/api/quest-photos/{id}", questPhoto.getId()))
+        restQuestPhotoMockMvc.perform(get("/admin-api/quest-photos/{id}", questPhoto.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(questPhoto.getId().toString()))
@@ -308,14 +309,14 @@ public class QuestPhotoResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultQuestPhotoShouldBeFound(String filter) throws Exception {
-        restQuestPhotoMockMvc.perform(get("/api/quest-photos?sort=id,desc&" + filter))
+        restQuestPhotoMockMvc.perform(get("/admin-api/quest-photos?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questPhoto.getId().toString())))
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)));
 
         // Check, that the count call also returns 1
-        restQuestPhotoMockMvc.perform(get("/api/quest-photos/count?sort=id,desc&" + filter))
+        restQuestPhotoMockMvc.perform(get("/admin-api/quest-photos/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -325,14 +326,14 @@ public class QuestPhotoResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultQuestPhotoShouldNotBeFound(String filter) throws Exception {
-        restQuestPhotoMockMvc.perform(get("/api/quest-photos?sort=id,desc&" + filter))
+        restQuestPhotoMockMvc.perform(get("/admin-api/quest-photos?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restQuestPhotoMockMvc.perform(get("/api/quest-photos/count?sort=id,desc&" + filter))
+        restQuestPhotoMockMvc.perform(get("/admin-api/quest-photos/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -343,7 +344,7 @@ public class QuestPhotoResourceIT {
     public void getNonExistingQuestPhoto() throws Exception {
         // Get the questPhoto
         restQuestPhotoMockMvc.perform(
-            get("/api/quest-photos/{id}", UUID.fromString("e7b07a49-4ae3-49d0-88bd-6dbf1a428997"))
+            get("/admin-api/quest-photos/{id}", UUID.fromString("e7b07a49-4ae3-49d0-88bd-6dbf1a428997"))
         ).andExpect(status().isNotFound());
     }
 
@@ -363,7 +364,7 @@ public class QuestPhotoResourceIT {
             .setUrl(UPDATED_URL);
         QuestPhotoDTO questPhotoDTO = questPhotoMapper.toDto(updatedQuestPhoto);
 
-        restQuestPhotoMockMvc.perform(put("/api/quest-photos")
+        restQuestPhotoMockMvc.perform(put("/admin-api/quest-photos")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questPhotoDTO)))
             .andExpect(status().isOk());
@@ -384,7 +385,7 @@ public class QuestPhotoResourceIT {
         QuestPhotoDTO questPhotoDTO = questPhotoMapper.toDto(questPhoto);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restQuestPhotoMockMvc.perform(put("/api/quest-photos")
+        restQuestPhotoMockMvc.perform(put("/admin-api/quest-photos")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(questPhotoDTO)))
             .andExpect(status().isBadRequest());
@@ -403,7 +404,7 @@ public class QuestPhotoResourceIT {
         int databaseSizeBeforeDelete = questPhotoRepository.findAll().size();
 
         // Delete the questPhoto
-        restQuestPhotoMockMvc.perform(delete("/api/quest-photos/{id}", questPhoto.getId())
+        restQuestPhotoMockMvc.perform(delete("/admin-api/quest-photos/{id}", questPhoto.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

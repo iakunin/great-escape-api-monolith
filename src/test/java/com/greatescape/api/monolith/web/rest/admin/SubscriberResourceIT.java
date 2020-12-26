@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Subscriber;
@@ -7,6 +7,7 @@ import com.greatescape.api.monolith.service.SubscriberQueryService;
 import com.greatescape.api.monolith.service.SubscriberService;
 import com.greatescape.api.monolith.service.dto.SubscriberDTO;
 import com.greatescape.api.monolith.service.mapper.SubscriberMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -99,7 +100,7 @@ public class SubscriberResourceIT {
         int databaseSizeBeforeCreate = subscriberRepository.findAll().size();
         // Create the Subscriber
         SubscriberDTO subscriberDTO = subscriberMapper.toDto(subscriber);
-        restSubscriberMockMvc.perform(post("/api/subscribers")
+        restSubscriberMockMvc.perform(post("/admin-api/subscribers")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(subscriberDTO)))
             .andExpect(status().isCreated());
@@ -123,7 +124,7 @@ public class SubscriberResourceIT {
         SubscriberDTO subscriberDTO = subscriberMapper.toDto(this.subscriber);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restSubscriberMockMvc.perform(post("/api/subscribers")
+        restSubscriberMockMvc.perform(post("/admin-api/subscribers")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(subscriberDTO)))
             .andExpect(status().isBadRequest());
@@ -145,7 +146,7 @@ public class SubscriberResourceIT {
         SubscriberDTO subscriberDTO = subscriberMapper.toDto(subscriber);
 
 
-        restSubscriberMockMvc.perform(post("/api/subscribers")
+        restSubscriberMockMvc.perform(post("/admin-api/subscribers")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(subscriberDTO)))
             .andExpect(status().isBadRequest());
@@ -165,7 +166,7 @@ public class SubscriberResourceIT {
         SubscriberDTO subscriberDTO = subscriberMapper.toDto(subscriber);
 
 
-        restSubscriberMockMvc.perform(post("/api/subscribers")
+        restSubscriberMockMvc.perform(post("/admin-api/subscribers")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(subscriberDTO)))
             .andExpect(status().isBadRequest());
@@ -181,7 +182,7 @@ public class SubscriberResourceIT {
         subscriberRepository.saveAndFlush(subscriber);
 
         // Get all the subscriberList
-        restSubscriberMockMvc.perform(get("/api/subscribers?sort=id,desc"))
+        restSubscriberMockMvc.perform(get("/admin-api/subscribers?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(subscriber.getId().toString())))
@@ -196,7 +197,7 @@ public class SubscriberResourceIT {
         subscriberRepository.saveAndFlush(subscriber);
 
         // Get the subscriber
-        restSubscriberMockMvc.perform(get("/api/subscribers/{id}", subscriber.getId()))
+        restSubscriberMockMvc.perform(get("/admin-api/subscribers/{id}", subscriber.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(subscriber.getId().toString()))
@@ -377,7 +378,7 @@ public class SubscriberResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultSubscriberShouldBeFound(String filter) throws Exception {
-        restSubscriberMockMvc.perform(get("/api/subscribers?sort=id,desc&" + filter))
+        restSubscriberMockMvc.perform(get("/admin-api/subscribers?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(subscriber.getId().toString())))
@@ -385,7 +386,7 @@ public class SubscriberResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
 
         // Check, that the count call also returns 1
-        restSubscriberMockMvc.perform(get("/api/subscribers/count?sort=id,desc&" + filter))
+        restSubscriberMockMvc.perform(get("/admin-api/subscribers/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -395,14 +396,14 @@ public class SubscriberResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultSubscriberShouldNotBeFound(String filter) throws Exception {
-        restSubscriberMockMvc.perform(get("/api/subscribers?sort=id,desc&" + filter))
+        restSubscriberMockMvc.perform(get("/admin-api/subscribers?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restSubscriberMockMvc.perform(get("/api/subscribers/count?sort=id,desc&" + filter))
+        restSubscriberMockMvc.perform(get("/admin-api/subscribers/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -413,7 +414,7 @@ public class SubscriberResourceIT {
     public void getNonExistingSubscriber() throws Exception {
         // Get the subscriber
         restSubscriberMockMvc.perform(
-            get("/api/subscribers/{id}", UUID.fromString("03cbfdac-c326-42b2-b633-07e3afad67be"))
+            get("/admin-api/subscribers/{id}", UUID.fromString("03cbfdac-c326-42b2-b633-07e3afad67be"))
         ).andExpect(status().isNotFound());
     }
 
@@ -434,7 +435,7 @@ public class SubscriberResourceIT {
             .setEmail(UPDATED_EMAIL);
         SubscriberDTO subscriberDTO = subscriberMapper.toDto(updatedSubscriber);
 
-        restSubscriberMockMvc.perform(put("/api/subscribers")
+        restSubscriberMockMvc.perform(put("/admin-api/subscribers")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(subscriberDTO)))
             .andExpect(status().isOk());
@@ -456,7 +457,7 @@ public class SubscriberResourceIT {
         SubscriberDTO subscriberDTO = subscriberMapper.toDto(subscriber);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restSubscriberMockMvc.perform(put("/api/subscribers")
+        restSubscriberMockMvc.perform(put("/admin-api/subscribers")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(subscriberDTO)))
             .andExpect(status().isBadRequest());
@@ -475,7 +476,7 @@ public class SubscriberResourceIT {
         int databaseSizeBeforeDelete = subscriberRepository.findAll().size();
 
         // Delete the subscriber
-        restSubscriberMockMvc.perform(delete("/api/subscribers/{id}", subscriber.getId())
+        restSubscriberMockMvc.perform(delete("/admin-api/subscribers/{id}", subscriber.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

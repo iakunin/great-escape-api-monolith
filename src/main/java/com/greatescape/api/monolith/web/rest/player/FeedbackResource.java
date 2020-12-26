@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.player;
 
 import com.greatescape.api.monolith.service.MailService;
 import javax.validation.Valid;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/player-api")
 @RequiredArgsConstructor
-public class FeedbackController {
+public class FeedbackResource {
 
     private final MailService mailService;
 

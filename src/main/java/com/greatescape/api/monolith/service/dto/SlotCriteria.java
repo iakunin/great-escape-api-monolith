@@ -1,7 +1,7 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Slot;
-import com.greatescape.api.monolith.web.rest.SlotResource;
+import com.greatescape.api.monolith.web.rest.admin.SlotResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.Filter;

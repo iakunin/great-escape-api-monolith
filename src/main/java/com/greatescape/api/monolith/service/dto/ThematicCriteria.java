@@ -1,7 +1,7 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Thematic;
-import com.greatescape.api.monolith.web.rest.ThematicResource;
+import com.greatescape.api.monolith.web.rest.admin.ThematicResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.StringFilter;

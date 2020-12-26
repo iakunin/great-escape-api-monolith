@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Location;
@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.service.MetroQueryService;
 import com.greatescape.api.monolith.service.MetroService;
 import com.greatescape.api.monolith.service.dto.MetroDTO;
 import com.greatescape.api.monolith.service.mapper.MetroMapper;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -100,7 +101,7 @@ public class MetroResourceIT {
         int databaseSizeBeforeCreate = metroRepository.findAll().size();
         // Create the Metro
         MetroDTO metroDTO = metroMapper.toDto(metro);
-        restMetroMockMvc.perform(post("/api/metros")
+        restMetroMockMvc.perform(post("/admin-api/metros")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(metroDTO)))
             .andExpect(status().isCreated());
@@ -124,7 +125,7 @@ public class MetroResourceIT {
         MetroDTO metroDTO = metroMapper.toDto(this.metro);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restMetroMockMvc.perform(post("/api/metros")
+        restMetroMockMvc.perform(post("/admin-api/metros")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(metroDTO)))
             .andExpect(status().isBadRequest());
@@ -146,7 +147,7 @@ public class MetroResourceIT {
         MetroDTO metroDTO = metroMapper.toDto(metro);
 
 
-        restMetroMockMvc.perform(post("/api/metros")
+        restMetroMockMvc.perform(post("/admin-api/metros")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(metroDTO)))
             .andExpect(status().isBadRequest());
@@ -166,7 +167,7 @@ public class MetroResourceIT {
         MetroDTO metroDTO = metroMapper.toDto(metro);
 
 
-        restMetroMockMvc.perform(post("/api/metros")
+        restMetroMockMvc.perform(post("/admin-api/metros")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(metroDTO)))
             .andExpect(status().isBadRequest());
@@ -182,7 +183,7 @@ public class MetroResourceIT {
         metroRepository.saveAndFlush(metro);
 
         // Get all the metroList
-        restMetroMockMvc.perform(get("/api/metros?sort=id,desc"))
+        restMetroMockMvc.perform(get("/admin-api/metros?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(metro.getId().toString())))
@@ -197,7 +198,7 @@ public class MetroResourceIT {
         metroRepository.saveAndFlush(metro);
 
         // Get the metro
-        restMetroMockMvc.perform(get("/api/metros/{id}", metro.getId()))
+        restMetroMockMvc.perform(get("/admin-api/metros/{id}", metro.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(metro.getId().toString()))
@@ -398,7 +399,7 @@ public class MetroResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultMetroShouldBeFound(String filter) throws Exception {
-        restMetroMockMvc.perform(get("/api/metros?sort=id,desc&" + filter))
+        restMetroMockMvc.perform(get("/admin-api/metros?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(metro.getId().toString())))
@@ -406,7 +407,7 @@ public class MetroResourceIT {
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
 
         // Check, that the count call also returns 1
-        restMetroMockMvc.perform(get("/api/metros/count?sort=id,desc&" + filter))
+        restMetroMockMvc.perform(get("/admin-api/metros/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -416,14 +417,14 @@ public class MetroResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultMetroShouldNotBeFound(String filter) throws Exception {
-        restMetroMockMvc.perform(get("/api/metros?sort=id,desc&" + filter))
+        restMetroMockMvc.perform(get("/admin-api/metros?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restMetroMockMvc.perform(get("/api/metros/count?sort=id,desc&" + filter))
+        restMetroMockMvc.perform(get("/admin-api/metros/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -433,7 +434,7 @@ public class MetroResourceIT {
     @Transactional
     public void getNonExistingMetro() throws Exception {
         // Get the metro
-        restMetroMockMvc.perform(get("/api/metros/{id}", "2d2755ab-76e9-4038-8c6b-5fb36a5ef24d"))
+        restMetroMockMvc.perform(get("/admin-api/metros/{id}", "2d2755ab-76e9-4038-8c6b-5fb36a5ef24d"))
             .andExpect(status().isNotFound());
     }
 
@@ -454,7 +455,7 @@ public class MetroResourceIT {
             .setTitle(UPDATED_TITLE);
         MetroDTO metroDTO = metroMapper.toDto(updatedMetro);
 
-        restMetroMockMvc.perform(put("/api/metros")
+        restMetroMockMvc.perform(put("/admin-api/metros")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(metroDTO)))
             .andExpect(status().isOk());
@@ -476,7 +477,7 @@ public class MetroResourceIT {
         MetroDTO metroDTO = metroMapper.toDto(metro);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restMetroMockMvc.perform(put("/api/metros")
+        restMetroMockMvc.perform(put("/admin-api/metros")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(metroDTO)))
             .andExpect(status().isBadRequest());
@@ -495,7 +496,7 @@ public class MetroResourceIT {
         int databaseSizeBeforeDelete = metroRepository.findAll().size();
 
         // Delete the metro
-        restMetroMockMvc.perform(delete("/api/metros/{id}", metro.getId())
+        restMetroMockMvc.perform(delete("/admin-api/metros/{id}", metro.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

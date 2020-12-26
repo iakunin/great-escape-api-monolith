@@ -2,7 +2,7 @@ package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.domain.enumeration.Gender;
-import com.greatescape.api.monolith.web.rest.PlayerResource;
+import com.greatescape.api.monolith.web.rest.admin.PlayerResource;
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.Filter;
