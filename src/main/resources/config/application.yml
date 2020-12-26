@@ -143,7 +143,7 @@ jhipster:
   mail:
     from: noreply@great-escape.ru
   swagger:
-    default-include-pattern: /api/.*
+    default-include-pattern: /(admin-api|player-api|api)/.*
     title: GreatEscapeApiMonolith API
     description: GreatEscapeApiMonolith API documentation
     version: 0.0.1
