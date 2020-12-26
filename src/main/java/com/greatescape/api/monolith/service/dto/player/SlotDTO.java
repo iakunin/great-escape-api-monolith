@@ -9,12 +9,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * A DTO for the {@link Slot} entity.
  */
 @Getter
 @Setter
+@ToString
 public final class SlotDTO implements Serializable {
 
     private UUID id;
@@ -27,7 +29,11 @@ public final class SlotDTO implements Serializable {
 
     @NotNull
     @Min(value = 0)
-    private Integer price;
+    private Integer priceWithoutDiscount;
+
+    @NotNull
+    @Min(value = 0)
+    private Integer priceWithDiscount;
 
     @Min(value = 0)
     @Max(value = 100)
@@ -48,16 +54,5 @@ public final class SlotDTO implements Serializable {
     @Override
     public int hashCode() {
         return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "SlotDTO{" +
-            "id=" + getId() +
-            ", dateTimeLocal='" + getDateTimeLocal() + "'" +
-            ", isAvailable='" + getIsAvailable() + "'" +
-            ", price=" + getPrice() +
-            ", discountInPercents=" + getDiscountInPercents() +
-            "}";
     }
 }

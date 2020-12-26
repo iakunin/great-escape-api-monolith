@@ -19,8 +19,11 @@ import org.mapstruct.Mapping;
     )
 public interface SlotMapper extends EntityMapper<SlotDTO, Slot> {
 
+    @Mapping(source = "price", target = "priceWithoutDiscount")
+    @Mapping(target = "priceWithDiscount", ignore = true)
     SlotDTO toDto(Slot slot);
 
+    @Mapping(source = "priceWithoutDiscount", target = "price")
     @Mapping(target = "dateTimeWithTimeZone", ignore = true)
     @Mapping(target = "commissionInPercents", ignore = true)
     @Mapping(target = "externalId", ignore = true)

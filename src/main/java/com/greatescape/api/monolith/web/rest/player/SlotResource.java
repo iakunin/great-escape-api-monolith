@@ -9,6 +9,8 @@ import com.greatescape.api.monolith.service.dto.player.SlotDTO;
 import com.greatescape.api.monolith.service.mapper.player.SlotMapper;
 import io.github.jhipster.service.QueryService;
 import io.github.jhipster.web.util.PaginationUtil;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import javax.persistence.criteria.JoinType;
 import lombok.RequiredArgsConstructor;
@@ -48,13 +50,23 @@ public class SlotResource extends QueryService<Slot> {
         log.debug("REST request to get Slots by criteria: {}", criteria);
         final Page<SlotDTO> page = slotRepository
             .findAll(createSpecification(criteria), pageable)
-            .map(slotMapper::toDto);
+            .map(slotMapper::toDto)
+            .map(slot -> {
+                final int absoluteDiscount = new BigDecimal(
+                    slot.getPriceWithoutDiscount() * slot.getDiscountInPercents()
+                )
+                    .divide(new BigDecimal(100), 0, RoundingMode.CEILING)
+                    .intValueExact();
+
+                return slot.setPriceWithDiscount(slot.getPriceWithoutDiscount() - absoluteDiscount);
+            });
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
      * Function to convert {@link SlotCriteria} to a {@link Specification}
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching {@link Specification} of the entity.
      */
