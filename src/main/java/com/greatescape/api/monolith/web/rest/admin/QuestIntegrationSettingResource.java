@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link QuestIntegrationSetting}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class QuestIntegrationSettingResource {
 
     private final Logger log = LoggerFactory.getLogger(QuestIntegrationSettingResource.class);
@@ -69,7 +69,7 @@ public class QuestIntegrationSettingResource {
             throw new BadRequestAlertException("A new questIntegrationSetting cannot already have an ID", ENTITY_NAME, "idexists");
         }
         QuestIntegrationSettingDTO result = questIntegrationSettingService.save(questIntegrationSettingDTO);
-        return ResponseEntity.created(new URI("/api/quest-integration-settings/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/quest-integration-settings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

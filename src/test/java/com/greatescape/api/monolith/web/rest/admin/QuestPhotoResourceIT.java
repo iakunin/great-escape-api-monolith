@@ -4,6 +4,7 @@ import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.QuestPhoto;
 import com.greatescape.api.monolith.repository.QuestPhotoRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.QuestPhotoQueryService;
 import com.greatescape.api.monolith.service.QuestPhotoService;
 import com.greatescape.api.monolith.service.dto.QuestPhotoDTO;
@@ -36,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class QuestPhotoResourceIT {
 
     private static final String DEFAULT_URL = "AAAAAAAAAA";

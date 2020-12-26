@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Slot}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class SlotResource {
 
     private final Logger log = LoggerFactory.getLogger(SlotResource.class);
@@ -69,7 +69,7 @@ public class SlotResource {
             throw new BadRequestAlertException("A new slot cannot already have an ID", ENTITY_NAME, "idexists");
         }
         SlotDTO result = slotService.save(slotDTO);
-        return ResponseEntity.created(new URI("/api/slots/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/slots/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

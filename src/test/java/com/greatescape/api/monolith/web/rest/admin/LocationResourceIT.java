@@ -5,6 +5,7 @@ import com.greatescape.api.monolith.domain.City;
 import com.greatescape.api.monolith.domain.Location;
 import com.greatescape.api.monolith.domain.Metro;
 import com.greatescape.api.monolith.repository.LocationRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.LocationQueryService;
 import com.greatescape.api.monolith.service.LocationService;
 import com.greatescape.api.monolith.service.dto.LocationDTO;
@@ -47,7 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(classes = ApiMonolithApp.class)
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class LocationResourceIT {
 
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";

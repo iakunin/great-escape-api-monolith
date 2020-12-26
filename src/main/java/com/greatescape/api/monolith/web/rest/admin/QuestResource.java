@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Quest}.
  */
 @RestController("admin.QuestResource")
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class QuestResource {
 
     private final Logger log = LoggerFactory.getLogger(QuestResource.class);
@@ -69,7 +69,7 @@ public class QuestResource {
             throw new BadRequestAlertException("A new quest cannot already have an ID", ENTITY_NAME, "idexists");
         }
         QuestDTO result = questService.save(questDTO);
-        return ResponseEntity.created(new URI("/api/quests/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/quests/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

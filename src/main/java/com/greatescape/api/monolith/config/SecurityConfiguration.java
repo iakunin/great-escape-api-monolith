@@ -78,11 +78,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()
             .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers("/api/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/**").authenticated()
 
             .antMatchers("/player-api/feedback").permitAll()
             .antMatchers("/player-api/quests/**").permitAll()
             .antMatchers("/player-api/slots/**").permitAll()
+            .antMatchers("/player-api/**").hasAuthority(AuthoritiesConstants.USER)
 
             .antMatchers("/admin-api/**").hasAuthority(AuthoritiesConstants.ADMIN)
 

@@ -4,6 +4,7 @@ import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Location;
 import com.greatescape.api.monolith.domain.Metro;
 import com.greatescape.api.monolith.repository.MetroRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.MetroQueryService;
 import com.greatescape.api.monolith.service.MetroService;
 import com.greatescape.api.monolith.service.dto.MetroDTO;
@@ -36,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class MetroResourceIT {
 
     private static final String DEFAULT_SLUG = "AAAAAAAAAA";

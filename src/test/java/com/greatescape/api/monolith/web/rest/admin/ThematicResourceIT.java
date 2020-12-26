@@ -4,6 +4,7 @@ import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.Thematic;
 import com.greatescape.api.monolith.repository.ThematicRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.ThematicQueryService;
 import com.greatescape.api.monolith.service.ThematicService;
 import com.greatescape.api.monolith.service.dto.ThematicDTO;
@@ -36,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class ThematicResourceIT {
 
     private static final String DEFAULT_SLUG = "AAAAAAAAAA";

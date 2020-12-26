@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Company}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class CompanyResource {
 
     private final Logger log = LoggerFactory.getLogger(CompanyResource.class);
@@ -69,7 +69,7 @@ public class CompanyResource {
             throw new BadRequestAlertException("A new company cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CompanyDTO result = companyService.save(companyDTO);
-        return ResponseEntity.created(new URI("/api/companies/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/companies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

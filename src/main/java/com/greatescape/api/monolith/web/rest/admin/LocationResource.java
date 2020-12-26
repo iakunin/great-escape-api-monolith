@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Location}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class LocationResource {
 
     private final Logger log = LoggerFactory.getLogger(LocationResource.class);
@@ -69,7 +69,7 @@ public class LocationResource {
             throw new BadRequestAlertException("A new location cannot already have an ID", ENTITY_NAME, "idexists");
         }
         LocationDTO result = locationService.save(locationDTO);
-        return ResponseEntity.created(new URI("/api/locations/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/locations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

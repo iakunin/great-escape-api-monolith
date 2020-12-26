@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Metro}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class MetroResource {
 
     private final Logger log = LoggerFactory.getLogger(MetroResource.class);
@@ -69,7 +69,7 @@ public class MetroResource {
             throw new BadRequestAlertException("A new metro cannot already have an ID", ENTITY_NAME, "idexists");
         }
         MetroDTO result = metroService.save(metroDTO);
-        return ResponseEntity.created(new URI("/api/metros/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/metros/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

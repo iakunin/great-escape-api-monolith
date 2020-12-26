@@ -4,6 +4,7 @@ import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.repository.SlotRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.SlotQueryService;
 import com.greatescape.api.monolith.service.SlotService;
 import com.greatescape.api.monolith.service.dto.SlotDTO;
@@ -42,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class SlotResourceIT {
 
     private static final Instant DEFAULT_DATE_TIME_LOCAL = Instant.ofEpochMilli(0L);

@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.web.rest.admin;
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.City;
 import com.greatescape.api.monolith.repository.CityRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.CityQueryService;
 import com.greatescape.api.monolith.service.CityService;
 import com.greatescape.api.monolith.service.dto.CityDTO;
@@ -35,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class CityResourceIT {
 
     private static final String DEFAULT_SLUG = "AAAAAAAAAA";

@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Player}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class PlayerResource {
 
     private final Logger log = LoggerFactory.getLogger(PlayerResource.class);
@@ -69,7 +69,7 @@ public class PlayerResource {
             throw new BadRequestAlertException("A new player cannot already have an ID", ENTITY_NAME, "idexists");
         }
         PlayerDTO result = playerService.save(playerDTO);
-        return ResponseEntity.created(new URI("/api/players/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/players/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

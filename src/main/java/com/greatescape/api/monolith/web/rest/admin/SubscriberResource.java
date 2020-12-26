@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Subscriber}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class SubscriberResource {
 
     private final Logger log = LoggerFactory.getLogger(SubscriberResource.class);
@@ -69,7 +69,7 @@ public class SubscriberResource {
             throw new BadRequestAlertException("A new subscriber cannot already have an ID", ENTITY_NAME, "idexists");
         }
         SubscriberDTO result = subscriberService.save(subscriberDTO);
-        return ResponseEntity.created(new URI("/api/subscribers/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/subscribers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

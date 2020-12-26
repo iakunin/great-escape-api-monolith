@@ -7,6 +7,7 @@ import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.domain.enumeration.BookingStatus;
 import com.greatescape.api.monolith.repository.BookingRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.BookingQueryService;
 import com.greatescape.api.monolith.service.BookingService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
@@ -38,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class BookingResourceIT {
 
     private static final BookingStatus DEFAULT_STATUS = BookingStatus.NEW;

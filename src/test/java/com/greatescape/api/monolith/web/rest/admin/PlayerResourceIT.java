@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.domain.User;
 import com.greatescape.api.monolith.domain.enumeration.Gender;
 import com.greatescape.api.monolith.repository.PlayerRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.PlayerQueryService;
 import com.greatescape.api.monolith.service.PlayerService;
 import com.greatescape.api.monolith.service.dto.PlayerDTO;
@@ -40,7 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class PlayerResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

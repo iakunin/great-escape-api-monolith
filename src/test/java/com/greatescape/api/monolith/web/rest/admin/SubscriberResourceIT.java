@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.web.rest.admin;
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Subscriber;
 import com.greatescape.api.monolith.repository.SubscriberRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.SubscriberQueryService;
 import com.greatescape.api.monolith.service.SubscriberService;
 import com.greatescape.api.monolith.service.dto.SubscriberDTO;
@@ -35,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class SubscriberResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

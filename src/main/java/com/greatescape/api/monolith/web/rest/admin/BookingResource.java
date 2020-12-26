@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Booking}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class BookingResource {
 
     private final Logger log = LoggerFactory.getLogger(BookingResource.class);
@@ -69,7 +69,7 @@ public class BookingResource {
             throw new BadRequestAlertException("A new booking cannot already have an ID", ENTITY_NAME, "idexists");
         }
         BookingDTO result = bookingService.save(bookingDTO);
-        return ResponseEntity.created(new URI("/api/bookings/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/bookings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

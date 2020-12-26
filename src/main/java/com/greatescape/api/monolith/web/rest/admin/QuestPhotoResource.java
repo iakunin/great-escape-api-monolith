@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link QuestPhoto}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class QuestPhotoResource {
 
     private final Logger log = LoggerFactory.getLogger(QuestPhotoResource.class);
@@ -69,7 +69,7 @@ public class QuestPhotoResource {
             throw new BadRequestAlertException("A new questPhoto cannot already have an ID", ENTITY_NAME, "idexists");
         }
         QuestPhotoDTO result = questPhotoService.save(questPhotoDTO);
-        return ResponseEntity.created(new URI("/api/quest-photos/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/quest-photos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

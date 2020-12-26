@@ -5,6 +5,7 @@ import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
 import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.QuestIntegrationSettingQueryService;
 import com.greatescape.api.monolith.service.QuestIntegrationSettingService;
 import com.greatescape.api.monolith.service.dto.QuestIntegrationSettingDTO;
@@ -36,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class QuestIntegrationSettingResourceIT {
 
     private static final QuestIntegrationType DEFAULT_TYPE = QuestIntegrationType.MIR_KVESTOV;

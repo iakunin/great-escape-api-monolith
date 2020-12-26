@@ -9,6 +9,7 @@ import com.greatescape.api.monolith.domain.enumeration.FearLevel;
 import com.greatescape.api.monolith.domain.enumeration.QuestComplexity;
 import com.greatescape.api.monolith.domain.enumeration.QuestType;
 import com.greatescape.api.monolith.repository.QuestRepository;
+import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.QuestQueryService;
 import com.greatescape.api.monolith.service.QuestService;
 import com.greatescape.api.monolith.service.dto.QuestDTO;
@@ -51,7 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(classes = ApiMonolithApp.class)
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
 public class QuestResourceIT {
 
     private static final String DEFAULT_SLUG = "AAAAAAAAAA";

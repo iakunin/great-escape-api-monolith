@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link City}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class CityResource {
 
     private final Logger log = LoggerFactory.getLogger(CityResource.class);
@@ -69,7 +69,7 @@ public class CityResource {
             throw new BadRequestAlertException("A new city cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CityDTO result = cityService.save(cityDTO);
-        return ResponseEntity.created(new URI("/api/cities/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/cities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

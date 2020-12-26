@@ -36,7 +36,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * REST controller for managing {@link Thematic}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
 public class ThematicResource {
 
     private final Logger log = LoggerFactory.getLogger(ThematicResource.class);
@@ -69,7 +69,7 @@ public class ThematicResource {
             throw new BadRequestAlertException("A new thematic cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ThematicDTO result = thematicService.save(thematicDTO);
-        return ResponseEntity.created(new URI("/api/thematics/" + result.getId()))
+        return ResponseEntity.created(new URI("/admin-api/thematics/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
