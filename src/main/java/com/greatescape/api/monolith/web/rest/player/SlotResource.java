@@ -10,6 +10,8 @@ import com.greatescape.api.monolith.service.dto.SlotCriteria;
 import com.greatescape.api.monolith.service.mapper.SlotAggregationMapper;
 import io.github.jhipster.service.QueryService;
 import io.github.jhipster.web.util.PaginationUtil;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.List;
 import javax.persistence.criteria.JoinType;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +51,19 @@ public class SlotResource extends QueryService<SlotAggregation> {
         log.debug("REST request to get Slots by criteria: {}", criteria);
         final Page<SlotAggregationDTO> page = slotAggregationRepository
             .findAll(createSpecification(criteria), pageable)
+            .map(slot -> {
+                if (slot.getIsAvailable()) {
+                    final Duration delta = Duration.ofMinutes(10);
+                    slot.setIsAvailable(
+                        ZonedDateTime.now()
+                            .isBefore(
+                                slot.getDateTimeWithTimeZone().plus(delta)
+                            )
+                    );
+                }
+
+                return slot;
+            })
             .map(slotMapper::toDto);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
