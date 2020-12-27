@@ -37,8 +37,8 @@ public class SlotAggregation extends AbstractEntity {
 
     @NotNull
     @Min(value = 0)
-    @Column(name = "price_without_discount", nullable = false)
-    private Integer priceWithoutDiscount;
+    @Column(name = "price_original", nullable = false)
+    private Integer priceOriginal;
 
     @Column(name = "price_with_discount", nullable = false)
     private Integer priceWithDiscount;
@@ -55,6 +55,9 @@ public class SlotAggregation extends AbstractEntity {
     @Max(value = 100)
     @Column(name = "commission_in_percents", nullable = false)
     private Integer commissionInPercents;
+
+    @Column(name = "commission_absolute", nullable = false)
+    private Integer commissionAbsolute;
 
     @NotNull
     @Column(name = "external_id", nullable = false)

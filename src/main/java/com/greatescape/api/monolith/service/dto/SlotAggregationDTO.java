@@ -29,7 +29,7 @@ public final class SlotAggregationDTO implements Serializable {
 
     @NotNull
     @Min(value = 0)
-    private Integer priceWithoutDiscount;
+    private Integer priceOriginal;
 
     @NotNull
     @Min(value = 0)

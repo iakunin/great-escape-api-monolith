@@ -22,6 +22,7 @@ public interface SlotAggregationMapper extends EntityMapper<SlotAggregationDTO, 
     @Mapping(target = "dateTimeWithTimeZone", ignore = true)
     @Mapping(target = "commissionInPercents", ignore = true)
     @Mapping(target = "discountAbsolute", ignore = true)
+    @Mapping(target = "commissionAbsolute", ignore = true)
     @Mapping(target = "externalId", ignore = true)
     @Mapping(target = "externalState", ignore = true)
     @Mapping(target = "quest", ignore = true)
