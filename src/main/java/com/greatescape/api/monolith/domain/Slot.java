@@ -48,12 +48,12 @@ public class Slot extends AbstractEntity {
 
     @Min(value = 0)
     @Max(value = 100)
-    @Column(name = "discount_in_percents", nullable = false)
+    @Column(name = "discount_in_percents")
     private Integer discountInPercents;
 
     @Min(value = 0)
     @Max(value = 100)
-    @Column(name = "commission_in_percents", nullable = false)
+    @Column(name = "commission_in_percents")
     private Integer commissionInPercents;
 
     @NotNull
