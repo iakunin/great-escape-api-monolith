@@ -11,22 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class RefreshQuestAggregate implements Runnable {
+public class RefreshSlotAggregate implements Runnable {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     /**
-     * `quest_aggregation` materialized view needs to be recalculated.
+     * `slot_aggregation` materialized view needs to be recalculated.
      *
      * This is scheduled to get fired every 10 minutes.
      */
-    @Scheduled(cron = "0 0/10 * * * ?")
+    @Scheduled(cron = "0 5/10 * * * ?")
     @Transactional
     @Override
     public void run() {
         entityManager.createNativeQuery(
-            "REFRESH MATERIALIZED VIEW quest_aggregation"
+            "REFRESH MATERIALIZED VIEW slot_aggregation"
         ).executeUpdate();
     }
 }
