@@ -1,6 +1,6 @@
-package com.greatescape.api.monolith.service.dto.player;
+package com.greatescape.api.monolith.service.dto;
 
-import com.greatescape.api.monolith.domain.Slot;
+import com.greatescape.api.monolith.domain.SlotAggregation;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
@@ -12,12 +12,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * A DTO for the {@link Slot} entity.
+ * A DTO for the {@link SlotAggregation} entity.
  */
 @Getter
 @Setter
 @ToString
-public final class SlotDTO implements Serializable {
+public final class SlotAggregationDTO implements Serializable {
 
     private UUID id;
 
@@ -44,11 +44,11 @@ public final class SlotDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof SlotDTO)) {
+        if (!(o instanceof SlotAggregationDTO)) {
             return false;
         }
 
-        return id != null && id.equals(((SlotDTO) o).id);
+        return id != null && id.equals(((SlotAggregationDTO) o).id);
     }
 
     @Override
