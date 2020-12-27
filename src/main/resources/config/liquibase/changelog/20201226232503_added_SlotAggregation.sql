@@ -28,7 +28,6 @@ from (
                 c.discount_in_percents,
                 20 -- @TODO: extract this value to some `settings` table (with audit)
             ) as discount_in_percents,
---             s.commission_in_percents,
             coalesce(
                 s.commission_in_percents,
                 c.commission_in_percents,
