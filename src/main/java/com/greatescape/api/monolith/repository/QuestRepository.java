@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.repository;
 
+import com.greatescape.api.monolith.domain.Location;
 import com.greatescape.api.monolith.domain.Quest;
 import java.util.List;
 import java.util.Optional;
@@ -27,4 +28,6 @@ public interface QuestRepository extends JpaRepository<Quest, UUID>, JpaSpecific
 
     @Query("select quest from Quest quest left join fetch quest.thematics where quest.id =:id")
     Optional<Quest> findOneWithEagerRelationships(@Param("id") UUID id);
+
+    List<Quest> findAllByLocation(Location location);
 }

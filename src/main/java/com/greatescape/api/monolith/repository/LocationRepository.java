@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.repository;
 
+import com.greatescape.api.monolith.domain.City;
 import com.greatescape.api.monolith.domain.Location;
 import java.util.List;
 import java.util.Optional;
@@ -27,4 +28,6 @@ public interface LocationRepository extends JpaRepository<Location, UUID>, JpaSp
 
     @Query("select location from Location location left join fetch location.metros where location.id =:id")
     Optional<Location> findOneWithEagerRelationships(@Param("id") UUID id);
+
+    List<Location> findAllByCity(City city);
 }

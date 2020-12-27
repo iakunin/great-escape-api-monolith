@@ -9,6 +9,7 @@ import com.greatescape.api.monolith.service.CityService;
 import com.greatescape.api.monolith.service.dto.CityDTO;
 import com.greatescape.api.monolith.service.mapper.CityMapper;
 import com.greatescape.api.monolith.web.rest.TestUtil;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -45,8 +46,8 @@ public class CityResourceIT {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_TIMEZONE = "AAAAAAAAAA";
-    private static final String UPDATED_TIMEZONE = "BBBBBBBBBB";
+    private static final String DEFAULT_TIMEZONE = "Europe/Moscow";
+    private static final String UPDATED_TIMEZONE = "Europe/London";
 
     @Autowired
     private CityRepository cityRepository;
@@ -78,7 +79,7 @@ public class CityResourceIT {
         City city = new City()
             .setSlug(DEFAULT_SLUG)
             .setTitle(DEFAULT_TITLE)
-            .setTimezone(DEFAULT_TIMEZONE);
+            .setTimezone(ZoneId.of(DEFAULT_TIMEZONE));
         return city;
     }
     /**
@@ -91,7 +92,7 @@ public class CityResourceIT {
         City city = new City()
             .setSlug(UPDATED_SLUG)
             .setTitle(UPDATED_TITLE)
-            .setTimezone(UPDATED_TIMEZONE);
+            .setTimezone(ZoneId.of(UPDATED_TIMEZONE));
         return city;
     }
 
@@ -117,7 +118,7 @@ public class CityResourceIT {
         City testCity = cityList.get(cityList.size() - 1);
         assertThat(testCity.getSlug()).isEqualTo(DEFAULT_SLUG);
         assertThat(testCity.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testCity.getTimezone()).isEqualTo(DEFAULT_TIMEZONE);
+        assertThat(testCity.getTimezone()).isEqualTo(ZoneId.of(DEFAULT_TIMEZONE));
     }
 
     @Test
@@ -403,84 +404,6 @@ public class CityResourceIT {
         defaultCityShouldBeFound("title.doesNotContain=" + UPDATED_TITLE);
     }
 
-
-    @Test
-    @Transactional
-    public void getAllCitiesByTimezoneIsEqualToSomething() throws Exception {
-        // Initialize the database
-        cityRepository.saveAndFlush(city);
-
-        // Get all the cityList where timezone equals to DEFAULT_TIMEZONE
-        defaultCityShouldBeFound("timezone.equals=" + DEFAULT_TIMEZONE);
-
-        // Get all the cityList where timezone equals to UPDATED_TIMEZONE
-        defaultCityShouldNotBeFound("timezone.equals=" + UPDATED_TIMEZONE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllCitiesByTimezoneIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        cityRepository.saveAndFlush(city);
-
-        // Get all the cityList where timezone not equals to DEFAULT_TIMEZONE
-        defaultCityShouldNotBeFound("timezone.notEquals=" + DEFAULT_TIMEZONE);
-
-        // Get all the cityList where timezone not equals to UPDATED_TIMEZONE
-        defaultCityShouldBeFound("timezone.notEquals=" + UPDATED_TIMEZONE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllCitiesByTimezoneIsInShouldWork() throws Exception {
-        // Initialize the database
-        cityRepository.saveAndFlush(city);
-
-        // Get all the cityList where timezone in DEFAULT_TIMEZONE or UPDATED_TIMEZONE
-        defaultCityShouldBeFound("timezone.in=" + DEFAULT_TIMEZONE + "," + UPDATED_TIMEZONE);
-
-        // Get all the cityList where timezone equals to UPDATED_TIMEZONE
-        defaultCityShouldNotBeFound("timezone.in=" + UPDATED_TIMEZONE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllCitiesByTimezoneIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        cityRepository.saveAndFlush(city);
-
-        // Get all the cityList where timezone is not null
-        defaultCityShouldBeFound("timezone.specified=true");
-
-        // Get all the cityList where timezone is null
-        defaultCityShouldNotBeFound("timezone.specified=false");
-    }
-                @Test
-    @Transactional
-    public void getAllCitiesByTimezoneContainsSomething() throws Exception {
-        // Initialize the database
-        cityRepository.saveAndFlush(city);
-
-        // Get all the cityList where timezone contains DEFAULT_TIMEZONE
-        defaultCityShouldBeFound("timezone.contains=" + DEFAULT_TIMEZONE);
-
-        // Get all the cityList where timezone contains UPDATED_TIMEZONE
-        defaultCityShouldNotBeFound("timezone.contains=" + UPDATED_TIMEZONE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllCitiesByTimezoneNotContainsSomething() throws Exception {
-        // Initialize the database
-        cityRepository.saveAndFlush(city);
-
-        // Get all the cityList where timezone does not contain DEFAULT_TIMEZONE
-        defaultCityShouldNotBeFound("timezone.doesNotContain=" + DEFAULT_TIMEZONE);
-
-        // Get all the cityList where timezone does not contain UPDATED_TIMEZONE
-        defaultCityShouldBeFound("timezone.doesNotContain=" + UPDATED_TIMEZONE);
-    }
-
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -540,7 +463,7 @@ public class CityResourceIT {
         updatedCity
             .setSlug(UPDATED_SLUG)
             .setTitle(UPDATED_TITLE)
-            .setTimezone(UPDATED_TIMEZONE);
+            .setTimezone(ZoneId.of(UPDATED_TIMEZONE));
         CityDTO cityDTO = cityMapper.toDto(updatedCity);
 
         restCityMockMvc.perform(put("/admin-api/cities")
@@ -554,7 +477,7 @@ public class CityResourceIT {
         City testCity = cityList.get(cityList.size() - 1);
         assertThat(testCity.getSlug()).isEqualTo(UPDATED_SLUG);
         assertThat(testCity.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testCity.getTimezone()).isEqualTo(UPDATED_TIMEZONE);
+        assertThat(testCity.getTimezone()).isEqualTo(ZoneId.of(UPDATED_TIMEZONE));
     }
 
     @Test
