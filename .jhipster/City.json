@@ -16,7 +16,6 @@
     {
       "fieldName": "timezone",
       "fieldType": "String",
-      "javadoc": "@TODO: store as Java TimeZone or ZoneId object",
       "fieldValidateRules": ["required", "minlength"],
       "fieldValidateRulesMinlength": "1"
     }

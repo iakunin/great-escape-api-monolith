@@ -10,13 +10,11 @@
     {
       "fieldName": "price",
       "fieldType": "Integer",
-      "javadoc": "@TODO: copy price from Slot, cause Slot is mutable",
       "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "discountInPercents",
       "fieldType": "Integer",
-      "javadoc": "@TODO: save calculated discount, cause it's mutable",
       "fieldValidateRules": ["required", "min", "max"],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "100"
@@ -24,7 +22,6 @@
     {
       "fieldName": "commissionInPercents",
       "fieldType": "Integer",
-      "javadoc": "@TODO: save calculated commission, cause it's mutable",
       "fieldValidateRules": ["required", "min", "max"],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "100"

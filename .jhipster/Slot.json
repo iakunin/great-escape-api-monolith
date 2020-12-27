@@ -44,7 +44,6 @@
     {
       "fieldName": "externalState",
       "fieldType": "byte[]",
-      "javadoc": "@TODO: change to Json.\\nShould be sent to integration without changes during booking creation",
       "fieldTypeBlobContent": "text"
     }
   ],

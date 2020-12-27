@@ -10,7 +10,6 @@
     {
       "fieldName": "settings",
       "fieldType": "byte[]",
-      "javadoc": "@TODO: convert to Json-field",
       "fieldTypeBlobContent": "text"
     }
   ],
