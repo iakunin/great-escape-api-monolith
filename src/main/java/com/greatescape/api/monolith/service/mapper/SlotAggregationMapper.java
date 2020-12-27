@@ -14,7 +14,7 @@ import org.mapstruct.Mapping;
     componentModel = "spring",
     implementationName="Player<CLASS_NAME>Impl",
     uses = {QuestMapper.class}
-    )
+)
 public interface SlotAggregationMapper extends EntityMapper<SlotAggregationDTO, SlotAggregation> {
 
     SlotAggregationDTO toDto(SlotAggregation slot);
