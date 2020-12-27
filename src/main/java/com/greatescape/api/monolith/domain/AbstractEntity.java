@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,6 +20,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @MappedSuperclass
 @Getter
 @Setter
+@ToString
 abstract public class AbstractEntity implements Serializable {
 
     @Id
