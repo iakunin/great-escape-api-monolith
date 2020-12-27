@@ -1,8 +1,8 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.City;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,13 +26,8 @@ public final class CityDTO implements Serializable {
     @Size(min = 2)
     private String title;
 
-    /**
-     * @TODO: store as Java TimeZone or ZoneId object
-     */
     @NotNull
-    @Size(min = 1)
-    @ApiModelProperty(value = "@TODO: store as Java TimeZone or ZoneId object", required = true)
-    private String timezone;
+    private ZoneId timezone;
 
     @Override
     public boolean equals(Object o) {

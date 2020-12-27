@@ -19,7 +19,7 @@
             <column name="title" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="timezone" type="varchar(255)" remarks="@TODO: store as Java TimeZone or ZoneId object">
+            <column name="timezone" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <column name="created_at" type="${timestampWithTimeZoneType}" defaultValue="${now}">

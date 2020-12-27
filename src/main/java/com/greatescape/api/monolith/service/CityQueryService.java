@@ -92,9 +92,6 @@ public class CityQueryService extends QueryService<City> {
             if (criteria.getTitle() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTitle(), City_.title));
             }
-            if (criteria.getTimezone() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTimezone(), City_.timezone));
-            }
         }
         return specification;
     }

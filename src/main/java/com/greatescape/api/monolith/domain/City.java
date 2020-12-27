@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.domain;
 
+import java.time.ZoneId;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,13 +31,9 @@ public class City extends AbstractEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    /**
-     * @TODO: store as Java TimeZone or ZoneId object
-     */
     @NotNull
-    @Size(min = 1)
     @Column(name = "timezone", nullable = false)
-    private String timezone;
+    private ZoneId timezone;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
