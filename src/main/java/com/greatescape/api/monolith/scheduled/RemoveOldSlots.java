@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.scheduled;
 
 import com.greatescape.api.monolith.domain.City;
+import com.greatescape.api.monolith.repository.BookingRepository;
 import com.greatescape.api.monolith.repository.CityRepository;
 import com.greatescape.api.monolith.repository.LocationRepository;
 import com.greatescape.api.monolith.repository.QuestRepository;
@@ -24,6 +25,8 @@ public class RemoveOldSlots implements Runnable {
 
     private final SlotRepository slotRepository;
 
+    private final BookingRepository bookingRepository;
+
     /**
      * Old slots should be automatically deleted.
      *
@@ -43,6 +46,7 @@ public class RemoveOldSlots implements Runnable {
                 .flatMap(location -> questRepository.findAllByLocation(location).stream())
                 .flatMap(quest -> slotRepository.findAllByQuest(quest).stream())
                 .filter(slot -> slot.getDateTimeWithTimeZone().isBefore(beginOfTheDay))
+                .filter(slot -> !bookingRepository.existsBySlot(slot))
                 .forEach(slot -> {
                     log.debug("Deleting slot '{}'", slot);
                     try {
