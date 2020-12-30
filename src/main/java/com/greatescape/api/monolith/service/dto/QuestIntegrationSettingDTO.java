@@ -2,10 +2,8 @@ package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.UUID;
-import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,12 +20,7 @@ public final class QuestIntegrationSettingDTO implements Serializable {
     @NotNull
     private QuestIntegrationType type;
 
-    /**
-     * @TODO: convert to Json-field
-     */
-    @ApiModelProperty(value = "@TODO: convert to Json-field")
-    @Lob
-    private String settings;
+    private QuestIntegrationSetting.AbstractSettings settings;
 
     private UUID questId;
 

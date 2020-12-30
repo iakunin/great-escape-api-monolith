@@ -16,7 +16,7 @@
             <column name="type" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="settings" type="${clobType}" remarks="@TODO: convert to Json-field">
+            <column name="settings" type="${jsonType}">
                 <constraints nullable="true" />
             </column>
             <column name="quest_id" type="${uuidType}">
@@ -50,7 +50,7 @@
                   tableName="quest_integration_setting">
             <column name="id" type="${uuidType}"/>
             <column name="type" type="string"/>
-            <column name="settings" type="clob"/>
+            <column name="settings" type="string"/>
             <column name="quest_id" type="${uuidType}"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

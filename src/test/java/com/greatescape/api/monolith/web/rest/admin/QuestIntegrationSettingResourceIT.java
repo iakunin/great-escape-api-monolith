@@ -3,6 +3,9 @@ package com.greatescape.api.monolith.web.rest.admin;
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
+import com.greatescape.api.monolith.domain.QuestIntegrationSetting.AbstractSettings;
+import com.greatescape.api.monolith.domain.QuestIntegrationSetting.BookForm;
+import com.greatescape.api.monolith.domain.QuestIntegrationSetting.MirKvestov;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
 import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository;
 import com.greatescape.api.monolith.security.AuthoritiesConstants;
@@ -12,10 +15,12 @@ import com.greatescape.api.monolith.service.dto.QuestIntegrationSettingDTO;
 import com.greatescape.api.monolith.service.mapper.QuestIntegrationSettingMapper;
 import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +48,10 @@ public class QuestIntegrationSettingResourceIT {
     private static final QuestIntegrationType DEFAULT_TYPE = QuestIntegrationType.MIR_KVESTOV;
     private static final QuestIntegrationType UPDATED_TYPE = QuestIntegrationType.BOOK_FORM;
 
-    private static final String DEFAULT_SETTINGS = "AAAAAAAAAA";
-    private static final String UPDATED_SETTINGS = "BBBBBBBBBB";
+    private static final AbstractSettings DEFAULT_SETTINGS = new BookForm();
+    private static final AbstractSettings UPDATED_SETTINGS = new MirKvestov();
+    private static final Map<String, String> DEFAULT_SETTINGS_EXPECTED =
+        Map.of("integrationType", QuestIntegrationType.BOOK_FORM.toString());
 
     @Autowired
     private QuestIntegrationSettingRepository questIntegrationSettingRepository;
@@ -189,7 +196,7 @@ public class QuestIntegrationSettingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questIntegrationSetting.getId().toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS)));
+            .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS_EXPECTED)));
     }
 
     @Test
@@ -204,7 +211,7 @@ public class QuestIntegrationSettingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(questIntegrationSetting.getId().toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.settings").value(DEFAULT_SETTINGS));
+            .andExpect(jsonPath("$.settings").value(is(DEFAULT_SETTINGS_EXPECTED)));
     }
 
 
@@ -297,7 +304,7 @@ public class QuestIntegrationSettingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questIntegrationSetting.getId().toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS)));
+            .andExpect(jsonPath("$.[*].settings").value(hasItem(DEFAULT_SETTINGS_EXPECTED)));
 
         // Check, that the count call also returns 1
         restQuestIntegrationSettingMockMvc.perform(get("/admin-api/quest-integration-settings/count?sort=id,desc&" + filter))
