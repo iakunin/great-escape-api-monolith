@@ -41,14 +41,12 @@
                 <constraints nullable="false" />
             </column>
             <column name="updated_at" type="${timestampWithTimeZoneType}" />
-            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
 
     <changeSet id="20201102112639-1-relations" author="jhipster">
 
     </changeSet>
-    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--
         Load sample data generated with Faker.js
@@ -71,7 +69,6 @@
             <column name="gender" type="string"/>
             <column name="subscription_allowed" type="boolean"/>
             <column name="internal_user_id" type="${uuidType}"/>
-            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
 

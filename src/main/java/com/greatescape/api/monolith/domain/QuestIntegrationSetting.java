@@ -45,9 +45,6 @@ public class QuestIntegrationSetting extends AbstractEntity {
     @JoinColumn(unique = true)
     private Quest quest;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -53,9 +53,6 @@ public class Company extends AbstractEntity {
     @Column(name = "commission_in_percents")
     private Integer commissionInPercents;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -39,7 +39,6 @@ public class Metro extends AbstractEntity {
     @JsonIgnore
     private Set<Location> locations = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Metro addLocation(Location location) {
         this.locations.add(location);
         location.getMetros().add(this);
@@ -51,7 +50,6 @@ public class Metro extends AbstractEntity {
         location.getMetros().remove(this);
         return this;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {

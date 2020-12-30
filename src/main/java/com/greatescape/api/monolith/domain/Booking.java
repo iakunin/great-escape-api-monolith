@@ -73,9 +73,6 @@ public class Booking extends AbstractEntity {
     @JsonIgnoreProperties(value = "bookings", allowSetters = true)
     private Player player;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

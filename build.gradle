@@ -5,9 +5,6 @@ buildscript {
         gradlePluginPortal()
         maven { url "https://repo.spring.io/plugins-release" }
     }
-    dependencies {
-        //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
-    }
 }
 
 plugins {
@@ -25,7 +22,6 @@ plugins {
     id "org.sonarqube"
     id "io.spring.nohttp"
     id "io.freefair.lombok" version "5.3.0"
-    //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
 }
 
 group = "com.greatescape.api.monolith"
@@ -39,7 +35,6 @@ assert System.properties["java.specification.version"] == "1.8" || "11" || "12" 
 
 apply from: "gradle/docker.gradle"
 apply from: "gradle/sonar.gradle"
-//jhipster-needle-gradle-apply-from - JHipster will add additional gradle scripts to be applied here
 
 if (project.hasProperty("prod") || project.hasProperty("gae")) {
     apply from: "gradle/profile_prod.gradle"
@@ -195,7 +190,6 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-    //jhipster-needle-gradle-repositories - JHipster will add additional repositories
 }
 
 dependencies {
@@ -279,7 +273,6 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-test"
     testImplementation "com.tngtech.archunit:archunit-junit5-api:${archunit_junit5_version}"
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunit_junit5_version}"
-    //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
 if (project.hasProperty("gae")) {

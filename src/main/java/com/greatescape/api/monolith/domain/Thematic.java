@@ -39,7 +39,6 @@ public class Thematic extends AbstractEntity {
     @JsonIgnore
     private Set<Quest> quests = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Thematic addQuest(Quest quest) {
         this.quests.add(quest);
         quest.getThematics().add(this);
@@ -51,7 +50,6 @@ public class Thematic extends AbstractEntity {
         quest.getThematics().remove(this);
         return this;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {

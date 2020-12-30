@@ -79,7 +79,6 @@ public class CacheConfiguration {
             createCache(cm, QuestPhoto.class.getName());
             createCache(cm, QuestIntegrationSetting.class.getName());
             createCache(cm, Booking.class.getName());
-            // jhipster-needle-ehcache-add-entry
         };
     }
 

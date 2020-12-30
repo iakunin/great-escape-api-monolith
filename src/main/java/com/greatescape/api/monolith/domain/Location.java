@@ -51,7 +51,6 @@ public class Location extends AbstractEntity {
                inverseJoinColumns = @JoinColumn(name = "metro_id", referencedColumnName = "id"))
     private Set<Metro> metros = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Location addMetro(Metro metro) {
         this.metros.add(metro);
         metro.getLocations().add(this);
@@ -63,7 +62,6 @@ public class Location extends AbstractEntity {
         metro.getLocations().remove(this);
         return this;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
