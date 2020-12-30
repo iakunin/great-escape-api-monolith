@@ -1,12 +1,11 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Slot;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.util.Map;
 import java.util.UUID;
-import javax.persistence.Lob;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -46,12 +45,7 @@ public final class SlotDTO implements Serializable {
     @NotNull
     private String externalId;
 
-    /**
-     * @TODO: change to Json.\nShould be sent to integration without changes during booking creation
-     */
-    @ApiModelProperty(value = "@TODO: change to Json.\nShould be sent to integration without changes during booking creation")
-    @Lob
-    private String externalState;
+    private Map<String, Object> externalState;
 
     private UUID questId;
 

@@ -3,9 +3,9 @@ package com.greatescape.api.monolith.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -63,13 +63,9 @@ public class SlotAggregation extends AbstractEntity {
     @Column(name = "external_id", nullable = false)
     private String externalId;
 
-    /**
-     * @TODO: change to Json.\nShould be sent to integration without changes during booking creation
-     */
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "external_state")
-    private String externalState;
+    @Type(type = "jsonb")
+    @Column(name = "external_state", columnDefinition = "jsonb")
+    private Map<String, Object> externalState;
 
     @ManyToOne(optional = false)
     @NotNull

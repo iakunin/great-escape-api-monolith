@@ -23,7 +23,7 @@
             <column name="discount_in_percents" type="integer" />
             <column name="commission_in_percents" type="integer" />
             <column name="external_id" type="varchar(255)" />
-            <column name="external_state" type="${clobType}" />
+            <column name="external_state" type="${jsonType}" />
             <column name="quest_id" type="${uuidType}" />
 
             <column name="created_at" type="${timestampWithTimeZoneType}" />

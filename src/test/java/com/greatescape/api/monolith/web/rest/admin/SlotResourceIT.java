@@ -15,12 +15,15 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +74,8 @@ public class SlotResourceIT {
     private static final String DEFAULT_EXTERNAL_ID = "AAAAAAAAAA";
     private static final String UPDATED_EXTERNAL_ID = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EXTERNAL_STATE = "AAAAAAAAAA";
-    private static final String UPDATED_EXTERNAL_STATE = "BBBBBBBBBB";
+    private static final Map<String, Object> DEFAULT_EXTERNAL_STATE = new HashMap<>() {{ put("default", 1);}};
+    private static final Map<String, Object> UPDATED_EXTERNAL_STATE = new HashMap<>() {{ put("updated", 2);}};
 
     @Autowired
     private SlotRepository slotRepository;
@@ -321,7 +324,7 @@ public class SlotResourceIT {
             .andExpect(jsonPath("$.[*].discountInPercents").value(hasItem(DEFAULT_DISCOUNT_IN_PERCENTS)))
             .andExpect(jsonPath("$.[*].commissionInPercents").value(hasItem(DEFAULT_COMMISSION_IN_PERCENTS)))
             .andExpect(jsonPath("$.[*].externalId").value(hasItem(DEFAULT_EXTERNAL_ID)))
-            .andExpect(jsonPath("$.[*].externalState").value(hasItem(DEFAULT_EXTERNAL_STATE.toString())));
+            .andExpect(jsonPath("$.[*].externalState").value(hasItem(DEFAULT_EXTERNAL_STATE)));
     }
 
     @Test
@@ -342,7 +345,7 @@ public class SlotResourceIT {
             .andExpect(jsonPath("$.discountInPercents").value(DEFAULT_DISCOUNT_IN_PERCENTS))
             .andExpect(jsonPath("$.commissionInPercents").value(DEFAULT_COMMISSION_IN_PERCENTS))
             .andExpect(jsonPath("$.externalId").value(DEFAULT_EXTERNAL_ID))
-            .andExpect(jsonPath("$.externalState").value(DEFAULT_EXTERNAL_STATE.toString()));
+            .andExpect(jsonPath("$.externalState").value(is(DEFAULT_EXTERNAL_STATE)));
     }
 
 
@@ -991,7 +994,7 @@ public class SlotResourceIT {
             .andExpect(jsonPath("$.[*].discountInPercents").value(hasItem(DEFAULT_DISCOUNT_IN_PERCENTS)))
             .andExpect(jsonPath("$.[*].commissionInPercents").value(hasItem(DEFAULT_COMMISSION_IN_PERCENTS)))
             .andExpect(jsonPath("$.[*].externalId").value(hasItem(DEFAULT_EXTERNAL_ID)))
-            .andExpect(jsonPath("$.[*].externalState").value(hasItem(DEFAULT_EXTERNAL_STATE.toString())));
+            .andExpect(jsonPath("$.[*].externalState").value(hasItem(DEFAULT_EXTERNAL_STATE)));
 
         // Check, that the count call also returns 1
         restSlotMockMvc.perform(get("/admin-api/slots/count?sort=id,desc&" + filter))

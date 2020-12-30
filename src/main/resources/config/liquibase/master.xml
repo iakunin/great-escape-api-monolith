@@ -13,6 +13,7 @@
     <property name="clobType" value="longvarchar" dbms="h2"/>
     <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
+    <property name="jsonType" value="jsonb" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201102112639_added_entity_Player.xml" relativeToChangelogFile="false"/>
@@ -27,7 +28,6 @@
     <include file="config/liquibase/changelog/20201102113539_added_entity_QuestPhoto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201102113639_added_entity_QuestIntegrationSetting.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201102113739_added_entity_Booking.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20201102112639_added_entity_constraints_Player.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201102112739_added_entity_constraints_Quest.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201102113039_added_entity_constraints_Location.xml" relativeToChangelogFile="false"/>
@@ -42,6 +42,4 @@
     <include file="config/liquibase/changelog/20201111153546_added_audit_for_Slot.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201226232503_added_SlotAggregation.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201227001919_added_QuestAggregation.sql" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
-    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.domain;
 
 import com.vladmihalcea.hibernate.type.basic.ZoneIdType;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import java.io.Serializable;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -15,6 +16,7 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import org.hibernate.annotations.UpdateTimestamp;
 
 /**
@@ -24,7 +26,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Getter
 @Setter
 @ToString
-@TypeDef(typeClass = ZoneIdType.class, defaultForType = ZoneId.class)
+@TypeDefs({
+    @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class),
+    @TypeDef(typeClass = ZoneIdType.class, defaultForType = ZoneId.class),
+})
 abstract public class AbstractEntity implements Serializable {
 
     @Id
