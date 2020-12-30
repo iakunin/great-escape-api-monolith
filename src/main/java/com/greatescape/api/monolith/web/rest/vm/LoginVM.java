@@ -2,14 +2,12 @@ package com.greatescape.api.monolith.web.rest.vm;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * View Model object for storing a user's credentials.
  */
-@Getter
-@Setter
+@Data
 public class LoginVM {
 
     @NotNull
@@ -21,12 +19,4 @@ public class LoginVM {
     private String password;
 
     private boolean rememberMe;
-
-    @Override
-    public String toString() {
-        return "LoginVM{" +
-            "username='" + username + '\'' +
-            ", rememberMe=" + rememberMe +
-            '}';
-    }
 }
