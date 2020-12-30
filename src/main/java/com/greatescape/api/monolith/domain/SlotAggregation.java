@@ -11,16 +11,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
 
-@Getter
-@Setter
 @ToString
 @Entity
 @Table(name = "slot_aggregation")
+@Data
 public class SlotAggregation extends AbstractEntity {
 
     @NotNull
@@ -85,6 +85,7 @@ public class SlotAggregation extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

@@ -13,8 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -22,11 +21,10 @@ import org.hibernate.annotations.Type;
 /**
  * A Location.
  */
-@Getter
-@Setter
 @Entity
 @Table(name = "location")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Data
 public class Location extends AbstractEntity {
 
     @NotNull
@@ -76,15 +74,7 @@ public class Location extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-            "id=" + getId() +
-            ", address='" + getAddress() + "'" +
-            ", addressExplanation='" + getAddressExplanation() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

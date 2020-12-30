@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
@@ -27,10 +28,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.NotAudited;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "quest_aggregation")
+@Data
 public class QuestAggregation extends AbstractEntity {
 
     @NotNull
@@ -128,30 +128,7 @@ public class QuestAggregation extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "QuestAggregation{" +
-            "id=" + id +
-            ", createdAt=" + createdAt +
-            ", updatedAt=" + updatedAt +
-            ", slug='" + slug + '\'' +
-            ", title='" + title + '\'' +
-            ", description='" + description + '\'' +
-            ", playersMinCount=" + playersMinCount +
-            ", playersMaxCount=" + playersMaxCount +
-            ", durationInMinutes=" + durationInMinutes +
-            ", complexity=" + complexity +
-            ", fearLevel=" + fearLevel +
-            ", type=" + type +
-            ", location=" + location +
-            ", company=" + company +
-            ", thematics=" + thematics +
-            ", minPrice=" + minPrice +
-            ", discountInPercents=" + discountInPercents +
-            ", coverPhoto='" + coverPhoto + '\'' +
-            '}';
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

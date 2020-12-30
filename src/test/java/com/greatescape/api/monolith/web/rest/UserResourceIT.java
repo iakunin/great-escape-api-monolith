@@ -582,7 +582,7 @@ public class UserResourceIT {
         assertThat(authorityA).isEqualTo(authorityA);
         assertThat(authorityA).isNotEqualTo(null);
         assertThat(authorityA).isNotEqualTo(new Object());
-        assertThat(authorityA.hashCode()).isEqualTo(0);
+        assertThat(authorityA.hashCode()).isEqualTo(102);
         assertThat(authorityA.toString()).isNotNull();
 
         Authority authorityB = new Authority();

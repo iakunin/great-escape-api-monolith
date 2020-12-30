@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
@@ -20,13 +21,12 @@ import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "slot")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Audited
 @AuditOverride(forClass = AbstractEntity.class)
+@Data
 public class Slot extends AbstractEntity {
 
     @NotNull
@@ -86,21 +86,7 @@ public class Slot extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "Slot{" +
-            "id=" + getId() +
-            ", dateTimeLocal='" + getDateTimeLocal() + "'" +
-            ", dateTimeWithTimeZone='" + getDateTimeWithTimeZone() + "'" +
-            ", isAvailable='" + getIsAvailable() + "'" +
-            ", price=" + getPrice() +
-            ", discountInPercents=" + getDiscountInPercents() +
-            ", commissionInPercents=" + getCommissionInPercents() +
-            ", externalId='" + getExternalId() + "'" +
-            ", externalState='" + getExternalState() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

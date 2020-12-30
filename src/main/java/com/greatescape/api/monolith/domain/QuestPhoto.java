@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
@@ -14,11 +15,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * A QuestPhoto.
  */
-@Getter
-@Setter
 @Entity
 @Table(name = "quest_photo")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Data
 public class QuestPhoto extends AbstractEntity {
 
     @NotNull
@@ -43,14 +43,7 @@ public class QuestPhoto extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "QuestPhoto{" +
-            "id=" + getId() +
-            ", url='" + getUrl() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

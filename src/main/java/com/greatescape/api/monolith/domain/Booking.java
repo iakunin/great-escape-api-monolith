@@ -13,19 +13,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Booking.
  */
-@Getter
-@Setter
 @Entity
 @Table(name = "booking")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Data
 public class Booking extends AbstractEntity {
 
     @NotNull
@@ -33,14 +31,14 @@ public class Booking extends AbstractEntity {
     @Column(name = "status", nullable = false)
     private BookingStatus status;
 
-    /**
+    /*
      * @TODO: copy price from Slot, cause Slot is mutable
      */
     @NotNull
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    /**
+    /*
      * @TODO: save calculated discount, cause it's mutable
      */
     @NotNull
@@ -49,7 +47,7 @@ public class Booking extends AbstractEntity {
     @Column(name = "discount_in_percents", nullable = false)
     private Integer discountInPercents;
 
-    /**
+    /*
      * @TODO: save calculated commission, cause it's mutable
      */
     @NotNull
@@ -86,17 +84,7 @@ public class Booking extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "Booking{" +
-            "id=" + getId() +
-            ", status='" + getStatus() + "'" +
-            ", price=" + getPrice() +
-            ", discountInPercents=" + getDiscountInPercents() +
-            ", commissionInPercents=" + getCommissionInPercents() +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

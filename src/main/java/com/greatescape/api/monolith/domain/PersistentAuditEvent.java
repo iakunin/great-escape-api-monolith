@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -24,13 +25,10 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @see org.springframework.boot.actuate.audit.AuditEvent
  */
-@Getter
-@Setter
 @Entity
 @Table(name = "jhi_persistent_audit_event")
+@Data
 public class PersistentAuditEvent implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -67,15 +65,7 @@ public class PersistentAuditEvent implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "PersistentAuditEvent{" +
-            "principal='" + principal + '\'' +
-            ", auditEventDate=" + auditEventDate +
-            ", auditEventType='" + auditEventType + '\'' +
-            '}';
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

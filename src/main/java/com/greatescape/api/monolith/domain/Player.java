@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
@@ -21,13 +22,12 @@ import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "player")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Audited
 @AuditOverride(forClass = AbstractEntity.class)
+@Data
 public class Player extends AbstractEntity {
 
     @NotNull
@@ -54,7 +54,7 @@ public class Player extends AbstractEntity {
     @Column(name = "subscription_allowed")
     private Boolean subscriptionAllowed;
 
-    /**
+    /*
      * Mapping Application user (Player) to default jHipster's one
      */
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
@@ -81,19 +81,7 @@ public class Player extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "Player{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", phone='" + getPhone() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", birthday='" + getBirthday() + "'" +
-            ", gender='" + getGender() + "'" +
-            ", subscriptionAllowed='" + getSubscriptionAllowed() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

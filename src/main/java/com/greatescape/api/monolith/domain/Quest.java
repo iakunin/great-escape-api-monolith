@@ -19,8 +19,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -29,13 +28,12 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "quest")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Audited
 @AuditOverride(forClass = AbstractEntity.class)
+@Data
 public class Quest extends AbstractEntity {
 
     @NotNull
@@ -133,23 +131,7 @@ public class Quest extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "Quest{" +
-            "id=" + getId() +
-            ", slug='" + getSlug() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", playersMinCount=" + getPlayersMinCount() +
-            ", playersMaxCount=" + getPlayersMaxCount() +
-            ", durationInMinutes=" + getDurationInMinutes() +
-            ", complexity='" + getComplexity() + "'" +
-            ", fearLevel='" + getFearLevel() + "'" +
-            ", type='" + getType() + "'" +
-            ", coverPhoto='" + getCoverPhoto() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

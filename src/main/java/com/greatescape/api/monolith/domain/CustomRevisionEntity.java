@@ -7,17 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "revinfo")
 @RevisionEntity
+@Data
 public class CustomRevisionEntity implements Serializable {
 
     @Id

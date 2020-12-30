@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
@@ -13,11 +14,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * A Subscriber.
  */
-@Getter
-@Setter
 @Entity
 @Table(name = "subscriber")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Data
 public class Subscriber extends AbstractEntity {
 
     @NotNull
@@ -42,15 +42,7 @@ public class Subscriber extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "Subscriber{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", email='" + getEmail() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

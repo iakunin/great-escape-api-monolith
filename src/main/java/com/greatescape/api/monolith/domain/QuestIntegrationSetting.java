@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -24,11 +25,10 @@ import org.hibernate.annotations.Type;
 /**
  * A QuestIntegrationSetting.
  */
-@Getter
-@Setter
 @Entity
 @Table(name = "quest_integration_setting")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Data
 public class QuestIntegrationSetting extends AbstractEntity {
 
     @NotNull
@@ -58,16 +58,8 @@ public class QuestIntegrationSetting extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "QuestIntegrationSetting{" +
-            "id=" + getId() +
-            ", type='" + getType() + "'" +
-            ", settings='" + getSettings() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 
     @Data
