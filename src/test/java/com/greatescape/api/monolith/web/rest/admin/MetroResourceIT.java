@@ -73,10 +73,9 @@ public class MetroResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Metro createEntity(EntityManager em) {
-        Metro metro = new Metro()
+        return new Metro()
             .setSlug(DEFAULT_SLUG)
             .setTitle(DEFAULT_TITLE);
-        return metro;
     }
     /**
      * Create an updated entity for this test.
@@ -85,10 +84,9 @@ public class MetroResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Metro createUpdatedEntity(EntityManager em) {
-        Metro metro = new Metro()
+        return new Metro()
             .setSlug(UPDATED_SLUG)
             .setTitle(UPDATED_TITLE);
-        return metro;
     }
 
     @BeforeEach

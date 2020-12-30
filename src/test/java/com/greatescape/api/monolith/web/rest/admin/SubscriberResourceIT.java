@@ -72,10 +72,9 @@ public class SubscriberResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Subscriber createEntity(EntityManager em) {
-        Subscriber subscriber = new Subscriber()
+        return new Subscriber()
             .setName(DEFAULT_NAME)
             .setEmail(DEFAULT_EMAIL);
-        return subscriber;
     }
     /**
      * Create an updated entity for this test.
@@ -84,10 +83,9 @@ public class SubscriberResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Subscriber createUpdatedEntity(EntityManager em) {
-        Subscriber subscriber = new Subscriber()
+        return new Subscriber()
             .setName(UPDATED_NAME)
             .setEmail(UPDATED_EMAIL);
-        return subscriber;
     }
 
     @BeforeEach

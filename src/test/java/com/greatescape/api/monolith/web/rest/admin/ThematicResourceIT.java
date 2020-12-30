@@ -73,10 +73,9 @@ public class ThematicResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Thematic createEntity(EntityManager em) {
-        Thematic thematic = new Thematic()
+        return new Thematic()
             .setSlug(DEFAULT_SLUG)
             .setTitle(DEFAULT_TITLE);
-        return thematic;
     }
     /**
      * Create an updated entity for this test.
@@ -85,10 +84,9 @@ public class ThematicResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Thematic createUpdatedEntity(EntityManager em) {
-        Thematic thematic = new Thematic()
+        return new Thematic()
             .setSlug(UPDATED_SLUG)
             .setTitle(UPDATED_TITLE);
-        return thematic;
     }
 
     @BeforeEach

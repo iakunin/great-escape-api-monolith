@@ -15,7 +15,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -74,8 +73,8 @@ public class SlotResourceIT {
     private static final String DEFAULT_EXTERNAL_ID = "AAAAAAAAAA";
     private static final String UPDATED_EXTERNAL_ID = "BBBBBBBBBB";
 
-    private static final Map<String, Object> DEFAULT_EXTERNAL_STATE = new HashMap<>() {{ put("default", 1);}};
-    private static final Map<String, Object> UPDATED_EXTERNAL_STATE = new HashMap<>() {{ put("updated", 2);}};
+    private static final Map<String, Object> DEFAULT_EXTERNAL_STATE = Map.of("default", 1);
+    private static final Map<String, Object> UPDATED_EXTERNAL_STATE = Map.of("updated", 2);
 
     @Autowired
     private SlotRepository slotRepository;

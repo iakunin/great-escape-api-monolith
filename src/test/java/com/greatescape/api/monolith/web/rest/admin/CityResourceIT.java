@@ -76,11 +76,10 @@ public class CityResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static City createEntity(EntityManager em) {
-        City city = new City()
+        return new City()
             .setSlug(DEFAULT_SLUG)
             .setTitle(DEFAULT_TITLE)
             .setTimezone(ZoneId.of(DEFAULT_TIMEZONE));
-        return city;
     }
     /**
      * Create an updated entity for this test.
@@ -89,11 +88,10 @@ public class CityResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static City createUpdatedEntity(EntityManager em) {
-        City city = new City()
+        return new City()
             .setSlug(UPDATED_SLUG)
             .setTitle(UPDATED_TITLE)
             .setTimezone(ZoneId.of(UPDATED_TIMEZONE));
-        return city;
     }
 
     @BeforeEach

@@ -1,6 +1,5 @@
 package com.greatescape.api.monolith.repository.timezone;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,9 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "jhi_date_time_wrapper")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class DateTimeWrapper implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class DateTimeWrapper {
 
     @Id
     @GeneratedValue(generator = "UUID")

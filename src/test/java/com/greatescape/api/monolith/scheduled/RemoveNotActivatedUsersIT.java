@@ -1,9 +1,8 @@
-package com.greatescape.api.monolith.service;
+package com.greatescape.api.monolith.scheduled;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.User;
 import com.greatescape.api.monolith.repository.UserRepository;
-import com.greatescape.api.monolith.scheduled.RemoveNotActivatedUsers;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -22,7 +21,7 @@ import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for {@link UserService}.
+ * Integration tests for {@link RemoveNotActivatedUsers}.
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @Transactional

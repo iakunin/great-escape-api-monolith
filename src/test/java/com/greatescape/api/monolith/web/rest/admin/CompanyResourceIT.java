@@ -86,14 +86,13 @@ public class CompanyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Company createEntity(EntityManager em) {
-        Company company = new Company()
+        return new Company()
             .setSlug(DEFAULT_SLUG)
             .setTitle(DEFAULT_TITLE)
             .setLegalName(DEFAULT_LEGAL_NAME)
             .setTaxpayerNumber(DEFAULT_TAXPAYER_NUMBER)
             .setDiscountInPercents(DEFAULT_DISCOUNT_IN_PERCENTS)
             .setCommissionInPercents(DEFAULT_COMMISSION_IN_PERCENTS);
-        return company;
     }
     /**
      * Create an updated entity for this test.
@@ -102,14 +101,13 @@ public class CompanyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Company createUpdatedEntity(EntityManager em) {
-        Company company = new Company()
+        return new Company()
             .setSlug(UPDATED_SLUG)
             .setTitle(UPDATED_TITLE)
             .setLegalName(UPDATED_LEGAL_NAME)
             .setTaxpayerNumber(UPDATED_TAXPAYER_NUMBER)
             .setDiscountInPercents(UPDATED_DISCOUNT_IN_PERCENTS)
             .setCommissionInPercents(UPDATED_COMMISSION_IN_PERCENTS);
-        return company;
     }
 
     @BeforeEach
