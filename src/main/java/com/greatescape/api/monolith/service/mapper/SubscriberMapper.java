@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity {@link Subscriber} and its DTO {@link SubscriberDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 public interface SubscriberMapper extends EntityMapper<SubscriberDTO, Subscriber> {
 
     @Mapping(target = "createdAt", ignore = true)

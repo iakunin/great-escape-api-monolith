@@ -4,7 +4,6 @@ import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.enumeration.FearLevel;
 import com.greatescape.api.monolith.domain.enumeration.QuestComplexity;
 import com.greatescape.api.monolith.domain.enumeration.QuestType;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -18,7 +17,7 @@ import lombok.Data;
  * A DTO for the {@link Quest} entity.
  */
 @Data
-public final class QuestDTO implements Serializable {
+public final class QuestDTO {
 
     private UUID id;
 

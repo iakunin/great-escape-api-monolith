@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,9 +14,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -68,13 +64,12 @@ public class QuestIntegrationSetting extends AbstractEntity {
         @JsonSubTypes.Type(value = MirKvestov.class, name = "MIR_KVESTOV"),
         @JsonSubTypes.Type(value = BookForm.class, name = "BOOK_FORM"),
     })
-    public abstract static class AbstractSettings implements Serializable {
+    public abstract static class AbstractSettings {
         public abstract QuestIntegrationType getIntegrationType();
     }
 
     @Data
     public final static class MirKvestov extends AbstractSettings {
-
         @Override
         public QuestIntegrationType getIntegrationType() {
             return QuestIntegrationType.MIR_KVESTOV;
@@ -83,7 +78,6 @@ public class QuestIntegrationSetting extends AbstractEntity {
 
     @Data
     public final static class BookForm extends AbstractSettings {
-
         @Override
         public QuestIntegrationType getIntegrationType() {
             return QuestIntegrationType.BOOK_FORM;

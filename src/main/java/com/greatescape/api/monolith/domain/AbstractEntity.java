@@ -2,7 +2,6 @@ package com.greatescape.api.monolith.domain;
 
 import com.vladmihalcea.hibernate.type.basic.ZoneIdType;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import java.io.Serializable;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.UUID;
@@ -26,7 +25,7 @@ import org.hibernate.annotations.UpdateTimestamp;
     @TypeDef(typeClass = ZoneIdType.class, defaultForType = ZoneId.class),
 })
 @Data
-abstract public class AbstractEntity implements Serializable {
+abstract public class AbstractEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")

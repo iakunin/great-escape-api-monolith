@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity {@link City} and its DTO {@link CityDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 public interface CityMapper extends EntityMapper<CityDTO, City> {
 
     @Mapping(target = "createdAt", ignore = true)

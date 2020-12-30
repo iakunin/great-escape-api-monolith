@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Location;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -14,7 +13,7 @@ import lombok.Data;
  * A DTO for the {@link Location} entity.
  */
 @Data
-public final class LocationDTO implements Serializable {
+public final class LocationDTO {
 
     private UUID id;
 

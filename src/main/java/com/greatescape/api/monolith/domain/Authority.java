@@ -1,6 +1,5 @@
 package com.greatescape.api.monolith.domain;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "jhi_authority")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Data
-public class Authority implements Serializable {
+public class Authority {
 
     @NotNull
     @Size(max = 50)

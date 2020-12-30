@@ -7,7 +7,6 @@ import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,12 +21,14 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public final class BookingCriteria implements Serializable, Criteria {
+public final class BookingCriteria implements Criteria {
     /**
      * Class for filtering BookingStatus
      */
     @NoArgsConstructor
     public static class BookingStatusFilter extends Filter<BookingStatus> {
+
+        private static final long serialVersionUID = 1L;
 
         public BookingStatusFilter(BookingStatusFilter filter) {
             super(filter);
@@ -38,8 +39,6 @@ public final class BookingCriteria implements Serializable, Criteria {
             return new BookingStatusFilter(this);
         }
     }
-
-    private static final long serialVersionUID = 1L;
 
     private UUIDFilter id;
 

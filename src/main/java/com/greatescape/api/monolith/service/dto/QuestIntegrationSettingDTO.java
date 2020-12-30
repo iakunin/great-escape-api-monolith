@@ -2,7 +2,6 @@ package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
-import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -11,7 +10,7 @@ import lombok.Data;
  * A DTO for the {@link QuestIntegrationSetting} entity.
  */
 @Data
-public final class QuestIntegrationSettingDTO implements Serializable {
+public final class QuestIntegrationSettingDTO {
 
     private UUID id;
 

@@ -10,7 +10,6 @@ import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
 import io.github.jhipster.service.filter.ZonedDateTimeFilter;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,9 +24,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public final class SlotCriteria implements Serializable, Criteria {
-
-    private static final long serialVersionUID = 1L;
+public final class SlotCriteria implements Criteria {
 
     private UUIDFilter id;
 

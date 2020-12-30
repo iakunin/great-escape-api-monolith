@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity {@link Metro} and its DTO {@link MetroDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 public interface MetroMapper extends EntityMapper<MetroDTO, Metro> {
 
 

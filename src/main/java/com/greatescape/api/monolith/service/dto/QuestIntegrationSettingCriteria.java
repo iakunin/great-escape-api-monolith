@@ -6,7 +6,6 @@ import com.greatescape.api.monolith.web.rest.admin.QuestIntegrationSettingResour
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.UUIDFilter;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,12 +20,14 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public final class QuestIntegrationSettingCriteria implements Serializable, Criteria {
+public final class QuestIntegrationSettingCriteria implements Criteria {
     /**
      * Class for filtering QuestIntegrationType
      */
     @NoArgsConstructor
     public static class QuestIntegrationTypeFilter extends Filter<QuestIntegrationType> {
+
+        private static final long serialVersionUID = 1L;
 
         public QuestIntegrationTypeFilter(QuestIntegrationTypeFilter filter) {
             super(filter);
@@ -38,8 +39,6 @@ public final class QuestIntegrationSettingCriteria implements Serializable, Crit
         }
 
     }
-
-    private static final long serialVersionUID = 1L;
 
     private UUIDFilter id;
 

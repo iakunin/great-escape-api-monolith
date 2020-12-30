@@ -6,7 +6,6 @@ import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,9 +20,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public final class ThematicCriteria implements Serializable, Criteria {
-
-    private static final long serialVersionUID = 1L;
+public final class ThematicCriteria implements Criteria {
 
     private UUIDFilter id;
 

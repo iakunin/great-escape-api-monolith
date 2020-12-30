@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -20,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public abstract class AbstractAuditingEntity implements Serializable {
+public abstract class AbstractAuditingEntity {
 
     @CreatedBy
     @Column(name = "created_by", nullable = false, length = 50, updatable = false)

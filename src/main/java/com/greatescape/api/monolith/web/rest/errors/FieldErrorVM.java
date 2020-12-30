@@ -1,12 +1,9 @@
 package com.greatescape.api.monolith.web.rest.errors;
 
-import java.io.Serializable;
 import lombok.Getter;
 
 @Getter
-public final class FieldErrorVM implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public final class FieldErrorVM {
 
     private final String objectName;
 

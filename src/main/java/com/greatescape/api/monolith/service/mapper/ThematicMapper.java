@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity {@link Thematic} and its DTO {@link ThematicDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 public interface ThematicMapper extends EntityMapper<ThematicDTO, Thematic> {
 
     @Mapping(target = "quests", ignore = true)

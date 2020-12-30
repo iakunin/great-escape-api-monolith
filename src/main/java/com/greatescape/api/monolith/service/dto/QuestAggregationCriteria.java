@@ -10,7 +10,6 @@ import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,13 +24,15 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public final class QuestAggregationCriteria implements Serializable, Criteria {
+public final class QuestAggregationCriteria implements Criteria {
 
     /**
      * Class for filtering QuestComplexity
      */
     @NoArgsConstructor
     public static class QuestComplexityFilter extends Filter<QuestComplexity> {
+
+        private static final long serialVersionUID = 1L;
 
         public QuestComplexityFilter(QuestComplexityFilter filter) {
             super(filter);
@@ -50,6 +51,8 @@ public final class QuestAggregationCriteria implements Serializable, Criteria {
     @NoArgsConstructor
     public static class FearLevelFilter extends Filter<FearLevel> {
 
+        private static final long serialVersionUID = 1L;
+
         public FearLevelFilter(FearLevelFilter filter) {
             super(filter);
         }
@@ -67,6 +70,8 @@ public final class QuestAggregationCriteria implements Serializable, Criteria {
     @NoArgsConstructor
     public static class QuestTypeFilter extends Filter<QuestType> {
 
+        private static final long serialVersionUID = 1L;
+
         public QuestTypeFilter(QuestTypeFilter filter) {
             super(filter);
         }
@@ -77,8 +82,6 @@ public final class QuestAggregationCriteria implements Serializable, Criteria {
         }
 
     }
-
-    private static final long serialVersionUID = 1L;
 
     private UUIDFilter id;
 

@@ -3,7 +3,6 @@ package com.greatescape.api.monolith.service.dto;
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.domain.enumeration.BookingStatus;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -14,7 +13,7 @@ import lombok.Data;
  * A DTO for the {@link Booking} entity.
  */
 @Data
-public final class BookingDTO implements Serializable {
+public final class BookingDTO {
 
     private UUID id;
 

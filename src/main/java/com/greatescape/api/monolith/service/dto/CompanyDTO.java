@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Company;
-import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -14,7 +13,7 @@ import lombok.Data;
  * A DTO for the {@link Company} entity.
  */
 @Data
-public final class CompanyDTO implements Serializable {
+public final class CompanyDTO {
 
     private UUID id;
 

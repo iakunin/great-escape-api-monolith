@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.SlotAggregation;
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 import javax.validation.constraints.Max;
@@ -13,7 +12,7 @@ import lombok.Data;
  * A DTO for the {@link SlotAggregation} entity.
  */
 @Data
-public final class SlotAggregationDTO implements Serializable {
+public final class SlotAggregationDTO {
 
     private UUID id;
 

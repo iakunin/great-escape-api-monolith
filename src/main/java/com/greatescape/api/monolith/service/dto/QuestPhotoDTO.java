@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.QuestPhoto;
-import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -10,7 +9,7 @@ import lombok.Data;
  * A DTO for the {@link QuestPhoto} entity.
  */
 @Data
-public final class QuestPhotoDTO implements Serializable {
+public final class QuestPhotoDTO {
 
     private UUID id;
 

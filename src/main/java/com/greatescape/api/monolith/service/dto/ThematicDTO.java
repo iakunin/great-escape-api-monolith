@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Thematic;
-import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,7 +10,7 @@ import lombok.Data;
  * A DTO for the {@link Thematic} entity.
  */
 @Data
-public final class ThematicDTO implements Serializable {
+public final class ThematicDTO {
 
     private UUID id;
 

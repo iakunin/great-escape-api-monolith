@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity {@link Company} and its DTO {@link CompanyDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 public interface CompanyMapper extends EntityMapper<CompanyDTO, Company> {
 
     @Mapping(target = "createdAt", ignore = true)

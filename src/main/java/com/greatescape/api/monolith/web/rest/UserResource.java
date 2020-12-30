@@ -15,8 +15,6 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -67,7 +65,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping("/api")
 public class UserResource {
-    private static final List<String> ALLOWED_ORDERED_PROPERTIES = Collections.unmodifiableList(Arrays.asList("id", "login", "firstName", "lastName", "email", "activated", "langKey"));
+    private static final List<String> ALLOWED_ORDERED_PROPERTIES = List.of("id", "login", "firstName", "lastName", "email", "activated", "langKey");
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 

@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Subscriber;
-import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -11,8 +10,7 @@ import lombok.Data;
  * A DTO for the {@link Subscriber} entity.
  */
 @Data
-public final class SubscriberDTO implements Serializable {
-
+public final class SubscriberDTO {
     private UUID id;
 
     @NotNull

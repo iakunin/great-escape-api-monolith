@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Metro;
-import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,7 +10,7 @@ import lombok.Data;
  * A DTO for the {@link Metro} entity.
  */
 @Data
-public final class MetroDTO implements Serializable {
+public final class MetroDTO {
 
     private UUID id;
 

@@ -9,7 +9,6 @@ import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.UUIDFilter;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,12 +23,15 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public final class PlayerCriteria implements Serializable, Criteria {
+public final class PlayerCriteria implements Criteria {
+
     /**
      * Class for filtering Gender
      */
     @NoArgsConstructor
     public static class GenderFilter extends Filter<Gender> {
+
+        private static final long serialVersionUID = 1L;
 
         public GenderFilter(GenderFilter filter) {
             super(filter);
@@ -41,8 +43,6 @@ public final class PlayerCriteria implements Serializable, Criteria {
         }
 
     }
-
-    private static final long serialVersionUID = 1L;
 
     private UUIDFilter id;
 

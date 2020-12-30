@@ -3,7 +3,6 @@ package com.greatescape.api.monolith.service.dto;
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.domain.enumeration.Gender;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
@@ -14,7 +13,7 @@ import lombok.Data;
  * A DTO for the {@link Player} entity.
  */
 @Data
-public final class PlayerDTO implements Serializable {
+public final class PlayerDTO {
 
     private UUID id;
 

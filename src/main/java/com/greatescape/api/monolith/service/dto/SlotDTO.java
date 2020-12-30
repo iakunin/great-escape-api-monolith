@@ -1,7 +1,6 @@
 package com.greatescape.api.monolith.service.dto;
 
 import com.greatescape.api.monolith.domain.Slot;
-import java.io.Serializable;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Map;
@@ -15,7 +14,7 @@ import lombok.Data;
  * A DTO for the {@link Slot} entity.
  */
 @Data
-public final class SlotDTO implements Serializable {
+public final class SlotDTO {
 
     private UUID id;
 

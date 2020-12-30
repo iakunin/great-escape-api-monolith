@@ -1,6 +1,5 @@
 package com.greatescape.api.monolith.domain;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +15,6 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -28,7 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "jhi_persistent_audit_event")
 @Data
-public class PersistentAuditEvent implements Serializable {
+public class PersistentAuditEvent {
 
     @Id
     @GeneratedValue(generator = "UUID")

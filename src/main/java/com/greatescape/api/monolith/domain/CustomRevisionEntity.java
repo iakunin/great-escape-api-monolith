@@ -1,6 +1,5 @@
 package com.greatescape.api.monolith.domain;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +15,7 @@ import org.hibernate.envers.RevisionTimestamp;
 @Table(name = "revinfo")
 @RevisionEntity
 @Data
-public class CustomRevisionEntity implements Serializable {
+public class CustomRevisionEntity {
 
     @Id
     @SequenceGenerator(name="pk_sequence",sequenceName="revinfo_rev_sequence", allocationSize=1)
