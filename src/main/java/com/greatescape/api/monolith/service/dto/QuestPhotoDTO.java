@@ -4,14 +4,12 @@ import com.greatescape.api.monolith.domain.QuestPhoto;
 import java.io.Serializable;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * A DTO for the {@link QuestPhoto} entity.
  */
-@Getter
-@Setter
+@Data
 public final class QuestPhotoDTO implements Serializable {
 
     private UUID id;
@@ -37,16 +35,7 @@ public final class QuestPhotoDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "QuestPhotoDTO{" +
-            "id=" + getId() +
-            ", url='" + getUrl() + "'" +
-            ", questId=" + getQuestId() +
-            ", questTitle='" + getQuestTitle() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

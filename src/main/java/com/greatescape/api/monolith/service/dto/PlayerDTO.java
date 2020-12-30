@@ -8,14 +8,12 @@ import java.time.LocalDate;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * A DTO for the {@link Player} entity.
  */
-@Getter
-@Setter
+@Data
 public final class PlayerDTO implements Serializable {
 
     private UUID id;
@@ -63,23 +61,7 @@ public final class PlayerDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "PlayerDTO{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", phone='" + getPhone() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", birthday='" + getBirthday() + "'" +
-            ", gender='" + getGender() + "'" +
-            ", subscriptionAllowed='" + isSubscriptionAllowed() + "'" +
-            ", internalUserId=" + getInternalUserId() +
-            ", internalUserLogin='" + getInternalUserLogin() + "'" +
-            ", companyId=" + getCompanyId() +
-            ", companyTitle='" + getCompanyTitle() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

@@ -12,14 +12,12 @@ import javax.persistence.Lob;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * A DTO for the {@link QuestAggregation} entity.
  */
-@Getter
-@Setter
+@Data
 public final class QuestAggregationDTO implements Serializable {
 
     private UUID id;
@@ -94,30 +92,7 @@ public final class QuestAggregationDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "QuestAggregationDTO{" +
-            "id=" + getId() +
-            ", slug='" + getSlug() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", playersMinCount=" + getPlayersMinCount() +
-            ", playersMaxCount=" + getPlayersMaxCount() +
-            ", durationInMinutes=" + getDurationInMinutes() +
-            ", minPrice=" + getMinPrice() +
-            ", discountInPercents=" + getDiscountInPercents() +
-            ", complexity='" + getComplexity() + "'" +
-            ", fearLevel='" + getFearLevel() + "'" +
-            ", type='" + getType() + "'" +
-            ", locationId=" + getLocationId() +
-            ", locationAddress='" + getLocationAddress() + "'" +
-            ", companyId=" + getCompanyId() +
-            ", companyTitle='" + getCompanyTitle() + "'" +
-            ", thematics='" + getThematics() + "'" +
-            ", metros='" + getMetros() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

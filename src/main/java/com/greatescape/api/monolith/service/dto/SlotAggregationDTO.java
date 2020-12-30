@@ -7,16 +7,12 @@ import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
  * A DTO for the {@link SlotAggregation} entity.
  */
-@Getter
-@Setter
-@ToString
+@Data
 public final class SlotAggregationDTO implements Serializable {
 
     private UUID id;
@@ -53,6 +49,7 @@ public final class SlotAggregationDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

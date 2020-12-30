@@ -9,14 +9,12 @@ import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * A DTO for the {@link Slot} entity.
  */
-@Getter
-@Setter
+@Data
 public final class SlotDTO implements Serializable {
 
     private UUID id;
@@ -65,23 +63,7 @@ public final class SlotDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "SlotDTO{" +
-            "id=" + getId() +
-            ", dateTimeLocal='" + getDateTimeLocal() + "'" +
-            ", dateTimeWithTimeZone='" + getDateTimeWithTimeZone() + "'" +
-            ", isAvailable='" + getIsAvailable() + "'" +
-            ", price=" + getPrice() +
-            ", discountInPercents=" + getDiscountInPercents() +
-            ", commissionInPercents=" + getCommissionInPercents() +
-            ", externalId='" + getExternalId() + "'" +
-            ", externalState='" + getExternalState() + "'" +
-            ", questId=" + getQuestId() +
-            ", questTitle='" + getQuestTitle() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

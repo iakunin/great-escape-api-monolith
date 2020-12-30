@@ -8,14 +8,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * A DTO for the {@link Company} entity.
  */
-@Getter
-@Setter
+@Data
 public final class CompanyDTO implements Serializable {
 
     private UUID id;
@@ -57,19 +55,7 @@ public final class CompanyDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "CompanyDTO{" +
-            "id=" + getId() +
-            ", slug='" + getSlug() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", legalName='" + getLegalName() + "'" +
-            ", taxpayerNumber='" + getTaxpayerNumber() + "'" +
-            ", discountInPercents=" + getDiscountInPercents() +
-            ", commissionInPercents=" + getCommissionInPercents() +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

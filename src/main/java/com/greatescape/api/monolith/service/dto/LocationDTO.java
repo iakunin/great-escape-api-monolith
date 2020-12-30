@@ -8,14 +8,12 @@ import java.util.UUID;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * A DTO for the {@link Location} entity.
  */
-@Getter
-@Setter
+@Data
 public final class LocationDTO implements Serializable {
 
     private UUID id;
@@ -47,18 +45,7 @@ public final class LocationDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "LocationDTO{" +
-            "id=" + getId() +
-            ", address='" + getAddress() + "'" +
-            ", addressExplanation='" + getAddressExplanation() + "'" +
-            ", cityId=" + getCityId() +
-            ", cityTitle='" + getCityTitle() + "'" +
-            ", metros='" + getMetros() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

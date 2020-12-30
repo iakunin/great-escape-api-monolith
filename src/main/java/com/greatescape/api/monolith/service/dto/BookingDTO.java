@@ -8,14 +8,12 @@ import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * A DTO for the {@link Booking} entity.
  */
-@Getter
-@Setter
+@Data
 public final class BookingDTO implements Serializable {
 
     private UUID id;
@@ -23,14 +21,14 @@ public final class BookingDTO implements Serializable {
     @NotNull
     private BookingStatus status;
 
-    /**
+    /*
      * @TODO: copy price from Slot, cause Slot is mutable
      */
     @NotNull
     @ApiModelProperty(value = "@TODO: copy price from Slot, cause Slot is mutable", required = true)
     private Integer price;
 
-    /**
+    /*
      * @TODO: save calculated discount, cause it's mutable
      */
     @NotNull
@@ -39,7 +37,7 @@ public final class BookingDTO implements Serializable {
     @ApiModelProperty(value = "@TODO: save calculated discount, cause it's mutable", required = true)
     private Integer discountInPercents;
 
-    /**
+    /*
      * @TODO: save calculated commission, cause it's mutable
      */
     @NotNull
@@ -74,23 +72,7 @@ public final class BookingDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "BookingDTO{" +
-            "id=" + getId() +
-            ", status='" + getStatus() + "'" +
-            ", price=" + getPrice() +
-            ", discountInPercents=" + getDiscountInPercents() +
-            ", commissionInPercents=" + getCommissionInPercents() +
-            ", slotId=" + getSlotId() +
-            ", slotDateTimeLocal='" + getSlotDateTimeLocal() + "'" +
-            ", questId=" + getQuestId() +
-            ", questTitle='" + getQuestTitle() + "'" +
-            ", playerId=" + getPlayerId() +
-            ", playerPhone='" + getPlayerPhone() + "'" +
-            "}";
+        // For more info see: https://bit.ly/37Zo2W3
+        return getClass().hashCode();
     }
 }

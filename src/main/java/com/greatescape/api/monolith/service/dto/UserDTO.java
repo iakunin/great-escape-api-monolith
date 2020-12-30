@@ -11,15 +11,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * A DTO representing a user, with his authorities.
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class UserDTO {
 
@@ -74,23 +72,5 @@ public class UserDTO {
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
     }
 }
