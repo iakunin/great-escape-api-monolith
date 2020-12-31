@@ -16,7 +16,7 @@
             <column name="date_time_local" type="datetime">
                 <constraints nullable="false" />
             </column>
-            <column name="date_time_with_time_zone" type="datetime">
+            <column name="date_time_with_time_zone" type="${timestampWithTimeZoneType}">
                 <constraints nullable="false" />
             </column>
             <column name="is_available" type="boolean">
@@ -46,7 +46,7 @@
             <column name="updated_at" type="${timestampWithTimeZoneType}" />
         </createTable>
         <dropDefaultValue tableName="slot" columnName="date_time_local" columnDataType="datetime"/>
-        <dropDefaultValue tableName="slot" columnName="date_time_with_time_zone" columnDataType="datetime"/>
+        <dropDefaultValue tableName="slot" columnName="date_time_with_time_zone" columnDataType="${timestampWithTimeZoneType}"/>
     </changeSet>
 
     <changeSet id="20201102113339-1-relations" author="jhipster">

@@ -17,7 +17,7 @@
             </column>
 
             <column name="date_time_local" type="datetime" />
-            <column name="date_time_with_time_zone" type="datetime" />
+            <column name="date_time_with_time_zone" type="${timestampWithTimeZoneType}" />
             <column name="is_available" type="boolean" />
             <column name="price" type="integer" />
             <column name="discount_in_percents" type="integer" />
