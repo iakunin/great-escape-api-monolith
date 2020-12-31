@@ -1,7 +1,7 @@
 id;type;settings;quest_id
-9494ef2b-1fc4-4ebf-87cf-affcf0224ffa;BOOK_FORM;{"integrationType": "BOOK_FORM"};49b9a375-d524-49be-8fd4-dec7820fa1a2
+9494ef2b-1fc4-4ebf-87cf-affcf0224ffa;BOOK_FORM;{"integrationType": "BOOK_FORM", "serviceId": "64D2D5581BBA11EB82AF5CBF5E75C354"};49b9a375-d524-49be-8fd4-dec7820fa1a2
 f05e1950-70ce-44f6-af89-ed3be136f8e3;MIR_KVESTOV;{"integrationType": "MIR_KVESTOV"};f5dc4b79-0bbb-4d21-a0da-3e691f4332a6
-6abb2b74-1795-49f4-a15d-185fe4eb9cdb;BOOK_FORM;{"integrationType": "BOOK_FORM"};b844e5b7-47b6-4522-b68a-d0391e65a27d
+6abb2b74-1795-49f4-a15d-185fe4eb9cdb;MIR_KVESTOV;{"integrationType": "MIR_KVESTOV"};b844e5b7-47b6-4522-b68a-d0391e65a27d
 c0bae3cf-5180-4da0-be0b-8788d2208610;MIR_KVESTOV;{"integrationType": "MIR_KVESTOV"};ada2a66c-e789-4bee-b4d3-6d4e216b4b70
-65316442-25b1-4ee1-a20e-5f41f4fe5311;BOOK_FORM;{"integrationType": "BOOK_FORM"};247b40ff-4850-4da9-8f21-7dd82257551b
+65316442-25b1-4ee1-a20e-5f41f4fe5311;MIR_KVESTOV;{"integrationType": "MIR_KVESTOV"};247b40ff-4850-4da9-8f21-7dd82257551b
 26627377-3b0b-405c-86ce-00366393e10b;MIR_KVESTOV;{"integrationType": "MIR_KVESTOV"};1ee5934b-207f-4134-945d-8a66177b207f
