@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -58,18 +59,21 @@ public class QuestIntegrationSetting extends AbstractEntity {
         return getClass().hashCode();
     }
 
-    @Data
     @JsonTypeInfo(use = Id.NAME, include = As.EXISTING_PROPERTY, property = "integrationType")
     @JsonSubTypes({
         @JsonSubTypes.Type(value = MirKvestov.class, name = "MIR_KVESTOV"),
         @JsonSubTypes.Type(value = BookForm.class, name = "BOOK_FORM"),
     })
-    public abstract static class AbstractSettings {
+    public abstract static class AbstractSettings implements Serializable {
+        private static final long serialVersionUID = 1L;
+
         public abstract QuestIntegrationType getIntegrationType();
     }
 
     @Data
     public final static class MirKvestov extends AbstractSettings {
+        private static final long serialVersionUID = 1L;
+
         @Override
         public QuestIntegrationType getIntegrationType() {
             return QuestIntegrationType.MIR_KVESTOV;
@@ -78,6 +82,10 @@ public class QuestIntegrationSetting extends AbstractEntity {
 
     @Data
     public final static class BookForm extends AbstractSettings {
+        private static final long serialVersionUID = 1L;
+
+        private String serviceId;
+
         @Override
         public QuestIntegrationType getIntegrationType() {
             return QuestIntegrationType.BOOK_FORM;
