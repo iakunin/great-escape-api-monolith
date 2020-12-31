@@ -1,6 +1,5 @@
 package com.greatescape.api.monolith.service.mapper;
 
-
 import com.greatescape.api.monolith.domain.SlotAggregation;
 import com.greatescape.api.monolith.service.dto.SlotAggregationDTO;
 import java.util.UUID;
