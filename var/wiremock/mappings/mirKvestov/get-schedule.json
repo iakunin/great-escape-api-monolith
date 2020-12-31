@@ -1,0 +1,16 @@
+{
+    "request": {
+        "urlPathPattern": "/api/quests/timetable/\\d+\\.json",
+        "method": "GET"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "mirKvestov/schedule.json",
+        "transformers": [
+            "response-template"
+        ],
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

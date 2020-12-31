@@ -32,3 +32,19 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
+
+  wiremock:
+    container_name: great-escape-api-monolith_wiremock
+    image: rodolpheche/wiremock
+    volumes:
+      - ./var/wiremock:/home/wiremock
+    ports:
+      - 8099:80
+    command:
+      - java
+      - -cp
+      - /var/wiremock/lib/*:/var/wiremock/extensions/*
+      - com.github.tomakehurst.wiremock.standalone.WireMockServerRunner
+      - --local-response-templating
+      - --port=80
+      - --verbose
