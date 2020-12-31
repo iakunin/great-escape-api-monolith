@@ -54,8 +54,7 @@ public class Slot extends AbstractEntity {
     @Column(name = "commission_in_percents")
     private Integer commissionInPercents;
 
-    @NotNull
-    @Column(name = "external_id", nullable = false)
+    @Column(name = "external_id")
     private String externalId;
 
     /*
