@@ -52,7 +52,7 @@ public class QuestResource extends QueryService<QuestAggregation> {
 
         final Page<QuestAggregationDTO> page = repository
             .findAll(specification, pageable)
-            .map(this::entityToDto);
+            .map(mapper::toDto);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -67,18 +67,8 @@ public class QuestResource extends QueryService<QuestAggregation> {
     @GetMapping("/quests/{slug}")
     public ResponseEntity<QuestAggregationDTO> getQuest(@PathVariable String slug) {
         log.debug("REST request to get QuestAggregation : {}", slug);
-        Optional<QuestAggregationDTO> questDTO = repository.findOneBySlug(slug).map(this::entityToDto);
+        Optional<QuestAggregationDTO> questDTO = repository.findOneBySlug(slug).map(mapper::toDto);
         return ResponseUtil.wrapOrNotFound(questDTO);
-    }
-
-    private QuestAggregationDTO entityToDto(QuestAggregation entity) {
-        final QuestAggregationDTO dto = mapper.toDto(entity);
-        dto.setDiscountInPercents(
-            Optional.ofNullable(dto.getDiscountInPercents())
-                .orElse(properties.getDiscountInPercents())
-        );
-
-        return dto;
     }
 
     /**

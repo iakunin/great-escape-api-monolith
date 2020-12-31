@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "app.book-form.base-url",
+      "type": "java.lang.String",
+      "description": "Base url for BookForm."
+    }
+  ]
+}
