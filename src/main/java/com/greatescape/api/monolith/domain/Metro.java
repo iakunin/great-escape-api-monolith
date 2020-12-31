@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -35,6 +36,7 @@ public class Metro extends AbstractEntity {
     @ManyToMany(mappedBy = "metros")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnore
+    @ToString.Exclude
     private Set<Location> locations = new HashSet<>();
 
     public Metro addLocation(Location location) {

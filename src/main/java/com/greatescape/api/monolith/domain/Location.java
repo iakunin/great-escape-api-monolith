@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -47,6 +48,7 @@ public class Location extends AbstractEntity {
     @JoinTable(name = "location_metro",
                joinColumns = @JoinColumn(name = "location_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "metro_id", referencedColumnName = "id"))
+    @ToString.Exclude
     private Set<Metro> metros = new HashSet<>();
 
     public Location addMetro(Metro metro) {

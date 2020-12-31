@@ -20,6 +20,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -104,6 +105,7 @@ public class Quest extends AbstractEntity {
     @JoinTable(name = "quest_thematic",
                joinColumns = @JoinColumn(name = "quest_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "thematic_id", referencedColumnName = "id"))
+    @ToString.Exclude
     private Set<Thematic> thematics = new HashSet<>();
 
     public Quest addThematic(Thematic thematic) {
