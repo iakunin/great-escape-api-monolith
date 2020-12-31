@@ -74,6 +74,10 @@ public class QuestIntegrationSetting extends AbstractEntity {
     public final static class MirKvestov extends AbstractSettings {
         private static final long serialVersionUID = 1L;
 
+        private String scheduleUrl;
+
+        private String bookingUrl;
+
         @Override
         public QuestIntegrationType getIntegrationType() {
             return QuestIntegrationType.MIR_KVESTOV;

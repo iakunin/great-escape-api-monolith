@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.integration.bookform;
+package com.greatescape.api.monolith.integration;
 
 import com.greatescape.api.monolith.config.feign.GeneralClientConfiguration;
 import java.time.LocalDate;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
     url = "${app.book-form.base-url}/api/v1",
     configuration = GeneralClientConfiguration.class
 )
-public interface Client {
+public interface BookFormClient {
 
     @GetMapping(value = "/schedule", produces = "application/json")
     ResponseEntity<

@@ -4,10 +4,12 @@ import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
-import com.greatescape.api.monolith.integration.bookform.Client;
+import com.greatescape.api.monolith.integration.BookFormClient;
+import com.greatescape.api.monolith.integration.MirKvestovClient;
 import com.greatescape.api.monolith.repository.BookingRepository;
 import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository;
 import com.greatescape.api.monolith.repository.SlotRepository;
+import java.net.URI;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,44 +37,134 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class SyncSlots implements Runnable {
 
+    private static final Period FETCH_PERIOD = Period.ofDays(60);
+
     private final QuestIntegrationSettingRepository questIntegrationSettingRepository;
 
-    private final Runner runner;
+    private final Processor processor;
 
-    @Scheduled(cron = "0 */5 * * * ?")
+    private final BookFormSchedule bookFormSchedule;
+    private final MirKvestovSchedule mirKvestovSchedule;
+
+    @Scheduled(cron = "*/20 * * * * ?")
     @Override
     public void run() {
         questIntegrationSettingRepository
-            .findAllByType(QuestIntegrationType.BOOK_FORM)
-            .forEach(runner::run);
+            .findAllByType(QuestIntegrationType.MIR_KVESTOV)
+            .forEach(setting -> processor.process(
+                this.getSchedule(setting),
+                setting.getQuest()
+            ));
+    }
+
+    private Collection<Slot> getSchedule(QuestIntegrationSetting setting) {
+        if (setting.getType() == QuestIntegrationType.BOOK_FORM) {
+            return bookFormSchedule.getSchedule(setting, FETCH_PERIOD);
+        } else if (setting.getType() == QuestIntegrationType.MIR_KVESTOV) {
+            return mirKvestovSchedule.getSchedule(setting, FETCH_PERIOD);
+        } else {
+            throw new RuntimeException(
+                String.format("Got unsupported integration type '%s'", setting.getType().toString())
+            );
+        }
+    }
+
+    interface Schedule {
+        Collection<Slot> getSchedule(QuestIntegrationSetting setting, Period fetchPeriod);
     }
 
     @Slf4j
     @RequiredArgsConstructor
     @Service
-    public static class Runner {
+    public static class BookFormSchedule implements Schedule {
 
-        private static final Period FETCH_PERIOD = Period.ofDays(60);
+        private final BookFormClient bookFormClient;
+
+        @Override
+        public Collection<Slot> getSchedule(QuestIntegrationSetting setting, Period fetchPeriod) {
+            final var timezone = setting.getQuest().getLocation().getCity().getTimezone();
+
+            return this.flattenSchedule(
+                Objects.requireNonNull(bookFormClient.getSchedule(
+                    ((QuestIntegrationSetting.BookForm) setting.getSettings()).getServiceId(),
+                    LocalDate.now(timezone),
+                    LocalDate.now(timezone).plus(fetchPeriod)
+                ).getBody())
+            );
+        }
+
+        private Collection<Slot> flattenSchedule(
+            Map<String, Map<String, Map<String, BookFormClient.Slot>>> schedule
+        ) {
+            Collection<Slot> result = new LinkedList<>();
+
+            schedule.values().forEach(
+                item -> item.forEach(
+                    (date, map) -> map.forEach(
+                        (time, slot) -> result.add(
+                            new Slot()
+                                .setExternalId(slot.getId())
+                                .setIsAvailable(slot.isFree())
+                                .setPrice(slot.getPrice())
+                                .setDateTimeLocal(
+                                    DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+                                        .withZone(ZoneId.of("UTC"))
+                                        .parse(
+                                            String.format("%s %s", date, time),
+                                            Instant::from
+                                        )
+                                )
+                        )
+                    )
+                )
+            );
+
+            return result;
+        }
+    }
+
+    @Slf4j
+    @RequiredArgsConstructor
+    @Service
+    public static class MirKvestovSchedule implements Schedule {
+
+        private final MirKvestovClient client;
+
+        @Override
+        public Collection<Slot> getSchedule(QuestIntegrationSetting setting, Period fetchPeriod) {
+            return Objects.requireNonNull(
+                client.getSchedule(URI.create(
+                    ((QuestIntegrationSetting.MirKvestov) setting.getSettings()).getScheduleUrl()
+                )).getBody()
+            ).stream()
+            .map(slot ->
+                new Slot()
+                    .setIsAvailable(slot.isFree())
+                    .setPrice(slot.getPrice())
+                    .setDateTimeLocal(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                            .withZone(ZoneId.of("UTC"))
+                            .parse(
+                                String.format("%s %s", slot.getDate(), slot.getTime()),
+                                Instant::from
+                            )
+                    )
+            ).collect(Collectors.toUnmodifiableList());
+        }
+    }
+
+    @Slf4j
+    @RequiredArgsConstructor
+    @Service
+    public static class Processor {
 
         private final SlotRepository slotRepository;
 
         private final BookingRepository bookingRepository;
 
-        private final Client bookFormClient;
-
         @Transactional(propagation = Propagation.REQUIRES_NEW)
-        public void run(QuestIntegrationSetting setting) {
-            final var timezone = setting.getQuest().getLocation().getCity().getTimezone();
-
-            final var schedule = bookFormClient.getSchedule(
-                ((QuestIntegrationSetting.BookForm) setting.getSettings()).getServiceId(),
-                LocalDate.now(timezone),
-                LocalDate.now(timezone).plus(FETCH_PERIOD)
-            ).getBody();
-
-            final var flattened = this.flattenSchedule(Objects.requireNonNull(schedule));
-
-            this.processSlots(flattened, setting.getQuest());
+        public void process(Collection<Slot> schedule, Quest quest) {
+            this.processSlots(schedule, quest);
         }
 
         private void processSlots(Collection<Slot> remote, Quest quest) {
@@ -124,35 +216,6 @@ public class SyncSlots implements Runnable {
                         log.error("Unable to delete slot '{}'", slot, e);
                     }
                 });
-        }
-
-        private Collection<Slot> flattenSchedule(
-            Map<String, Map<String, Map<String, Client.Slot>>> schedule
-        ) {
-            Collection<Slot> result = new LinkedList<>();
-
-            schedule.values().forEach(
-                item -> item.forEach(
-                    (date, map) -> map.forEach(
-                        (time, slot) -> result.add(
-                            new Slot()
-                                .setExternalId(slot.getId())
-                                .setIsAvailable(slot.isFree())
-                                .setPrice(slot.getPrice())
-                                .setDateTimeLocal(
-                                    DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
-                                        .withZone(ZoneId.of("UTC"))
-                                        .parse(
-                                            String.format("%s %s", date, time),
-                                            Instant::from
-                                        )
-                                )
-                        )
-                    )
-                )
-            );
-
-            return result;
         }
     }
 }
