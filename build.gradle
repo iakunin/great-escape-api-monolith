@@ -261,6 +261,9 @@ dependencies {
     liquibaseRuntime "org.postgresql:postgresql"
     implementation "org.mapstruct:mapstruct:${mapstruct_version}"
 
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:2.2.6.RELEASE"
+    implementation "io.github.openfeign:feign-jackson:11.0"
+
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.1.0"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
     annotationProcessor "org.hibernate:hibernate-jpamodelgen:${hibernate_version}"
