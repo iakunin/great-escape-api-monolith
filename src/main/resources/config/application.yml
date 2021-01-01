@@ -163,5 +163,8 @@ jhipster:
 # ===================================================================
 
 app:
-  book-form:
-    base-url: 'https://widget.bookform.ru'
+  integration:
+    book-form:
+      base-url: 'https://widget.bookform.ru'
+  slot:
+    availability-delta: 10m

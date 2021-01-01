@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.config;
 
+import java.time.Duration;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -13,10 +14,22 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class ApplicationProperties {
 
-    private BookForm bookForm = new BookForm();
+    private Integration integration = new Integration();
+    private Slot slot = new Slot();
 
     @Data
-    public static class BookForm {
-        private String baseUrl;
+    public static class Integration {
+
+        private BookForm bookForm = new BookForm();
+
+        @Data
+        public static class BookForm {
+            private String baseUrl = "https://widget.bookform.ru";
+        }
+    }
+
+    @Data
+    public static class Slot {
+        private Duration availabilityDelta = Duration.ofMinutes(10);
     }
 }

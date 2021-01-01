@@ -1,9 +1,14 @@
 {
   "properties": [
     {
-      "name": "app.book-form.base-url",
+      "name": "app.integration.book-form.base-url",
       "type": "java.lang.String",
       "description": "Base url for BookForm."
+    },
+    {
+      "name": "app.slot.availability-delta",
+      "type": "java.lang.String",
+      "description": "Slot availability delta (Duration)."
     }
   ]
 }

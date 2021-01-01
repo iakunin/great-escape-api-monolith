@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(
     name = "bookFormClient",
-    url = "${app.book-form.base-url}/api/v1",
+    url = "${app.integration.book-form.base-url}/api/v1",
     configuration = GeneralClientConfiguration.class
 )
 public interface BookFormClient {

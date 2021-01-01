@@ -14,6 +14,8 @@ public final class ErrorConstants {
     public static final URI LOGIN_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/login-already-used");
     public static final URI SLOT_NOT_FOUND = URI.create(PROBLEM_BASE_URL + "/slot-not-found");
     public static final URI SLOT_ALREADY_BOOKED = URI.create(PROBLEM_BASE_URL + "/slot-already-booked");
+    public static final URI SLOT_UNAVAILABLE_FOR_BOOKING = URI.create(PROBLEM_BASE_URL + "/slot-unavailable-for-booking");
+    public static final URI SLOT_TIME_ALREADY_PASSED = URI.create(PROBLEM_BASE_URL + "/slot-time-already-passed");
 
     private ErrorConstants() {
     }

@@ -1,8 +1,8 @@
 package com.greatescape.api.monolith.repository;
 
+import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
-import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -16,5 +16,5 @@ public interface QuestIntegrationSettingRepository extends
     JpaRepository<QuestIntegrationSetting, UUID>,
     JpaSpecificationExecutor<QuestIntegrationSetting> {
 
-    List<QuestIntegrationSetting> findAllByType(QuestIntegrationType type);
+    Optional<QuestIntegrationSetting> findOneByQuest(Quest quest);
 }

@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.web.rest.player;
 
+import com.greatescape.api.monolith.config.ApplicationProperties;
 import com.greatescape.api.monolith.domain.Quest_;
 import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.domain.SlotAggregation;
@@ -11,7 +12,6 @@ import com.greatescape.api.monolith.service.dto.SlotCriteria;
 import com.greatescape.api.monolith.service.mapper.SlotAggregationMapper;
 import io.github.jhipster.service.QueryService;
 import io.github.jhipster.web.util.PaginationUtil;
-import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.List;
 import javax.persistence.criteria.JoinType;
@@ -41,6 +41,8 @@ public class SlotResource extends QueryService<SlotAggregation> {
 
     private final BookingRepository bookingRepository;
 
+    private final ApplicationProperties applicationProperties;
+
     /**
      * {@code GET  /slots} : get all the slots.
      *
@@ -55,11 +57,12 @@ public class SlotResource extends QueryService<SlotAggregation> {
             .findAll(createSpecification(criteria), pageable)
             .map(slot -> {
                 if (slot.getIsAvailable()) {
-                    final Duration delta = Duration.ofMinutes(10);
                     slot.setIsAvailable(
                         ZonedDateTime.now()
                             .isBefore(
-                                slot.getDateTimeWithTimeZone().plus(delta)
+                                slot.getDateTimeWithTimeZone().plus(
+                                    applicationProperties.getSlot().getAvailabilityDelta()
+                                )
                             )
                     );
                 }
