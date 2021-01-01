@@ -50,7 +50,7 @@ public class SyncSlots implements Runnable {
     @Override
     public void run() {
         questIntegrationSettingRepository
-            .findAllByType(QuestIntegrationType.MIR_KVESTOV)
+            .findAll()
             .forEach(setting -> processor.process(
                 this.getSchedule(setting),
                 setting.getQuest()
