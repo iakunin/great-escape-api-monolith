@@ -9,7 +9,6 @@ import com.greatescape.api.monolith.integration.MirKvestovClient;
 import com.greatescape.api.monolith.repository.BookingRepository;
 import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository;
 import com.greatescape.api.monolith.repository.SlotRepository;
-import java.net.URI;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -76,7 +75,7 @@ public class SyncSlots implements Runnable {
     @Slf4j
     @RequiredArgsConstructor
     @Service
-    public static class BookFormSchedule implements Schedule {
+    public static final class BookFormSchedule implements Schedule {
 
         private final BookFormClient bookFormClient;
 
@@ -126,29 +125,28 @@ public class SyncSlots implements Runnable {
     @Slf4j
     @RequiredArgsConstructor
     @Service
-    public static class MirKvestovSchedule implements Schedule {
+    public static final class MirKvestovSchedule implements Schedule {
 
         private final MirKvestovClient client;
 
         @Override
         public Collection<Slot> getSchedule(QuestIntegrationSetting setting, Period fetchPeriod) {
             return Objects.requireNonNull(
-                client.getSchedule(URI.create(
+                client.getSchedule(
                     ((QuestIntegrationSetting.MirKvestov) setting.getSettings()).getScheduleUrl()
-                )).getBody()
+                ).getBody()
             ).stream()
-            .map(slot ->
-                new Slot()
-                    .setIsAvailable(slot.isFree())
-                    .setPrice(slot.getPrice())
-                    .setDateTimeLocal(
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-                            .withZone(ZoneId.of("UTC"))
-                            .parse(
-                                String.format("%s %s", slot.getDate(), slot.getTime()),
-                                Instant::from
-                            )
-                    )
+            .map(slot -> new Slot()
+                .setIsAvailable(slot.isFree())
+                .setPrice(slot.getPrice())
+                .setDateTimeLocal(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                        .withZone(ZoneId.of("UTC"))
+                        .parse(
+                            String.format("%s %s", slot.getDate(), slot.getTime()),
+                            Instant::from
+                        )
+                )
             ).collect(Collectors.toUnmodifiableList());
         }
     }
