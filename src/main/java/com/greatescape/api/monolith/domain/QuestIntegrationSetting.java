@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
 import java.io.Serializable;
+import java.net.URI;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -74,9 +75,8 @@ public class QuestIntegrationSetting extends AbstractEntity {
     public final static class MirKvestov extends AbstractSettings {
         private static final long serialVersionUID = 1L;
 
-        private String scheduleUrl;
-
-        private String bookingUrl;
+        private URI scheduleUrl;
+        private URI bookingUrl;
 
         @Override
         public QuestIntegrationType getIntegrationType() {
@@ -89,6 +89,7 @@ public class QuestIntegrationSetting extends AbstractEntity {
         private static final long serialVersionUID = 1L;
 
         private String serviceId;
+        private String widgetId;
 
         @Override
         public QuestIntegrationType getIntegrationType() {
