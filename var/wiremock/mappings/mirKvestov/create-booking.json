@@ -1,0 +1,16 @@
+{
+    "request": {
+        "urlPathPattern": "/api/quests/\\d+/order",
+        "method": "POST"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "mirKvestov/bookingSuccess.json",
+        "transformers": [
+            "response-template"
+        ],
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}
