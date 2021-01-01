@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 )
 public interface MirKvestovClient {
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Slot>> getSchedule(URI uri);
 
     @RequestMapping(
-        produces = "application/json",
-        consumes = "application/json",
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_JSON_VALUE,
         method = RequestMethod.POST
     )
     ResponseEntity<BookingResponse> createBooking(
@@ -50,10 +51,10 @@ public interface MirKvestovClient {
         private String email;
         private String comment;
         private String source;
-        private String md5;
         private String date;
         private String time;
         private Integer price;
+        private String md5;
     }
 
     @Data
