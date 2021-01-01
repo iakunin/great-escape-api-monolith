@@ -16,13 +16,13 @@
             <column name="status" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="price" type="integer" remarks="@TODO: copy price from Slot, cause Slot is mutable">
+            <column name="price" type="integer">
                 <constraints nullable="false" />
             </column>
-            <column name="discount_in_percents" type="integer" remarks="@TODO: save calculated discount, cause it&apos;s mutable">
+            <column name="discount_in_percents" type="integer">
                 <constraints nullable="false" />
             </column>
-            <column name="commission_in_percents" type="integer" remarks="@TODO: save calculated commission, cause it&apos;s mutable">
+            <column name="commission_in_percents" type="integer">
                 <constraints nullable="false" />
             </column>
             <column name="slot_id" type="${uuidType}">

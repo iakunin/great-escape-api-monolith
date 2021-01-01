@@ -31,25 +31,16 @@ public class Booking extends AbstractEntity {
     @Column(name = "status", nullable = false)
     private BookingStatus status;
 
-    /*
-     * @TODO: copy price from Slot, cause Slot is mutable
-     */
     @NotNull
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    /*
-     * @TODO: save calculated discount, cause it's mutable
-     */
     @NotNull
     @Min(value = 0)
     @Max(value = 100)
     @Column(name = "discount_in_percents", nullable = false)
     private Integer discountInPercents;
 
-    /*
-     * @TODO: save calculated commission, cause it's mutable
-     */
     @NotNull
     @Min(value = 0)
     @Max(value = 100)

@@ -57,9 +57,6 @@ public class Slot extends AbstractEntity {
     @Column(name = "external_id")
     private String externalId;
 
-    /*
-     * @TODO: Should be sent to integration without changes during booking creation
-     */
     @Type(type = "jsonb")
     @Column(name = "external_state", columnDefinition = "jsonb")
     private Map<String, Object> externalState;
