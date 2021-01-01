@@ -4,6 +4,8 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
+    <appender name="NOP" class="ch.qos.logback.core.helpers.NOPAppender"/>
+
     <logger name="com.greatescape.api.monolith" level="INFO"/>
 
     <logger name="io.github.jhipster" level="WARN"/>
@@ -39,6 +41,10 @@
     <logger name="LiquibaseSchemaResolver" level="INFO"/>
     <logger name="sun.rmi.transport" level="WARN"/>
     <logger name="com.tngtech.archunit.core.importer" level="ERROR"/>
+
+    <logger name="Hibernate Types" additivity="false">
+        <appender-ref ref="NOP" />
+    </logger>
 
     <root>
         <level>WARN</level>

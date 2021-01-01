@@ -14,6 +14,7 @@ import com.greatescape.api.monolith.service.QuestIntegrationSettingService;
 import com.greatescape.api.monolith.service.dto.QuestIntegrationSettingDTO;
 import com.greatescape.api.monolith.service.mapper.QuestIntegrationSettingMapper;
 import com.greatescape.api.monolith.web.rest.TestUtil;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -50,8 +51,11 @@ public class QuestIntegrationSettingResourceIT {
 
     private static final AbstractSettings DEFAULT_SETTINGS = new BookForm();
     private static final AbstractSettings UPDATED_SETTINGS = new MirKvestov();
-    private static final Map<String, String> DEFAULT_SETTINGS_EXPECTED =
-        Map.of("integrationType", QuestIntegrationType.BOOK_FORM.toString());
+    private static final Map<String, String> DEFAULT_SETTINGS_EXPECTED = new HashMap<>(){{
+            put("integrationType", QuestIntegrationType.BOOK_FORM.toString());
+            put("serviceId", null);
+            put("widgetId", null);
+        }};
 
     @Autowired
     private QuestIntegrationSettingRepository questIntegrationSettingRepository;
