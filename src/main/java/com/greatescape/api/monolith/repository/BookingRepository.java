@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, UUID>, JpaSpecificationExecutor<Booking> {
     boolean existsBySlot(Slot slot);
+
+    boolean existsBySlotId(UUID slotId);
 }

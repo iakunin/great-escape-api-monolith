@@ -4,6 +4,7 @@ import com.greatescape.api.monolith.domain.Quest_;
 import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.domain.SlotAggregation;
 import com.greatescape.api.monolith.domain.SlotAggregation_;
+import com.greatescape.api.monolith.repository.BookingRepository;
 import com.greatescape.api.monolith.repository.SlotAggregationRepository;
 import com.greatescape.api.monolith.service.dto.SlotAggregationDTO;
 import com.greatescape.api.monolith.service.dto.SlotCriteria;
@@ -38,6 +39,8 @@ public class SlotResource extends QueryService<SlotAggregation> {
 
     private final SlotAggregationMapper slotMapper;
 
+    private final BookingRepository bookingRepository;
+
     /**
      * {@code GET  /slots} : get all the slots.
      *
@@ -58,6 +61,15 @@ public class SlotResource extends QueryService<SlotAggregation> {
                             .isBefore(
                                 slot.getDateTimeWithTimeZone().plus(delta)
                             )
+                    );
+                }
+
+                return slot;
+            })
+            .map(slot -> {
+                if (slot.getIsAvailable()) {
+                    slot.setIsAvailable(
+                        !bookingRepository.existsBySlotId(slot.getId())
                     );
                 }
 
