@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A Booking.
@@ -46,6 +48,11 @@ public class Booking extends AbstractEntity {
     @Max(value = 100)
     @Column(name = "commission_in_percents", nullable = false)
     private Integer commissionInPercents;
+
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "comment")
+    private String comment;
 
     @OneToOne(optional = false)
     @NotNull

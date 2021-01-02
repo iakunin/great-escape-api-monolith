@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 /**
  * Service Interface for managing {@link Booking}.
  */
-public interface BookingService {
+public interface BookingAdminService {
 
     /**
      * Save a booking.

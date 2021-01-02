@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.service.dto;
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.domain.enumeration.BookingStatus;
 import java.util.UUID;
+import javax.persistence.Lob;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,9 @@ public final class BookingDTO {
     @Min(value = 0)
     @Max(value = 100)
     private Integer commissionInPercents;
+
+    @Lob
+    private String comment;
 
     private UUID slotId;
 

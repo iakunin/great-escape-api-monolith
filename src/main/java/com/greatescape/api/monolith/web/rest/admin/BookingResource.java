@@ -1,8 +1,8 @@
 package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.domain.Booking;
+import com.greatescape.api.monolith.service.BookingAdminService;
 import com.greatescape.api.monolith.service.BookingQueryService;
-import com.greatescape.api.monolith.service.BookingService;
 import com.greatescape.api.monolith.service.dto.BookingCriteria;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.web.rest.errors.BadRequestAlertException;
@@ -46,7 +46,7 @@ public class BookingResource {
     @Value("${jhipster.clientApp.name}")
     private final String applicationName;
 
-    private final BookingService bookingService;
+    private final BookingAdminService bookingService;
 
     private final BookingQueryService bookingQueryService;
 

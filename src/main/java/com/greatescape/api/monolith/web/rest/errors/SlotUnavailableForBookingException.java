@@ -6,12 +6,12 @@ public class SlotUnavailableForBookingException extends BadRequestAlertException
 
     private static final long serialVersionUID = 1L;
 
-    public SlotUnavailableForBookingException(UUID slotId) {
+    public SlotUnavailableForBookingException(UUID id) {
         super(
             ErrorConstants.SLOT_UNAVAILABLE_FOR_BOOKING,
             String.format(
                 "Slot unavailable for booking (isAvailable=false); slotId='%s'",
-                slotId.toString()
+                id.toString()
             ),
             "booking",
             "slotunavailableforbooking"

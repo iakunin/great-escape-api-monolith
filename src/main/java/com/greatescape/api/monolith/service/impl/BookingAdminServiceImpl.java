@@ -2,7 +2,7 @@ package com.greatescape.api.monolith.service.impl;
 
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.repository.BookingRepository;
-import com.greatescape.api.monolith.service.BookingService;
+import com.greatescape.api.monolith.service.BookingAdminService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.service.mapper.BookingMapper;
 import java.util.Optional;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
-public class BookingServiceImpl implements BookingService {
+public class BookingAdminServiceImpl implements BookingAdminService {
 
     private final BookingRepository bookingRepository;
 

@@ -25,6 +25,9 @@
             <column name="commission_in_percents" type="integer">
                 <constraints nullable="false" />
             </column>
+            <column name="comment" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
             <column name="slot_id" type="${uuidType}">
                 <constraints unique="true" nullable="false" uniqueConstraintName="ux_booking_slot_id" />
             </column>

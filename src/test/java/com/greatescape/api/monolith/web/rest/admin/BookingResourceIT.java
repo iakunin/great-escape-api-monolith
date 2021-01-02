@@ -8,8 +8,8 @@ import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.domain.enumeration.BookingStatus;
 import com.greatescape.api.monolith.repository.BookingRepository;
 import com.greatescape.api.monolith.security.AuthoritiesConstants;
+import com.greatescape.api.monolith.service.BookingAdminService;
 import com.greatescape.api.monolith.service.BookingQueryService;
-import com.greatescape.api.monolith.service.BookingService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.service.mapper.BookingMapper;
 import com.greatescape.api.monolith.web.rest.TestUtil;
@@ -64,7 +64,7 @@ public class BookingResourceIT {
     private BookingMapper bookingMapper;
 
     @Autowired
-    private BookingService bookingService;
+    private BookingAdminService bookingService;
 
     @Autowired
     private BookingQueryService bookingQueryService;

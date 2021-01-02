@@ -6,10 +6,10 @@ public class SlotNotFoundException extends BadRequestAlertException {
 
     private static final long serialVersionUID = 1L;
 
-    public SlotNotFoundException(UUID slotId) {
+    public SlotNotFoundException(UUID id) {
         super(
             ErrorConstants.SLOT_NOT_FOUND,
-            String.format("Slot is not found by id='%s'", slotId.toString()),
+            String.format("Slot is not found by id='%s'", id.toString()),
             "booking",
             "slotnotfound"
         );
