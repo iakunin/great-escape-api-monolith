@@ -5,6 +5,8 @@ import com.greatescape.api.monolith.security.jwt.JWTFilter;
 import com.greatescape.api.monolith.security.jwt.TokenProvider;
 import com.greatescape.api.monolith.web.rest.vm.LoginVM;
 import javax.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,21 +53,10 @@ public class UserJWTController {
     /**
      * Object to return as body in JWT Authentication.
      */
+    @Data
+    @AllArgsConstructor
     static class JWTToken {
-
-        private String idToken;
-
-        JWTToken(String idToken) {
-            this.idToken = idToken;
-        }
-
         @JsonProperty("id_token")
-        String getIdToken() {
-            return idToken;
-        }
-
-        void setIdToken(String idToken) {
-            this.idToken = idToken;
-        }
+        private String idToken;
     }
 }
