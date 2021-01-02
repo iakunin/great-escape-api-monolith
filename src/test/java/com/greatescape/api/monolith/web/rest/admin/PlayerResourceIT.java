@@ -12,7 +12,6 @@ import com.greatescape.api.monolith.service.PlayerService;
 import com.greatescape.api.monolith.service.dto.PlayerDTO;
 import com.greatescape.api.monolith.service.mapper.PlayerMapper;
 import com.greatescape.api.monolith.web.rest.TestUtil;
-import com.greatescape.api.monolith.web.rest.UserResourceIT;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
@@ -36,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  * Integration tests for the {@link PlayerResource} REST controller.
  */
