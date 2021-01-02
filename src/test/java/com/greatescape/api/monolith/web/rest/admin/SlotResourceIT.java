@@ -45,7 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
+@WithMockUser(username="admin",authorities=AuthoritiesConstants.ADMIN)
 public class SlotResourceIT {
 
     private static final Instant DEFAULT_DATE_TIME_LOCAL = Instant.ofEpochMilli(0L);

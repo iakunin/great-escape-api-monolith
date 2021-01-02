@@ -43,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
+@WithMockUser(username="admin",authorities=AuthoritiesConstants.ADMIN)
 public class QuestIntegrationSettingResourceIT {
 
     private static final QuestIntegrationType DEFAULT_TYPE = QuestIntegrationType.MIR_KVESTOV;

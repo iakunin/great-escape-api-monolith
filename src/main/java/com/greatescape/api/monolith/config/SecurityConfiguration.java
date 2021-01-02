@@ -73,11 +73,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/account/reset-password/init").permitAll()
-            .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers("/api/**").authenticated()
 
             .antMatchers("/player-api/feedback").permitAll()
             .antMatchers("/player-api/quests/**").permitAll()
@@ -85,6 +80,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/player-api/bookings/**").permitAll()
             .antMatchers("/player-api/**").hasAuthority(AuthoritiesConstants.USER)
 
+            .antMatchers("/admin-api/register").permitAll()
+            .antMatchers("/admin-api/activate").permitAll()
+            .antMatchers("/admin-api/account/reset-password/init").permitAll()
+            .antMatchers("/admin-api/account/reset-password/finish").permitAll()
             .antMatchers("/admin-api/authenticate").permitAll()
             .antMatchers("/admin-api/**").hasAuthority(AuthoritiesConstants.ADMIN)
 

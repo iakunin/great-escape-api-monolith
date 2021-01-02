@@ -39,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
+@WithMockUser(username="admin",authorities=AuthoritiesConstants.ADMIN)
 public class BookingResourceIT {
 
     private static final BookingStatus DEFAULT_STATUS = BookingStatus.NEW;

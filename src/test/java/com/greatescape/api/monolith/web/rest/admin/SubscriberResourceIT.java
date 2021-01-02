@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest(classes = ApiMonolithApp.class)
 @AutoConfigureMockMvc
-@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
+@WithMockUser(username="admin",authorities=AuthoritiesConstants.ADMIN)
 public class SubscriberResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

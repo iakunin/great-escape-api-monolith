@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.domain.User;
 import com.greatescape.api.monolith.repository.UserRepository;
@@ -14,9 +14,9 @@ import com.greatescape.api.monolith.web.rest.vm.KeyAndPasswordVM;
 import com.greatescape.api.monolith.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,31 +30,16 @@ import org.springframework.web.bind.annotation.RestController;
  * REST controller for managing the current user's account.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin-api")
+@RequiredArgsConstructor
+@Slf4j
 public class AccountResource {
-
-    private static class AccountResourceException extends RuntimeException {
-        private static final long serialVersionUID = 1L;
-
-        private AccountResourceException(String message) {
-            super(message);
-        }
-    }
-
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     private final UserRepository userRepository;
 
     private final UserService userService;
 
     private final MailService mailService;
-
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
-
-        this.userRepository = userRepository;
-        this.userService = userService;
-        this.mailService = mailService;
-    }
 
     /**
      * {@code POST  /register} : register the user.
@@ -83,7 +68,7 @@ public class AccountResource {
     @GetMapping("/activate")
     public void activateAccount(@RequestParam(value = "key") String key) {
         Optional<User> user = userService.activateRegistration(key);
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new AccountResourceException("No user was found for this activation key");
         }
     }
@@ -116,7 +101,7 @@ public class AccountResource {
             throw new EmailAlreadyUsedException();
         }
         Optional<User> user = userRepository.findOneByLogin(userLogin);
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new AccountResourceException("User could not be found");
         }
         userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
@@ -169,7 +154,7 @@ public class AccountResource {
         Optional<User> user =
             userService.completePasswordReset(keyAndPassword.getNewPassword(), keyAndPassword.getKey());
 
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new AccountResourceException("No user was found for this reset key");
         }
     }
@@ -178,5 +163,13 @@ public class AccountResource {
         return !StringUtils.isEmpty(password) &&
             password.length() >= ManagedUserVM.PASSWORD_MIN_LENGTH &&
             password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
+    }
+
+    private static class AccountResourceException extends RuntimeException {
+        private static final long serialVersionUID = 1L;
+
+        private AccountResourceException(String message) {
+            super(message);
+        }
     }
 }

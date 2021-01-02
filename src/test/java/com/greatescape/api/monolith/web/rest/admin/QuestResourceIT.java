@@ -52,7 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(classes = ApiMonolithApp.class)
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser(username="admin",authorities={AuthoritiesConstants.ADMIN})
+@WithMockUser(username="admin",authorities=AuthoritiesConstants.ADMIN)
 public class QuestResourceIT {
 
     private static final String DEFAULT_SLUG = "AAAAAAAAAA";
