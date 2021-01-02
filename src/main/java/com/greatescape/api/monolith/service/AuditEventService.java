@@ -5,6 +5,7 @@ import com.greatescape.api.monolith.repository.PersistenceAuditEventRepository;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,19 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class AuditEventService {
 
     private final PersistenceAuditEventRepository persistenceAuditEventRepository;
 
     private final AuditEventConverter auditEventConverter;
-
-    public AuditEventService(
-        PersistenceAuditEventRepository persistenceAuditEventRepository,
-        AuditEventConverter auditEventConverter) {
-
-        this.persistenceAuditEventRepository = persistenceAuditEventRepository;
-        this.auditEventConverter = auditEventConverter;
-    }
 
     @Transactional(readOnly = true)
     public Page<AuditEvent> findAll(Pageable pageable) {

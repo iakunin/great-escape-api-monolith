@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.management;
 
 import com.greatescape.api.monolith.service.AuditEventService;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,13 +27,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  */
 @RestController
 @RequestMapping("/management/audits")
+@RequiredArgsConstructor
 public class AuditResource {
 
     private final AuditEventService auditEventService;
-
-    public AuditResource(AuditEventService auditEventService) {
-        this.auditEventService = auditEventService;
-    }
 
     /**
      * {@code GET /audits} : get a page of {@link AuditEvent}s.

@@ -7,8 +7,8 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.stereotype.Repository;
@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
  * An implementation of Spring Boot's {@link AuditEventRepository}.
  */
 @Repository
+@Slf4j
+@RequiredArgsConstructor
 public class CustomAuditEventRepository implements AuditEventRepository {
 
     private static final String AUTHORIZATION_FAILURE = "AUTHORIZATION_FAILURE";
@@ -31,15 +33,6 @@ public class CustomAuditEventRepository implements AuditEventRepository {
     private final PersistenceAuditEventRepository persistenceAuditEventRepository;
 
     private final AuditEventConverter auditEventConverter;
-
-    private final Logger log = LoggerFactory.getLogger(getClass());
-
-    public CustomAuditEventRepository(PersistenceAuditEventRepository persistenceAuditEventRepository,
-            AuditEventConverter auditEventConverter) {
-
-        this.persistenceAuditEventRepository = persistenceAuditEventRepository;
-        this.auditEventConverter = auditEventConverter;
-    }
 
     @Override
     public List<AuditEvent> find(String principal, Instant after, String type) {

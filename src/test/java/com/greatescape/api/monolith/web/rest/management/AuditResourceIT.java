@@ -1,9 +1,10 @@
-package com.greatescape.api.monolith.web.rest;
+package com.greatescape.api.monolith.web.rest.management;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.PersistentAuditEvent;
 import com.greatescape.api.monolith.repository.PersistenceAuditEventRepository;
 import com.greatescape.api.monolith.security.AuthoritiesConstants;
+import com.greatescape.api.monolith.web.rest.TestUtil;
 import java.time.Instant;
 import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
