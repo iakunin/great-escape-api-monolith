@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.greatescape.api.monolith.domain.enumeration.Gender;
 import java.time.LocalDate;
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -96,7 +97,9 @@ public class Player extends AbstractEntity {
         private final String phone;
 
         public String value() {
-            return phone.replaceAll("[^0-9]", "");
+            return Optional.ofNullable(phone)
+                .map(phone -> phone.replaceAll("[^0-9]", ""))
+                .orElse(null);
         }
     }
 }
