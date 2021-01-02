@@ -1,6 +1,5 @@
 package com.greatescape.api.monolith.service.impl;
 
-import com.greatescape.api.monolith.config.ApplicationProperties;
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
@@ -15,13 +14,7 @@ import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository
 import com.greatescape.api.monolith.repository.SlotAggregationRepository;
 import com.greatescape.api.monolith.repository.SlotRepository;
 import com.greatescape.api.monolith.service.BookingPlayerService;
-import com.greatescape.api.monolith.web.rest.errors.PlayerNotFoundException;
-import com.greatescape.api.monolith.web.rest.errors.SlotAlreadyBookedException;
-import com.greatescape.api.monolith.web.rest.errors.SlotNotFoundException;
-import com.greatescape.api.monolith.web.rest.errors.SlotTimeAlreadyPassedException;
-import com.greatescape.api.monolith.web.rest.errors.SlotUnavailableForBookingException;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,17 +27,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class BookingPlayerServiceImpl implements BookingPlayerService {
 
-    private final BookingRepository bookingRepository;
     private final SlotRepository slotRepository;
     private final PlayerRepository playerRepository;
-    private final ApplicationProperties applicationProperties;
     private final BookingCreator bookingCreator;
     private final IntegrationSender integrationSender;
 
     @Override
     public CreateResponse create(CreateRequest request) {
-        this.checkBusinessRules(request);
-
         final var slot = slotRepository.getOne(request.getSlotId());
         final var player = playerRepository.getOne(request.getPlayerId());
         final var booking = bookingCreator.create(slot, player, request.getComment());
@@ -59,41 +48,12 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
         );
     }
 
-    private void checkBusinessRules(CreateRequest request) {
-        final var slot = slotRepository.findById(request.getSlotId()).orElseThrow(
-            () -> new SlotNotFoundException(request.getSlotId())
-        );
-
-        if (!slot.getIsAvailable()) {
-            throw new SlotUnavailableForBookingException(slot.getId());
-        }
-
-        if (ZonedDateTime.now()
-            .isAfter(
-                slot.getDateTimeWithTimeZone().plus(
-                    applicationProperties.getSlot().getAvailabilityDelta()
-                )
-            )
-        ) {
-            throw new SlotTimeAlreadyPassedException(slot.getId());
-        }
-
-        if (bookingRepository.existsBySlot(slot)) {
-            throw new SlotAlreadyBookedException(slot.getId());
-        }
-
-        if (!playerRepository.existsById(request.getPlayerId())) {
-            throw new PlayerNotFoundException(request.getPlayerId());
-        }
-    }
-
     @Slf4j
     @RequiredArgsConstructor
     @Service
     public static class BookingCreator {
 
         private final SlotAggregationRepository slotAggregationRepository;
-
         private final BookingRepository bookingRepository;
 
         @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -119,9 +79,7 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
     public static class IntegrationSender {
 
         private final QuestIntegrationSettingRepository questIntegrationSettingRepository;
-
         private final BookFormClient bookFormClient;
-
         private final MirKvestovClient mirKvestovClient;
 
         // @TODO: maybe it should be sent via some queue (which one?)

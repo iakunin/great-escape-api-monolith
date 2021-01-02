@@ -1,13 +1,21 @@
 package com.greatescape.api.monolith.web.rest.player;
 
+import com.greatescape.api.monolith.config.ApplicationProperties;
 import com.greatescape.api.monolith.domain.Player;
+import com.greatescape.api.monolith.repository.BookingRepository;
+import com.greatescape.api.monolith.repository.SlotRepository;
 import com.greatescape.api.monolith.service.BookingAdminService;
 import com.greatescape.api.monolith.service.BookingPlayerService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
+import com.greatescape.api.monolith.web.rest.errors.SlotAlreadyBookedException;
+import com.greatescape.api.monolith.web.rest.errors.SlotNotFoundException;
+import com.greatescape.api.monolith.web.rest.errors.SlotTimeAlreadyPassedException;
+import com.greatescape.api.monolith.web.rest.errors.SlotUnavailableForBookingException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import javax.validation.Valid;
@@ -40,6 +48,10 @@ public class BookingResource {
 
     private final BookingPlayerService bookingPlayerService;
 
+    private final BookingRepository bookingRepository;
+    private final SlotRepository slotRepository;
+    private final ApplicationProperties applicationProperties;
+
     /**
      * {@code POST  /bookings} : Create a new booking.
      *
@@ -55,6 +67,8 @@ public class BookingResource {
     ) throws URISyntaxException {
         log.debug("REST request to create Booking : {}", request);
         request.setPhone(new Player.PhoneNormalized(request.getPhone()).value());
+
+        this.checkBusinessRules(request);
 
         // @TODO: create Player with base jHipster User
         //   and pass it to bookingService
@@ -95,20 +109,36 @@ public class BookingResource {
         return ResponseUtil.wrapOrNotFound(bookingDTO);
     }
 
+    private void checkBusinessRules(CreateRequest request) {
+        final var slot = slotRepository.findById(request.getSlotId()).orElseThrow(
+            () -> new SlotNotFoundException(request.getSlotId())
+        );
+
+        if (!slot.getIsAvailable()) {
+            throw new SlotUnavailableForBookingException(slot.getId());
+        }
+
+        if (ZonedDateTime.now()
+            .isAfter(
+                slot.getDateTimeWithTimeZone().plus(
+                    applicationProperties.getSlot().getAvailabilityDelta()
+                )
+            )
+        ) {
+            throw new SlotTimeAlreadyPassedException(slot.getId());
+        }
+
+        if (bookingRepository.existsBySlot(slot)) {
+            throw new SlotAlreadyBookedException(slot.getId());
+        }
+    }
+
     @Data
     public static final class CreateRequest {
-        @NotNull
-        private UUID slotId;
-
-        @NotNull
-        private String name;
-
-        @NotNull
-        private String phone;
-
-        @NotNull
-        private String email;
-
+        @NotNull private UUID slotId;
+        @NotNull private String name;
+        @NotNull private String phone;
+        @NotNull private String email;
         private String comment;
     }
 }
