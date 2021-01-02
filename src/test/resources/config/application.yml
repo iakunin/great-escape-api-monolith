@@ -111,7 +111,16 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
 app:
-  book-form:
-    base-url: 'https://widget.bookform.ru'
+  integration:
+    book-form:
+      base-url: 'https://widget.bookform.ru'
+  slot:
+    availability-delta: 10m
+  cron:
+    check-missed-booking: '-'
+    refresh-quest-aggregate: '-'
+    refresh-slot-aggregate: '-'
+    remove-not-activated-users: '-'
+    remove-old-audit-events: '-'
+    sync-slots: '-'
