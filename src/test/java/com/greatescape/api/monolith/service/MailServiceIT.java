@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.service;
 
 import com.greatescape.api.monolith.ApiMonolithApp;
+import com.greatescape.api.monolith.config.ApplicationProperties;
 import com.greatescape.api.monolith.config.Constants;
 import com.greatescape.api.monolith.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
@@ -55,6 +56,9 @@ public class MailServiceIT {
     private JHipsterProperties jHipsterProperties;
 
     @Autowired
+    private ApplicationProperties applicationProperties;
+
+    @Autowired
     private MessageSource messageSource;
 
     @Autowired
@@ -72,7 +76,13 @@ public class MailServiceIT {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(javaMailSender).send(any(MimeMessage.class));
-        mailService = new MailService(jHipsterProperties, javaMailSender, messageSource, templateEngine);
+        mailService = new MailService(
+            jHipsterProperties,
+            applicationProperties,
+            javaMailSender,
+            messageSource,
+            templateEngine
+        );
     }
 
     @Test

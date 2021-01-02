@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.service;
 
+import com.greatescape.api.monolith.config.ApplicationProperties;
 import com.greatescape.api.monolith.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import java.nio.charset.StandardCharsets;
@@ -32,6 +33,7 @@ public class MailService {
     private static final String BASE_URL = "baseUrl";
 
     private final JHipsterProperties jHipsterProperties;
+    private final ApplicationProperties applicationProperties;
 
     private final JavaMailSender javaMailSender;
 
@@ -82,7 +84,7 @@ public class MailService {
 
     @Async
     public void sendAnonymousFeedbackEmail(String name, String from, String text) {
-        final String to = "info@great-escape.ru"; //@TODO: extract to config
+        final String to = applicationProperties.getEmail().getInfo();
         final String subject = "Обратная связь на сайте";
 
         log.debug("Sending Anonymous Feedback Email to '{}' from '{}'", to, from);

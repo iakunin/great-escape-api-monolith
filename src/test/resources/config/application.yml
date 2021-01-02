@@ -124,3 +124,5 @@ app:
     remove-not-activated-users: '-'
     remove-old-audit-events: '-'
     sync-slots: '-'
+  email:
+    info: info@great-escape.ru

@@ -17,6 +17,7 @@ public class ApplicationProperties {
     private Integration integration = new Integration();
     private Slot slot = new Slot();
     private Scheduled cron = new Scheduled();
+    private Email email = new Email();
 
     @Data
     public static class Integration {
@@ -41,5 +42,10 @@ public class ApplicationProperties {
         private String removeNotActivatedUsers;
         private String removeOldAuditEvents;
         private String syncSlots;
+    }
+
+    @Data
+    public static class Email {
+        private String info;
     }
 }

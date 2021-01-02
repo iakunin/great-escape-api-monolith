@@ -39,6 +39,11 @@
       "name": "app.cron.sync-slots",
       "type": "java.lang.String",
       "description": "Cron-expression for SyncSlots."
+    },
+    {
+      "name": "app.email.info",
+      "type": "java.lang.String",
+      "description": "Info email."
     }
   ]
 }
