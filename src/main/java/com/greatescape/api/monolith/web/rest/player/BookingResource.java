@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith.web.rest.player;
 
 import com.greatescape.api.monolith.config.ApplicationProperties;
+import com.greatescape.api.monolith.config.Constants;
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.repository.BookingRepository;
 import com.greatescape.api.monolith.repository.PlayerRepository;
@@ -23,8 +24,12 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -144,23 +149,22 @@ public class BookingResource {
     }
 
     private void checkPlayerBusinessRules(CreateRequest request) {
-        // @TODO: add phone format validation
         if (playerRepository.existsByPhone(request.getPhone())) {
             throw new PhoneAlreadyUsedException();
         }
 
-        // @TODO: add email format validation
         if (playerRepository.findOneByEmailIgnoreCase(request.getEmail()).isPresent()) {
             throw new EmailAlreadyUsedException("booking");
         }
     }
 
     @Data
+    @NoArgsConstructor
     public static final class CreateRequest {
         @NotNull private UUID slotId;
-        @NotNull private String name;
-        @NotNull private String phone;
-        @NotNull private String email;
+        @NotBlank private String name;
+        @NotBlank @Pattern(regexp = Constants.PHONE_REGEX) private String phone;
+        @NotBlank @Email private String email;
         private String comment;
     }
 }
