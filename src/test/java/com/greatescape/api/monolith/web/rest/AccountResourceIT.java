@@ -9,7 +9,6 @@ import com.greatescape.api.monolith.security.AuthoritiesConstants;
 import com.greatescape.api.monolith.service.UserService;
 import com.greatescape.api.monolith.service.dto.PasswordChangeDTO;
 import com.greatescape.api.monolith.service.dto.UserDTO;
-import static com.greatescape.api.monolith.web.rest.AccountResourceIT.TEST_USER_LOGIN;
 import com.greatescape.api.monolith.web.rest.vm.KeyAndPasswordVM;
 import com.greatescape.api.monolith.web.rest.vm.ManagedUserVM;
 import java.time.Instant;
@@ -39,9 +38,10 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link AccountResource} REST controller.
  */
 @AutoConfigureMockMvc
-@WithMockUser(value = TEST_USER_LOGIN)
+@WithMockUser(value = AccountResourceIT.TEST_USER_LOGIN)
 @SpringBootTest(classes = ApiMonolithApp.class)
 public class AccountResourceIT {
+
     static final String TEST_USER_LOGIN = "test";
 
     @Autowired
@@ -58,27 +58,6 @@ public class AccountResourceIT {
 
     @Autowired
     private MockMvc restAccountMockMvc;
-
-    @Test
-    @WithUnauthenticatedMockUser
-    public void testNonAuthenticatedUser() throws Exception {
-        restAccountMockMvc.perform(get("/api/authenticate")
-            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string(""));
-    }
-
-    @Test
-    public void testAuthenticatedUser() throws Exception {
-        restAccountMockMvc.perform(get("/api/authenticate")
-            .with(request -> {
-                request.setRemoteUser(TEST_USER_LOGIN);
-                return request;
-            })
-            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string(TEST_USER_LOGIN));
-    }
 
     @Test
     public void testGetExistingAccount() throws Exception {
