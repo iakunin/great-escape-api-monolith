@@ -2,6 +2,8 @@ package com.greatescape.api.monolith.repository;
 
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.domain.Slot;
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -15,4 +17,6 @@ public interface BookingRepository extends JpaRepository<Booking, UUID>, JpaSpec
     boolean existsBySlot(Slot slot);
 
     boolean existsBySlotId(UUID slotId);
+
+    List<Booking> findAllByCreatedAtBetween(ZonedDateTime from, ZonedDateTime to);
 }

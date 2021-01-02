@@ -80,6 +80,7 @@ public class BookingResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/bookings")
+    @Transactional
     public ResponseEntity<BookingDTO> createBooking(@Valid @RequestBody CreateRequest request) throws URISyntaxException {
         log.debug("REST request to create Booking : {}", request);
 
