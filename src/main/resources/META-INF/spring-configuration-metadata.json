@@ -9,6 +9,36 @@
       "name": "app.slot.availability-delta",
       "type": "java.lang.String",
       "description": "Slot availability delta (Duration)."
+    },
+    {
+      "name": "app.cron.check-missed-booking",
+      "type": "java.lang.String",
+      "description": "Cron-expression for CheckMissedBooking."
+    },
+    {
+      "name": "app.cron.refresh-quest-aggregate",
+      "type": "java.lang.String",
+      "description": "Cron-expression for RefreshQuestAggregate."
+    },
+    {
+      "name": "app.cron.refresh-slot-aggregate",
+      "type": "java.lang.String",
+      "description": "Cron-expression for RefreshSlotAggregate."
+    },
+    {
+      "name": "app.cron.remove-not-activated-users",
+      "type": "java.lang.String",
+      "description": "Cron-expression for RemoveNotActivatedUsers."
+    },
+    {
+      "name": "app.cron.remove-old-audit-events",
+      "type": "java.lang.String",
+      "description": "Cron-expression for RemoveOldAuditEvents."
+    },
+    {
+      "name": "app.cron.sync-slots",
+      "type": "java.lang.String",
+      "description": "Cron-expression for SyncSlots."
     }
   ]
 }

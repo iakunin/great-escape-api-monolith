@@ -18,10 +18,8 @@ public class RefreshQuestAggregate implements Runnable {
 
     /**
      * `quest_aggregation` materialized view needs to be recalculated.
-     *
-     * This is scheduled to get fired every 10 minutes.
      */
-    @Scheduled(cron = "0 0/10 * * * ?")
+    @Scheduled(cron = "${app.cron.refresh-quest-aggregate}")
     @Transactional
     @Override
     public void run() {

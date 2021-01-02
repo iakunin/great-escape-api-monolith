@@ -45,7 +45,7 @@ public class SyncSlots implements Runnable {
     private final BookFormSchedule bookFormSchedule;
     private final MirKvestovSchedule mirKvestovSchedule;
 
-    @Scheduled(cron = "*/20 * * * * ?")
+    @Scheduled(cron = "${app.cron.sync-slots}")
     @Override
     public void run() {
         questIntegrationSettingRepository

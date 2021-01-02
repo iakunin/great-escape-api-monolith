@@ -16,20 +16,30 @@ public class ApplicationProperties {
 
     private Integration integration = new Integration();
     private Slot slot = new Slot();
+    private Scheduled cron = new Scheduled();
 
     @Data
     public static class Integration {
-
         private BookForm bookForm = new BookForm();
 
         @Data
         public static class BookForm {
-            private String baseUrl = "https://widget.bookform.ru";
+            private String baseUrl;
         }
     }
 
     @Data
     public static class Slot {
-        private Duration availabilityDelta = Duration.ofMinutes(10);
+        private Duration availabilityDelta;
+    }
+
+    @Data
+    public static class Scheduled {
+        private String checkMissedBooking;
+        private String refreshQuestAggregate;
+        private String refreshSlotAggregate;
+        private String removeNotActivatedUsers;
+        private String removeOldAuditEvents;
+        private String syncSlots;
     }
 }
