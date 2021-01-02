@@ -1,8 +1,8 @@
 package com.greatescape.api.monolith.web.rest.admin;
 
 import com.greatescape.api.monolith.domain.Player;
+import com.greatescape.api.monolith.service.PlayerAdminService;
 import com.greatescape.api.monolith.service.PlayerQueryService;
-import com.greatescape.api.monolith.service.PlayerService;
 import com.greatescape.api.monolith.service.dto.PlayerCriteria;
 import com.greatescape.api.monolith.service.dto.PlayerDTO;
 import com.greatescape.api.monolith.web.rest.errors.BadRequestAlertException;
@@ -46,7 +46,7 @@ public class PlayerResource {
     @Value("${jhipster.clientApp.name}")
     private final String applicationName;
 
-    private final PlayerService playerService;
+    private final PlayerAdminService playerService;
 
     private final PlayerQueryService playerQueryService;
 

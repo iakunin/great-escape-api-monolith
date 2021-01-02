@@ -1,25 +1,26 @@
 package com.greatescape.api.monolith.service;
 
+import com.greatescape.api.monolith.domain.Player;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import lombok.Value;
 
-public interface BookingPlayerService {
+/**
+ * Service Interface for managing {@link Player}.
+ */
+public interface PlayerPlayerService {
 
     CreateResponse create(CreateRequest request);
 
     @Value
     class CreateRequest {
-        @NotNull UUID slotId;
-        @NotNull UUID playerId;
-        String comment;
+        @NotNull String name;
+        @NotNull String phone;
+        @NotNull String email;
     }
 
     @Value
     class CreateResponse {
-        UUID bookingId;
-        UUID slotId;
-        UUID questId;
         UUID playerId;
     }
 }

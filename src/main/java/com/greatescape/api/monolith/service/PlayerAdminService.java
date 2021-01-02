@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 /**
  * Service Interface for managing {@link Player}.
  */
-public interface PlayerService {
+public interface PlayerAdminService {
 
     /**
      * Save a player.

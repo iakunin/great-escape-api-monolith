@@ -3,10 +3,14 @@ package com.greatescape.api.monolith.web.rest.player;
 import com.greatescape.api.monolith.config.ApplicationProperties;
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.repository.BookingRepository;
+import com.greatescape.api.monolith.repository.PlayerRepository;
 import com.greatescape.api.monolith.repository.SlotRepository;
 import com.greatescape.api.monolith.service.BookingAdminService;
 import com.greatescape.api.monolith.service.BookingPlayerService;
+import com.greatescape.api.monolith.service.PlayerPlayerService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
+import com.greatescape.api.monolith.web.rest.errors.EmailAlreadyUsedException;
+import com.greatescape.api.monolith.web.rest.errors.PhoneAlreadyUsedException;
 import com.greatescape.api.monolith.web.rest.errors.SlotAlreadyBookedException;
 import com.greatescape.api.monolith.web.rest.errors.SlotNotFoundException;
 import com.greatescape.api.monolith.web.rest.errors.SlotTimeAlreadyPassedException;
@@ -52,6 +56,9 @@ public class BookingResource {
     private final SlotRepository slotRepository;
     private final ApplicationProperties applicationProperties;
 
+    private final PlayerPlayerService playerService;
+    private final PlayerRepository playerRepository;
+
     /**
      * {@code POST  /bookings} : Create a new booking.
      *
@@ -67,20 +74,23 @@ public class BookingResource {
     ) throws URISyntaxException {
         log.debug("REST request to create Booking : {}", request);
         request.setPhone(new Player.PhoneNormalized(request.getPhone()).value());
+        request.setEmail(request.getEmail().toLowerCase());
 
-        this.checkBusinessRules(request);
+        this.checkBookingBusinessRules(request);
+        this.checkPlayerBusinessRules(request);
 
-        // @TODO: create Player with base jHipster User
-        //   and pass it to bookingService
-        final var playerId = UUID.fromString("7d86b1d8-a7b2-4dc1-b3a0-7ad1e41ac348");
+        final var playerResponse = playerService.create(
+            new PlayerPlayerService.CreateRequest(
+                request.getName(),
+                request.getPhone(),
+                request.getEmail()
+            )
+        );
 
         final var result = bookingPlayerService.create(
             new BookingPlayerService.CreateRequest(
                 request.getSlotId(),
-                playerId,
-                request.getName(),
-                request.getPhone(),
-                request.getEmail(),
+                playerResponse.getPlayerId(),
                 request.getComment()
             )
         );
@@ -109,7 +119,7 @@ public class BookingResource {
         return ResponseUtil.wrapOrNotFound(bookingDTO);
     }
 
-    private void checkBusinessRules(CreateRequest request) {
+    private void checkBookingBusinessRules(CreateRequest request) {
         final var slot = slotRepository.findById(request.getSlotId()).orElseThrow(
             () -> new SlotNotFoundException(request.getSlotId())
         );
@@ -130,6 +140,18 @@ public class BookingResource {
 
         if (bookingRepository.existsBySlot(slot)) {
             throw new SlotAlreadyBookedException(slot.getId());
+        }
+    }
+
+    private void checkPlayerBusinessRules(CreateRequest request) {
+        // @TODO: add phone format validation
+        if (playerRepository.existsByPhone(request.getPhone())) {
+            throw new PhoneAlreadyUsedException();
+        }
+
+        // @TODO: add email format validation
+        if (playerRepository.findOneByEmailIgnoreCase(request.getEmail()).isPresent()) {
+            throw new EmailAlreadyUsedException("booking");
         }
     }
 

@@ -7,8 +7,6 @@ import com.greatescape.api.monolith.domain.User;
 import com.greatescape.api.monolith.domain.enumeration.Gender;
 import com.greatescape.api.monolith.repository.PlayerRepository;
 import com.greatescape.api.monolith.security.AuthoritiesConstants;
-import com.greatescape.api.monolith.service.PlayerQueryService;
-import com.greatescape.api.monolith.service.PlayerService;
 import com.greatescape.api.monolith.service.dto.PlayerDTO;
 import com.greatescape.api.monolith.service.mapper.PlayerMapper;
 import com.greatescape.api.monolith.web.rest.TestUtil;
@@ -68,12 +66,6 @@ public class PlayerResourceIT {
 
     @Autowired
     private PlayerMapper playerMapper;
-
-    @Autowired
-    private PlayerService playerService;
-
-    @Autowired
-    private PlayerQueryService playerQueryService;
 
     @Autowired
     private EntityManager em;

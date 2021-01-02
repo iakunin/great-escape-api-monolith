@@ -2,7 +2,7 @@ package com.greatescape.api.monolith.service.impl;
 
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.repository.PlayerRepository;
-import com.greatescape.api.monolith.service.PlayerService;
+import com.greatescape.api.monolith.service.PlayerAdminService;
 import com.greatescape.api.monolith.service.dto.PlayerDTO;
 import com.greatescape.api.monolith.service.mapper.PlayerMapper;
 import java.util.Optional;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
-public class PlayerServiceImpl implements PlayerService {
+public class PlayerAdminServiceImpl implements PlayerAdminService {
 
     private final PlayerRepository playerRepository;
 
