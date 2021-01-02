@@ -1,8 +1,10 @@
 package com.greatescape.api.monolith.web.rest.errors;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public final class FieldErrorVM {
 
     private final String objectName;
@@ -10,10 +12,4 @@ public final class FieldErrorVM {
     private final String field;
 
     private final String code;
-
-    public FieldErrorVM(String dto, String field, String code) {
-        this.objectName = dto;
-        this.field = field;
-        this.code = code;
-    }
 }

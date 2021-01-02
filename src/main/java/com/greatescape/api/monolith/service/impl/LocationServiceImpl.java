@@ -43,7 +43,8 @@ public class LocationServiceImpl implements LocationService {
             .map(locationMapper::toDto);
     }
 
-
+    @Override
+    @Transactional(readOnly = true)
     public Page<LocationDTO> findAllWithEagerRelationships(Pageable pageable) {
         return locationRepository.findAllWithEagerRelationships(pageable).map(locationMapper::toDto);
     }

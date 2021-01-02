@@ -43,7 +43,8 @@ public class QuestServiceImpl implements QuestService {
             .map(questMapper::toDto);
     }
 
-
+    @Override
+    @Transactional(readOnly = true)
     public Page<QuestDTO> findAllWithEagerRelationships(Pageable pageable) {
         return questRepository.findAllWithEagerRelationships(pageable).map(questMapper::toDto);
     }

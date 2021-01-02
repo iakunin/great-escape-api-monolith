@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -38,6 +39,7 @@ import org.zalando.problem.violations.ConstraintViolationProblem;
  * The error response follows RFC7807 - Problem Details for HTTP APIs (https://tools.ietf.org/html/rfc7807).
  */
 @ControllerAdvice
+@RequiredArgsConstructor
 public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {
 
     private static final String FIELD_ERRORS_KEY = "fieldErrors";
@@ -46,13 +48,9 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
     private static final String VIOLATIONS_KEY = "violations";
 
     @Value("${jhipster.clientApp.name}")
-    private String applicationName;
+    private final String applicationName;
 
     private final Environment env;
-
-    public ExceptionTranslator(Environment env) {
-        this.env = env;
-    }
 
     /**
      * Post-process the Problem payload to add the message key for the front-end if needed.

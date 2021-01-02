@@ -2,6 +2,7 @@ package com.greatescape.api.monolith.aop.logging;
 
 import io.github.jhipster.config.JHipsterConstants;
 import java.util.Arrays;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -19,13 +20,10 @@ import org.springframework.core.env.Profiles;
  * By default, it only runs with the "dev" profile.
  */
 @Aspect
+@RequiredArgsConstructor
 public class LoggingAspect {
 
     private final Environment env;
-
-    public LoggingAspect(Environment env) {
-        this.env = env;
-    }
 
     /**
      * Pointcut that matches all repositories, services and Web REST endpoints.

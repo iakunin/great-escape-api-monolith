@@ -1,6 +1,5 @@
 package com.greatescape.api.monolith.web.rest.player;
 
-import com.greatescape.api.monolith.config.ApplicationProperties;
 import com.greatescape.api.monolith.domain.QuestAggregation;
 import com.greatescape.api.monolith.domain.QuestAggregation_;
 import com.greatescape.api.monolith.repository.QuestAggregationRepository;
@@ -28,15 +27,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController("player.QuestResource")
 @RequestMapping("/player-api")
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 public class QuestResource extends QueryService<QuestAggregation> {
 
     private final QuestAggregationRepository repository;
 
     private final QuestAggregationMapper mapper;
-
-    private final ApplicationProperties properties;
 
     /**
      * {@code GET /quests} : get all the quests.

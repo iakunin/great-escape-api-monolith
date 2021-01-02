@@ -2,6 +2,7 @@ package com.greatescape.api.monolith.web.rest.player;
 
 import com.greatescape.api.monolith.config.ApplicationProperties;
 import com.greatescape.api.monolith.domain.Booking;
+import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.domain.enumeration.BookingStatus;
@@ -85,7 +86,7 @@ public class BookingResource {
         log.debug("REST request to create Booking : {}", request);
 
         request.setPhone(
-            request.getPhone().replaceAll("[^0-9]", "")
+            new Player.PhoneNormalized(request.getPhone()).value()
         );
 
         this.checkBusinessRules(request);

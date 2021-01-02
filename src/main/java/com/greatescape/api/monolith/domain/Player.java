@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.AuditOverride;
@@ -66,6 +67,12 @@ public class Player extends AbstractEntity {
     @JsonIgnoreProperties(value = "players", allowSetters = true)
     private Company company;
 
+    // Normalizing the phone before saving it in database
+    public Player setPhone(String phone) {
+        this.phone = new PhoneNormalized(phone).value();
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -81,5 +88,15 @@ public class Player extends AbstractEntity {
     public int hashCode() {
         // For more info see: https://bit.ly/37Zo2W3
         return getClass().hashCode();
+    }
+
+    @RequiredArgsConstructor
+    public static final class PhoneNormalized {
+
+        private final String phone;
+
+        public String value() {
+            return phone.replaceAll("[^0-9]", "");
+        }
     }
 }
