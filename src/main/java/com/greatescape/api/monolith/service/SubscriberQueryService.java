@@ -8,8 +8,8 @@ import com.greatescape.api.monolith.service.dto.SubscriberDTO;
 import com.greatescape.api.monolith.service.mapper.SubscriberMapper;
 import io.github.jhipster.service.QueryService;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -24,18 +24,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
+@Slf4j
 public class SubscriberQueryService extends QueryService<Subscriber> {
-
-    private final Logger log = LoggerFactory.getLogger(SubscriberQueryService.class);
 
     private final SubscriberRepository subscriberRepository;
 
     private final SubscriberMapper subscriberMapper;
-
-    public SubscriberQueryService(SubscriberRepository subscriberRepository, SubscriberMapper subscriberMapper) {
-        this.subscriberRepository = subscriberRepository;
-        this.subscriberMapper = subscriberMapper;
-    }
 
     /**
      * Return a {@link List} of {@link SubscriberDTO} which matches the criteria from the database.

@@ -7,8 +7,8 @@ import com.greatescape.api.monolith.service.dto.SlotDTO;
 import com.greatescape.api.monolith.service.mapper.SlotMapper;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
+@Slf4j
 public class SlotServiceImpl implements SlotService {
-
-    private final Logger log = LoggerFactory.getLogger(SlotServiceImpl.class);
 
     private final SlotRepository slotRepository;
 
     private final SlotMapper slotMapper;
-
-    public SlotServiceImpl(SlotRepository slotRepository, SlotMapper slotMapper) {
-        this.slotRepository = slotRepository;
-        this.slotMapper = slotMapper;
-    }
 
     @Override
     public SlotDTO save(SlotDTO slotDTO) {

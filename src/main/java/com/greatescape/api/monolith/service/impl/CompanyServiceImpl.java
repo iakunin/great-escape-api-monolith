@@ -7,8 +7,8 @@ import com.greatescape.api.monolith.service.dto.CompanyDTO;
 import com.greatescape.api.monolith.service.mapper.CompanyMapper;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
+@Slf4j
 public class CompanyServiceImpl implements CompanyService {
-
-    private final Logger log = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
     private final CompanyRepository companyRepository;
 
     private final CompanyMapper companyMapper;
-
-    public CompanyServiceImpl(CompanyRepository companyRepository, CompanyMapper companyMapper) {
-        this.companyRepository = companyRepository;
-        this.companyMapper = companyMapper;
-    }
 
     @Override
     public CompanyDTO save(CompanyDTO companyDTO) {

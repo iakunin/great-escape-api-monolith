@@ -2,8 +2,8 @@ package com.greatescape.api.monolith.config;
 
 import io.github.jhipster.config.JHipsterProperties;
 import javax.servlet.ServletContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,18 +16,13 @@ import org.springframework.web.filter.CorsFilter;
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
+@RequiredArgsConstructor
+@Slf4j
 public class WebConfigurer implements ServletContextInitializer {
-
-    private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
     private final Environment env;
 
     private final JHipsterProperties jHipsterProperties;
-
-    public WebConfigurer(Environment env, JHipsterProperties jHipsterProperties) {
-        this.env = env;
-        this.jHipsterProperties = jHipsterProperties;
-    }
 
     @Override
     public void onStartup(ServletContext servletContext) {

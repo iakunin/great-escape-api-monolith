@@ -7,8 +7,8 @@ import com.greatescape.api.monolith.service.dto.MetroDTO;
 import com.greatescape.api.monolith.service.mapper.MetroMapper;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
+@Slf4j
 public class MetroServiceImpl implements MetroService {
-
-    private final Logger log = LoggerFactory.getLogger(MetroServiceImpl.class);
 
     private final MetroRepository metroRepository;
 
     private final MetroMapper metroMapper;
-
-    public MetroServiceImpl(MetroRepository metroRepository, MetroMapper metroMapper) {
-        this.metroRepository = metroRepository;
-        this.metroMapper = metroMapper;
-    }
 
     @Override
     public MetroDTO save(MetroDTO metroDTO) {

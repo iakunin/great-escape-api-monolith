@@ -7,8 +7,8 @@ import com.greatescape.api.monolith.service.dto.SubscriberDTO;
 import com.greatescape.api.monolith.service.mapper.SubscriberMapper;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
+@Slf4j
 public class SubscriberServiceImpl implements SubscriberService {
-
-    private final Logger log = LoggerFactory.getLogger(SubscriberServiceImpl.class);
 
     private final SubscriberRepository subscriberRepository;
 
     private final SubscriberMapper subscriberMapper;
-
-    public SubscriberServiceImpl(SubscriberRepository subscriberRepository, SubscriberMapper subscriberMapper) {
-        this.subscriberRepository = subscriberRepository;
-        this.subscriberMapper = subscriberMapper;
-    }
 
     @Override
     public SubscriberDTO save(SubscriberDTO subscriberDTO) {

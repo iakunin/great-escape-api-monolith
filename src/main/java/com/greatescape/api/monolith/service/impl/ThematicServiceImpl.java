@@ -7,8 +7,8 @@ import com.greatescape.api.monolith.service.dto.ThematicDTO;
 import com.greatescape.api.monolith.service.mapper.ThematicMapper;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
+@Slf4j
 public class ThematicServiceImpl implements ThematicService {
-
-    private final Logger log = LoggerFactory.getLogger(ThematicServiceImpl.class);
 
     private final ThematicRepository thematicRepository;
 
     private final ThematicMapper thematicMapper;
-
-    public ThematicServiceImpl(ThematicRepository thematicRepository, ThematicMapper thematicMapper) {
-        this.thematicRepository = thematicRepository;
-        this.thematicMapper = thematicMapper;
-    }
 
     @Override
     public ThematicDTO save(ThematicDTO thematicDTO) {

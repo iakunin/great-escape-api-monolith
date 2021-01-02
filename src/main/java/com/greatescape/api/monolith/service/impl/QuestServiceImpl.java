@@ -7,8 +7,8 @@ import com.greatescape.api.monolith.service.dto.QuestDTO;
 import com.greatescape.api.monolith.service.mapper.QuestMapper;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
+@Slf4j
 public class QuestServiceImpl implements QuestService {
-
-    private final Logger log = LoggerFactory.getLogger(QuestServiceImpl.class);
 
     private final QuestRepository questRepository;
 
     private final QuestMapper questMapper;
-
-    public QuestServiceImpl(QuestRepository questRepository, QuestMapper questMapper) {
-        this.questRepository = questRepository;
-        this.questMapper = questMapper;
-    }
 
     @Override
     public QuestDTO save(QuestDTO questDTO) {

@@ -10,8 +10,8 @@ import com.greatescape.api.monolith.service.mapper.QuestPhotoMapper;
 import io.github.jhipster.service.QueryService;
 import java.util.List;
 import javax.persistence.criteria.JoinType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -26,18 +26,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
+@Slf4j
 public class QuestPhotoQueryService extends QueryService<QuestPhoto> {
-
-    private final Logger log = LoggerFactory.getLogger(QuestPhotoQueryService.class);
 
     private final QuestPhotoRepository questPhotoRepository;
 
     private final QuestPhotoMapper questPhotoMapper;
-
-    public QuestPhotoQueryService(QuestPhotoRepository questPhotoRepository, QuestPhotoMapper questPhotoMapper) {
-        this.questPhotoRepository = questPhotoRepository;
-        this.questPhotoMapper = questPhotoMapper;
-    }
 
     /**
      * Return a {@link List} of {@link QuestPhotoDTO} which matches the criteria from the database.

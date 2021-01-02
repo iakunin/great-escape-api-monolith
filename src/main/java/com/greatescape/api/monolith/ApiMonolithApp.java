@@ -8,9 +8,9 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -19,15 +19,11 @@ import org.springframework.core.env.Environment;
 
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
+@RequiredArgsConstructor
+@Slf4j
 public class ApiMonolithApp {
 
-    private static final Logger log = LoggerFactory.getLogger(ApiMonolithApp.class);
-
     private final Environment env;
-
-    public ApiMonolithApp(Environment env) {
-        this.env = env;
-    }
 
     /**
      * Initializes GreatEscapeApiMonolith.

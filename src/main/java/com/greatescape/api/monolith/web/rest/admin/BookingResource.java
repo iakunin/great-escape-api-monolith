@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,23 +37,18 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  */
 @RestController
 @RequestMapping("/admin-api")
+@RequiredArgsConstructor
+@Slf4j
 public class BookingResource {
-
-    private final Logger log = LoggerFactory.getLogger(BookingResource.class);
 
     private static final String ENTITY_NAME = "booking";
 
     @Value("${jhipster.clientApp.name}")
-    private String applicationName;
+    private final String applicationName;
 
     private final BookingService bookingService;
 
     private final BookingQueryService bookingQueryService;
-
-    public BookingResource(BookingService bookingService, BookingQueryService bookingQueryService) {
-        this.bookingService = bookingService;
-        this.bookingQueryService = bookingQueryService;
-    }
 
     /**
      * {@code POST  /bookings} : Create a new booking.

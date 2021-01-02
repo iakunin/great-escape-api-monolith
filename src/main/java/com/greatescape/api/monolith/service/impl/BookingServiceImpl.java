@@ -7,8 +7,8 @@ import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.service.mapper.BookingMapper;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
+@Slf4j
 public class BookingServiceImpl implements BookingService {
-
-    private final Logger log = LoggerFactory.getLogger(BookingServiceImpl.class);
 
     private final BookingRepository bookingRepository;
 
     private final BookingMapper bookingMapper;
-
-    public BookingServiceImpl(BookingRepository bookingRepository, BookingMapper bookingMapper) {
-        this.bookingRepository = bookingRepository;
-        this.bookingMapper = bookingMapper;
-    }
 
     @Override
     public BookingDTO save(BookingDTO bookingDTO) {
