@@ -22,10 +22,16 @@ public class ApplicationProperties {
     @Data
     public static class Integration {
         private BookForm bookForm = new BookForm();
+        private SmsRu smsRu = new SmsRu();
 
         @Data
         public static class BookForm {
             private String baseUrl;
+        }
+
+        @Data
+        public static class SmsRu {
+            private String apiId;
         }
     }
 

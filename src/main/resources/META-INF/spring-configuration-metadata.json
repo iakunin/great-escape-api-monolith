@@ -6,6 +6,11 @@
       "description": "Base url for BookForm."
     },
     {
+      "name": "app.integration.sms-ru.api-id",
+      "type": "java.lang.String",
+      "description": "Api Id for sms.ru."
+    },
+    {
       "name": "app.slot.availability-delta",
       "type": "java.lang.String",
       "description": "Slot availability delta (Duration)."

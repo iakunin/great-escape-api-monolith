@@ -165,6 +165,8 @@ app:
   integration:
     book-form:
       base-url: 'https://widget.bookform.ru'
+    sms-ru:
+      api-id: ''
   slot:
     availability-delta: 10m
   cron:

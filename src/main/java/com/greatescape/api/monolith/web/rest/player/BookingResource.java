@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.repository.PlayerRepository;
 import com.greatescape.api.monolith.repository.SlotRepository;
 import com.greatescape.api.monolith.service.BookingAdminService;
 import com.greatescape.api.monolith.service.BookingPlayerService;
+import com.greatescape.api.monolith.service.OtpService;
 import com.greatescape.api.monolith.service.PlayerPlayerService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.web.rest.errors.EmailAlreadyUsedException;
@@ -16,6 +17,7 @@ import com.greatescape.api.monolith.web.rest.errors.SlotAlreadyBookedException;
 import com.greatescape.api.monolith.web.rest.errors.SlotNotFoundException;
 import com.greatescape.api.monolith.web.rest.errors.SlotTimeAlreadyPassedException;
 import com.greatescape.api.monolith.web.rest.errors.SlotUnavailableForBookingException;
+import com.greatescape.api.monolith.web.rest.errors.WrongOtpException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import java.net.URI;
@@ -63,6 +65,8 @@ public class BookingResource {
 
     private final PlayerPlayerService playerService;
     private final PlayerRepository playerRepository;
+
+    private final OtpService otpService;
 
     /**
      * {@code POST  /bookings} : Create a new booking.
@@ -156,6 +160,13 @@ public class BookingResource {
         if (playerRepository.findOneByEmailIgnoreCase(request.getEmail()).isPresent()) {
             throw new EmailAlreadyUsedException("booking");
         }
+
+        try {
+            otpService.checkOtp(request.getPhone(), request.getOtp());
+        } catch (OtpService.CheckOtpException e) {
+            log.info("Wrong OTP='{}' for phone='{}'", request.getOtp(), request.getPhone());
+            throw new WrongOtpException();
+        }
     }
 
     @Data
@@ -164,6 +175,7 @@ public class BookingResource {
         @NotNull private UUID slotId;
         @NotBlank private String name;
         @NotBlank @Pattern(regexp = Constants.PHONE_REGEX) private String phone;
+        @NotBlank private String otp;
         @NotBlank @Email private String email;
         private String comment;
     }
