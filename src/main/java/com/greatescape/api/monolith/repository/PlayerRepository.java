@@ -10,10 +10,9 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data  repository for the Player entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, UUID>, JpaSpecificationExecutor<Player> {
-    boolean existsByPhone(String phone);
-
     Optional<Player> findOneByEmailIgnoreCase(String email);
+
+    Optional<Player> findOneByPhone(String phone);
 }

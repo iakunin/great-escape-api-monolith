@@ -12,6 +12,8 @@ public interface PlayerPlayerService {
 
     CreateResponse create(CreateRequest request);
 
+    CreateResponse upsert(CreateRequest request);
+
     @Value
     class CreateRequest {
         @NotNull String name;

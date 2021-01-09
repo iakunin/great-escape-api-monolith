@@ -17,12 +17,30 @@ import org.springframework.transaction.annotation.Transactional;
 public class PlayerPlayerServiceImpl implements PlayerPlayerService {
 
     private final UserService userService;
+
     private final PlayerRepository playerRepository;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public CreateResponse create(CreateRequest request) {
         return new CreateResponse(
+            this.createPlayer(request).getId()
+        );
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public CreateResponse upsert(CreateRequest request) {
+        return new CreateResponse(
+            playerRepository
+                .findOneByPhone(request.getPhone())
+                .orElseGet(() -> this.createPlayer(request))
+                .getId()
+        );
+    }
+
+    private Player createPlayer(CreateRequest request) {
+        return
             playerRepository.save(
                 new Player()
                     .setName(request.getName())
@@ -35,7 +53,6 @@ public class PlayerPlayerServiceImpl implements PlayerPlayerService {
                             .setFirstName(request.getName())
                             .setLastName(".")
                     ))
-            ).getId()
-        );
+            );
     }
 }

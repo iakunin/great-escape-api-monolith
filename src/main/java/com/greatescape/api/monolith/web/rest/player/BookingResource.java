@@ -12,7 +12,6 @@ import com.greatescape.api.monolith.service.OtpService;
 import com.greatescape.api.monolith.service.PlayerPlayerService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
 import com.greatescape.api.monolith.web.rest.errors.EmailAlreadyUsedException;
-import com.greatescape.api.monolith.web.rest.errors.PhoneAlreadyUsedException;
 import com.greatescape.api.monolith.web.rest.errors.SlotAlreadyBookedException;
 import com.greatescape.api.monolith.web.rest.errors.SlotNotFoundException;
 import com.greatescape.api.monolith.web.rest.errors.SlotTimeAlreadyPassedException;
@@ -88,7 +87,7 @@ public class BookingResource {
         this.checkBookingBusinessRules(request);
         this.checkPlayerBusinessRules(request);
 
-        final var playerResponse = playerService.create(
+        final var playerResponse = playerService.upsert(
             new PlayerPlayerService.CreateRequest(
                 request.getName(),
                 request.getPhone(),
@@ -153,11 +152,10 @@ public class BookingResource {
     }
 
     private void checkPlayerBusinessRules(CreateRequest request) {
-        if (playerRepository.existsByPhone(request.getPhone())) {
-            throw new PhoneAlreadyUsedException();
-        }
-
-        if (playerRepository.findOneByEmailIgnoreCase(request.getEmail()).isPresent()) {
+        if (
+            playerRepository.findOneByPhone(request.getPhone()).isEmpty()
+            && playerRepository.findOneByEmailIgnoreCase(request.getEmail()).isPresent()
+        ) {
             throw new EmailAlreadyUsedException("booking");
         }
 
