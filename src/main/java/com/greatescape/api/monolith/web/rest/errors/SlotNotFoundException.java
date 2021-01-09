@@ -11,7 +11,7 @@ public class SlotNotFoundException extends BadRequestAlertException {
             ErrorConstants.SLOT_NOT_FOUND,
             String.format("Slot is not found by id='%s'", id.toString()),
             "booking",
-            "slotnotfound"
+            "slotNotFound"
         );
     }
 }

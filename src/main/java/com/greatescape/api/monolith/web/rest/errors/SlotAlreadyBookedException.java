@@ -11,7 +11,7 @@ public class SlotAlreadyBookedException extends BadRequestAlertException {
             ErrorConstants.SLOT_ALREADY_BOOKED,
             String.format("Slot already has a booking; slotId='%s'", id.toString()),
             "booking",
-            "slotalreadybooked"
+            "slotAlreadyBooked"
         );
     }
 }

@@ -11,7 +11,7 @@ public class PlayerNotFoundException extends BadRequestAlertException {
             ErrorConstants.PLAYER_NOT_FOUND,
             String.format("Player is not found by id='%s'", id.toString()),
             "booking",
-            "playernotfound"
+            "playerNotFound"
         );
     }
 }

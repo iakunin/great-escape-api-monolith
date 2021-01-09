@@ -9,7 +9,7 @@ public class WrongOtpException extends BadRequestAlertException {
             ErrorConstants.WRONG_OTP,
             "Wrong OTP",
             "booking",
-            "wrongotp"
+            "wrongOtp"
         );
     }
 }

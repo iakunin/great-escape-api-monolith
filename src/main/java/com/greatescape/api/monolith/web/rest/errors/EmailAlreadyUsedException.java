@@ -13,7 +13,7 @@ public class EmailAlreadyUsedException extends BadRequestAlertException {
             ErrorConstants.EMAIL_ALREADY_USED_TYPE,
             "Email is already in use",
             entityName,
-            "emailexists"
+            "emailExists"
         );
     }
 }

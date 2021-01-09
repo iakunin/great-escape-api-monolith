@@ -11,7 +11,7 @@ public class SlotTimeAlreadyPassedException extends BadRequestAlertException {
             ErrorConstants.SLOT_TIME_ALREADY_PASSED,
             String.format("Slot time already passed; slotId='%s'", id.toString()),
             "booking",
-            "slottimealreadypassed"
+            "slotTimeAlreadyPassed"
         );
     }
 }

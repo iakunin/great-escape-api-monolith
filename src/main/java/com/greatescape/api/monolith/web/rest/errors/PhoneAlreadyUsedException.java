@@ -9,7 +9,7 @@ public class PhoneAlreadyUsedException extends BadRequestAlertException {
             ErrorConstants.PHONE_ALREADY_USED_TYPE,
             "Phone is already in use",
             "booking",
-            "phoneexists"
+            "phoneExists"
         );
     }
 }

@@ -14,7 +14,7 @@ public class SlotUnavailableForBookingException extends BadRequestAlertException
                 id.toString()
             ),
             "booking",
-            "slotunavailableforbooking"
+            "slotUnavailableForBooking"
         );
     }
 }
