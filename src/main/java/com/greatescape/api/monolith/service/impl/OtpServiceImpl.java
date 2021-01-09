@@ -27,7 +27,7 @@ public class OtpServiceImpl implements OtpService {
 
         return otpRepository.save(
             new Otp()
-                .setCode(faker.numerify("####"))
+                .setCode(faker.numerify("###-###"))
                 .setNumber(faker.random().nextInt(10, 99))
                 .setPayload(phone)
                 .setStatus(Otp.Status.PENDING)
