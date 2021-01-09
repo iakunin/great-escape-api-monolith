@@ -87,6 +87,12 @@ public class BookingResource {
         this.checkBookingBusinessRules(request);
         this.checkPlayerBusinessRules(request);
 
+        if (request.isDryRun()) {
+            return ResponseEntity.ok(
+                new BookingPlayerService.CreateResponse(null, null, null, null)
+            );
+        }
+
         final var playerResponse = playerService.upsert(
             new PlayerPlayerService.CreateRequest(
                 request.getName(),
@@ -159,11 +165,13 @@ public class BookingResource {
             throw new EmailAlreadyUsedException("booking");
         }
 
-        try {
-            otpService.checkOtp(request.getPhone(), request.getOtp());
-        } catch (OtpService.CheckOtpException e) {
-            log.info("Wrong OTP='{}' for phone='{}'", request.getOtp(), request.getPhone());
-            throw new WrongOtpException();
+        if (!request.isDryRun()) {
+            try {
+                otpService.checkOtp(request.getPhone(), request.getOtp());
+            } catch (OtpService.CheckOtpException e) {
+                log.info("Wrong OTP='{}' for phone='{}'", request.getOtp(), request.getPhone());
+                throw new WrongOtpException();
+            }
         }
     }
 
@@ -176,5 +184,6 @@ public class BookingResource {
         @NotBlank private String otp;
         @NotBlank @Email private String email;
         private String comment;
+        private boolean dryRun = false;
     }
 }
