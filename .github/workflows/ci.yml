@@ -45,6 +45,43 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Gradle build
+      - name: Docker build (via jib)
         run: |-
-          ./gradlew jib -Djib.to.image="eu.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+          ./gradlew jibDockerBuild \
+            -Djib.to.image="$IMAGE:$GITHUB_SHA" \
+            --info
+
+      - name: Docker tag default
+        run: |-
+          docker tag "$IMAGE:$GITHUB_SHA" \
+            "eu.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+
+      - name: Docker tag pull request image with PR number tags
+        if: ${{ github.event_name == 'pull_request' }}
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |-
+          docker tag "$IMAGE:$GITHUB_SHA" \
+            "eu.gcr.io/$PROJECT_ID/$IMAGE:pr-$PR_NUMBER-latest"
+          docker tag "$IMAGE:$GITHUB_SHA" \
+            "eu.gcr.io/$PROJECT_ID/$IMAGE:pr-$PR_NUMBER-$GITHUB_SHA"
+
+      - name: Docker tag master image as latest
+        if: ${{ github.event_name == 'push' }}
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |-
+          docker tag "$IMAGE:$GITHUB_SHA" \
+            "eu.gcr.io/$PROJECT_ID/$IMAGE:latest"
+
+      - name: Publish docker image
+        run: |-
+          docker push "eu.gcr.io/$PROJECT_ID/$IMAGE"
+
+      - name: Install gcloud beta components
+        run: |-
+          gcloud components install beta --quiet
+
+      - name: Trigger deployment GCP workflow
+        run: |-
+          gcloud beta workflows execute "${IMAGE}-delivery" --data "{ \"image\": \"$IMAGE\", \"tag\": \"$GITHUB_SHA\", \"service\": \"$IMAGE\"  }"
