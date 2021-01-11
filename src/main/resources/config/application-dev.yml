@@ -20,7 +20,7 @@ logging:
     com.greatescape.api.monolith: DEBUG
 
 spring:
-            profiles:
+  profiles:
     active: dev
     include:
       - swagger
