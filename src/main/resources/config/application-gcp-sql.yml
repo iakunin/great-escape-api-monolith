@@ -8,3 +8,5 @@ spring:
   datasource:
     username: 'api-monolith'
     password: 'N}wVgGxtj1R0HjO2i<wU#OM?_GmbE?'
+    initialization-mode: always
+    continue-on-error: true
