@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    gcp:
+      sql:
+        enabled: true
+        database-name: 'api-monolith'
+        instance-connection-name: 'great-escape-294716:europe-west1:api-monolith'
+  datasource:
+    username: 'api-monolith'
+    password: 'N}wVgGxtj1R0HjO2i<wU#OM?_GmbE?'
