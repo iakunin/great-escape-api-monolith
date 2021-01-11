@@ -20,7 +20,7 @@ logging:
     com.greatescape.api.monolith: DEBUG
 
 spring:
-  profiles:
+            profiles:
     active: dev
     include:
       - swagger
@@ -50,6 +50,8 @@ spring:
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
+    enabled: false
+
   mail:
     host: localhost
     port: 1025
