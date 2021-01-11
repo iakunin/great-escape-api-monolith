@@ -38,6 +38,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
 #    url: jdbc:postgresql://127.0.0.1:5432/api-monolith
+    url: jdbc:postgresql:///api-monolith?cloudSqlInstance=great-escape-294716:europe-west1:api-monolith&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=api-monolith&password=qwerty7890
     username: api-monolith
     password:
     hikari:
