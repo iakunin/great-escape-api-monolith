@@ -13,7 +13,9 @@ import ru.dezhik.sms.sender.SenderServiceConfigurationBuilder;
 public class Config {
 
     @Bean
-    @Profile("prod")
+
+    // @TODO: fix me
+    @Profile("prodddddd")
     SenderServiceConfiguration serviceConfiguration(
         @Value("${app.integration.sms-ru.api-id}") String apiId
     ) {
@@ -25,7 +27,9 @@ public class Config {
     }
 
     @Bean
-    @Profile("prod")
+
+    // @TODO: fix me
+    @Profile("prodddddd")
     @Autowired
     SenderService senderService(SenderServiceConfiguration serviceConfiguration) {
         return new SenderService(serviceConfiguration);
