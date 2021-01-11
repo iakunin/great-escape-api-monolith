@@ -37,7 +37,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/api-monolith
+    url: jdbc:postgresql://127.0.0.1:5432/api-monolith
     username: api-monolith
     password:
     hikari:
