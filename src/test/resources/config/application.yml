@@ -66,6 +66,12 @@ spring:
         size: 1
   thymeleaf:
     mode: HTML
+  cloud:
+    gcp:
+      sql:
+        enabled: false
+      secretmanager:
+        enabled: false
 
 server:
   port: 10344
