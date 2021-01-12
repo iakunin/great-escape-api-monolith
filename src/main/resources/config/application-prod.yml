@@ -26,6 +26,8 @@ management:
         enabled: false
 
 spring:
+  main:
+    banner-mode: off
   devtools:
     restart:
       enabled: false
@@ -33,16 +35,18 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-#    url: jdbc:postgresql://localhost:5432/api-monolith
     username: api-monolith
-    password:
+    password: qwerty7890
+    # @TODO: check if it's really required
+    initialization-mode: always
+    # @TODO: check if it's really required
+    continue-on-error: true
     hikari:
       poolName: Hikari
       auto-commit: false
   jpa:
     database-platform: io.github.jhipster.domain.util.FixedPostgreSQL10Dialect
     show-sql: false
-  # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     enabled: false
   mail:
@@ -52,6 +56,12 @@ spring:
     password:
   thymeleaf:
     cache: true
+  cloud:
+    gcp:
+      sql:
+        enabled: true
+        database-name: api-monolith
+        instance-connection-name: great-escape-294716:europe-west1:api-monolith
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
