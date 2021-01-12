@@ -9,7 +9,6 @@ services:
   #      - SPRING_PROFILES_ACTIVE=prod,swagger
   #      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
   #      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/api-monolith
-  #      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
   #    ports:
   #      - 8080:8080
 
