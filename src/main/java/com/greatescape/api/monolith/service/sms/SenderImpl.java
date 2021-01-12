@@ -12,9 +12,7 @@ import ru.dezhik.sms.sender.api.smsru.send.SMSRuSendRequest;
 import ru.dezhik.sms.sender.api.smsru.send.SMSRuSendResponse;
 
 @Service
-
-// @TODO: fix me
-@Profile("prodddddd")
+@Profile("prod")
 @RequiredArgsConstructor
 public class SenderImpl implements Sender {
 
