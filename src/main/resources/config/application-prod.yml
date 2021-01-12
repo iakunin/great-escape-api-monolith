@@ -148,7 +148,7 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-##
+#
 app:
   cron:
     check-missed-booking: '0 0/30 * * * ?'    # every 30 minutes
