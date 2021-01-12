@@ -37,10 +37,6 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     username: api-monolith
     password: qwerty7890
-    # @TODO: check if it's really required
-    initialization-mode: always
-    # @TODO: check if it's really required
-    continue-on-error: true
     hikari:
       poolName: Hikari
       auto-commit: false
