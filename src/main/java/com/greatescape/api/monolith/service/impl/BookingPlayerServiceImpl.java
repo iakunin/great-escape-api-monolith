@@ -83,8 +83,7 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
         private final BookFormClient bookFormClient;
         private final MirKvestovClient mirKvestovClient;
 
-        // @TODO: maybe it should be sent via some queue (which one?)
-        @Async // @TODO: test  for ability to run @Async in Google Cloud Run
+        @Async
         public void send(Booking booking) {
             final var slot = booking.getSlot();
             final var player = booking.getPlayer();
