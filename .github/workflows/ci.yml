@@ -47,10 +47,10 @@ jobs:
 
       - name: Docker build (via jib)
         run: |-
-          ./gradlew test build jibDockerBuild \
+          ./gradlew build jibDockerBuild \
             -Djib.to.image="$IMAGE:$GITHUB_SHA" \
-            --console=plain \
-            --fail-fast
+            -PfailFast=true \
+            --console=plain
 
       - name: Docker tag default
         run: |-
