@@ -100,7 +100,7 @@ spring:
       thread-name-prefix: great-escape-api-monolith-task-
       pool:
         core-size: 2
-        max-size: 50
+        max-size: 10
         queue-capacity: 10000
     scheduling:
       thread-name-prefix: great-escape-api-monolith-scheduling-
