@@ -80,7 +80,6 @@ spring:
       hibernate.cache.use_second_level_cache: true
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
-      # modify batch size as necessary
       hibernate.jdbc.batch_size: 25
       hibernate.order_inserts: true
       hibernate.order_updates: true
@@ -120,7 +119,7 @@ server:
 
 # Properties to be exposed on the /info management endpoint
 info:
-  # Comma separated list of profiles that will trigger the ribbon to show
+  # using in `ui-admin` to show the "development" ribbon
   display-ribbon-on-profiles: 'dev'
 
 # ===================================================================
@@ -132,16 +131,15 @@ info:
 jhipster:
   clientApp:
     name: 'greatEscapeApiMonolithApp'
-  # By default CORS is disabled. Uncomment to enable.
-  # cors:
-  #     allowed-origins: "*"
-  #     allowed-methods: "*"
-  #     allowed-headers: "*"
-  #     exposed-headers: "Authorization,Link,X-Total-Count"
-  #     allow-credentials: true
-  #     max-age: 1800
   mail:
     from: noreply@great-escape.ru
+  security:
+    authentication:
+      jwt:
+        token-validity-in-seconds: 86400 # 24 hours
+        token-validity-in-seconds-for-remember-me: 2592000 # 30 days
+  audit-events:
+    retention-period: 30 # Number of days before audit events are deleted.
   swagger:
     default-include-pattern: /(admin-api|player-api|api)/.*
     title: GreatEscapeApiMonolith API
@@ -153,6 +151,7 @@ jhipster:
     contact-email:
     license: unlicensed
     license-url:
+
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

@@ -73,11 +73,10 @@ server:
 # ===================================================================
 
 jhipster:
-  cache: # Cache configuration
-    ehcache: # Ehcache configuration
+  cache:
+    ehcache:
       time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
       max-entries: 100 # Number of objects in each cache entry
-  # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
   cors:
     allowed-origins: '*'
     allowed-methods: '*'
@@ -90,24 +89,10 @@ jhipster:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
         base64-secret: OWZjOTMxOTcwN2ViZTYxODE3ZDhlOGQ1NDI2NDAyMjk4YmVjZGI3NWIwMGY4ZDljNTFmNWFkNzM1ZWJlMzU2ZWEwODA2MTY4OTlmNTBmMzZhOWZhOTcxMmJlNWFhNzBhYWQyYTk5MDJmZWUyNmFhM2QxNzQ3Y2Y2YTBlN2Y1MTE=
-        # Token is valid 24 hours
-        token-validity-in-seconds: 86400
-        token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
     base-url: http://127.0.0.1:8080
-  metrics:
-    logs: # Reports metrics in the logs
-      enabled: false
-      report-frequency: 60 # in seconds
   logging:
-    use-json-format: false # By default, logs are not in Json format
-    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
-      enabled: false
-      host: localhost
-      port: 5000
-      queue-size: 512
-  audit-events:
-    retention-period: 30 # Number of days before audit events are deleted.
+    use-json-format: false
 
 # ===================================================================
 # Application specific properties
