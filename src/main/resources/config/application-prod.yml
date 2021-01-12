@@ -148,11 +148,11 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-#app:
-#  cron:
-#    check-missed-booking: '0 0/30 * * * ?'    # every 30 minutes
-#    refresh-quest-aggregate: '0 0/10 * * * ?' # every 10 minutes
-#    refresh-slot-aggregate: '0 5/10 * * * ?'  # every 10 minutes
-#    remove-not-activated-users: '0 0 1 * * ?' # everyday, at 01:00 (am).
-#    remove-old-audit-events: '0 0 12 * * ?'   # everyday, at 12:00 (am)
-#    sync-slots: '20 * * * * ?'                # every minute at 20's seconds
+app:
+  cron:
+    check-missed-booking: '0 0/30 * * * ?'    # every 30 minutes
+    refresh-quest-aggregate: '0 0/10 * * * ?' # every 10 minutes
+    refresh-slot-aggregate: '0 5/10 * * * ?'  # every 10 minutes
+    remove-not-activated-users: '0 0 1 * * ?' # everyday, at 01:00 (am).
+    remove-old-audit-events: '0 0 12 * * ?'   # everyday, at 12:00 (am)
+    sync-slots: '20 * * * * ?'                # every minute at 20's seconds
