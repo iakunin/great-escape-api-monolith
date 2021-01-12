@@ -84,6 +84,7 @@ springBoot {
 
 test {
     useJUnitPlatform()
+    failFast = project.hasProperty("failFast")
     exclude "**/*IT*", "**/*IntTest*"
 
     testLogging {
@@ -97,6 +98,7 @@ test {
 
 task integrationTest(type: Test) {
     useJUnitPlatform()
+    failFast = project.hasProperty("failFast")
     description = "Execute integration tests."
     group = "verification"
     include "**/*IT*", "**/*IntTest*"
