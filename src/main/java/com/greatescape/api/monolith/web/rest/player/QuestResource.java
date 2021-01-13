@@ -52,7 +52,8 @@ public class QuestResource extends QueryService<QuestAggregation> {
             .map(mapper::toDto);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+//        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        return ResponseEntity.ok().headers(headers).body(List.of());
     }
 
     /**
