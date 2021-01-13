@@ -53,7 +53,7 @@ public class QuestResource extends QueryService<QuestAggregation> {
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 //        return ResponseEntity.ok().headers(headers).body(page.getContent());
-        return ResponseEntity.ok().headers(headers).body(List.of());
+        return ResponseEntity.ok().headers(headers).body(null);
     }
 
     /**
