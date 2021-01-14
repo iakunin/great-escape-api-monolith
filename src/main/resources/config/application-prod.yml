@@ -39,10 +39,19 @@ spring:
     database-platform: io.github.jhipster.domain.util.FixedPostgreSQL10Dialect
     show-sql: false
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    protocol: smtp
+    host: smtp-pulse.com
+    port: 465
+    username: yakuninm@gmail.com
+    password: VRj7rKa4VTQW8u2bQKr5fBTx39ZtYa
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+
   thymeleaf:
     cache: true
   cloud:
