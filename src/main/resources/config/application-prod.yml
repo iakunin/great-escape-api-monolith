@@ -43,7 +43,7 @@ spring:
     host: smtp-pulse.com
     port: 465
     username: yakuninm@gmail.com
-    password: "${sm://sendpulse-password}"
+    password: VRj7rKa4VTQW8u2bQKr5fBTx39ZtYa
     properties:
       mail:
         # @TODO: remove this debug-mode after successful tests on production
@@ -121,3 +121,4 @@ app:
     remove-not-activated-users: '0 0 1 * * ?' # everyday, at 01:00 (am).
     remove-old-audit-events: '0 0 12 * * ?'   # everyday, at 12:00 (am)
     sync-slots: '20 * * * * ?'                # every minute at 20's seconds
+  test: ${sm://test}
