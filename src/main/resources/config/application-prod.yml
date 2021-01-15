@@ -43,7 +43,7 @@ spring:
     host: smtp-pulse.com
     port: 465
     username: yakuninm@gmail.com
-    password: ${sm://sendpulse-password}
+    password: '${sm://sendpulse-password}'
     properties:
       mail:
         # @TODO: remove this debug-mode after successful tests on production
