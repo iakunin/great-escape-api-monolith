@@ -1,5 +1,6 @@
 package com.greatescape.api.monolith.web.rest.player;
 
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,12 @@ public class TestResource {
     @GetMapping("/test")
     public ResponseEntity<?> test() {
 
-        return new ResponseEntity<>(template.getSecretString("test"), HttpStatus.OK);
+        return new ResponseEntity<>(
+            Map.of(
+                "fromTemplate", template.getSecretString("test"),
+                "fromValue", secret
+            ),
+            HttpStatus.OK
+        );
     }
 }
