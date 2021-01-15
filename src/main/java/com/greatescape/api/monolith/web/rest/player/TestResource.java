@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class TestResource {
 
-    @Value("${app.test}")
+    @Value("${sm://test}")
     private final String secret;
 
     @GetMapping("/test")
