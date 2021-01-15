@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestResource {
 
     @Value("${sm://test}")
-    private final String secret;
+    private String secret;
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
