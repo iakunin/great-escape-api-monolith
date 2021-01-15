@@ -43,9 +43,10 @@ spring:
     host: smtp-pulse.com
     port: 465
     username: yakuninm@gmail.com
-    password: VRj7rKa4VTQW8u2bQKr5fBTx39ZtYa
+    password: ${sm://sendpulse-password}
     properties:
       mail:
+        # @TODO: remove this debug-mode after successful tests on production
         debug: true
         smtp:
           auth: true
@@ -60,6 +61,8 @@ spring:
         enabled: true
         database-name: api-monolith
         instance-connection-name: great-escape-294716:europe-west1:api-monolith
+      secretmanager:
+        enabled: true
 
 server:
   port: 8080
