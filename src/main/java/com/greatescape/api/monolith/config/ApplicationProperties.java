@@ -18,6 +18,7 @@ public class ApplicationProperties {
     private Slot slot = new Slot();
     private Scheduled cron = new Scheduled();
     private Email email = new Email();
+    private String test = "";
 
     @Data
     public static class Integration {
