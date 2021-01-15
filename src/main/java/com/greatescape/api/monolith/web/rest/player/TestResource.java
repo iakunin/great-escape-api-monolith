@@ -3,6 +3,7 @@ package com.greatescape.api.monolith.web.rest.player;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.gcp.secretmanager.SecretManagerTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestResource {
 
     @Value("${sm://test}")
-    private String secret;
+    private final String secret;
+
+    private final SecretManagerTemplate template;
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
-        return new ResponseEntity<>(secret, HttpStatus.OK);
+
+        return new ResponseEntity<>(template.getSecretString("test"), HttpStatus.OK);
     }
 }

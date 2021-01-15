@@ -103,6 +103,14 @@ spring:
   output:
     ansi:
       console-available: true
+#  cloud:
+#    gcp:
+#      sql:
+#        enabled: false
+#      secretmanager:
+#        enabled: false
+#      core:
+#        enabled: false
 
 server:
   servlet:
