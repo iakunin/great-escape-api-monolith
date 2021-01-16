@@ -49,6 +49,11 @@
       "name": "app.email.info",
       "type": "java.lang.String",
       "description": "Info email."
+    },
+    {
+      "name": "app.cloud-secret-test",
+      "type": "java.lang.String",
+      "description": "Property for testing CloudSecret autoconfig on prod-env."
     }
   ]
 }

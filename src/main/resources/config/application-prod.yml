@@ -115,4 +115,4 @@ app:
     remove-not-activated-users: '0 0 1 * * ?' # everyday, at 01:00 (am).
     remove-old-audit-events: '0 0 12 * * ?'   # everyday, at 12:00 (am)
     sync-slots: '20 * * * * ?'                # every minute at 20's seconds
-  test: ${sm://application-secret}
+  cloud-secret-test: ${sm://cloud-secret-test}

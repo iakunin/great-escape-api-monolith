@@ -102,4 +102,3 @@ app:
     refresh-quest-aggregate: '0/10 * * * * ?' # every 10 seconds
     refresh-slot-aggregate: '5/10 * * * * ?'  # every 10 seconds
     sync-slots: '0/20 * * * * ?'              # every 20 seconds
-  test: test

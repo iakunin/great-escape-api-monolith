@@ -170,3 +170,4 @@ app:
     sync-slots: '-'
   email:
     info: info@great-escape.ru
+  cloud-secret-test: test
