@@ -84,7 +84,8 @@ jhipster:
   security:
     authentication:
       jwt:
-        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        # This token must be encoded using Base64 and be at least 256 bits long
+        # (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
         base64-secret: OWZjOTMxOTcwN2ViZTYxODE3ZDhlOGQ1NDI2NDAyMjk4YmVjZGI3NWIwMGY4ZDljNTFmNWFkNzM1ZWJlMzU2ZWEwODA2MTY4OTlmNTBmMzZhOWZhOTcxMmJlNWFhNzBhYWQyYTk5MDJmZWUyNmFhM2QxNzQ3Y2Y2YTBlN2Y1MTE=
   logging:
     use-json-format: false
