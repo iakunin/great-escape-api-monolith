@@ -13,7 +13,7 @@ services:
   #      - 8080:8080
 
   postgresql:
-    image: postgres:12.3
+    image: postgres:13.0
     container_name: great-escape-api-monolith_postgresql
     # volumes:
     #     - ~/volumes/jhipster/GreatEscapeApiMonolith/postgresql/:/var/lib/postgresql/data/
