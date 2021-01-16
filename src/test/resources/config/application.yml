@@ -70,8 +70,6 @@ spring:
     gcp:
       sql:
         enabled: false
-      secretmanager:
-        enabled: false
 
 server:
   port: 10344

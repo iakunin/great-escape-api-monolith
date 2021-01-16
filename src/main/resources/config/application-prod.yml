@@ -61,11 +61,6 @@ spring:
         enabled: true
         database-name: api-monolith
         instance-connection-name: great-escape-294716:europe-west1:api-monolith
-      secretmanager:
-        enabled: true
-        bootstrap:
-          enabled: true
-        secret-name-prefix: gcp-secrets.
 
 server:
   port: 8080
@@ -79,7 +74,6 @@ server:
 #
 # Full reference is available at: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
 jhipster:
   http:
     cache: # Used by the CachingHttpHeadersFilter
@@ -113,7 +107,6 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
 app:
   cron:
     check-missed-booking: '0 0/30 * * * ?'    # every 30 minutes
@@ -122,4 +115,4 @@ app:
     remove-not-activated-users: '0 0 1 * * ?' # everyday, at 01:00 (am).
     remove-old-audit-events: '0 0 12 * * ?'   # everyday, at 12:00 (am)
     sync-slots: '20 * * * * ?'                # every minute at 20's seconds
-  test: ${gcp-secrets.test}
+  test: ${sm://application-secret}

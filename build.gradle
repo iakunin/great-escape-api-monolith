@@ -168,7 +168,7 @@ gitProperties {
 }
 
 checkstyle {
-    toolVersion '${checkstyle_version}'
+    toolVersion '8.32'
     configFile file("checkstyle.xml")
     checkstyleTest.enabled = false
 }
@@ -176,22 +176,18 @@ nohttp {
     source.include "build.gradle", "README.md"
 }
 
-configurations {
-    providedRuntime
-    implementation.exclude module: "spring-boot-starter-tomcat"
-    all {
-        resolutionStrategy {
-            // Inherited version from Spring Boot can't be used because of regressions:
-            // To be removed as soon as spring-boot use the same version
-            force 'org.liquibase:liquibase-core:3.10.2'
-        }
-    }
-}
-
 repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
+}
+
+apply plugin: 'maven'
+apply plugin: 'io.spring.dependency-management'
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR9"
+    }
 }
 
 dependencies {
@@ -224,7 +220,7 @@ dependencies {
     implementation "org.hibernate:hibernate-jcache"
     implementation "org.hibernate:hibernate-entitymanager"
     implementation "org.hibernate.validator:hibernate-validator"
-    implementation "org.liquibase:liquibase-core"
+    implementation "org.liquibase:liquibase-core:${liquibase_forced_version}"
     liquibaseRuntime "org.liquibase:liquibase-core"
     liquibaseRuntime "org.liquibase.ext:liquibase-hibernate5:${liquibase_hibernate5_version}"
     liquibaseRuntime sourceSets.main.compileClasspath
@@ -267,6 +263,7 @@ dependencies {
     implementation "io.github.openfeign:feign-jackson:11.0"
     implementation "com.github.javafaker:javafaker:1.0.2"
     implementation "ru.dezhik:sms-sender:0.1.3"
+    implementation "org.springframework.cloud:spring-cloud-gcp-starter"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-secretmanager"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-sql-postgresql"
 

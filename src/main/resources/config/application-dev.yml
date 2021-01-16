@@ -60,10 +60,6 @@ spring:
     gcp:
       sql:
         enabled: false
-      secretmanager:
-        enabled: false
-        bootstrap:
-          enabled: true
 
 server:
   port: 8080
@@ -73,7 +69,6 @@ server:
 #
 # Full reference is available at: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
 jhipster:
   cache:
     ehcache:
@@ -102,9 +97,9 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
 app:
   cron:
     refresh-quest-aggregate: '0/10 * * * * ?' # every 10 seconds
     refresh-slot-aggregate: '5/10 * * * * ?'  # every 10 seconds
     sync-slots: '0/20 * * * * ?'              # every 20 seconds
+  test: test
