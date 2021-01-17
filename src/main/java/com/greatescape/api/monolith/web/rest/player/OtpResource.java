@@ -30,8 +30,6 @@ public class OtpResource {
     public ResponseEntity<?> create(@Valid @RequestBody Request request) {
         log.debug("REST request to create Otp : {}", request);
 
-        // @TODO: add rate limit by IP
-
         final var otp = otpService.createOtp(request.getPhone());
 
         try {

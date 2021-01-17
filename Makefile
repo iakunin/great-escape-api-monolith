@@ -6,7 +6,6 @@ run:
 build:
 	./gradlew clean build
 
-# @TODO: test running migrations
 migrate:
 	bash bin/migrate.sh
 

@@ -26,12 +26,12 @@ from (
             coalesce(
                 s.discount_in_percents,
                 c.discount_in_percents,
-                20 -- @TODO: extract this value to some `settings` table (with audit)
+                20
             ) as discount_in_percents,
             coalesce(
                 s.commission_in_percents,
                 c.commission_in_percents,
-                10 -- @TODO: extract this value to some `settings` table (with audit)
+                10
             ) as commission_in_percents,
             s.external_id,
             s.external_state,
