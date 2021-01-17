@@ -18,7 +18,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,7 +82,6 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
         private final BookFormClient bookFormClient;
         private final MirKvestovClient mirKvestovClient;
 
-        @Async
         public void send(Booking booking) {
             final var slot = booking.getSlot();
             final var player = booking.getPlayer();
