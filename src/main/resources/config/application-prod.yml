@@ -45,8 +45,6 @@ spring:
     password: ${sm://sendpulse-password}
     properties:
       mail:
-        # @TODO: remove this debug-mode after successful tests on production
-        debug: true
         smtp:
           auth: true
           ssl:
