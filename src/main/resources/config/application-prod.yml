@@ -111,3 +111,6 @@ app:
     remove-old-audit-events: '0 0 12 * * ?'   # everyday, at 12:00 (am)
     sync-slots: '20 * * * * ?'                # every minute at 20's seconds
   cloud-secret-test: ${sm://cloud-secret-test}
+  integration:
+    sms-ru:
+      api-id: ${sm://sms-ru-api-id}
