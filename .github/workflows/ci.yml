@@ -52,8 +52,7 @@ jobs:
             -PfailFast=true \
             -Pprod=true \
             -Pno-liquibase=true \
-            --console=plain \
-            --info
+            --console=plain
 
       - name: Docker tag default
         run: |-
