@@ -6,6 +6,11 @@
       "description": "Base url for BookForm."
     },
     {
+      "name": "app.integration.phobia.base-url",
+      "type": "java.lang.String",
+      "description": "Base url for Phobia."
+    },
+    {
       "name": "app.integration.sms-ru.api-id",
       "type": "java.lang.String",
       "description": "Api Id for sms.ru."

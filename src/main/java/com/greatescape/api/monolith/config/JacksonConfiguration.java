@@ -1,8 +1,11 @@
 package com.greatescape.api.monolith.config;
 
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.greatescape.api.monolith.integration.PhobiaClient.TimetableItem;
+import com.greatescape.api.monolith.integration.PhobiaClient.TimetableItemDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.zalando.problem.ProblemModule;
@@ -23,6 +26,14 @@ public class JacksonConfiguration {
     @Bean
     public Jdk8Module jdk8TimeModule() {
         return new Jdk8Module();
+    }
+
+    @Bean
+    public SimpleModule timetableItemDeserializer() {
+        return new SimpleModule().addDeserializer(
+            TimetableItem.class,
+            new TimetableItemDeserializer()
+        );
     }
 
     /*

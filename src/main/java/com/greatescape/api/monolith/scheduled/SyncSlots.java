@@ -6,6 +6,7 @@ import com.greatescape.api.monolith.domain.Slot;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
 import com.greatescape.api.monolith.integration.BookFormClient;
 import com.greatescape.api.monolith.integration.MirKvestovClient;
+import com.greatescape.api.monolith.integration.PhobiaClient;
 import com.greatescape.api.monolith.repository.BookingRepository;
 import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository;
 import com.greatescape.api.monolith.repository.SlotRepository;
@@ -44,6 +45,7 @@ public class SyncSlots implements Runnable {
 
     private final BookFormSchedule bookFormSchedule;
     private final MirKvestovSchedule mirKvestovSchedule;
+    private final PhobiaSchedule phobiaSchedule;
 
     @Scheduled(cron = "${app.cron.sync-slots}")
     @Override
@@ -61,6 +63,8 @@ public class SyncSlots implements Runnable {
             return bookFormSchedule.getSchedule(setting, FETCH_PERIOD);
         } else if (setting.getType() == QuestIntegrationType.MIR_KVESTOV) {
             return mirKvestovSchedule.getSchedule(setting, FETCH_PERIOD);
+        } else if (setting.getType() == QuestIntegrationType.PHOBIA) {
+            return phobiaSchedule.getSchedule(setting, FETCH_PERIOD);
         } else {
             throw new RuntimeException(
                 String.format("Got unsupported integration type '%s'", setting.getType().toString())
@@ -141,6 +145,40 @@ public class SyncSlots implements Runnable {
                 .setPrice(slot.getPrice())
                 .setDateTimeLocal(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                        .withZone(ZoneId.of("UTC"))
+                        .parse(
+                            String.format("%s %s", slot.getDate(), slot.getTime()),
+                            Instant::from
+                        )
+                )
+            ).collect(Collectors.toUnmodifiableList());
+        }
+    }
+
+    @Slf4j
+    @RequiredArgsConstructor
+    @Service
+    public static final class PhobiaSchedule implements Schedule {
+
+        private final PhobiaClient client;
+
+        @Override
+        public Collection<Slot> getSchedule(QuestIntegrationSetting setting, Period fetchPeriod) {
+            final var timezone = setting.getQuest().getLocation().getCity().getTimezone();
+
+            return Objects.requireNonNull(
+                this.client.getSchedule(
+                    LocalDate.now(timezone),
+                    LocalDate.now(timezone).plus(fetchPeriod),
+                    ((QuestIntegrationSetting.Phobia) setting.getSettings()).getQuestId()
+                ).getBody()
+            ).stream()
+            .flatMap(item -> item.getSlotList().stream())
+            .map(slot -> new Slot()
+                .setIsAvailable(slot.isAvailable())
+                .setPrice(slot.getPrice())
+                .setDateTimeLocal(
+                    DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
                         .withZone(ZoneId.of("UTC"))
                         .parse(
                             String.format("%s %s", slot.getDate(), slot.getTime()),

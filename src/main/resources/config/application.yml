@@ -157,6 +157,8 @@ app:
   integration:
     book-form:
       base-url: 'https://widget.bookform.ru'
+    phobia:
+      base-url: 'https://claustrophobia.com'
     sms-ru:
       api-id: ''
   slot:

@@ -23,10 +23,16 @@ public class ApplicationProperties {
     @Data
     public static class Integration {
         private BookForm bookForm = new BookForm();
+        private Phobia phobia = new Phobia();
         private SmsRu smsRu = new SmsRu();
 
         @Data
         public static class BookForm {
+            private String baseUrl;
+        }
+
+        @Data
+        public static class Phobia {
             private String baseUrl;
         }
 

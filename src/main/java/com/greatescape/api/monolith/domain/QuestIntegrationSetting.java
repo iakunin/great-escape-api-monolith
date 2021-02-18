@@ -64,6 +64,7 @@ public class QuestIntegrationSetting extends AbstractEntity {
     @JsonSubTypes({
         @JsonSubTypes.Type(value = MirKvestov.class, name = "MIR_KVESTOV"),
         @JsonSubTypes.Type(value = BookForm.class, name = "BOOK_FORM"),
+        @JsonSubTypes.Type(value = Phobia.class, name = "PHOBIA"),
     })
     public abstract static class AbstractSettings implements Serializable {
         private static final long serialVersionUID = 1L;
@@ -94,6 +95,18 @@ public class QuestIntegrationSetting extends AbstractEntity {
         @Override
         public QuestIntegrationType getIntegrationType() {
             return QuestIntegrationType.BOOK_FORM;
+        }
+    }
+
+    @Data
+    public final static class Phobia extends AbstractSettings {
+        private static final long serialVersionUID = 1L;
+
+        private String questId;
+
+        @Override
+        public QuestIntegrationType getIntegrationType() {
+            return QuestIntegrationType.PHOBIA;
         }
     }
 }
