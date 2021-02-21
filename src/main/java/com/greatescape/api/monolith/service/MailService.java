@@ -84,7 +84,7 @@ public class MailService {
 
     @Async
     public void sendAnonymousFeedbackEmail(String name, String from, String text) {
-        final String to = applicationProperties.getEmail().getInfo();
+        final String to = applicationProperties.getEmail().getSiteFeedbackForm();
         final String subject = "Обратная связь на сайте";
 
         log.debug("Sending Anonymous Feedback Email to '{}' from '{}'", to, from);

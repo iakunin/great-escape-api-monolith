@@ -60,5 +60,6 @@ public class ApplicationProperties {
     @Data
     public static class Email {
         private String info;
+        private String siteFeedbackForm;
     }
 }

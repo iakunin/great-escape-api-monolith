@@ -56,6 +56,11 @@
       "description": "Info email."
     },
     {
+      "name": "app.email.site-feedback-form",
+      "type": "java.lang.String",
+      "description": "Site feedback form email."
+    },
+    {
       "name": "app.cloud-secret-test",
       "type": "java.lang.String",
       "description": "Property for testing CloudSecret autoconfig on prod-env."
