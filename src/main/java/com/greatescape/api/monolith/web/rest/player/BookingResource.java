@@ -138,6 +138,10 @@ public class BookingResource {
             () -> new SlotNotFoundException(request.getSlotId())
         );
 
+        if (bookingRepository.existsBySlot(slot)) {
+            throw new SlotAlreadyBookedException(slot.getId());
+        }
+
         if (!slot.getIsAvailable()) {
             throw new SlotUnavailableForBookingException(slot.getId());
         }
@@ -150,10 +154,6 @@ public class BookingResource {
             )
         ) {
             throw new SlotTimeAlreadyPassedException(slot.getId());
-        }
-
-        if (bookingRepository.existsBySlot(slot)) {
-            throw new SlotAlreadyBookedException(slot.getId());
         }
     }
 
