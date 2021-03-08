@@ -6,6 +6,7 @@ select
     q.slug,
     q.title,
     q.description,
+    q.details,
     q.players_min_count,
     q.players_max_count,
     q.duration_in_minutes,

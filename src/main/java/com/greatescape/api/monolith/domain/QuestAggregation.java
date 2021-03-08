@@ -46,6 +46,11 @@ public class QuestAggregation extends AbstractEntity {
     @Column(name = "description")
     private String description;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "details")
+    private String details;
+
     @NotNull
     @Min(value = 1)
     @Column(name = "players_min_count", nullable = false)

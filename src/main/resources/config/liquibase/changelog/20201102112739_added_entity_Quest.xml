@@ -22,6 +22,9 @@
             <column name="description" type="${clobType}">
                 <constraints nullable="true" />
             </column>
+            <column name="details" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
             <column name="players_min_count" type="integer">
                 <constraints nullable="false" />
             </column>

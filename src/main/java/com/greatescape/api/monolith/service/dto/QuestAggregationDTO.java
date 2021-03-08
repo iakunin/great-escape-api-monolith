@@ -32,6 +32,9 @@ public final class QuestAggregationDTO {
     @Lob
     private String description;
 
+    @Lob
+    private String details;
+
     @NotNull
     @Min(value = 1)
     private Integer playersMinCount;

@@ -1,3 +1,3 @@
 id;type;settings;quest_id
-9494ef2b-1fc4-4ebf-87cf-affcf0224ffa;BOOK_FORM;{"integrationType": "BOOK_FORM", "serviceId": "64D2D5581BBA11EB82AF5CBF5E75C354", "widgetId": "7020E76A1BBA11EB877B989A2E542F3F"};49b9a375-d524-49be-8fd4-dec7820fa1a2
+9494ef2b-1fc4-4ebf-87cf-affcf0224ffa;BOOK_FORM;{"widgetId": "7020E76A1BBA11EB877B989A2E542F3F", "serviceId": "64D2D5581BBA11EB82AF5CBF5E75C354", "integrationType": "BOOK_FORM"};49b9a375-d524-49be-8fd4-dec7820fa1a2
 f05e1950-70ce-44f6-af89-ed3be136f8e3;MIR_KVESTOV;{"integrationType": "MIR_KVESTOV", "scheduleUrl": "http://localhost:8099/api/quests/timetable/1.json", "bookingUrl": "http://localhost:8099/api/quests/1/order"};f5dc4b79-0bbb-4d21-a0da-3e691f4332a6

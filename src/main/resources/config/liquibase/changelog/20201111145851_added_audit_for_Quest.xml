@@ -18,6 +18,7 @@
             <column name="slug" type="varchar(255)" />
             <column name="title" type="varchar(255)" />
             <column name="description" type="${clobType}" />
+            <column name="details" type="${clobType}" />
             <column name="players_min_count" type="integer" />
             <column name="players_max_count" type="integer" />
             <column name="duration_in_minutes" type="integer" />
