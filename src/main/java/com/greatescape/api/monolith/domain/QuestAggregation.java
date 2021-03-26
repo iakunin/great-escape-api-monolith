@@ -118,6 +118,9 @@ public class QuestAggregation extends AbstractEntity {
     @JoinColumn(name = "quest_id")
     private Set<QuestPhoto> photos = new HashSet<>();
 
+    @Column(name = "is_public")
+    private Boolean isPublic;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

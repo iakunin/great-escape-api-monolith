@@ -43,4 +43,7 @@
     <include file="config/liquibase/changelog/20201226232503_added_SlotAggregation.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201227001919_added_QuestAggregation.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210107021728_added_entity_Otp.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210326183311_Quest_added_isPublic_field.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210326183312_QuestAud_added_isPublic_field.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210326183313_recreating_QuestAggregation.sql" relativeToChangelogFile="false"/>
 </databaseChangeLog>

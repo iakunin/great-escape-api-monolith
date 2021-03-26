@@ -68,6 +68,8 @@ public final class QuestDTO {
 
     private Set<ThematicDTO> thematics = new HashSet<>();
 
+    private Boolean isPublic;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -8,6 +8,7 @@ import com.greatescape.api.monolith.service.dto.QuestAggregationDTO;
 import com.greatescape.api.monolith.service.dto.QuestCriteria;
 import com.greatescape.api.monolith.service.mapper.QuestAggregationMapper;
 import io.github.jhipster.service.QueryService;
+import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import java.util.List;
@@ -111,6 +112,10 @@ public class QuestResource extends QueryService<QuestAggregation> {
                 specification = specification.and(buildSpecification(criteria.getType(), QuestAggregation_.type));
             }
         }
+
+        specification = specification.and(
+            buildSpecification(new BooleanFilter().setEquals(true), QuestAggregation_.isPublic)
+        );
 
         return specification;
     }

@@ -80,6 +80,8 @@ public final class QuestAggregationDTO {
 
     private Set<QuestPhotoDTO> photos = new HashSet<>();
 
+    private Boolean isPublic;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -113,6 +113,9 @@ public class Quest extends AbstractEntity {
     @ToString.Exclude
     private Set<Thematic> thematics = new HashSet<>();
 
+    @Column(name = "is_public")
+    private Boolean isPublic;
+
     public Quest addThematic(Thematic thematic) {
         this.thematics.add(thematic);
         thematic.getQuests().add(this);
