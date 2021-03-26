@@ -46,4 +46,9 @@
     <include file="config/liquibase/changelog/20210326183311_Quest_added_isPublic_field.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210326183312_QuestAud_added_isPublic_field.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210326183313_recreating_QuestAggregation.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210326195658_Quest_added_discount.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210326195659_QuestAud_added_discount.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210326195701_Quest_added_commission.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210326195702_QuestAud_added_commission.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210326195703_recreating_SlotAggregation.sql" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.Lob;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -69,6 +70,14 @@ public final class QuestDTO {
     private Set<ThematicDTO> thematics = new HashSet<>();
 
     private Boolean isPublic;
+
+    @Min(value = 0)
+    @Max(value = 100)
+    private Integer discountInPercents;
+
+    @Min(value = 0)
+    @Max(value = 100)
+    private Integer commissionInPercents;
 
     @Override
     public boolean equals(Object o) {

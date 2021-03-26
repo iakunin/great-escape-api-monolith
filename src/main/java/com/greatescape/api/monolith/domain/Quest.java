@@ -16,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -115,6 +116,16 @@ public class Quest extends AbstractEntity {
 
     @Column(name = "is_public")
     private Boolean isPublic;
+
+    @Min(value = 0)
+    @Max(value = 100)
+    @Column(name = "discount_in_percents")
+    private Integer discountInPercents;
+
+    @Min(value = 0)
+    @Max(value = 100)
+    @Column(name = "commission_in_percents")
+    private Integer commissionInPercents;
 
     public Quest addThematic(Thematic thematic) {
         this.thematics.add(thematic);
