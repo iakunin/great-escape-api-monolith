@@ -141,17 +141,32 @@ public class SyncSlots implements Runnable {
                 ).getBody()
             ).stream()
             .map(slot -> new Slot()
-                .setIsAvailable(slot.isFree())
-                .setPrice(slot.getPrice())
+                .setIsAvailable((Boolean) slot.get("is_free"))
+                .setPrice((Integer) slot.get("price"))
+                .setExternalState(this.buildExternalState(slot))
                 .setDateTimeLocal(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                         .withZone(ZoneId.of("UTC"))
                         .parse(
-                            String.format("%s %s", slot.getDate(), slot.getTime()),
+                            String.format(
+                                "%s %s",
+                                slot.get("date"),
+                                slot.get("time")
+                            ),
                             Instant::from
                         )
                 )
             ).collect(Collectors.toUnmodifiableList());
+        }
+
+        private Map<String, Object> buildExternalState(Map<String, Object> slot) {
+            final var result = new HashMap<>(slot);
+            result.remove("date");
+            result.remove("time");
+            result.remove("price");
+            result.remove("is_free");
+
+            return result;
         }
     }
 

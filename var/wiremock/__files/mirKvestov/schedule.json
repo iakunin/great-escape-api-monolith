@@ -1,16 +1,18 @@
 [
   {
-    "date": "2021-03-04",
+    "date": "2021-04-04",
     "time": "18:30",
     "is_free": true,
     "price": 4777,
-    "your_slot_id": 123
+    "your_slot_id": 123,
+    "quest_time_id": 10001661
   },
   {
-    "date": "2021-03-03",
+    "date": "2021-04-03",
     "time": "20:00",
     "is_free": true,
     "price": 3667,
-    "your_slot_id": 124
+    "your_slot_id": 124,
+    "quest_time_id": 10001662
   }
 ]

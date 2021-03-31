@@ -6,8 +6,8 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.DatatypeConverter;
 import lombok.Data;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface MirKvestovClient {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<Slot>> getSchedule(URI uri);
+    ResponseEntity<List<Map<String, Object>>> getSchedule(URI uri);
 
     @RequestMapping(
         produces = MediaType.APPLICATION_JSON_VALUE,
@@ -37,7 +37,7 @@ public interface MirKvestovClient {
         method = RequestMethod.POST
     )
     ResponseEntity<BookingResponse> createBooking(
-        @NotNull @Valid @RequestBody BookingRequest body,
+        @NotNull @RequestBody Map<String, Object> body,
         URI uri
     );
 

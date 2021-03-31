@@ -1,5 +1,7 @@
 package com.greatescape.api.monolith.service.impl;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greatescape.api.monolith.domain.Booking;
 import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
@@ -16,6 +18,8 @@ import com.greatescape.api.monolith.repository.SlotRepository;
 import com.greatescape.api.monolith.service.BookingPlayerService;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -82,6 +86,7 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
         private final BookFormClient bookFormClient;
         private final MirKvestovClient mirKvestovClient;
         private final MirKvestovClient.BookingRequestSignatureBuilder signatureBuilder;
+        private final ObjectMapper objectMapper;
 
         public void send(Booking booking) {
             final var slot = booking.getSlot();
@@ -130,7 +135,7 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
                 log.info("Sending booking request to MirKvestov: {}", request);
 
                 final var responseEntity = mirKvestovClient.createBooking(
-                    request,
+                    this.buildRequestBody(request, slot.getExternalState()),
                     settings.getBookingUrl()
                 );
 
@@ -140,6 +145,20 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
                     String.format("Got unsupported integration type '%s'", integrationSetting.getType().toString())
                 );
             }
+        }
+
+        private Map<String, Object> buildRequestBody(
+            MirKvestovClient.BookingRequest request,
+            Map<String, Object> externalState
+        ) {
+            final var result = new HashMap<>(externalState);
+            result.putAll(
+                objectMapper.convertValue(request, new TypeReference<Map<String, Object>>() {})
+            );
+
+            log.info("RequestBody: {}", result);
+
+            return result;
         }
     }
 }
