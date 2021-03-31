@@ -3,13 +3,19 @@ package com.greatescape.api.monolith.integration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.greatescape.api.monolith.config.feign.GeneralClientConfiguration;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
+import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.DatatypeConverter;
 import lombok.Data;
+import lombok.SneakyThrows;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,5 +67,23 @@ public interface MirKvestovClient {
     class BookingResponse {
         private boolean success;
         private String message;
+    }
+
+    @Service
+    class BookingRequestSignatureBuilder {
+        @SneakyThrows
+        public String build(BookingRequest request, String secret) {
+            final var rawSignature = request.getFirstName() +
+                request.getFamilyName() +
+                request.getPhone() +
+                request.getEmail() +
+                Optional.ofNullable(secret).orElse("");
+
+            return DatatypeConverter.printHexBinary(
+                MessageDigest.getInstance("MD5").digest(
+                    rawSignature.getBytes(StandardCharsets.UTF_8)
+                )
+            ).toLowerCase();
+        }
     }
 }

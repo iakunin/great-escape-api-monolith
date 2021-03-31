@@ -81,6 +81,7 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
         private final QuestIntegrationSettingRepository questIntegrationSettingRepository;
         private final BookFormClient bookFormClient;
         private final MirKvestovClient mirKvestovClient;
+        private final MirKvestovClient.BookingRequestSignatureBuilder signatureBuilder;
 
         public void send(Booking booking) {
             final var slot = booking.getSlot();
@@ -104,27 +105,35 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
                 );
             } else if (integrationSetting.getType() == QuestIntegrationType.MIR_KVESTOV) {
                 final var settings = (QuestIntegrationSetting.MirKvestov) integrationSetting.getSettings();
-                mirKvestovClient.createBooking(
-                    new MirKvestovClient.BookingRequest()
-                        .setFirstName(player.getName())
-                        .setFamilyName(".")
-                        .setPhone(player.getPhone())
-                        .setEmail(player.getEmail())
-                        .setComment(booking.getComment())
-                        .setDate(
-                            DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                                .withZone(ZoneId.of("Z"))
-                                .format(slot.getDateTimeLocal())
-                        )
-                        .setTime(
-                            DateTimeFormatter.ofPattern("HH:mm")
-                                .withZone(ZoneId.of("Z"))
-                                .format(slot.getDateTimeLocal())
-                        )
-                        .setPrice(slot.getPrice())
-                    ,
+                final var request = new MirKvestovClient.BookingRequest()
+                    .setFirstName(player.getName())
+                    .setFamilyName(".")
+                    .setPhone(player.getPhone())
+                    .setEmail(player.getEmail())
+                    .setComment(booking.getComment())
+                    .setDate(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                            .withZone(ZoneId.of("Z"))
+                            .format(slot.getDateTimeLocal())
+                    )
+                    .setTime(
+                        DateTimeFormatter.ofPattern("HH:mm")
+                            .withZone(ZoneId.of("Z"))
+                            .format(slot.getDateTimeLocal())
+                    )
+                    .setPrice(slot.getPrice());
+                request.setMd5(
+                    signatureBuilder.build(request, settings.getMd5key())
+                );
+
+                log.info("Sending booking request to MirKvestov: {}", request);
+
+                final var responseEntity = mirKvestovClient.createBooking(
+                    request,
                     settings.getBookingUrl()
                 );
+
+                log.info("Got booking response from MirKvestov: {}", responseEntity);
             } else {
                 throw new RuntimeException(
                     String.format("Got unsupported integration type '%s'", integrationSetting.getType().toString())

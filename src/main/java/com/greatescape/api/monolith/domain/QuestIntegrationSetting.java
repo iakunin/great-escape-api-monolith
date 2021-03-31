@@ -78,6 +78,7 @@ public class QuestIntegrationSetting extends AbstractEntity {
 
         private URI scheduleUrl;
         private URI bookingUrl;
+        private String md5key;
 
         @Override
         public QuestIntegrationType getIntegrationType() {
