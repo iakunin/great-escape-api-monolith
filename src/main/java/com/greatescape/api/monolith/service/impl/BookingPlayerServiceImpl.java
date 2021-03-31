@@ -99,16 +99,18 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
 
             if (integrationSetting.getType() == QuestIntegrationType.BOOK_FORM) {
                 final var settings = (QuestIntegrationSetting.BookForm) integrationSetting.getSettings();
-                bookFormClient.createBooking(
-                    new BookFormClient.BookingRequest()
-                        .setName(player.getName())
-                        .setEmail(player.getEmail())
-                        .setPhone(player.getPhone())
-                        .setComment(booking.getComment())
-                        .setService_id(settings.getServiceId())
-                        .setSource_id(settings.getWidgetId())
-                        .setSlots_id(slot.getExternalId())
-                );
+                final var request = new BookFormClient.BookingRequest()
+                    .setName(player.getName())
+                    .setEmail(player.getEmail())
+                    .setPhone(player.getPhone())
+                    .setComment(booking.getComment())
+                    .setService_id(settings.getServiceId())
+                    .setSource_id(settings.getWidgetId())
+                    .setSlots_id(slot.getExternalId());
+
+                log.info("Sending booking request to BookForm: {}", request);
+                final var responseEntity = bookFormClient.createBooking(request);
+                log.info("Got booking response from BookForm: {}", responseEntity);
             } else if (integrationSetting.getType() == QuestIntegrationType.MIR_KVESTOV) {
                 final var settings = (QuestIntegrationSetting.MirKvestov) integrationSetting.getSettings();
                 final var request = new MirKvestovClient.BookingRequest()
@@ -141,6 +143,11 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
                 );
 
                 log.info("Got booking response from MirKvestov: {}", responseEntity);
+
+                if (!responseEntity.getBody().isSuccess()) {
+                    log.warn("Got unsuccessful response from MirKvestov: {}", responseEntity);
+                    throw new RuntimeException("Got unsuccessful response from MirKvestov");
+                }
             } else {
                 throw new RuntimeException(
                     String.format("Got unsupported integration type '%s'", integrationSetting.getType().toString())
