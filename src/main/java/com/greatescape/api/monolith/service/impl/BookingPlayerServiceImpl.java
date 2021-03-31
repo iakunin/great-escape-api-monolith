@@ -20,6 +20,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -151,7 +152,9 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
             MirKvestovClient.BookingRequest request,
             Map<String, Object> externalState
         ) {
-            final var result = new HashMap<>(externalState);
+            final var result = new HashMap<>(
+                Optional.ofNullable(externalState).orElse(new HashMap<>())
+            );
             result.putAll(
                 objectMapper.convertValue(request, new TypeReference<Map<String, Object>>() {})
             );
