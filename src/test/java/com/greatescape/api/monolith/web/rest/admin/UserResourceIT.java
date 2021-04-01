@@ -374,7 +374,7 @@ public class UserResourceIT {
         // Validate the User in the database
         assertPersistedUsers(users -> {
             assertThat(users).hasSize(databaseSizeBeforeUpdate);
-            User testUser = users.get(users.size() - 1);
+            User testUser = userRepository.findById(user.getId()).get();
             assertThat(testUser.getLogin()).isEqualTo(UPDATED_LOGIN);
             assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
             assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
