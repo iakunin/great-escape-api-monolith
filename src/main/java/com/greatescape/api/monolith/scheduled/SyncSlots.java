@@ -37,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class SyncSlots implements Runnable {
 
-    private static final Period FETCH_PERIOD = Period.ofDays(60);
+    private static final Period FETCH_PERIOD = Period.ofDays(15);
 
     private final QuestIntegrationSettingRepository questIntegrationSettingRepository;
 
