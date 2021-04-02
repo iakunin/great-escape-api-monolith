@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 )
 public interface MirKvestovClient {
 
-    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, "text/json"})
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Map<String, Object>>> getSchedule(URI uri);
 
     @RequestMapping(
