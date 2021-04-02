@@ -131,6 +131,8 @@ public class SyncSlots implements Runnable {
     @Service
     public static final class MirKvestovSchedule implements Schedule {
 
+        private static final String TIME_PATTERN = "HH:mm";
+
         private final MirKvestovClient client;
 
         @Override
@@ -145,13 +147,13 @@ public class SyncSlots implements Runnable {
                 .setPrice((Integer) slot.get("price"))
                 .setExternalState(this.buildExternalState(slot))
                 .setDateTimeLocal(
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd " + TIME_PATTERN)
                         .withZone(ZoneId.of("UTC"))
                         .parse(
                             String.format(
                                 "%s %s",
                                 slot.get("date"),
-                                slot.get("time")
+                                slot.get("time").toString().substring(0, TIME_PATTERN.length())
                             ),
                             Instant::from
                         )
