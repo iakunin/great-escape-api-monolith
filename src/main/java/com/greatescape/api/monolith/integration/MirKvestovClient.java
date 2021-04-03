@@ -33,11 +33,11 @@ public interface MirKvestovClient {
 
     @RequestMapping(
         produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
         method = RequestMethod.POST
     )
     ResponseEntity<BookingResponse> createBooking(
-        @NotNull @RequestBody Map<String, Object> body,
+        @NotNull @RequestBody Map<String, ?> body,
         URI uri
     );
 
