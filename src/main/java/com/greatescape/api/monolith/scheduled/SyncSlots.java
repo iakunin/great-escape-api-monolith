@@ -72,7 +72,7 @@ public class SyncSlots implements Runnable {
                 );
             }
         } catch (Exception e) {
-            log.error("Unable to get schedule for quest={}", setting.getQuest(), e);
+            log.error("Unable to get schedule for questId={}", setting.getQuest().getId(), e);
             throw e;
         }
     }
@@ -149,7 +149,7 @@ public class SyncSlots implements Runnable {
             ).stream()
             .map(slot -> new Slot()
                 .setIsAvailable((Boolean) slot.get("is_free"))
-                .setPrice((Integer) slot.get("price"))
+                .setPrice(Integer.valueOf(slot.get("price").toString()))
                 .setExternalState(this.buildExternalState(slot))
                 .setDateTimeLocal(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd " + TIME_PATTERN)
