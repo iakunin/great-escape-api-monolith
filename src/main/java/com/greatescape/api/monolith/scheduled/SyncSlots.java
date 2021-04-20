@@ -59,16 +59,21 @@ public class SyncSlots implements Runnable {
     }
 
     private Collection<Slot> getSchedule(QuestIntegrationSetting setting) {
-        if (setting.getType() == QuestIntegrationType.BOOK_FORM) {
-            return bookFormSchedule.getSchedule(setting, FETCH_PERIOD);
-        } else if (setting.getType() == QuestIntegrationType.MIR_KVESTOV) {
-            return mirKvestovSchedule.getSchedule(setting, FETCH_PERIOD);
-        } else if (setting.getType() == QuestIntegrationType.PHOBIA) {
-            return phobiaSchedule.getSchedule(setting, FETCH_PERIOD);
-        } else {
-            throw new RuntimeException(
-                String.format("Got unsupported integration type '%s'", setting.getType().toString())
-            );
+        try {
+            if (setting.getType() == QuestIntegrationType.BOOK_FORM) {
+                return bookFormSchedule.getSchedule(setting, FETCH_PERIOD);
+            } else if (setting.getType() == QuestIntegrationType.MIR_KVESTOV) {
+                return mirKvestovSchedule.getSchedule(setting, FETCH_PERIOD);
+            } else if (setting.getType() == QuestIntegrationType.PHOBIA) {
+                return phobiaSchedule.getSchedule(setting, FETCH_PERIOD);
+            } else {
+                throw new RuntimeException(
+                    String.format("Got unsupported integration type '%s'", setting.getType().toString())
+                );
+            }
+        } catch (Exception e) {
+            log.error("Unable to get schedule for quest={}", setting.getQuest(), e);
+            throw e;
         }
     }
 
