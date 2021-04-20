@@ -149,7 +149,9 @@ public class SyncSlots implements Runnable {
             ).stream()
             .map(slot -> new Slot()
                 .setIsAvailable((Boolean) slot.get("is_free"))
-                .setPrice(Integer.valueOf(slot.get("price").toString()))
+                .setPrice(
+                    Double.valueOf(slot.get("price").toString()).intValue()
+                )
                 .setExternalState(this.buildExternalState(slot))
                 .setDateTimeLocal(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd " + TIME_PATTERN)
