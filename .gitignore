@@ -3,6 +3,7 @@
 ######################
 /build/resources/main/static/**
 /src/test/javascript/coverage/
+/src/main/resources/config/application-devproddb.yml
 
 ######################
 # Node

@@ -1,19 +1,8 @@
 version: '3'
 
 services:
-  #  app:
-  #    image: great-escape-api-monolith-app
-  #    container_name: great-escape-api-monolith_app
-  #    environment:
-  #      - _JAVA_OPTIONS=-Xmx512m -Xms256m
-  #      - SPRING_PROFILES_ACTIVE=prod,swagger
-  #      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-  #      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/api-monolith
-  #    ports:
-  #      - 8080:8080
-
   postgresql:
-    image: postgres:13.0
+    image: postgres:13.2
     container_name: great-escape-api-monolith_postgresql
     # volumes:
     #     - ~/volumes/jhipster/GreatEscapeApiMonolith/postgresql/:/var/lib/postgresql/data/
@@ -23,7 +12,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - 5432:5432
-#    command: ["postgres", "-c", "log_statement=all"]
+    #command: ["postgres", "-c", "log_statement=all"]
 
   mailcatcher:
     container_name: great-escape-api-monolith_mailcatcher

@@ -1,0 +1,8 @@
+cacheConnection: true
+cacheTableNames: true
+caseInsensitiveStrategy: !!com.github.database.rider.core.api.configuration.Orthography 'LOWERCASE'
+properties:
+    datatypeFactory: !!com.greatescape.api.monolith.dbunit.CustomPostgresqlDataTypeFactory {}
+    batchedStatements:  true
+    caseSensitiveTableNames: false
+    allowEmptyFields: true

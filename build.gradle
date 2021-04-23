@@ -277,6 +277,10 @@ dependencies {
     testImplementation ("org.springframework.boot:spring-boot-starter-test") {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
     }
+    testImplementation "com.github.tomakehurst:wiremock:2.26.3"
+    testImplementation group: "com.github.database-rider", name: "rider-spring", version: "1.13.1", {
+        exclude group: "org.slf4j"
+    }
     testImplementation "org.springframework.security:spring-security-test"
     testImplementation "org.springframework.boot:spring-boot-test"
     testImplementation "com.tngtech.archunit:archunit-junit5-api:${archunit_junit5_version}"

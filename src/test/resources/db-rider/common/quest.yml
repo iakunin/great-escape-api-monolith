@@ -1,0 +1,37 @@
+city:
+  -
+    id: "e6bad52e-d15d-4b75-b8fd-7cebabe27758"
+    slug: "moscow"
+    title: "Москва"
+    timezone: "Europe/Moscow"
+
+location:
+  -
+    id: "2e8ceec4-cff0-4a90-bfb8-0b60f7c997e3"
+    address: "Красная площадь, д.1"
+    city_id: "e6bad52e-d15d-4b75-b8fd-7cebabe27758"
+
+company:
+  -
+    id: "475e8498-452c-4ba9-b14a-bd8b5f434af8"
+    slug: "zona-quest"
+    title: "ZonaQuest"
+    legal_name: "ИП Рассадина Анастасия Александровна"
+    taxpayer_number: "772201001033"
+    discount_in_percents: 10
+    commission_in_percents: 20
+
+quest:
+  -
+    id: "343d2fdd-3f5f-4aed-9f23-092057720bd2"
+    slug: "smekh"
+    title: "Смех"
+    players_min_count: 2
+    players_max_count: 6
+    duration_in_minutes: 60
+    complexity: "MIDDLE"
+    fear_level: "MINIMAL"
+    type: "ESCAPE"
+    cover_photo: "https://drive.google.com/uc?id=10LjOSCqEkt44I-k_Qz6hWssgZRhejaxX"
+    location_id: "2e8ceec4-cff0-4a90-bfb8-0b60f7c997e3"
+    company_id: "475e8498-452c-4ba9-b14a-bd8b5f434af8"
