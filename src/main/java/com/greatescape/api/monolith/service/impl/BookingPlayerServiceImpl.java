@@ -119,7 +119,7 @@ public class BookingPlayerServiceImpl implements BookingPlayerService {
                     .setPhone(player.getPhone())
                     .setEmail(player.getEmail())
                     .setComment(booking.getComment())
-//                    .setSource("great-escape.ru")
+                    .setSource("great-escape.ru")
                     .setDate(
                         DateTimeFormatter.ofPattern("yyyy-MM-dd")
                             .withZone(ZoneId.of("Z"))
