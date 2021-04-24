@@ -1,0 +1,7 @@
+slot:
+  -
+    date_time_local: "2021-04-21 10:00:00.000000"
+    date_time_with_time_zone: "2021-04-21 07:00:00.000000"
+    is_available: true
+    price: 123123
+    quest_id: "343d2fdd-3f5f-4aed-9f23-092057720bd2"
