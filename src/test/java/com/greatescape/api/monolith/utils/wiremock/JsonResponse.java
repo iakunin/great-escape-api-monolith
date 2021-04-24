@@ -7,9 +7,13 @@ import java.io.IOException;
 
 public final class JsonResponse extends ResponseDefinitionBuilder {
     public JsonResponse(final String path) throws IOException {
+        this(path, "application/json");
+    }
+
+    public JsonResponse(final String path, final String contentType) throws IOException {
         super();
         this.withStatus(200);
-        this.withHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        this.withHeader(HttpHeaders.CONTENT_TYPE, contentType);
         this.withBody(new ResourceOf(path).asString());
     }
 }
