@@ -1,4 +1,4 @@
-package com.greatescape.api.monolith.scheduled;
+package com.greatescape.api.monolith.scheduled.syncslots;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
@@ -12,23 +12,26 @@ import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
 import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository;
 import com.greatescape.api.monolith.repository.QuestRepository;
+import com.greatescape.api.monolith.scheduled.SyncSlots;
 import com.greatescape.api.monolith.utils.wiremock.JsonResponse;
 import java.io.IOException;
-import java.net.URI;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest(classes = ApiMonolithApp.class)
 @DBRider
 @ActiveProfiles("autocommit")
-public class SyncSlotsIT {
+@ContextConfiguration(initializers = BookFormIT.Initializer.class)
+public class BookFormIT {
 
     private static final WireMockServer WIREMOCK = wiremockServer();
-
-    private static final String SCHEDULE_URL = "/schedule";
 
     @Autowired
     private QuestRepository questRepository;
@@ -50,8 +53,8 @@ public class SyncSlotsIT {
         skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
     )
     @ExpectedDataSet("db-rider/scheduled/sync-slots/expected/oneSlot.yml")
-    public void mirKvestovOneSlot() throws IOException {
-        this.setUpMirKvestov("wiremock/scheduled/sync-slots/mir-kvestov/oneSlot.json");
+    public void oneSlot() throws IOException {
+        this.setUp("wiremock/scheduled/sync-slots/book-form/oneSlot.json");
 
         this.syncSlots.run();
     }
@@ -64,8 +67,8 @@ public class SyncSlotsIT {
     @ExpectedDataSet(
         value = "db-rider/scheduled/sync-slots/expected/twoSlots.yml", orderBy = "date_time_local"
     )
-    public void mirKvestovTwoSlots() throws IOException {
-        this.setUpMirKvestov("wiremock/scheduled/sync-slots/mir-kvestov/twoSlots.json");
+    public void twoSlots() throws IOException {
+        this.setUp("wiremock/scheduled/sync-slots/book-form/twoSlots.json");
 
         this.syncSlots.run();
     }
@@ -76,8 +79,8 @@ public class SyncSlotsIT {
         skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
     )
     @ExpectedDataSet("db-rider/scheduled/sync-slots/expected/oneSlot.yml")
-    public void mirKvestovOneSlotWithDoublePrice() throws IOException {
-        this.setUpMirKvestov("wiremock/scheduled/sync-slots/mir-kvestov/oneSlotWithDoublePrice.json");
+    public void oneSlotWithDoublePrice() throws IOException {
+        this.setUp("wiremock/scheduled/sync-slots/book-form/oneSlotWithDoublePrice.json");
 
         this.syncSlots.run();
     }
@@ -89,27 +92,27 @@ public class SyncSlotsIT {
         skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
     )
     @ExpectedDataSet("db-rider/scheduled/sync-slots/expected/oneSlot.yml")
-    public void mirKvestovMutateAvailabilityAndPrice() throws IOException {
-        this.setUpMirKvestov("wiremock/scheduled/sync-slots/mir-kvestov/oneSlot.json");
+    public void mutateAvailabilityAndPrice() throws IOException {
+        this.setUp("wiremock/scheduled/sync-slots/book-form/oneSlot.json");
 
         this.syncSlots.run();
     }
 
-    private void setUpMirKvestov(final String responsePath) throws IOException {
+    private void setUp(final String responsePath) throws IOException {
         this.questIntegrationSettingRepository.saveAndFlush(
             new QuestIntegrationSetting()
                 .setQuest(this.questRepository.findAll().get(0))
-                .setType(QuestIntegrationType.MIR_KVESTOV)
+                .setType(QuestIntegrationType.BOOK_FORM)
                 .setSettings(
-                    new QuestIntegrationSetting.MirKvestov()
-                        .setMd5key("")
-                        .setScheduleUrl(URI.create(WIREMOCK.baseUrl() + SCHEDULE_URL))
-                        .setBookingUrl(URI.create(""))
+                    new QuestIntegrationSetting.BookForm()
+                        .setServiceId("076967640D6F11E6818E001517CAC1A9")
+                        .setWidgetId("076967640D6F11E6818E001517CAC1A9")
                 )
         );
         WIREMOCK.stubFor(
-            WireMock.get(SCHEDULE_URL)
-                .willReturn(new JsonResponse(responsePath))
+            WireMock.get(
+                WireMock.urlPathEqualTo("/api/v1/schedule")
+            ).willReturn(new JsonResponse(responsePath))
         );
     }
 
@@ -122,5 +125,15 @@ public class SyncSlotsIT {
         server.start();
 
         return server;
+    }
+
+    static class Initializer
+        implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+        public void initialize(final ConfigurableApplicationContext context) {
+            TestPropertyValues.of(
+                "app.integration.book-form.base-url=" + WIREMOCK.baseUrl()
+            ).applyTo(context.getEnvironment());
+        }
     }
 }
