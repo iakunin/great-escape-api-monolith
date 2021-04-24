@@ -1,0 +1,119 @@
+[
+  [
+    [
+      {
+        "id": 3850353,
+        "dt": "21 апреля",
+        "tm": "10:00",
+        "qid": 496,
+        "tm24": "10:00",
+        "av": false,
+        "pp": true,
+        "partial_only": false,
+        "booked": false,
+        "start": "2021-04-21T07:00:00Z",
+        "start_local": "2021-04-21T10:00:00+03:00",
+        "start_date": "21.04.2021",
+        "started": true,
+        "prepay_price": 1100,
+        "prices_by_tickets_count": [
+          {
+            "percentage": 100,
+            "price": 3000,
+            "gamers_count": 2
+          },
+          {
+            "percentage": 100,
+            "price": 3000,
+            "gamers_count": 3
+          },
+          {
+            "percentage": 100,
+            "price": 3000,
+            "gamers_count": 4
+          }
+        ],
+        "available_payment_backends": [
+          [
+            "kassa",
+            "Банковская карта"
+          ],
+          [
+            "yandex_money",
+            "ЮMoney"
+          ],
+          [
+            "certificate",
+            "Сертификат"
+          ],
+          [
+            "TROIKA",
+            "Программа лояльности «Город»"
+          ]
+        ],
+        "price": 3000,
+        "min_price": 3000,
+        "available_tickets": 4,
+        "booked_tickets": 0,
+        "disable_booking": false,
+        "order_url": "/ru/quest/496/?book=3850353",
+        "analytics_price": "3000.0",
+        "locked": false,
+        "lock_text": ""
+      }
+    ],
+    {
+      "complexity_word": "сложный",
+      "length_string": "60 минут",
+      "additional_services": [
+        {
+          "id": 22,
+          "price": 1500,
+          "name": "Услуга сопровождения для детей",
+          "multiple": true,
+          "maximum": 1,
+          "description": "Пройдем квест вместе с детьми и проследим, чтобы все было в порядке :) Минимальный возраст игроков указан в описании квеста, услуга оплачивается на месте"
+        }
+      ],
+      "show_per_team_label_in_timetable": true,
+      "analytics_currency_code": "RUB",
+      "is_foreign": false,
+      "allow_partial_prepay": true,
+      "enable_priceline_min_price": false,
+      "phone": "7(999)8128182",
+      "show_from_in_timetable": false,
+      "available_languages": [
+        {
+          "code": "ru",
+          "name": "Русский"
+        },
+        {
+          "code": "en",
+          "name": "Английский"
+        }
+      ],
+      "address": "1-я Тверская-Ямская ул., д. 7",
+      "city_name": "Москва",
+      "allow_multibooking": false,
+      "price_rule": "Новые цены. Москва (2-4) от 01.07.2019",
+      "city_name_ru": "Москва",
+      "id": 496,
+      "extra_info": "",
+      "prepay": true,
+      "tags_string": "Для девушек, Для свиданий, Нестрашные, Подвижные, Подросткам, Сложные, Тайны прошлого, Цирк, 🎄 Новый год, 💝 14 февраля",
+      "allow_isic": false,
+      "name": "Академия Гудини",
+      "partial_prepay_only": false,
+      "back_blur": "https://media.claustrophobia.com/media/qb/496_back_blur_c0d3670e1c.jpg",
+      "quest_type": "quest",
+      "quest_page_url": "/ru/quest/496/",
+      "back_unblur": "",
+      "length": 60,
+      "logo_hover": "https://media.claustrophobia.com/media/l/496_logo_hover_696f947d19.png",
+      "location_metro": "Маяковская",
+      "gamers_count_string": "2-4 игроков",
+      "email": "tvr@claustrophobia.com",
+      "currency_code": "RUB"
+    }
+  ]
+]
