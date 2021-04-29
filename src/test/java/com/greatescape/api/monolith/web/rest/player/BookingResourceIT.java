@@ -30,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.startsWith;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,8 +95,14 @@ public class BookingResourceIT {
     )
     public void happyPath() throws Exception {
         final var quest = questRepository.findAll().get(0);
-        this.setUp(quest);
+        this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
+        WIREMOCK.stubFor(
+            WireMock.post(BOOKING_URL)
+                .willReturn(
+                    WireMock.okJson("{\"success\": true}").withStatus(201)
+                )
+        );
 
         mockMvc.perform(post("/player-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
@@ -124,7 +131,7 @@ public class BookingResourceIT {
     )
     public void happyPathDryRun() throws Exception {
         final var quest = questRepository.findAll().get(0);
-        this.setUp(quest);
+        this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
 
         mockMvc.perform(post("/player-api/bookings")
@@ -150,8 +157,14 @@ public class BookingResourceIT {
     )
     public void slotAlreadyBooked() throws Exception {
         final var quest = questRepository.findAll().get(0);
-        this.setUp(quest);
+        this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
+        WIREMOCK.stubFor(
+            WireMock.post(BOOKING_URL)
+                .willReturn(
+                    WireMock.okJson("{\"success\": true}").withStatus(201)
+                )
+        );
 
         mockMvc.perform(post("/player-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
@@ -172,9 +185,61 @@ public class BookingResourceIT {
         value = {"db-rider/common/quest.yml"}, cleanBefore = true, cleanAfter = true,
         skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
     )
+    public void unsuccessfulRemoteResponse() throws Exception {
+        final var quest = questRepository.findAll().get(0);
+        this.setUpIntegrationSetting(quest);
+        final var slot = this.slot(quest);
+        WIREMOCK.stubFor(
+            WireMock.post(BOOKING_URL)
+                .willReturn(
+                    WireMock.okJson("{\"success\": false}").withStatus(201)
+                )
+        );
+
+        mockMvc.perform(post("/player-api/bookings")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(this.bookingRequest(slot.getId()))))
+            .andExpect(status().isInternalServerError())
+            .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
+            .andExpect(jsonPath("$.title").value("Internal Server Error"))
+            .andExpect(jsonPath("$.detail").value("Got unsuccessful response from MirKvestov"))
+            .andExpect(jsonPath("$.message").value("error.http.500"));
+    }
+
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml"}, cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
+    public void remoteException() throws Exception {
+        final var quest = questRepository.findAll().get(0);
+        this.setUpIntegrationSetting(quest);
+        final var slot = this.slot(quest);
+        WIREMOCK.stubFor(
+            WireMock.post(BOOKING_URL)
+                .willReturn(WireMock.serverError())
+        );
+
+        mockMvc.perform(post("/player-api/bookings")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(this.bookingRequest(slot.getId()))))
+            .andExpect(status().isInternalServerError())
+            .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
+            .andExpect(jsonPath("$.title").value("Internal Server Error"))
+            .andExpect(jsonPath("$.detail").value(
+                startsWith("[500 Server Error] during [POST] to ")
+            ))
+            .andExpect(jsonPath("$.message").value("error.http.500"));
+    }
+
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml"}, cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
     public void slotNotFound() throws Exception {
         final var quest = questRepository.findAll().get(0);
-        this.setUp(quest);
+        this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
 
         mockMvc.perform(post("/player-api/bookings")
@@ -197,7 +262,7 @@ public class BookingResourceIT {
     )
     public void slotUnavailableForBooking() throws Exception {
         final var quest = questRepository.findAll().get(0);
-        this.setUp(quest);
+        this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest, false);
 
         mockMvc.perform(post("/player-api/bookings")
@@ -216,7 +281,7 @@ public class BookingResourceIT {
     )
     public void slotTimeAlreadyPassed() throws Exception {
         final var quest = questRepository.findAll().get(0);
-        this.setUp(quest);
+        this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest, true, Instant.now().minus(Duration.ofMinutes(15)));
 
         mockMvc.perform(post("/player-api/bookings")
@@ -228,7 +293,7 @@ public class BookingResourceIT {
             .andExpect(jsonPath("$.errorKey").value("slotTimeAlreadyPassed"));
     }
 
-    private void setUp(Quest quest) {
+    private void setUpIntegrationSetting(Quest quest) {
         this.questIntegrationSettingRepository.saveAndFlush(
             new QuestIntegrationSetting()
                 .setQuest(quest)
@@ -238,13 +303,6 @@ public class BookingResourceIT {
                         .setMd5key("")
                         .setScheduleUrl(URI.create(""))
                         .setBookingUrl(URI.create(WIREMOCK.baseUrl() + BOOKING_URL))
-                )
-        );
-        WIREMOCK.stubFor(
-            WireMock.post(BOOKING_URL)
-                .willReturn(
-                    WireMock.okJson("{\"success\": true}")
-                        .withStatus(201)
                 )
         );
     }
