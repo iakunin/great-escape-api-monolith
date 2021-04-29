@@ -29,6 +29,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,8 @@ public class BookingResourceIT {
 
     private static final String NAME = "Some Player Name";
     private static final String PHONE = "79991231212";
-    private static final String EMAIL = "example@gmail.com";
+    private static final String EMAIL_UNNORMALIZED = "eXaMple@Gmail.COM";
+    private static final String EMAIL_NORMALIZED = "example@gmail.com";
     private static final String COMMENT = "Some extra comment from player";
 
     @Autowired
@@ -103,8 +105,7 @@ public class BookingResourceIT {
             .andExpect(jsonPath("$.bookingId").value(not(empty())))
             .andExpect(jsonPath("$.playerId").value(not(empty())))
             .andExpect(jsonPath("$.questId").value(quest.getId().toString()))
-            .andExpect(jsonPath("$.slotId").value(slot.getId().toString()))
-        ;
+            .andExpect(jsonPath("$.slotId").value(slot.getId().toString()));
 
         List<Booking> bookingList = bookingRepository.findAll();
         assertThat(bookingList).hasSize(1);
@@ -112,8 +113,119 @@ public class BookingResourceIT {
         assertThat(booking.getSlot().getId()).isEqualTo(slot.getId());
         assertThat(booking.getPlayer().getName()).isEqualTo(NAME);
         assertThat(booking.getPlayer().getPhone()).isEqualTo(PHONE);
-        assertThat(booking.getPlayer().getEmail()).isEqualTo(EMAIL);
+        assertThat(booking.getPlayer().getEmail()).isEqualTo(EMAIL_NORMALIZED);
         assertThat(booking.getComment()).isEqualTo(COMMENT);
+    }
+
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml"}, cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
+    public void happyPathDryRun() throws Exception {
+        final var quest = questRepository.findAll().get(0);
+        this.setUp(quest);
+        final var slot = this.slot(quest);
+
+        mockMvc.perform(post("/player-api/bookings")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(
+                this.bookingRequest(slot.getId(), true)
+            )))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.bookingId").value(nullValue()))
+            .andExpect(jsonPath("$.playerId").value(nullValue()))
+            .andExpect(jsonPath("$.questId").value(nullValue()))
+            .andExpect(jsonPath("$.slotId").value(nullValue()));
+
+        List<Booking> bookingList = bookingRepository.findAll();
+        assertThat(bookingList).hasSize(0);
+    }
+
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml"}, cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
+    public void slotAlreadyBooked() throws Exception {
+        final var quest = questRepository.findAll().get(0);
+        this.setUp(quest);
+        final var slot = this.slot(quest);
+
+        mockMvc.perform(post("/player-api/bookings")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(this.bookingRequest(slot.getId()))))
+            .andExpect(status().isCreated());
+
+        mockMvc.perform(post("/player-api/bookings")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(this.bookingRequest(slot.getId()))))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
+            .andExpect(jsonPath("$.entityName").value("booking"))
+            .andExpect(jsonPath("$.errorKey").value("slotAlreadyBooked"));
+    }
+
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml"}, cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
+    public void slotNotFound() throws Exception {
+        final var quest = questRepository.findAll().get(0);
+        this.setUp(quest);
+        final var slot = this.slot(quest);
+
+        mockMvc.perform(post("/player-api/bookings")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(
+                this.bookingRequest(
+                    this.differentUuid(slot.getId())
+                )
+            )))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
+            .andExpect(jsonPath("$.entityName").value("booking"))
+            .andExpect(jsonPath("$.errorKey").value("slotNotFound"));
+    }
+
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml"}, cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
+    public void slotUnavailableForBooking() throws Exception {
+        final var quest = questRepository.findAll().get(0);
+        this.setUp(quest);
+        final var slot = this.slot(quest, false);
+
+        mockMvc.perform(post("/player-api/bookings")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(this.bookingRequest(slot.getId()))))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
+            .andExpect(jsonPath("$.entityName").value("booking"))
+            .andExpect(jsonPath("$.errorKey").value("slotUnavailableForBooking"));
+    }
+
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml"}, cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
+    public void slotTimeAlreadyPassed() throws Exception {
+        final var quest = questRepository.findAll().get(0);
+        this.setUp(quest);
+        final var slot = this.slot(quest, true, Instant.now().minus(Duration.ofMinutes(15)));
+
+        mockMvc.perform(post("/player-api/bookings")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(this.bookingRequest(slot.getId()))))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
+            .andExpect(jsonPath("$.entityName").value("booking"))
+            .andExpect(jsonPath("$.errorKey").value("slotTimeAlreadyPassed"));
     }
 
     private void setUp(Quest quest) {
@@ -138,14 +250,24 @@ public class BookingResourceIT {
     }
 
     private Slot slot(final Quest quest) {
-        final var localTime = Instant.now().plus(Duration.ofHours(10));
+        return this.slot(quest, true);
+    }
+    private Slot slot(final Quest quest, final boolean isAvailable) {
+        return this.slot(quest, isAvailable, Instant.now().plus(Duration.ofHours(10)));
+    }
+
+    private Slot slot(
+        final Quest quest,
+        final boolean isAvailable,
+        final Instant localTime
+    ) {
         final var slot = slotRepository.save(
             new Slot()
                 .setDateTimeLocal(localTime)
                 .setDateTimeWithTimeZone(
                     ZonedDateTime.ofInstant(localTime, ZoneId.of("UTC"))
                 )
-                .setIsAvailable(true)
+                .setIsAvailable(isAvailable)
                 .setPrice(1122)
                 .setQuest(quest)
         );
@@ -155,6 +277,13 @@ public class BookingResourceIT {
     }
 
     private BookingResource.CreateRequest bookingRequest(final UUID slotId) throws Exception {
+        return this.bookingRequest(slotId, false);
+    }
+
+    private BookingResource.CreateRequest bookingRequest(
+        final UUID slotId,
+        final boolean dryRun
+    ) throws Exception {
         mockMvc.perform(post("/player-api/otp")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(
@@ -166,11 +295,22 @@ public class BookingResourceIT {
             .setSlotId(slotId)
             .setName(NAME)
             .setPhone(PHONE)
-            .setOtp(otpRepository.findAllByStatusAndPayload(Otp.Status.PENDING, PHONE)
+            .setOtp(otpRepository
+                .findAllByStatusAndPayload(Otp.Status.PENDING, PHONE)
                 .get(0)
                 .getCode()
             )
-            .setEmail(EMAIL)
-            .setComment(COMMENT);
+            .setEmail(EMAIL_UNNORMALIZED)
+            .setComment(COMMENT)
+            .setDryRun(dryRun);
+    }
+
+    private UUID differentUuid(UUID original) {
+        UUID generated;
+        do {
+            generated = UUID.randomUUID();
+        } while (original.equals(generated));
+
+        return generated;
     }
 }
