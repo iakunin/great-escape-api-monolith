@@ -409,7 +409,8 @@ public class PlayerResourceIT {
         // Get all the playerList where phone is null
         defaultPlayerShouldNotBeFound("phone.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
     public void getAllPlayersByPhoneContainsSomething() throws Exception {
         // Initialize the database
@@ -487,7 +488,8 @@ public class PlayerResourceIT {
         // Get all the playerList where email is null
         defaultPlayerShouldNotBeFound("email.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
     public void getAllPlayersByEmailContainsSomething() throws Exception {
         // Initialize the database
