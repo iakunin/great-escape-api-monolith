@@ -1,0 +1,14 @@
+quest:
+  -
+    id: "b3bb61f9-272d-4cf5-ab0f-ab5a48383871"
+    slug: "another"
+    title: "Another Quest"
+    players_min_count: 2
+    players_max_count: 6
+    duration_in_minutes: 60
+    complexity: "MIDDLE"
+    fear_level: "MINIMAL"
+    type: "ESCAPE"
+    cover_photo: "https://drive.google.com/uc?id=10LjOSCqEkt44I-k_Qz6hWssgZRhejaxX"
+    location_id: "2e8ceec4-cff0-4a90-bfb8-0b60f7c997e3"
+    company_id: "475e8498-452c-4ba9-b14a-bd8b5f434af8"

@@ -52,10 +52,17 @@ public class SyncSlots implements Runnable {
     public void run() {
         questIntegrationSettingRepository
             .findAll()
-            .forEach(setting -> processor.process(
-                this.getSchedule(setting),
-                setting.getQuest()
-            ));
+            .forEach(setting -> {
+                try {
+                    processor.process(this.getSchedule(setting), setting.getQuest());
+                } catch (Exception e) {
+                    log.error(
+                        "Exception occurred during processing quest={}",
+                        setting.getQuest().getId(),
+                        e
+                    );
+                }
+            });
     }
 
     private Collection<Slot> getSchedule(QuestIntegrationSetting setting) {
