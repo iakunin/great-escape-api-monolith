@@ -9,9 +9,11 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.Booking;
+import com.greatescape.api.monolith.domain.Player;
 import com.greatescape.api.monolith.domain.Quest;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.Slot;
+import com.greatescape.api.monolith.domain.User;
 import com.greatescape.api.monolith.domain.enumeration.BookingStatus;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
 import com.greatescape.api.monolith.integration.BookFormClient;
@@ -20,11 +22,18 @@ import com.greatescape.api.monolith.repository.PlayerRepository;
 import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository;
 import com.greatescape.api.monolith.repository.QuestRepository;
 import com.greatescape.api.monolith.repository.SlotRepository;
-import com.greatescape.api.monolith.service.PlayerPlayerService;
+import com.greatescape.api.monolith.repository.UserRepository;
 import static com.greatescape.api.monolith.utils.wiremock.WireMock.initWireMockServer;
+import java.io.Serializable;
+import java.net.URI;
+import java.net.URLDecoder;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,9 +43,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(classes = ApiMonolithApp.class)
 @DBRider
@@ -49,7 +58,8 @@ public class IntegrationSenderIT {
 
     private static final WireMockServer WIREMOCK = initWireMockServer();
 
-    private static final String BOOKING_URL = "/api/v1/bookings";
+    private static final String BOOK_FORM_BOOKING_URL = "/api/v1/bookings";
+    private static final String MIR_KVESTOV_BOOKING_URL = "/bookings";
 
     private static final String BOOK_FORM_WIDGET_ID = "someWidgetId";
     private static final String BOOK_FORM_SERVICE_ID = "someServiceId";
@@ -60,6 +70,9 @@ public class IntegrationSenderIT {
     private static final String EMAIL = "example@gmail.com";
     private static final String COMMENT = "Some extra comment from player";
     private static final String SLOT_EXTERNAL_ID = "some slot external id";
+    private static final String MIR_KVESTOV_MD_5_KEY = "someMd5Key";
+    private static final Instant SLOT_DATE_TIME = Instant.parse("2007-12-03T10:15:30.00Z");
+    private static final String PASSWORD_HASH = "$2a$10$e8sEgj9.yhTPEyRFxDg8VOQ3JjvoAMGYtgTN.mk2n.22G2L7DquIa";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -79,29 +92,22 @@ public class IntegrationSenderIT {
     private BookingRepository bookingRepository;
 
     @Autowired
-    private PlayerPlayerService playerService;
+    private PlayerRepository playerRepository;
 
     @Autowired
-    private PlayerRepository playerRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private IntegrationSender integrationSender;
 
+    @AfterEach
+    public void after() {
+        WIREMOCK.resetAll();
+    }
+
     @BeforeEach
     public void before() {
         this.quest = this.questRepository.findAll().get(0);
-        final var dateTime = Instant.parse("2007-12-03T10:15:30.00Z");
-        final var slot = this.slotRepository.saveAndFlush(
-            new Slot()
-                .setDateTimeLocal(dateTime)
-                .setDateTimeWithTimeZone(
-                    ZonedDateTime.ofInstant(dateTime, ZoneId.of("UTC"))
-                )
-                .setIsAvailable(true)
-                .setPrice(PRICE)
-                .setQuest(this.quest)
-                .setExternalId(SLOT_EXTERNAL_ID)
-        );
         this.booking = this.bookingRepository.saveAndFlush(
             new Booking()
                 .setStatus(BookingStatus.NEW)
@@ -109,19 +115,35 @@ public class IntegrationSenderIT {
                 .setDiscountInPercents(12)
                 .setCommissionInPercents(34)
                 .setComment(COMMENT)
-                .setSlot(slot)
+                .setSlot(this.slotRepository.saveAndFlush(
+                    new Slot()
+                        .setDateTimeLocal(SLOT_DATE_TIME)
+                        .setDateTimeWithTimeZone(
+                            ZonedDateTime.ofInstant(SLOT_DATE_TIME, ZoneId.of("UTC"))
+                        )
+                        .setIsAvailable(true)
+                        .setPrice(PRICE)
+                        .setQuest(this.quest)
+                        .setExternalId(SLOT_EXTERNAL_ID)
+                ))
                 .setQuest(this.quest)
                 .setPlayer(
-                    this.playerRepository.getOne(playerService.upsert(
-                        new PlayerPlayerService.CreateRequest(NAME, PHONE, EMAIL)
-                    ).getPlayerId())
+                    this.playerRepository.saveAndFlush(
+                        new Player()
+                            .setName(NAME)
+                            .setPhone(PHONE)
+                            .setEmail(EMAIL)
+                            .setInternalUser(
+                                this.userRepository.saveAndFlush(
+                                    new User()
+                                        .setEmail(EMAIL)
+                                        .setPassword(PASSWORD_HASH)
+                                        .setLogin(EMAIL)
+                                )
+                            )
+                    )
                 )
         );
-    }
-
-    @AfterEach
-    public void after() {
-        WIREMOCK.resetAll();
     }
 
     @Test
@@ -130,8 +152,7 @@ public class IntegrationSenderIT {
         cleanBefore = true, cleanAfter = true,
         skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
     )
-    @Transactional
-    void bookFormHappyPath() throws JsonProcessingException {
+    public void bookFormHappyPath() throws JsonProcessingException {
         this.questIntegrationSettingRepository.saveAndFlush(
             new QuestIntegrationSetting()
                 .setQuest(this.quest)
@@ -143,7 +164,7 @@ public class IntegrationSenderIT {
                 )
         );
         WIREMOCK.stubFor(
-            WireMock.post(BOOKING_URL)
+            WireMock.post(BOOK_FORM_BOOKING_URL)
                 .willReturn(
                     WireMock.okJson(
                         objectMapper.writeValueAsString(
@@ -160,11 +181,15 @@ public class IntegrationSenderIT {
 
         this.integrationSender.send(this.booking);
 
-        WIREMOCK.verify(1, WireMock.postRequestedFor(WireMock.urlPathEqualTo(BOOKING_URL)));
+        WIREMOCK.verify(1, WireMock.postRequestedFor(WireMock.urlPathEqualTo(BOOK_FORM_BOOKING_URL)));
         final var bookFormRequest = WIREMOCK.findAll(
-            WireMock.postRequestedFor(WireMock.urlPathEqualTo(BOOKING_URL))
+            WireMock.postRequestedFor(WireMock.urlPathEqualTo(BOOK_FORM_BOOKING_URL))
         ).get(0);
-
+        Assertions.assertEquals(
+            MediaType.MULTIPART_FORM_DATA_VALUE,
+            bookFormRequest.contentTypeHeader().mimeTypePart()
+        );
+        Assertions.assertTrue(bookFormRequest.isMultipart());
         this.assertEquals(bookFormRequest, "name", NAME);
         this.assertEquals(bookFormRequest, "email", EMAIL);
         this.assertEquals(bookFormRequest, "phone", PHONE);
@@ -172,6 +197,47 @@ public class IntegrationSenderIT {
         this.assertEquals(bookFormRequest, "service_id", BOOK_FORM_SERVICE_ID);
         this.assertEquals(bookFormRequest, "source_id", BOOK_FORM_WIDGET_ID);
         this.assertEquals(bookFormRequest, "slots_id", SLOT_EXTERNAL_ID);
+    }
+
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml", "db-rider/scheduled/sync-slots/initial/anotherQuest.yml"},
+        cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
+    public void mirKvestovHappyPath() {
+        this.questIntegrationSettingRepository.saveAndFlush(
+            new QuestIntegrationSetting()
+                .setQuest(this.quest)
+                .setType(QuestIntegrationType.MIR_KVESTOV)
+                .setSettings(
+                    new QuestIntegrationSetting.MirKvestov()
+                        .setMd5key(MIR_KVESTOV_MD_5_KEY)
+                        .setBookingUrl(URI.create(WIREMOCK.baseUrl() + MIR_KVESTOV_BOOKING_URL))
+                        .setScheduleUrl(URI.create(""))
+                )
+        );
+        WIREMOCK.stubFor(
+            WireMock.post(MIR_KVESTOV_BOOKING_URL)
+                .willReturn(
+                    WireMock.okJson("{\"success\": true}").withStatus(201)
+                )
+        );
+
+        this.integrationSender.send(this.booking);
+
+        WIREMOCK.verify(1, WireMock.postRequestedFor(WireMock.urlPathEqualTo(MIR_KVESTOV_BOOKING_URL)));
+        final var mirKvestovRequest = WIREMOCK.findAll(
+            WireMock.postRequestedFor(WireMock.urlPathEqualTo(MIR_KVESTOV_BOOKING_URL))
+        ).get(0);
+        Assertions.assertEquals(
+            MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            mirKvestovRequest.contentTypeHeader().mimeTypePart()
+        );
+        Assertions.assertEquals(
+            this.expectedMirKvestovRequestBody(),
+            this.urlEncodedBodyAsMap(mirKvestovRequest.getBodyAsString())
+        );
     }
 
     private void assertEquals(
@@ -182,6 +248,44 @@ public class IntegrationSenderIT {
         Assertions.assertEquals(
             expectedValue,
             request.getPart(partName).getBody().asString()
+        );
+    }
+
+    private Map<String, String> urlEncodedBodyAsMap(String body) {
+        return Arrays.stream(
+            body.split("&")
+        ).map(param ->
+            Map.entry(
+                param.split("=")[0],
+                URLDecoder.decode(param.split("=")[1])
+            )
+        ).collect(
+            Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)
+        );
+    }
+
+    private Map<String, ? extends Serializable> expectedMirKvestovRequestBody() {
+        return Map.ofEntries(
+            Map.entry("first_name", NAME),
+            Map.entry("family_name", "."),
+            Map.entry("phone", PHONE),
+            Map.entry("email", EMAIL),
+            Map.entry("comment", COMMENT),
+            Map.entry("source", "great-escape.ru"),
+            Map.entry(
+                "date",
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .withZone(ZoneId.of("Z"))
+                    .format(SLOT_DATE_TIME)
+            ),
+            Map.entry(
+                "time",
+                DateTimeFormatter.ofPattern("HH:mm")
+                    .withZone(ZoneId.of("Z"))
+                    .format(SLOT_DATE_TIME)
+            ),
+            Map.entry("price", Integer.valueOf(PRICE).toString()),
+            Map.entry("md5", "905336decfbb339a5dbba14c88d5bf06")
         );
     }
 
