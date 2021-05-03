@@ -5,8 +5,6 @@ import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
 import com.greatescape.api.monolith.ApiMonolithApp;
 import com.greatescape.api.monolith.domain.QuestIntegrationSetting;
 import com.greatescape.api.monolith.domain.enumeration.QuestIntegrationType;
@@ -14,6 +12,7 @@ import com.greatescape.api.monolith.repository.QuestIntegrationSettingRepository
 import com.greatescape.api.monolith.repository.QuestRepository;
 import com.greatescape.api.monolith.scheduled.SyncSlots;
 import com.greatescape.api.monolith.utils.wiremock.JsonResponse;
+import static com.greatescape.api.monolith.utils.wiremock.WireMock.initWireMockServer;
 import java.io.IOException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(initializers = BookFormIT.Initializer.class)
 public class BookFormIT {
 
-    private static final WireMockServer WIREMOCK = wiremockServer();
+    private static final WireMockServer WIREMOCK = initWireMockServer();
 
     @Autowired
     private QuestRepository questRepository;
@@ -114,17 +113,6 @@ public class BookFormIT {
                 WireMock.urlPathEqualTo("/api/v1/schedule")
             ).willReturn(new JsonResponse(responsePath))
         );
-    }
-
-    private static WireMockServer wiremockServer() {
-        final var server = new WireMockServer(
-            WireMockConfiguration.options()
-                .dynamicPort()
-                .extensions(new ResponseTemplateTransformer(false))
-        );
-        server.start();
-
-        return server;
     }
 
     static class Initializer
