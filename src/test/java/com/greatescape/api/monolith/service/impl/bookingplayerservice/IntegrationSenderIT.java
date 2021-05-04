@@ -51,9 +51,6 @@ import org.springframework.test.context.ContextConfiguration;
 @DBRider
 @ActiveProfiles("autocommit")
 @ContextConfiguration(initializers = IntegrationSenderIT.Initializer.class)
-
-// @TODO: После того, как напишу тесты на IntegrationSender: попробовать убрать FeignForm
-
 public class IntegrationSenderIT {
 
     private static final WireMockServer WIREMOCK = initWireMockServer();
