@@ -46,7 +46,6 @@ public class SyncSlots implements Runnable {
 
     @Configuration
     @RequiredArgsConstructor
-    @Slf4j
     public static class ScheduleMapConfig {
 
         private final BookFormSchedule bookFormSchedule;
