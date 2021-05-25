@@ -309,6 +309,6 @@ compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo
 
 lombok {
-    version = "1.18.16"
+    version = "1.18.20"
 }
 generateLombokConfig.enabled = false
