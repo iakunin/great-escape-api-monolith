@@ -11,7 +11,9 @@ import com.greatescape.api.monolith.service.BookingPlayerService;
 import com.greatescape.api.monolith.service.OtpService;
 import com.greatescape.api.monolith.service.PlayerPlayerService;
 import com.greatescape.api.monolith.service.dto.BookingDTO;
+import com.greatescape.api.monolith.service.recaptcha.ReCaptcha;
 import com.greatescape.api.monolith.web.rest.errors.EmailAlreadyUsedException;
+import com.greatescape.api.monolith.web.rest.errors.ReCaptchaException;
 import com.greatescape.api.monolith.web.rest.errors.SlotAlreadyBookedException;
 import com.greatescape.api.monolith.web.rest.errors.SlotNotFoundException;
 import com.greatescape.api.monolith.web.rest.errors.SlotTimeAlreadyPassedException;
@@ -67,6 +69,8 @@ public class BookingResource {
 
     private final OtpService otpService;
 
+    private final ReCaptcha reCaptcha;
+
     /**
      * {@code POST  /bookings} : Create a new booking.
      *
@@ -81,6 +85,13 @@ public class BookingResource {
         @Valid @RequestBody CreateRequest request
     ) throws URISyntaxException {
         log.debug("REST request to create Booking : {}", request);
+
+        try {
+            this.reCaptcha.validate(request.getReCaptchaToken());
+        } catch (ReCaptcha.InvalidReCaptchaException e) {
+            throw new ReCaptchaException("booking");
+        }
+
         request.setPhone(new Player.PhoneNormalized(request.getPhone()).value());
         request.setEmail(request.getEmail().toLowerCase());
 
@@ -178,6 +189,7 @@ public class BookingResource {
     @Data
     @NoArgsConstructor
     public static final class CreateRequest {
+        @NotBlank private String reCaptchaToken;
         @NotNull private UUID slotId;
         @NotBlank private String name;
         @NotBlank @Pattern(regexp = Constants.PHONE_REGEX) private String phone;

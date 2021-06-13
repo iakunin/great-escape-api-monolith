@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public final class MirKvestov implements Sender {
+public class MirKvestov implements Sender {
 
     private final MirKvestovClient mirKvestovClient;
     private final MirKvestovClient.BookingRequestSignatureBuilder signatureBuilder;

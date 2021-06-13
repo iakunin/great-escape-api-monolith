@@ -114,3 +114,7 @@ app:
   integration:
     sms-ru:
       api-id: ${sm://sms-ru-api-id}
+
+google:
+  recaptcha:
+    secret-key: ${sm://recaptcha-secret-key}

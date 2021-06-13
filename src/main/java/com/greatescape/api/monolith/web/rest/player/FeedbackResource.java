@@ -1,6 +1,8 @@
 package com.greatescape.api.monolith.web.rest.player;
 
 import com.greatescape.api.monolith.service.MailService;
+import com.greatescape.api.monolith.service.recaptcha.ReCaptcha;
+import com.greatescape.api.monolith.web.rest.errors.ReCaptchaException;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -18,10 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class FeedbackResource {
 
+    private final ReCaptcha reCaptcha;
     private final MailService mailService;
 
     @PostMapping("/feedback")
     public ResponseEntity<?> create(@Valid @RequestBody Request request) {
+        try {
+            this.reCaptcha.validate(request.getReCaptchaToken());
+        } catch (ReCaptcha.InvalidReCaptchaException e) {
+            throw new ReCaptchaException("feedback");
+        }
+
         this.mailService.sendAnonymousFeedbackEmail(
             request.getName(),
             request.getEmail(),
@@ -33,15 +42,9 @@ public class FeedbackResource {
 
     @Value
     public static class Request {
-
-        @NotBlank
-        String name;
-
-        @NotBlank
-        @Email
-        String email;
-
-        @NotBlank
-        String text;
+        @NotBlank String reCaptchaToken;
+        @NotBlank String name;
+        @NotBlank @Email String email;
+        @NotBlank String text;
     }
 }

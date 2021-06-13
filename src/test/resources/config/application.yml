@@ -136,3 +136,9 @@ app:
     info: info@great-escape.ru
     site-feedback-form: site-feedback-form@great-escape.ru
   cloud-secret-test: test
+
+google:
+  recaptcha:
+    base-url: ''
+    secret-key: ''
+    threshold: 0.5

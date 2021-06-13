@@ -64,6 +64,21 @@
       "name": "app.cloud-secret-test",
       "type": "java.lang.String",
       "description": "Property for testing CloudSecret autoconfig on prod-env."
+    },
+    {
+      "name": "google.recaptcha.base-url",
+      "type": "java.lang.String",
+      "description": "Base url for Google ReCaptcha."
+    },
+    {
+      "name": "google.recaptcha.secret-key",
+      "type": "java.lang.String",
+      "description": "Secret key for Google ReCaptcha."
+    },
+    {
+      "name": "google.recaptcha.threshold",
+      "type": "java.lang.Float",
+      "description": "Threshold for Google ReCaptcha."
     }
   ]
 }

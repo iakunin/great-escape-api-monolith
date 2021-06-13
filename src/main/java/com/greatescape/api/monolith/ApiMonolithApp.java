@@ -1,6 +1,7 @@
 package com.greatescape.api.monolith;
 
 import com.greatescape.api.monolith.config.ApplicationProperties;
+import com.greatescape.api.monolith.config.GoogleReCaptchaProperties;
 import io.github.jhipster.config.DefaultProfileUtil;
 import io.github.jhipster.config.JHipsterConstants;
 import java.net.InetAddress;
@@ -18,7 +19,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
-@EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
+@EnableConfigurationProperties({
+    LiquibaseProperties.class,
+    ApplicationProperties.class,
+    GoogleReCaptchaProperties.class,
+})
 @RequiredArgsConstructor
 @Slf4j
 public class ApiMonolithApp {

@@ -36,8 +36,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -51,13 +55,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @DBRider
 @ActiveProfiles("autocommit")
+@ContextConfiguration(initializers = BookingResourceIT.Initializer.class)
 public class BookingResourceIT {
 
     private static final WireMockServer WIREMOCK = initWireMockServer();
     private static final String BOOKING_URL = "/booking";
+    private static final String RE_CAPTCHA_URL = "/recaptcha";
 
     private static final String NAME = "Some Player Name";
     private static final String PHONE = "79991231212";
+    private static final String RE_CAPTCHA_TOKEN = "some_token";
     private static final String EMAIL_UNNORMALIZED = "eXaMple@Gmail.COM";
     private static final String EMAIL_NORMALIZED = "example@gmail.com";
     private static final String COMMENT = "Some extra comment from player";
@@ -97,6 +104,7 @@ public class BookingResourceIT {
         final var quest = questRepository.findAll().get(0);
         this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
+        this.setUpReCaptchaMock();
         WIREMOCK.stubFor(
             WireMock.post(BOOKING_URL)
                 .willReturn(
@@ -133,6 +141,7 @@ public class BookingResourceIT {
         final var quest = questRepository.findAll().get(0);
         this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
+        this.setUpReCaptchaMock();
 
         mockMvc.perform(post("/player-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
@@ -159,6 +168,7 @@ public class BookingResourceIT {
         final var quest = questRepository.findAll().get(0);
         this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
+        this.setUpReCaptchaMock();
         WIREMOCK.stubFor(
             WireMock.post(BOOKING_URL)
                 .willReturn(
@@ -189,6 +199,7 @@ public class BookingResourceIT {
         final var quest = questRepository.findAll().get(0);
         this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
+        this.setUpReCaptchaMock();
         WIREMOCK.stubFor(
             WireMock.post(BOOKING_URL)
                 .willReturn(
@@ -215,6 +226,7 @@ public class BookingResourceIT {
         final var quest = questRepository.findAll().get(0);
         this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
+        this.setUpReCaptchaMock();
         WIREMOCK.stubFor(
             WireMock.post(BOOKING_URL)
                 .willReturn(WireMock.serverError())
@@ -241,6 +253,7 @@ public class BookingResourceIT {
         final var quest = questRepository.findAll().get(0);
         this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest);
+        this.setUpReCaptchaMock();
 
         mockMvc.perform(post("/player-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
@@ -264,6 +277,7 @@ public class BookingResourceIT {
         final var quest = questRepository.findAll().get(0);
         this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest, false);
+        this.setUpReCaptchaMock();
 
         mockMvc.perform(post("/player-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
@@ -283,6 +297,7 @@ public class BookingResourceIT {
         final var quest = questRepository.findAll().get(0);
         this.setUpIntegrationSetting(quest);
         final var slot = this.slot(quest, true, Instant.now().minus(Duration.ofMinutes(15)));
+        this.setUpReCaptchaMock();
 
         mockMvc.perform(post("/player-api/bookings")
             .contentType(MediaType.APPLICATION_JSON)
@@ -303,6 +318,17 @@ public class BookingResourceIT {
                         .setMd5key("")
                         .setScheduleUrl(URI.create(""))
                         .setBookingUrl(URI.create(WIREMOCK.baseUrl() + BOOKING_URL))
+                )
+        );
+    }
+
+    private void setUpReCaptchaMock() {
+        WIREMOCK.stubFor(
+            WireMock.get(
+                WireMock.urlPathEqualTo(RE_CAPTCHA_URL + "/recaptcha/api/siteverify")
+            )
+                .willReturn(
+                    WireMock.okJson("{\"success\": true, \"score\": 0.9}")
                 )
         );
     }
@@ -345,11 +371,14 @@ public class BookingResourceIT {
         mockMvc.perform(post("/player-api/otp")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(
-                new OtpResource.Request().setPhone(PHONE)
+                new OtpResource.Request()
+                    .setReCaptchaToken(RE_CAPTCHA_TOKEN)
+                    .setPhone(PHONE)
             )))
             .andExpect(status().isOk());
 
         return new BookingResource.CreateRequest()
+            .setReCaptchaToken(RE_CAPTCHA_TOKEN)
             .setSlotId(slotId)
             .setName(NAME)
             .setPhone(PHONE)
@@ -370,5 +399,15 @@ public class BookingResourceIT {
         } while (original.equals(generated));
 
         return generated;
+    }
+
+    static class Initializer
+        implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+        public void initialize(final ConfigurableApplicationContext context) {
+            TestPropertyValues.of(
+                "google.recaptcha.base-url=" + WIREMOCK.baseUrl() + RE_CAPTCHA_URL
+            ).applyTo(context.getEnvironment());
+        }
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public final class BookForm implements Sender {
+public class BookForm implements Sender {
 
     private final BookFormClient bookFormClient;
 

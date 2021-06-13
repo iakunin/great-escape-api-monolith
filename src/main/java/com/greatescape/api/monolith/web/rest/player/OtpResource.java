@@ -2,7 +2,9 @@ package com.greatescape.api.monolith.web.rest.player;
 
 import com.greatescape.api.monolith.config.Constants;
 import com.greatescape.api.monolith.service.OtpService;
+import com.greatescape.api.monolith.service.recaptcha.ReCaptcha;
 import com.greatescape.api.monolith.service.sms.Sender;
+import com.greatescape.api.monolith.web.rest.errors.ReCaptchaException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -23,12 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class OtpResource {
 
+    private final ReCaptcha reCaptcha;
     private final OtpService otpService;
     private final Sender smsSender;
 
     @PostMapping("/otp")
     public ResponseEntity<?> create(@Valid @RequestBody Request request) {
         log.debug("REST request to create Otp : {}", request);
+
+        try {
+            this.reCaptcha.validate(request.getReCaptchaToken());
+        } catch (ReCaptcha.InvalidReCaptchaException e) {
+            throw new ReCaptchaException("otp");
+        }
 
         final var otp = otpService.createOtp(request.getPhone());
 
@@ -49,6 +58,7 @@ public class OtpResource {
     @Data
     @NoArgsConstructor
     public static class Request {
+        @NotBlank private String reCaptchaToken;
         @NotBlank @Pattern(regexp = Constants.PHONE_REGEX) private String phone;
     }
 }
