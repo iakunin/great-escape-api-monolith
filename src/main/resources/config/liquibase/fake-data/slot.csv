@@ -1,19 +1,19 @@
 id;date_time_local;date_time_with_time_zone;is_available;price;discount_in_percents;commission_in_percents;external_id;external_state;quest_id
-1dcd0660-8ec5-4b0d-9e86-a7d40b1cf167;2020-11-02T18:23:51;2020-11-02T03:33:18;false;36747;65;60;Regional application SDD;{"a":"b"};49b9a375-d524-49be-8fd4-dec7820fa1a2
-36d80e7f-872a-4aa2-a174-b391fdd1792d;2020-11-01T20:06:02;2020-11-01T22:47:02;false;84110;10;95;portals Shoes;{"a":"b"};f5dc4b79-0bbb-4d21-a0da-3e691f4332a6
-3f1fc85b-b474-4114-a664-e10143165fd7;2020-11-02T18:03:06;2020-11-01T23:24:43;false;97789;99;33;copy circuit pixel;{"a":"b"};b844e5b7-47b6-4522-b68a-d0391e65a27d
-5fff3d70-1a3f-44f3-af29-2f33e79ae829;2020-11-01T22:22:18;2020-11-02T10:50:35;false;90057;23;39;Brazilian Real Guinea-Bissau Refined;{"a":"b"};ada2a66c-e789-4bee-b4d3-6d4e216b4b70
-13c356de-d847-4b5e-9f31-a201c748b9d1;2020-11-02T13:20:38;2020-11-02T13:14:29;false;34900;46;65;policy;{"a":"b"};247b40ff-4850-4da9-8f21-7dd82257551b
-04dd6a8f-ce96-4e86-a0ff-b7c24b08c553;2020-11-02T06:00:00;2020-11-02T08:38:54;false;5000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-dcc3c90c-b4ff-4c42-acbb-94573f69612b;2020-11-02T07:00:00;2020-11-02T08:38:54;false;5000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-8e8dba8b-345d-4791-bac9-f6e9d76f5ffe;2020-11-02T08:00:00;2020-11-02T08:38:54;false;5000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-7f0c1cc9-0f68-443c-b4f4-9deaf0b2e747;2020-11-02T09:00:00;2020-11-02T08:38:54;false;5000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-c0ef016b-364f-4d2b-8103-144f6e2894d4;2020-11-02T10:00:00;2020-11-02T08:38:54;false;6000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-0bc6dbdb-60ef-4e5e-9d62-b50d69b1d36c;2020-11-02T11:00:00;2020-11-02T08:38:54;false;6000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-ac8f934c-449c-4933-a9dd-be5e9c21ecb7;2020-11-02T12:00:00;2020-11-02T08:38:54;false;6000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-ff14dec9-ea86-465d-a728-8d361c9a509a;2020-11-02T13:00:00;2020-11-02T08:38:54;false;6000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-d13c9a7b-cf61-43ed-8850-38c677c138cb;2020-11-02T14:00:00;2020-11-02T08:38:54;false;6000;30;0;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-552fd20f-0564-4409-97ed-3e08b9c464e0;2020-11-02T15:00:00;2020-11-02T08:38:54;false;6000;30;0;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-5ed31b75-e8a4-4f89-9983-18709c2188d0;2020-11-03T10:00:00;2020-11-02T08:38:54;false;4444;30;0;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-279a1650-e179-498e-98a6-0561f86de7b8;2020-11-03T11:00:00;2020-11-02T08:38:54;false;4444;30;0;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
-87650cf3-6868-4bcc-8b61-a2a157bef90c;2020-11-03T12:00:00;2020-11-02T08:38:54;false;4444;30;0;Tanzanian Shilling Planner Health;{"a":"b", "e": 123123};1ee5934b-207f-4134-945d-8a66177b207f
+1dcd0660-8ec5-4b0d-9e86-a7d40b1cf167;2020-11-02T18:23:51;2020-11-02T15:23:51;false;36747;65;60;Regional application SDD;{"a":"b"};49b9a375-d524-49be-8fd4-dec7820fa1a2
+36d80e7f-872a-4aa2-a174-b391fdd1792d;2020-11-01T20:06:02;2020-11-01T17:06:02;false;84110;10;95;portals Shoes;{"a":"b"};f5dc4b79-0bbb-4d21-a0da-3e691f4332a6
+3f1fc85b-b474-4114-a664-e10143165fd7;2020-11-02T18:03:06;2020-11-02T15:03:06;false;97789;99;33;copy circuit pixel;{"a":"b"};b844e5b7-47b6-4522-b68a-d0391e65a27d
+5fff3d70-1a3f-44f3-af29-2f33e79ae829;2020-11-01T22:22:18;2020-11-01T19:22:18;false;90057;23;39;Brazilian Real Guinea-Bissau Refined;{"a":"b"};ada2a66c-e789-4bee-b4d3-6d4e216b4b70
+13c356de-d847-4b5e-9f31-a201c748b9d1;2020-11-02T13:20:38;2020-11-02T10:20:38;false;34900;46;65;policy;{"a":"b"};247b40ff-4850-4da9-8f21-7dd82257551b
+04dd6a8f-ce96-4e86-a0ff-b7c24b08c553;2020-11-02T06:00:00;2020-11-02T00:00:00;false;5000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+dcc3c90c-b4ff-4c42-acbb-94573f69612b;2020-11-02T07:00:00;2020-11-02T04:00:00;false;5000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+8e8dba8b-345d-4791-bac9-f6e9d76f5ffe;2020-11-02T08:00:00;2020-11-02T05:00:00;false;5000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+7f0c1cc9-0f68-443c-b4f4-9deaf0b2e747;2020-11-02T09:00:00;2020-11-02T06:00:00;false;5000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+c0ef016b-364f-4d2b-8103-144f6e2894d4;2020-11-02T10:00:00;2020-11-02T07:00:00;false;6000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+0bc6dbdb-60ef-4e5e-9d62-b50d69b1d36c;2020-11-02T11:00:00;2020-11-02T08:00:00;false;6000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+ac8f934c-449c-4933-a9dd-be5e9c21ecb7;2020-11-02T12:00:00;2020-11-02T09:00:00;false;6000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+ff14dec9-ea86-465d-a728-8d361c9a509a;2020-11-02T13:00:00;2020-11-02T10:00:00;false;6000;20;10;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+d13c9a7b-cf61-43ed-8850-38c677c138cb;2020-11-02T14:00:00;2020-11-02T11:00:00;false;6000;30;0;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+552fd20f-0564-4409-97ed-3e08b9c464e0;2020-11-02T15:00:00;2020-11-02T12:00:00;false;6000;30;0;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+5ed31b75-e8a4-4f89-9983-18709c2188d0;2020-11-03T10:00:00;2020-11-03T07:00:00;false;4444;30;0;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+279a1650-e179-498e-98a6-0561f86de7b8;2020-11-03T11:00:00;2020-11-03T08:00:00;false;4444;30;0;Tanzanian Shilling Planner Health;{"a":"b"};1ee5934b-207f-4134-945d-8a66177b207f
+87650cf3-6868-4bcc-8b61-a2a157bef90c;2020-11-03T12:00:00;2020-11-03T09:00:00;false;4444;30;0;Tanzanian Shilling Planner Health;{"a":"b", "e": 123123};1ee5934b-207f-4134-945d-8a66177b207f

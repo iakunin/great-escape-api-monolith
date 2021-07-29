@@ -51,4 +51,5 @@
     <include file="config/liquibase/changelog/20210326195701_Quest_added_commission.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210326195702_QuestAud_added_commission.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210326195703_recreating_SlotAggregation.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210729141930_uq_Slot.sql" relativeToChangelogFile="false"/>
 </databaseChangeLog>
