@@ -259,7 +259,7 @@ dependencies {
     liquibaseRuntime "org.postgresql:postgresql"
     implementation "org.mapstruct:mapstruct:${mapstruct_version}"
 
-    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:2.2.6.RELEASE"
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:2.2.9.RELEASE"
     implementation "io.github.openfeign:feign-jackson:11.0"
     implementation "com.github.javafaker:javafaker:1.0.2"
     implementation "ru.dezhik:sms-sender:0.1.3"
