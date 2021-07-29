@@ -59,6 +59,19 @@ public class MirKvestovFaultTolerantIT {
         this.syncSlots.run();
     }
 
+    @Test
+    @DataSet(
+        value = {"db-rider/common/quest.yml"},
+        cleanBefore = true, cleanAfter = true,
+        skipCleaningFor = {"databasechangelog", "databasechangeloglock", "jhi_authority"}
+    )
+    @ExpectedDataSet("db-rider/scheduled/sync-slots/expected/oneSlot.yml")
+    public void twoDuplicatedSlots() throws IOException {
+        this.setUpNormal("wiremock/scheduled/sync-slots/mir-kvestov/twoDuplicatedSlots.json");
+
+        this.syncSlots.run();
+    }
+
     private void setUpNormal(final String responsePath) throws IOException {
         this.questIntegrationSettingRepository.saveAndFlush(
             new QuestIntegrationSetting()

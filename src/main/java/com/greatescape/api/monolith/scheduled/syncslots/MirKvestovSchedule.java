@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,13 @@ public final class MirKvestovSchedule implements Schedule {
                             Instant::from
                         )
                 )
-            ).collect(Collectors.toUnmodifiableList());
+            ).collect(
+                Collectors.toMap(
+                    Slot::getDateTimeLocal,
+                    Function.identity(),
+                    (first, second) -> second
+                )
+            ).values();
     }
 
     private Map<String, Object> buildExternalState(Map<String, Object> slot) {
