@@ -118,4 +118,3 @@ Consult the [Setting up Continuous Integration][] page for more information.
 [code quality page]: https://www.jhipster.tech/documentation-archive/v6.10.4/code-quality/
 [setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.10.4/setting-up-ci/
 [sonar-scanner]: https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner
-
