@@ -267,7 +267,7 @@ dependencies {
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-secretmanager"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-sql-postgresql"
 
-    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.1.0"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
     annotationProcessor "org.hibernate:hibernate-jpamodelgen:${hibernate_version}"
     annotationProcessor "org.glassfish.jaxb:jaxb-runtime:${jaxb_runtime_version}"
