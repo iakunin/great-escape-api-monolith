@@ -21,7 +21,7 @@ plugins {
     id "org.liquibase.gradle"
     id "org.sonarqube"
     id "io.spring.nohttp"
-    id "io.freefair.lombok" version "5.3.0"
+    id "io.freefair.lombok" version "5.3.3.3"
 }
 
 group = "com.greatescape.api.monolith"
@@ -302,13 +302,13 @@ task cleanResources(type: Delete) {
 }
 
 wrapper {
-    gradleVersion = "6.5"
+    gradleVersion = "6.9"
 }
 
 compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo
 
 lombok {
-    version = "1.18.20"
+    version = "1.18.22"
 }
 generateLombokConfig.enabled = false
