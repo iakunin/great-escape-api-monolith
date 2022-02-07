@@ -21,7 +21,7 @@ plugins {
     id "org.liquibase.gradle"
     id "org.sonarqube"
     id "io.spring.nohttp"
-    id "io.freefair.lombok" version "5.3.0"
+    id "io.freefair.lombok" version "6.3.0"
 }
 
 group = "com.greatescape.api.monolith"
