@@ -42,7 +42,7 @@ public class WebConfigurer implements ServletContextInitializer {
             source.registerCorsConfiguration("/player-api/**", config);
             source.registerCorsConfiguration("/admin-api/**", config);
             source.registerCorsConfiguration("/management/**", config);
-            source.registerCorsConfiguration("/v2/api-docs", config);
+//            source.registerCorsConfiguration("/v2/api-docs", config);
         }
         return new CorsFilter(source);
     }
