@@ -206,7 +206,7 @@ dependencies {
     implementation "net.logstash.logback:logstash-logback-encoder"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
-    implementation "com.vladmihalcea:hibernate-types-52:2.19.1"
+    implementation "com.vladmihalcea:hibernate-types-52:2.19.2"
     implementation "org.jadira.usertype:usertype.core:6.0.1.GA"
     implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
