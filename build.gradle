@@ -276,7 +276,7 @@ dependencies {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
     }
     testImplementation "com.github.tomakehurst:wiremock:2.27.2"
-    testImplementation group: "com.github.database-rider", name: "rider-spring", version: "1.35.1", {
+    testImplementation group: "com.github.database-rider", name: "rider-spring", version: "1.36.0", {
         exclude group: "org.slf4j"
     }
     testImplementation "org.springframework.security:spring-security-test"
