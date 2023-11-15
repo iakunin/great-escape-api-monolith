@@ -260,7 +260,7 @@ dependencies {
     implementation "org.mapstruct:mapstruct:${mapstruct_version}"
 
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4"
-    implementation "io.github.openfeign:feign-jackson:13.0"
+    implementation "io.github.openfeign:feign-jackson:13.1"
     implementation "com.github.javafaker:javafaker:1.0.2"
     implementation "ru.dezhik:sms-sender:0.1.3"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter"
