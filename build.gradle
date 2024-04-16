@@ -15,9 +15,6 @@ plugins {
     id "org.springframework.boot"
     id "com.google.cloud.tools.jib"
     id "com.gorylenko.gradle-git-properties"
-    id "net.ltgt.apt-eclipse"
-    id "net.ltgt.apt-idea"
-    id "net.ltgt.apt"
     id "org.liquibase.gradle"
     id "org.sonarqube"
     id "io.spring.nohttp"
@@ -29,8 +26,7 @@ version = "0.0.1-SNAPSHOT"
 
 description = ""
 
-sourceCompatibility=JavaVersion.VERSION_11
-targetCompatibility=JavaVersion.VERSION_11
+sourceCompatibility = "11"
 assert System.properties["java.specification.version"] == "1.8" || "11" || "12" || "13" || "14"
 
 apply from: "gradle/docker.gradle"
@@ -42,14 +38,9 @@ if (project.hasProperty("prod") || project.hasProperty("gae")) {
     apply from: "gradle/profile_dev.gradle"
 }
 
-if (project.hasProperty("war")) {
-    apply from: "gradle/war.gradle"
-}
-
 if (project.hasProperty("gae")) {
-    apply plugin: 'maven'
-    apply plugin: 'org.springframework.boot.experimental.thin-launcher'
-    apply plugin: 'io.spring.dependency-management'
+    apply plugin: "org.springframework.boot.experimental.thin-launcher"
+    apply plugin: "io.spring.dependency-management"
 
     dependencyManagement {
         imports {
@@ -59,22 +50,6 @@ if (project.hasProperty("gae")) {
     appengineStage.dependsOn thinResolve
 }
 
-
-idea {
-    module {
-        excludeDirs += files("node_modules")
-    }
-}
-
-eclipse {
-    sourceSets {
-        main {
-            java {
-                srcDirs += ["build/generated/sources/annotationProcessor/java/main"]
-            }
-        }
-    }
-}
 
 defaultTasks "bootRun"
 
@@ -88,15 +63,15 @@ test {
     exclude "**/*IT*", "**/*IntTest*"
 
     testLogging {
-        events 'FAILED', 'SKIPPED'
+        events "FAILED", "SKIPPED"
     }
     // uncomment if the tests reports are not generated
     // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
     // ignoreFailures true
-    reports.html.enabled = false
+    reports.html.required = false
 }
 
-task integrationTest(type: Test) {
+tasks.register("integrationTest", Test) {
     useJUnitPlatform()
     failFast = project.hasProperty("failFast")
     description = "Execute integration tests."
@@ -104,26 +79,26 @@ task integrationTest(type: Test) {
     include "**/*IT*", "**/*IntTest*"
 
     testLogging {
-        events 'FAILED', 'SKIPPED'
+        events "FAILED", "SKIPPED"
     }
 
-    if (project.hasProperty('testcontainers')) {
-        environment 'spring.profiles.active', 'testcontainers'
+    if (project.hasProperty("testcontainers")) {
+        environment "spring.profiles.active", "testcontainers"
     }
 
     // uncomment if the tests reports are not generated
     // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
     // ignoreFailures true
-    reports.html.enabled = false
+    reports.html.required = false
 }
 
 check.dependsOn integrationTest
-task testReport(type: TestReport) {
+tasks.register("testReport", TestReport) {
     destinationDir = file("$buildDir/reports/tests")
     reportOn test
 }
 
-task integrationTestReport(type: TestReport) {
+tasks.register("integrationTestReport", TestReport) {
     destinationDir = file("$buildDir/reports/tests")
     reportOn integrationTest
 }
@@ -168,7 +143,7 @@ gitProperties {
 }
 
 checkstyle {
-    toolVersion '8.32'
+    toolVersion "8.32"
     configFile file("checkstyle.xml")
     checkstyleTest.enabled = false
 }
@@ -179,11 +154,9 @@ nohttp {
 repositories {
     mavenLocal()
     mavenCentral()
-    jcenter()
 }
 
-apply plugin: 'maven'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: "io.spring.dependency-management"
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR12"
@@ -196,9 +169,7 @@ dependencies {
         implementation platform("io.github.jhipster:jhipster-dependencies:${jhipster_dependencies_version}")
     }
 
-    // Use ", version: jhipster_dependencies_version, changing: true" if you want
-    // to use a SNAPSHOT release instead of a stable release
-    implementation group: "io.github.jhipster", name: "jhipster-framework"
+    implementation "io.github.jhipster:jhipster-framework"
     implementation "javax.annotation:javax.annotation-api"
     implementation "org.springframework.boot:spring-boot-starter-cache"
     implementation "io.dropwizard.metrics:metrics-core"
@@ -223,7 +194,6 @@ dependencies {
     implementation "org.liquibase:liquibase-core:${liquibase_forced_version}"
     liquibaseRuntime "org.liquibase:liquibase-core"
     liquibaseRuntime "org.liquibase.ext:liquibase-hibernate5:${liquibase_hibernate5_version}"
-    liquibaseRuntime sourceSets.main.compileClasspath
     implementation "org.springframework.boot:spring-boot-loader-tools"
     implementation "org.springframework.boot:spring-boot-starter-mail"
     implementation "org.springframework.boot:spring-boot-starter-logging"
@@ -286,8 +256,8 @@ dependencies {
 }
 
 if (project.hasProperty("gae")) {
-    task createPom {
-        def basePath = 'build/resources/main/META-INF/maven'
+    tasks.register("createPom") {
+        def basePath = "build/resources/main/META-INF/maven"
         doLast {
             pom {
                 withXml(dependencyManagement.pomConfigurer)
@@ -297,12 +267,12 @@ if (project.hasProperty("gae")) {
     bootJar.dependsOn = [createPom]
 }
 
-task cleanResources(type: Delete) {
+tasks.register("cleanResources", Delete) {
     delete "build/resources"
 }
 
 wrapper {
-    gradleVersion = "6.9"
+    gradleVersion = "7.3"
 }
 
 compileJava.dependsOn processResources
