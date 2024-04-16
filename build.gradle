@@ -32,24 +32,11 @@ assert System.properties["java.specification.version"] == "1.8" || "11" || "12" 
 apply from: "gradle/docker.gradle"
 apply from: "gradle/sonar.gradle"
 
-if (project.hasProperty("prod") || project.hasProperty("gae")) {
+if (project.hasProperty("prod")) {
     apply from: "gradle/profile_prod.gradle"
 } else {
     apply from: "gradle/profile_dev.gradle"
 }
-
-if (project.hasProperty("gae")) {
-    apply plugin: "org.springframework.boot.experimental.thin-launcher"
-    apply plugin: "io.spring.dependency-management"
-
-    dependencyManagement {
-        imports {
-            mavenBom "io.github.jhipster:jhipster-dependencies:${jhipster_dependencies_version}"
-        }
-    }
-    appengineStage.dependsOn thinResolve
-}
-
 
 defaultTasks "bootRun"
 
@@ -93,15 +80,6 @@ tasks.register("integrationTest", Test) {
 }
 
 check.dependsOn integrationTest
-tasks.register("testReport", TestReport) {
-    destinationDir = file("$buildDir/reports/tests")
-    reportOn test
-}
-
-tasks.register("integrationTestReport", TestReport) {
-    destinationDir = file("$buildDir/reports/tests")
-    reportOn integrationTest
-}
 
 if (!project.hasProperty("runList")) {
     project.ext.runList = "main"
@@ -213,13 +191,8 @@ dependencies {
     implementation "org.springframework.security:spring-security-data"
     implementation "org.springframework.security:spring-security-web"
     implementation "io.jsonwebtoken:jjwt-api"
-    if (!project.hasProperty("gae")) {
-        runtimeOnly "io.jsonwebtoken:jjwt-impl"
-        runtimeOnly "io.jsonwebtoken:jjwt-jackson"
-    } else {
-        implementation "io.jsonwebtoken:jjwt-impl"
-        implementation "io.jsonwebtoken:jjwt-jackson"
-    }
+    implementation "io.jsonwebtoken:jjwt-impl"
+    implementation "io.jsonwebtoken:jjwt-jackson"
     implementation ("io.springfox:springfox-swagger2") {
         exclude module: "mapstruct"
     }
@@ -233,9 +206,6 @@ dependencies {
     implementation "io.github.openfeign:feign-jackson:13.2"
     implementation "com.github.javafaker:javafaker:1.0.2"
     implementation "ru.dezhik:sms-sender:0.1.3"
-    implementation "org.springframework.cloud:spring-cloud-gcp-starter"
-    implementation "org.springframework.cloud:spring-cloud-gcp-starter-secretmanager"
-    implementation "org.springframework.cloud:spring-cloud-gcp-starter-sql-postgresql"
 
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
@@ -253,18 +223,6 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-test"
     testImplementation "com.tngtech.archunit:archunit-junit5-api:${archunit_junit5_version}"
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunit_junit5_version}"
-}
-
-if (project.hasProperty("gae")) {
-    tasks.register("createPom") {
-        def basePath = "build/resources/main/META-INF/maven"
-        doLast {
-            pom {
-                withXml(dependencyManagement.pomConfigurer)
-            }.writeTo("${basePath}/${project.group}/${project.name}/pom.xml")
-        }
-    }
-    bootJar.dependsOn = [createPom]
 }
 
 tasks.register("cleanResources", Delete) {
