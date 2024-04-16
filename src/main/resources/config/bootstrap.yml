@@ -1,8 +1,0 @@
-# about bootstrap.yml: https://stackoverflow.com/a/35545152/3456163
-#   it's needed for CloudSecret initialization
-spring.cloud.gcp.secretmanager.enabled: false
-
----
-# overriding for prod profile (https://stackoverflow.com/a/36934874/3456163)
-spring.profiles: prod
-spring.cloud.gcp.secretmanager.enabled: true

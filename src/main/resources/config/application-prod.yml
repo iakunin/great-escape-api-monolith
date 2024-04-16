@@ -30,7 +30,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     username: api-monolith
-    password: ${sm://db-password}
+    password: ${DB_PASSWORD}
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -42,7 +42,7 @@ spring:
     host: smtp-pulse.com
     port: 465
     username: yakuninm@gmail.com
-    password: ${sm://sendpulse-password}
+    password: ${SENDPULSE_PASSWORD}
     properties:
       mail:
         smtp:
@@ -51,12 +51,6 @@ spring:
             enable: true
   thymeleaf:
     cache: true
-  cloud:
-    gcp:
-      sql:
-        enabled: true
-        database-name: api-monolith
-        instance-connection-name: great-escape-294716:europe-west1:api-monolith
 
 server:
   port: 8080
@@ -90,7 +84,7 @@ jhipster:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long
         # (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: ${sm://jwt-base64-secret}
+        base64-secret: ${JWT_BASE_64_SECRET}
   logging:
     use-json-format: true
 
@@ -109,12 +103,12 @@ app:
     refresh-slot-aggregate: '0 5/10 * * * ?'  # every 10 minutes
     remove-not-activated-users: '0 0 1 * * ?' # everyday, at 01:00 (am).
     remove-old-audit-events: '0 0 12 * * ?'   # everyday, at 12:00 (am)
-    sync-slots: '20 * * * * ?'                # every minute at 20's seconds
-  cloud-secret-test: ${sm://cloud-secret-test}
+#    sync-slots: '20 * * * * ?'                # every minute at 20's seconds
+  cloud-secret-test: ${CLOUD_SECRET_TEST}
   integration:
     sms-ru:
-      api-id: ${sm://sms-ru-api-id}
+      api-id: ${SMS_RU_API_ID}
 
 google:
   recaptcha:
-    secret-key: ${sm://recaptcha-secret-key}
+    secret-key: ${RECAPTCHA_SECRET_KEY}
