@@ -27,6 +27,7 @@ import static com.greatescape.api.monolith.utils.wiremock.WireMock.initWireMockS
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -254,7 +255,7 @@ public class IntegrationSenderIT {
         ).map(param ->
             Map.entry(
                 param.split("=")[0],
-                URLDecoder.decode(param.split("=")[1])
+                URLDecoder.decode(param.split("=")[1], StandardCharsets.UTF_8)
             )
         ).collect(
             Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)
