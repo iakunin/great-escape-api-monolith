@@ -37,7 +37,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://127.0.0.1:5432/api-monolith
     username: api-monolith
-    password:
+    password: api-monolith
     hikari:
       poolName: Hikari
       auto-commit: false

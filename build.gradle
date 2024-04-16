@@ -140,7 +140,7 @@ liquibase {
             driver "org.postgresql.Driver"
             url "jdbc:postgresql://localhost:5432/api-monolith"
             username "api-monolith"
-            password ""
+            password "api-monolith"
             changeLogFile "src/main/resources/config/liquibase/master.xml"
             defaultSchemaName ""
             logLevel "debug"
@@ -150,7 +150,7 @@ liquibase {
             driver "org.postgresql.Driver"
             url "jdbc:postgresql://localhost:5432/api-monolith"
             username "api-monolith"
-            password ""
+            password "api-monolith"
             changeLogFile project.ext.diffChangelogFile
             referenceUrl "hibernate:spring:com.greatescape.api.monolith.domain?dialect=io.github.jhipster.domain.util.FixedPostgreSQL10Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
             defaultSchemaName ""

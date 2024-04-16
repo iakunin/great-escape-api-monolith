@@ -1,29 +1,22 @@
-version: '3'
-
 services:
   postgresql:
-    image: postgres:13.4
-    container_name: great-escape-api-monolith_postgresql
-    # volumes:
-    #     - ~/volumes/jhipster/GreatEscapeApiMonolith/postgresql/:/var/lib/postgresql/data/
+    image: postgres:14.2
     environment:
-      - POSTGRES_USER=api-monolith
-      - POSTGRES_PASSWORD=
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      POSTGRES_DB: api-monolith
+      POSTGRES_USER: api-monolith
+      POSTGRES_PASSWORD: api-monolith
     ports:
       - 5432:5432
-    #command: ["postgres", "-c", "log_statement=all"]
+    command: [ "postgres", "-c", "log_statement=all" ]
 
   mailcatcher:
-    container_name: great-escape-api-monolith_mailcatcher
-    image: schickling/mailcatcher:latest
+    image: sj26/mailcatcher:v0.9.0
     ports:
       - 1080:1080
       - 1025:1025
 
   wiremock:
-    container_name: great-escape-api-monolith_wiremock
-    image: rodolpheche/wiremock
+    image: wiremock/wiremock:2.32.0
     volumes:
       - ./var/wiremock:/home/wiremock
     ports:
